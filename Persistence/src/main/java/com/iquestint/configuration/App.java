@@ -37,10 +37,7 @@ public class App {
 
         App app = (App) ctx.getBean(App.class);
 
-//        app.selectGroup();
-//        app.selectSection();
-//        app.selectAllGroups();
-        app.insertStudent();
+        app.deleteStudent();
 
     }
 
@@ -77,6 +74,14 @@ public class App {
     public void getStudent() throws DaoEntityNotFoundException {
         Student s = studentService.getStudentByName("Geordgian", "Vladutu");
         System.out.println(4);
+    }
+
+    public void getAllStudent() {
+        List<Student> students = studentService.findAllStudents();
+    }
+
+    public void deleteStudent() throws DaoEntityNotFoundException {
+        studentService.deleteStudent(43);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.iquestint.dao;
 
+import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.model.Section;
 
 import java.util.List;
@@ -12,12 +13,14 @@ import java.util.List;
 public interface SectionDao {
 
     /**
-     * Returns the Section entity from the database which has the same name as the method parameter.
+     * Returns the Section entity from the database which has the same name as the method parameter. This method throws
+     * DaoEntityNotFoundException if the section with the specified name is not found.
      *
      * @param name the name of the section
      * @return Section
+     * @throws DaoEntityNotFoundException
      */
-    public Section getSectionByName(String name);
+    public Section getSectionByName(String name) throws DaoEntityNotFoundException;
 
     /**
      * Returns all Section entities from the database.

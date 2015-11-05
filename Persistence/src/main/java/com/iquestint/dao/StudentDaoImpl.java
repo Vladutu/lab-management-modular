@@ -20,7 +20,13 @@ public class StudentDaoImpl extends AbstractDao<Student> implements StudentDao {
     }
 
     public Student findById(int id) throws DaoEntityNotFoundException {
-        return getById(id);
+        Student student = getById(id);
+
+        if (student == null) {
+            throw new DaoEntityNotFoundException();
+        }
+
+        return student;
     }
 
     public Student findStudentByName(String firstName, String lastName) throws DaoEntityNotFoundException {
@@ -50,12 +56,15 @@ public class StudentDaoImpl extends AbstractDao<Student> implements StudentDao {
         throw new DaoEntityAlreadyExists();
     }
 
-    public void updateStudent(Student student) {
+    public void updateStudent(Student student) throws DaoEntityNotFoundException {
+        Student s = findById(student.getId());
+
         update(student);
     }
 
-    public void deleteStudentById(int id) {
-        Student student = getEntityManager().find(getPersistentClass(), id);
+    public void deleteStudentById(int id) throws DaoEntityNotFoundException {
+        Student student = findById(id);
+        
         delete(student);
     }
 }

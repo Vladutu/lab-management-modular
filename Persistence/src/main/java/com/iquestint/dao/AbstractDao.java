@@ -49,13 +49,7 @@ public abstract class AbstractDao<T> {
     }
 
     protected T getById(int id) throws DaoEntityNotFoundException {
-        T entity = getEntityManager().find(getPersistentClass(), id);
-
-        if (entity == null) {
-            throw new DaoEntityNotFoundException();
-        }
-
-        return entity;
+        return getEntityManager().find(getPersistentClass(), id);
     }
 
     protected void persist(T t) {

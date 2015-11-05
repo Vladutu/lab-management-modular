@@ -55,12 +55,12 @@ public interface StudentDao {
      *
      * @param student student to be updated
      */
-    void updateStudent(Student student);
+    void updateStudent(Student student) throws DaoEntityNotFoundException;
 
     /**
      * Deletes the student from the database by specifying his/her id.
      *
      * @param id the id of the student
      */
-    void deleteStudentById(int id);
+    void deleteStudentById(int id) throws DaoEntityNotFoundException;
 }

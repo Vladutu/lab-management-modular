@@ -47,7 +47,7 @@ public class StudentServiceImpl implements StudentService {
         studentDao.saveStudent(student);
     }
 
-    public void deleteStudent(int id) {
+    public void deleteStudent(int id) throws DaoEntityNotFoundException {
         studentDao.deleteStudentById(id);
     }
 
@@ -59,7 +59,7 @@ public class StudentServiceImpl implements StudentService {
         return studentDao.findAllStudents();
     }
 
-    public void updateStudent(Student student) {
+    public void updateStudent(Student student) throws DaoEntityNotFoundException {
         studentDao.updateStudent(student);
     }
 

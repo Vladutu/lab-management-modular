@@ -12,13 +12,13 @@ import java.util.List;
 public interface StudentService {
     public void saveStudent(Student student) throws DaoEntityAlreadyExists;
 
-    public void deleteStudent(int id);
+    public void deleteStudent(int id) throws DaoEntityNotFoundException;
 
     public Student findStudentById(int id) throws DaoEntityNotFoundException;
 
     public List<Student> findAllStudents();
 
-    public void updateStudent(Student student);
+    public void updateStudent(Student student) throws DaoEntityNotFoundException;
 
     public Student getStudentByName(String firstName, String lastName) throws DaoEntityNotFoundException;
 }
