@@ -37,17 +37,17 @@ public class App {
 
         App app = (App) ctx.getBean(App.class);
 
-        app.deleteStudent();
+        app.getAllStudent();
 
     }
 
-    public void selectGroup() {
+    public void selectGroup() throws DaoEntityNotFoundException {
         Group g = groupDao.getGroupByName("10305S");
         System.out.println(g.getName());
         System.out.println(g.getId());
     }
 
-    public void selectSection() {
+    public void selectSection() throws DaoEntityNotFoundException {
         Section s = sectionDao.getSectionByName("C.E.");
         System.out.println(s.getName());
         System.out.println(s.getId());
@@ -60,7 +60,7 @@ public class App {
         }
     }
 
-    public void insertStudent() throws DaoEntityAlreadyExists {
+    public void insertStudent() throws DaoEntityAlreadyExists, DaoEntityNotFoundException {
         Student student = new Student();
         student.setFirstName("Georgian");
         student.setLastName("Vladutu");
@@ -78,6 +78,9 @@ public class App {
 
     public void getAllStudent() {
         List<Student> students = studentService.findAllStudents();
+        for (Student s : students) {
+            System.out.println(s.getFirstName());
+        }
     }
 
     public void deleteStudent() throws DaoEntityNotFoundException {

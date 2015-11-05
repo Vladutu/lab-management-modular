@@ -35,7 +35,7 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     private SubgroupDao subgroupDao;
 
-    public void saveStudent(Student student) throws DaoEntityAlreadyExists {
+    public void saveStudent(Student student) throws DaoEntityAlreadyExists, DaoEntityNotFoundException {
         Section section = sectionDao.getSectionByName(student.getSection().getName());
         Group group = groupDao.getGroupByName(student.getGroup().getName());
         Subgroup subgroup = subgroupDao.getSubgroupByName(student.getSubgroup().getName());

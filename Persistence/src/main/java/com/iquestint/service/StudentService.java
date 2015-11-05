@@ -10,7 +10,7 @@ import java.util.List;
  * @author vladu
  */
 public interface StudentService {
-    public void saveStudent(Student student) throws DaoEntityAlreadyExists;
+    public void saveStudent(Student student) throws DaoEntityAlreadyExists, DaoEntityNotFoundException;
 
     public void deleteStudent(int id) throws DaoEntityNotFoundException;
 
