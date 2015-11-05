@@ -19,7 +19,10 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 /**
- * @author vladu
+ * This class is used by the IoC Spring  container as a source for bean definitions. It contains the necessary beans
+ * for JPA configuration.
+ *
+ * @author Georgian Vladutu
  */
 @Configuration
 @EnableTransactionManagement
