@@ -1,5 +1,6 @@
 package com.iquestint.dao;
 
+import com.iquestint.exception.DaoEntityAlreadyExists;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.model.Student;
 
@@ -30,11 +31,24 @@ public interface StudentDao {
     Student findById(int id) throws DaoEntityNotFoundException;
 
     /**
-     * Saves the student into the database.
+     * Returns the Student entity from the database which has the same first name and last name as the method parameters.
+     * This method throws DaoEntityNotFoundException if the student with the specified name is not found.
+     *
+     * @param firstName student's first name
+     * @param lastName  student's last name
+     * @return Student
+     * @throws DaoEntityNotFoundException
+     */
+    Student findStudentByName(String firstName, String lastName) throws DaoEntityNotFoundException;
+
+    /**
+     * Saves the student into the database. This method throws DaoEntityAlreadyExists if the student already exists
+     * in the database.
      *
      * @param student the student to be saved
+     * @throws DaoEntityAlreadyExists
      */
-    void saveStudent(Student student);
+    void saveStudent(Student student) throws DaoEntityAlreadyExists;
 
     /**
      * Updates the student into the database. This student primary key must already be present in the database.

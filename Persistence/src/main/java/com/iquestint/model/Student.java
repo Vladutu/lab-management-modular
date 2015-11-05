@@ -23,15 +23,15 @@ public class Student {
     @Column(name = "LAST_NAME")
     private String lastName;
 
-    @ManyToOne(cascade = { CascadeType.ALL })
+    @ManyToOne
     @JoinColumn(name = "SECTION_ID", referencedColumnName = "SCT_ID", nullable = false)
     private Section section;
 
-    @ManyToOne(cascade = { CascadeType.ALL })
+    @ManyToOne
     @JoinColumn(name = "GROUP_ID", referencedColumnName = "GRP_ID", nullable = false)
     private Group group;
 
-    @ManyToOne(cascade = { CascadeType.ALL })
+    @ManyToOne
     @JoinColumn(name = "SUBGROUP_ID", referencedColumnName = "SGP_ID", nullable = false)
     private Subgroup subgroup;
 

@@ -2,9 +2,12 @@ package com.iquestint.configuration;
 
 import com.iquestint.dao.GroupDao;
 import com.iquestint.dao.SectionDao;
+import com.iquestint.exception.DaoEntityAlreadyExists;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.model.Group;
 import com.iquestint.model.Section;
+import com.iquestint.model.Student;
+import com.iquestint.model.Subgroup;
 import com.iquestint.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -28,15 +31,16 @@ public class App {
     @Autowired
     SectionDao sectionDao;
 
-    public static void main(String[] args) throws DaoEntityNotFoundException {
+    public static void main(String[] args) throws DaoEntityNotFoundException, DaoEntityAlreadyExists {
         ApplicationContext ctx =
             new AnnotationConfigApplicationContext(PersistenceConfig.class);
 
         App app = (App) ctx.getBean(App.class);
 
-        app.selectGroup();
-        app.selectSection();
-        app.selectAllGroups();
+//        app.selectGroup();
+//        app.selectSection();
+//        app.selectAllGroups();
+        app.insertStudent();
 
     }
 
@@ -57,6 +61,22 @@ public class App {
         for (Group g : groups) {
             System.out.println(g.getName());
         }
+    }
+
+    public void insertStudent() throws DaoEntityAlreadyExists {
+        Student student = new Student();
+        student.setFirstName("Georgian");
+        student.setLastName("Vladutu");
+        student.setSection(new Section("C.E."));
+        student.setGroup(new Group("10305H"));
+        student.setSubgroup(new Subgroup("A"));
+
+        studentService.saveStudent(student);
+    }
+
+    public void getStudent() throws DaoEntityNotFoundException {
+        Student s = studentService.getStudentByName("Geordgian", "Vladutu");
+        System.out.println(4);
     }
 
 }

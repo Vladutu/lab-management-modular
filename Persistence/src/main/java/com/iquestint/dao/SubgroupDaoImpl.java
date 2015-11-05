@@ -1,6 +1,7 @@
 package com.iquestint.dao;
 
 import com.iquestint.model.Subgroup;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.TypedQuery;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
 /**
  * @author vladu
  */
+@Repository("subgroupDao")
 public class SubgroupDaoImpl extends AbstractDao<Subgroup> implements SubgroupDao {
 
     public Subgroup getSubgroupByName(String name) {
