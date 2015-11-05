@@ -3,7 +3,9 @@ package com.iquestint.model;
 import javax.persistence.*;
 
 /**
- * @author vladu
+ * This is an model entity that maps the STUDENT table.
+ *
+ * @author Georgian Vladutu
  */
 @Entity
 public class Student {

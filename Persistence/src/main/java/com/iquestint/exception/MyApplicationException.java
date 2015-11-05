@@ -1,7 +1,9 @@
 package com.iquestint.exception;
 
 /**
- * @author vladu
+ * This is the most generic exception that the application can throw.
+ *
+ * @author Georgian Vladutu
  */
 public class MyApplicationException extends Exception {
 }

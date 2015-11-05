@@ -4,7 +4,9 @@ import javax.persistence.*;
 import java.util.List;
 
 /**
- * @author vladu
+ * This is an model entity that maps the GROUP_TABLE table.
+ *
+ * @author Georgian Vladutu
  */
 @Entity
 @Table(name = "group_table", schema = "", catalog = "project_db", uniqueConstraints = {

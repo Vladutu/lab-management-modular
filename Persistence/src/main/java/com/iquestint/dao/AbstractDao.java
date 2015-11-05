@@ -4,11 +4,19 @@ import com.iquestint.exception.DaoEntityNotFoundException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 /**
- * @author vladu
+ * This class is an abstract generic data access object class that implements the CRUD operations for all entities that
+ * extend this class.
+ *
+ * @param <T> the type of the entity
+ * @author Georgian Vladutu
  */
 public abstract class AbstractDao<T> {
 
@@ -25,15 +33,23 @@ public abstract class AbstractDao<T> {
         return this.entityManager;
     }
 
-    protected List<T> getAll() {
-        List<T> list = (List<T>) getEntityManager().createQuery(
-            "from " + persistentClass.getSimpleName()).getResultList();
+    protected Class<T> getPersistentClass() {
+        return persistentClass;
+    }
 
-        return list;
+    protected List<T> getAll() {
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery<T> cq = cb.createQuery(getPersistentClass());
+        Root<T> rootEntry = cq.from(getPersistentClass());
+        CriteriaQuery<T> all = cq.select(rootEntry);
+        TypedQuery<T> allQuery = getEntityManager().createQuery(all);
+
+        return allQuery.getResultList();
+
     }
 
     protected T getById(int id) throws DaoEntityNotFoundException {
-        T entity = getEntityManager().find(persistentClass, id);
+        T entity = getEntityManager().find(getPersistentClass(), id);
 
         if (entity == null) {
             throw new DaoEntityNotFoundException();
@@ -43,10 +59,6 @@ public abstract class AbstractDao<T> {
     }
 
     protected void persist(T t) {
-//        T entity = getEntityManager().find(persistentClass, t);
-//        if (entity != null) {
-//            return;
-//        }
         getEntityManager().merge(t);
     }
 

@@ -4,7 +4,9 @@ import javax.persistence.*;
 import java.util.List;
 
 /**
- * @author vladu
+ * This is an model entity that maps the SECTION table.
+ *
+ * @author Georgian Vladutu
  */
 @Entity
 public class Section {

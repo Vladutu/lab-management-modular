@@ -11,6 +11,7 @@ import java.util.List;
  */
 @Repository("studentDao")
 public class StudentDaoImpl extends AbstractDao<Student> implements StudentDao {
+
     public List<Student> findAllStudents() {
         return getAll();
     }
@@ -28,7 +29,7 @@ public class StudentDaoImpl extends AbstractDao<Student> implements StudentDao {
     }
 
     public void deleteStudentById(int id) {
-        Student student = getEntityManager().find(persistentClass, id);
+        Student student = getEntityManager().find(getPersistentClass(), id);
         delete(student);
     }
 }
