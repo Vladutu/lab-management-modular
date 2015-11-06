@@ -14,6 +14,7 @@ import java.util.List;
 @Repository("groupDao")
 public class GroupDaoImpl extends AbstractDao<Group> implements GroupDao {
 
+    @Override
     public Group getGroupByName(String name) throws DaoEntityNotFoundException {
         TypedQuery<Group> query = getEntityManager().createQuery("SELECT g FROM Group g WHERE g.name = :name ",
             Group.class);
@@ -27,6 +28,7 @@ public class GroupDaoImpl extends AbstractDao<Group> implements GroupDao {
         }
     }
 
+    @Override
     public List<Group> getAllGroups() {
         return getAll();
     }

@@ -14,6 +14,7 @@ import java.util.List;
 @Repository("sectionDao")
 public class SectionDaoImpl extends AbstractDao<Section> implements SectionDao {
 
+    @Override
     public Section getSectionByName(String name) throws DaoEntityNotFoundException {
         TypedQuery<Section> query = getEntityManager().createQuery("SELECT s FROM Section s WHERE s.name = :name ",
             Section.class);
@@ -27,6 +28,7 @@ public class SectionDaoImpl extends AbstractDao<Section> implements SectionDao {
         }
     }
 
+    @Override
     public List<Section> getAllSections() {
         return getAll();
     }

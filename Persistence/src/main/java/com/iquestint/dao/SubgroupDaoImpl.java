@@ -14,6 +14,7 @@ import java.util.List;
 @Repository("subgroupDao")
 public class SubgroupDaoImpl extends AbstractDao<Subgroup> implements SubgroupDao {
 
+    @Override
     public Subgroup getSubgroupByName(String name) throws DaoEntityNotFoundException {
         TypedQuery<Subgroup> query = getEntityManager().createQuery("SELECT s FROM Subgroup s WHERE s.name = :name ",
             Subgroup.class);
@@ -27,6 +28,7 @@ public class SubgroupDaoImpl extends AbstractDao<Subgroup> implements SubgroupDa
         }
     }
 
+    @Override
     public List<Subgroup> getAllSubgroups() {
         return getAll();
     }

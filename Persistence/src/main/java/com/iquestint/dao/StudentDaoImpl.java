@@ -15,10 +15,12 @@ import java.util.List;
 @Repository("studentDao")
 public class StudentDaoImpl extends AbstractDao<Student> implements StudentDao {
 
+    @Override
     public List<Student> findAllStudents() {
         return getAll();
     }
 
+    @Override
     public Student findById(int id) throws DaoEntityNotFoundException {
         Student student = getById(id);
 
@@ -29,6 +31,7 @@ public class StudentDaoImpl extends AbstractDao<Student> implements StudentDao {
         return student;
     }
 
+    @Override
     public Student findStudentByName(String firstName, String lastName) throws DaoEntityNotFoundException {
         TypedQuery<Student> query = getEntityManager().createQuery(
             "SELECT s FROM Student s WHERE s.firstName = :fName AND s.lastName = :lName ",
@@ -44,6 +47,7 @@ public class StudentDaoImpl extends AbstractDao<Student> implements StudentDao {
         }
     }
 
+    @Override
     public void saveStudent(Student student) throws DaoEntityAlreadyExists {
         try {
             Student s = findStudentByName(student.getFirstName(), student.getLastName());
@@ -56,15 +60,17 @@ public class StudentDaoImpl extends AbstractDao<Student> implements StudentDao {
         throw new DaoEntityAlreadyExists();
     }
 
+    @Override
     public void updateStudent(Student student) throws DaoEntityNotFoundException {
         Student s = findById(student.getId());
 
         update(student);
     }
 
+    @Override
     public void deleteStudentById(int id) throws DaoEntityNotFoundException {
         Student student = findById(id);
-        
+
         delete(student);
     }
 }
