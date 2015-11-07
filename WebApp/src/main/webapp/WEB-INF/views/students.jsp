@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
          pageEncoding="ISO-8859-1" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -17,14 +19,16 @@
 
 
 <body>
-<h2>List of Students</h2>
+<a href="students?mylocale=en">English </a> | <a href="students?mylocale=ro">Romanian</a>
+
+<h2><spring:message code="user.title"/></h2>
 <table>
     <tr>
-        <td>First Name</td>
-        <td>Last Name</td>
-        <td>Section</td>
-        <td>Group</td>
-        <td>Subgroup</td>
+        <td><spring:message code="table.c1"/></td>
+        <td><spring:message code="table.c2"/></td>
+        <td><spring:message code="table.c3"/></td>
+        <td><spring:message code="table.c4"/></td>
+        <td><spring:message code="table.c5"/></td>
         <td></td>
     </tr>
     <c:forEach items="${students}" var="student">
