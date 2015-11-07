@@ -1,7 +1,9 @@
 package com.iquestint.exception;
 
 /**
- * @author vladu
+ * This exception is thrown from the sevice layer when a searched entity is not found.
+ *
+ * @author Georgian Vladutu
  */
 public class ServiceEntityNotFoundException extends ServiceException {
 

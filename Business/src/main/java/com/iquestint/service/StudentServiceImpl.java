@@ -18,9 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * @author vladu
- */
 @Service("studentService")
 @Transactional
 public class StudentServiceImpl implements StudentService {
@@ -76,7 +73,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student findStudentById(int id) throws ServiceEntityNotFoundException {
+    public Student getStudentById(int id) throws ServiceEntityNotFoundException {
         try {
             return studentDao.findById(id);
         }
@@ -86,7 +83,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> findAllStudents() {
+    public List<Student> getAllStudents() {
         return studentDao.findAllStudents();
     }
 

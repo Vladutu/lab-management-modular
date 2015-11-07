@@ -1,7 +1,9 @@
 package com.iquestint.exception;
 
 /**
- * @author vladu
+ * This is a generic exception that the service layer can throw.
+ *
+ * @author Georgian Vladutu
  */
 public class ServiceException extends MyApplicationException {
 

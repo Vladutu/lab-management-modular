@@ -1,7 +1,9 @@
 package com.iquestint.exception;
 
 /**
- * @author vladu
+ * This exception is thrown from the service layer when a searched entity already exists.
+ *
+ * @author Georgian Vladutu
  */
 public class ServiceEntityAlreadyExistsException extends ServiceException {
 
