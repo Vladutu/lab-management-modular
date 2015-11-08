@@ -36,9 +36,9 @@
         <tr>
             <td>${student.firstName}</td>
             <td>${student.lastName}</td>
-            <td>${student.section.name}</td>
-            <td>${student.group.name}</td>
-            <td>${student.subgroup.name}</td>
+            <td>${student.section}</td>
+            <td>${student.group}</td>
+            <td>${student.subgroup}</td>
             <td><a href="<c:url value='/student/edit/${student.id}' />"><spring:message code="student.edit"/></a></td>
             <td><a href="<c:url value='/student/delete/${student.id}' />"><spring:message code="student.delete"/></a>
             </td>

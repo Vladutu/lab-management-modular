@@ -1,5 +1,9 @@
 package com.iquestint.configuration;
 
+import com.iquestint.dto.StudentDto;
+import com.iquestint.model.Student;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.PropertyMap;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -68,6 +72,41 @@ public class WebAppConfiguration extends WebMvcConfigurerAdapter {
         r.setExceptionAttribute("ex");     // Default is "exception"
         r.setWarnLogCategory("example.MvcLogger");     // No default
         return r;
+    }
+
+    @Bean
+    public ModelMapper modelMapper() {
+        ModelMapper modelMapper = new ModelMapper();
+
+        PropertyMap<Student, StudentDto> studentStudentDtoPropertyMap = new PropertyMap<Student, StudentDto>() {
+            @Override
+            protected void configure() {
+                map(source.getId(), destination.getId());
+                map(source.getFirstName(), destination.getFirstName());
+                map(source.getLastName(), destination.getLastName());
+                map(source.getSection().getName(), destination.getSection());
+                map(source.getGroup().getName(), destination.getGroup());
+                map(source.getSubgroup().getName(), destination.getSubgroup());
+            }
+        };
+
+        PropertyMap<StudentDto, Student> studentDtoStudentPropertyMap = new PropertyMap<StudentDto, Student>() {
+            @Override
+            protected void configure() {
+                map(source.getId(), destination.getId());
+                map(source.getFirstName(), destination.getFirstName());
+                map(source.getLastName(), destination.getLastName());
+                map(source.getSection(), destination.getSection().getName());
+                map(source.getGroup(), destination.getGroup().getName());
+                map(source.getSubgroup(), destination.getSubgroup().getName());
+
+            }
+        };
+
+        modelMapper.addMappings(studentStudentDtoPropertyMap);
+        modelMapper.addMappings(studentDtoStudentPropertyMap);
+
+        return modelMapper;
     }
 
     @Override

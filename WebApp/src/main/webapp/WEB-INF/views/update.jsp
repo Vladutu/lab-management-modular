@@ -22,45 +22,43 @@
 
 <h2>Registration Form</h2>
 
-<form:form method="POST" modelAttribute="student">
+<form:form method="POST" modelAttribute="studentDto">
     <form:input type="hidden" path="id" id="id"/>
     <table>
         <tr>
             <td><label for="firstName">First Name: </label></td>
             <td><form:input path="firstName" id="firstName"/></td>
+            <td><form:errors path="firstName" cssClass="error"/></td>
         </tr>
 
         <tr>
             <td><label for="lastName">Last Name: </label></td>
             <td><form:input path="lastName" id="lastName"/></td>
+            <td><form:errors path="lastName" cssClass="error"/></td>
         </tr>
 
         <tr>
-            <td><label for="section.name">Section: </label></td>
-            <td><form:input path="section.name" id="section.name"/></td>
+            <td><label for="section">Section: </label></td>
+            <td><form:input path="section" id="section"/></td>
+            <td><form:errors path="section" cssClass="error"/></td>
         </tr>
 
         <tr>
-            <td><label for="group.name">Group: </label></td>
-            <td><form:input path="group.name" id="group.name"/></td>
+            <td><label for="group">Group: </label></td>
+            <td><form:input path="group" id="group"/></td>
+            <td><form:errors path="group" cssClass="error"/></td>
         </tr>
 
         <tr>
-            <td><label for="subgroup.name">Subgroup: </label></td>
-            <td><form:input path="subgroup.name" id="subgroup.name"/></td>
+            <td><label for="subgroup">Subgroup: </label></td>
+            <td><form:input path="subgroup" id="subgroup"/></td>
+            <td><form:errors path="subgroup" cssClass="error"/></td>
         </tr>
 
 
         <tr>
             <td colspan="3">
-                <c:choose>
-                    <c:when test="${edit}">
-                        <input type="submit" value="Update"/>
-                    </c:when>
-                    <c:otherwise>
-                        <input type="submit" value="Register"/>
-                    </c:otherwise>
-                </c:choose>
+                <input type="submit" value="Update"/>
             </td>
         </tr>
     </table>

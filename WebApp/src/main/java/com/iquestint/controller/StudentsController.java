@@ -1,14 +1,21 @@
 package com.iquestint.controller;
 
+import com.iquestint.dto.StudentDto;
 import com.iquestint.exception.ServiceEntityNotFoundException;
 import com.iquestint.model.Student;
 import com.iquestint.service.StudentService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author vladu
@@ -18,11 +25,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class StudentsController {
 
     @Autowired
-    StudentService studentService;
+    private StudentService studentService;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     @RequestMapping(value = "/students", method = RequestMethod.GET)
     public String getStudent(ModelMap model) {
-        model.addAttribute("students", studentService.getAllStudents());
+        List<Student> students = studentService.getAllStudents();
+        List<StudentDto> studentsDto = new ArrayList<>();
+
+        for (Student student : students) {
+            StudentDto studentDto = modelMapper.map(student, StudentDto.class);
+            studentsDto.add(studentDto);
+        }
+
+        model.addAttribute("students", studentsDto);
 
         return "listStudents";
     }
@@ -43,10 +61,11 @@ public class StudentsController {
     public String editStudent(@PathVariable int studentId, ModelMap model) {
         try {
             Student student = studentService.getStudentById(studentId);
-            model.addAttribute("student", student);
-            model.addAttribute("edit", true);
+            StudentDto studentDto = modelMapper.map(student, StudentDto.class);
 
-            return "registration";
+            model.addAttribute("studentDto", studentDto);
+
+            return "update";
         }
         catch (ServiceEntityNotFoundException e) {
             e.printStackTrace();
@@ -56,8 +75,15 @@ public class StudentsController {
     }
 
     @RequestMapping(value = "/student/edit/{studentId}", method = RequestMethod.POST)
-    public String updateStudent(Student student, ModelMap model, @PathVariable int studentId) {
+    public String updateStudent(@Valid StudentDto studentDto, BindingResult bindingResult, ModelMap model,
+        @PathVariable int studentId) {
+
+        if (bindingResult.hasErrors()) {
+            return "update";
+        }
+
         try {
+            Student student = modelMapper.map(studentDto, Student.class);
             studentService.updateStudent(student);
 
             return "redirect:/students";
