@@ -89,8 +89,21 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void updateStudent(Student student) throws ServiceEntityNotFoundException {
+        Section section = null;
+        Group group = null;
+        Subgroup subgroup = null;
+
         try {
+            section = sectionDao.getSectionByName(student.getSection().getName());
+            group = groupDao.getGroupByName(student.getGroup().getName());
+            subgroup = subgroupDao.getSubgroupByName(student.getSubgroup().getName());
+
+            student.setGroup(group);
+            student.setSubgroup(subgroup);
+            student.setSection(section);
+
             studentDao.updateStudent(student);
+
         }
         catch (DaoEntityNotFoundException e) {
             throw new ServiceEntityNotFoundException(e);
