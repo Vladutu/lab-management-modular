@@ -12,12 +12,12 @@ import java.util.List;
  * @author vladu
  */
 @Component
-public class SectionValidator implements ConstraintValidator<Section, String> {
+public class SectionValidator implements ConstraintValidator<SectionExists, String> {
     @Autowired
     private SectionDao sectionDao;
 
     @Override
-    public void initialize(Section section) {
+    public void initialize(SectionExists section) {
 
     }
 

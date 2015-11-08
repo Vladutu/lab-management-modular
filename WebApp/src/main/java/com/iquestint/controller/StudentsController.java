@@ -31,7 +31,7 @@ public class StudentsController {
     private ModelMapper modelMapper;
 
     @RequestMapping(value = "/students", method = RequestMethod.GET)
-    public String getStudent(ModelMap model) {
+    public String getStudents(ModelMap model) {
         List<Student> students = studentService.getAllStudents();
         List<StudentDto> studentsDto = new ArrayList<>();
 

@@ -55,7 +55,6 @@
             <td><form:errors path="subgroup" cssClass="error"/></td>
         </tr>
 
-
         <tr>
             <td colspan="3">
                 <input type="submit" value="Update"/>

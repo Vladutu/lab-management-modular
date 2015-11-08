@@ -11,7 +11,7 @@ import java.lang.annotation.*;
 @Target({ ElementType.FIELD, ElementType.PARAMETER })
 @Retention(value = RetentionPolicy.RUNTIME)
 @Documented
-public @interface Section {
+public @interface SectionExists {
 
     String message() default "Invalid section";
 

@@ -1,6 +1,6 @@
 package com.iquestint.dto;
 
-import com.iquestint.validation.Section;
+import com.iquestint.validation.SectionExists;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -21,7 +21,7 @@ public class StudentDto {
     private String lastName;
 
     @NotNull
-    @Section
+    @SectionExists
     @Size(min = 3, max = 10)
     private String section;
 
