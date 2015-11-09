@@ -18,6 +18,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/**
+ * This class implements the StudentService interface.
+ *
+ * @author Georgian Vladutu
+ */
 @Service("studentService")
 @Transactional
 public class StudentServiceImpl implements StudentService {
