@@ -39,12 +39,14 @@
             <td>${student.section}</td>
             <td>${student.group}</td>
             <td>${student.subgroup}</td>
-            <td><a href="<c:url value='/student/edit/${student.id}' />"><spring:message code="student.edit"/></a></td>
-            <td><a href="<c:url value='/student/delete/${student.id}' />"><spring:message code="student.delete"/></a>
+            <td><a href="<c:url value='/students/edit/${student.id}' />"><spring:message code="student.edit"/></a></td>
+            <td><a href="<c:url value='/students/delete/${student.id}' />"><spring:message code="student.delete"/></a>
             </td>
         </tr>
     </c:forEach>
 </table>
 <br/>
+<br/>
+<a href="<c:url value='students/new' />"><spring:message code="student.new"/></a>
 </body>
 </html>

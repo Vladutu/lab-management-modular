@@ -1,9 +1,15 @@
 package com.iquestint.controller;
 
-import com.iquestint.dto.StudentDto;
+import com.iquestint.dto.*;
 import com.iquestint.exception.ServiceEntityNotFoundException;
+import com.iquestint.model.Group;
+import com.iquestint.model.Section;
 import com.iquestint.model.Student;
+import com.iquestint.model.Subgroup;
+import com.iquestint.service.GroupService;
+import com.iquestint.service.SectionService;
 import com.iquestint.service.StudentService;
+import com.iquestint.service.SubgroupService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +34,15 @@ public class StudentsController {
     private StudentService studentService;
 
     @Autowired
+    private SectionService sectionService;
+
+    @Autowired
+    private GroupService groupService;
+
+    @Autowired
+    private SubgroupService subgroupService;
+
+    @Autowired
     private ModelMapper modelMapper;
 
     @RequestMapping(value = "/students", method = RequestMethod.GET)
@@ -45,7 +60,40 @@ public class StudentsController {
         return "listStudents";
     }
 
-    @RequestMapping(value = "/student/delete/{studentId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/students/new", method = RequestMethod.GET)
+    public String newStudent(ModelMap model) {
+        StudentDto studentDto = new StudentDto();
+        List<Section> sections = sectionService.getAllSections();
+        List<Group> groups = groupService.getAllGroups();
+        List<Subgroup> subgroups = subgroupService.getAllSubgroups();
+
+        List<SectionDto> sectionDtos = new ArrayList<>();
+        for (Section section : sections) {
+            sectionDtos.add(modelMapper.map(section, SectionDto.class));
+        }
+
+        List<GroupDto> groupDtos = new ArrayList<>();
+        for (Group group : groups) {
+            groupDtos.add(modelMapper.map(group, GroupDto.class));
+        }
+
+        List<SubgroupDto> subgroupDtos = new ArrayList<>();
+        for (Subgroup subgroup : subgroups) {
+            subgroupDtos.add(modelMapper.map(subgroup, SubgroupDto.class));
+        }
+
+        StudentWrapper studentWrapper = new StudentWrapper();
+        studentWrapper.setStudentDto(studentDto);
+        studentWrapper.setSectionDtos(sectionDtos);
+        studentWrapper.setGroupDtos(groupDtos);
+        studentWrapper.setSubgroupDtos(subgroupDtos);
+
+        model.addAttribute("studentWrapper", studentWrapper);
+
+        return "createStudent";
+    }
+
+    @RequestMapping(value = "/students/delete/{studentId}", method = RequestMethod.GET)
     public String deleteStudent(@PathVariable int studentId) {
         try {
             studentService.deleteStudent(studentId);
@@ -57,7 +105,7 @@ public class StudentsController {
         return "redirect:/students";
     }
 
-    @RequestMapping(value = "/student/edit/{studentId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/students/edit/{studentId}", method = RequestMethod.GET)
     public String editStudent(@PathVariable int studentId, ModelMap model) {
         try {
             Student student = studentService.getStudentById(studentId);
@@ -65,7 +113,7 @@ public class StudentsController {
 
             model.addAttribute("studentDto", studentDto);
 
-            return "update";
+            return "updateStudent";
         }
         catch (ServiceEntityNotFoundException e) {
             e.printStackTrace();
@@ -74,12 +122,12 @@ public class StudentsController {
         return "error";
     }
 
-    @RequestMapping(value = "/student/edit/{studentId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/students/edit/{studentId}", method = RequestMethod.POST)
     public String updateStudent(@Valid StudentDto studentDto, BindingResult bindingResult, ModelMap model,
         @PathVariable int studentId) {
 
         if (bindingResult.hasErrors()) {
-            return "update";
+            return "updateStudent";
         }
 
         try {

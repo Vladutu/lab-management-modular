@@ -1,6 +1,8 @@
 package com.iquestint.dto;
 
+import com.iquestint.validation.GroupExists;
 import com.iquestint.validation.SectionExists;
+import com.iquestint.validation.SubgroupExists;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -26,10 +28,12 @@ public class StudentDto {
     private String section;
 
     @NotNull
+    @GroupExists
     @Size(min = 3, max = 10)
     private String group;
 
     @NotNull
+    @SubgroupExists
     @Size(min = 1, max = 2)
     private String subgroup;
 

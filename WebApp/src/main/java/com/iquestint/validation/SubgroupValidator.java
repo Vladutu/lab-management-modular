@@ -1,6 +1,7 @@
 package com.iquestint.validation;
 
-import com.iquestint.service.SectionService;
+import com.iquestint.model.Subgroup;
+import com.iquestint.service.SubgroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,22 +13,22 @@ import java.util.List;
  * @author vladu
  */
 @Component
-public class SectionValidator implements ConstraintValidator<SectionExists, String> {
+public class SubgroupValidator implements ConstraintValidator<SubgroupExists, String> {
 
     @Autowired
-    private SectionService sectionService;
+    private SubgroupService subgroupService;
 
     @Override
-    public void initialize(SectionExists section) {
+    public void initialize(SubgroupExists subgroupExists) {
 
     }
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext constraintValidatorContext) {
-        List<com.iquestint.model.Section> sections = sectionService.getAllSections();
+        List<Subgroup> subgroups = subgroupService.getAllSubgroups();
 
-        for (com.iquestint.model.Section section : sections) {
-            if (section.getName().equals(value)) {
+        for (Subgroup subgroup : subgroups) {
+            if (subgroup.getName().equals(value)) {
                 return true;
             }
         }
