@@ -1,6 +1,10 @@
 package com.iquestint.controller;
 
-import com.iquestint.dto.*;
+import com.iquestint.dto.GroupDto;
+import com.iquestint.dto.SectionDto;
+import com.iquestint.dto.StudentDto;
+import com.iquestint.dto.SubgroupDto;
+import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
 import com.iquestint.model.Group;
 import com.iquestint.model.Section;
@@ -18,6 +22,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -46,7 +51,8 @@ public class StudentsController {
     private ModelMapper modelMapper;
 
     @RequestMapping(value = "/students", method = RequestMethod.GET)
-    public String getStudents(ModelMap model) {
+    public String getStudents(@RequestParam(required = false) String errorMessage,
+        ModelMap model) {
         List<Student> students = studentService.getAllStudents();
         List<StudentDto> studentsDto = new ArrayList<>();
 
@@ -57,11 +63,15 @@ public class StudentsController {
 
         model.addAttribute("students", studentsDto);
 
+        if (errorMessage != null) {
+            model.addAttribute("errorMessage", errorMessage);
+        }
+
         return "listStudents";
     }
 
     @RequestMapping(value = "/students/new", method = RequestMethod.GET)
-    public String newStudent(ModelMap model) {
+    public String newStudent(@RequestParam(required = false) String errorMessage, ModelMap model) {
         StudentDto studentDto = new StudentDto();
         List<Section> sections = sectionService.getAllSections();
         List<Group> groups = groupService.getAllGroups();
@@ -82,24 +92,46 @@ public class StudentsController {
             subgroupDtos.add(modelMapper.map(subgroup, SubgroupDto.class));
         }
 
-        StudentWrapper studentWrapper = new StudentWrapper();
-        studentWrapper.setStudentDto(studentDto);
-        studentWrapper.setSectionDtos(sectionDtos);
-        studentWrapper.setGroupDtos(groupDtos);
-        studentWrapper.setSubgroupDtos(subgroupDtos);
+        model.addAttribute("studentDto", studentDto);
+        model.addAttribute("sectionDtos", sectionDtos);
+        model.addAttribute("groupDtos", groupDtos);
+        model.addAttribute("subgroupDtos", subgroupDtos);
 
-        model.addAttribute("studentWrapper", studentWrapper);
+        if (errorMessage != null) {
+            model.addAttribute("errorMessage", errorMessage);
+        }
 
         return "createStudent";
     }
 
+    @RequestMapping(value = "/students/new", method = RequestMethod.POST)
+    public String saveStudent(@Valid StudentDto studentDto, BindingResult bindingResult, ModelMap model) {
+        if (bindingResult.hasErrors()) {
+            return "/students/new";
+        }
+
+        Student student = modelMapper.map(studentDto, Student.class);
+        try {
+            studentService.saveStudent(student);
+        }
+        catch (ServiceEntityNotFoundException ignored) {
+        }
+        catch (ServiceEntityAlreadyExistsException e) {
+            model.addAttribute("errorMessage", "Student already exists");
+
+            return "redirect:/students/new";
+        }
+
+        return "redirect:/students";
+    }
+
     @RequestMapping(value = "/students/delete/{studentId}", method = RequestMethod.GET)
-    public String deleteStudent(@PathVariable int studentId) {
+    public String deleteStudent(@PathVariable int studentId, ModelMap model) {
         try {
             studentService.deleteStudent(studentId);
         }
         catch (ServiceEntityNotFoundException e) {
-            e.printStackTrace();
+            model.addAttribute("errorMessage", "The student does not exists or no longer exists");
         }
 
         return "redirect:/students";
@@ -116,10 +148,10 @@ public class StudentsController {
             return "updateStudent";
         }
         catch (ServiceEntityNotFoundException e) {
-            e.printStackTrace();
-        }
+            model.addAttribute("errorMessage", "The student does not exists or no longer exists");
 
-        return "error";
+            return "redirect:/students";
+        }
     }
 
     @RequestMapping(value = "/students/edit/{studentId}", method = RequestMethod.POST)
@@ -137,9 +169,9 @@ public class StudentsController {
             return "redirect:/students";
         }
         catch (ServiceEntityNotFoundException e) {
-            e.printStackTrace();
-        }
+            model.addAttribute("errorMessage", "The student does not exists or no longer exists");
 
-        return "error";
+            return "redirect:/students";
+        }
     }
 }
