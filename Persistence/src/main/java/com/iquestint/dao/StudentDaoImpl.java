@@ -10,7 +10,9 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
- * @author vladu
+ * This class implements GroupDao interface;
+ *
+ * @author Georgian Vladutu
  */
 @Repository("studentDao")
 public class StudentDaoImpl extends AbstractDao<Student> implements StudentDao {
@@ -21,14 +23,17 @@ public class StudentDaoImpl extends AbstractDao<Student> implements StudentDao {
     }
 
     @Override
-    public Student findById(int id) throws DaoEntityNotFoundException {
-        Student student = getById(id);
+    public Student findByPnc(String pnc) throws DaoEntityNotFoundException {
+        TypedQuery<Student> query = getEntityManager().createQuery("SELECT s FROM Student s WHERE s.pnc = :pnc",
+            Student.class);
+        query.setParameter("pnc", pnc);
 
-        if (student == null) {
+        try {
+            return query.getSingleResult();
+        }
+        catch (NoResultException e) {
             throw new DaoEntityNotFoundException();
         }
-
-        return student;
     }
 
     @Override
@@ -50,7 +55,7 @@ public class StudentDaoImpl extends AbstractDao<Student> implements StudentDao {
     @Override
     public void saveStudent(Student student) throws DaoEntityAlreadyExists {
         try {
-            Student s = findStudentByName(student.getFirstName(), student.getLastName());
+            Student s = findByPnc(student.getPnc());
         }
         catch (DaoEntityNotFoundException e) {
             persist(student);
@@ -62,15 +67,24 @@ public class StudentDaoImpl extends AbstractDao<Student> implements StudentDao {
 
     @Override
     public void updateStudent(Student student) throws DaoEntityNotFoundException {
-        Student s = findById(student.getId());
-
-        update(student);
+        try {
+            Student s = findByPnc(student.getPnc());
+            update(student);
+        }
+        catch (NoResultException e) {
+            throw new DaoEntityNotFoundException();
+        }
     }
 
     @Override
-    public void deleteStudentById(int id) throws DaoEntityNotFoundException {
-        Student student = findById(id);
-
-        delete(student);
+    public void deleteStudentByPnc(String pnc) throws DaoEntityNotFoundException {
+        try {
+            Student student = findByPnc(pnc);
+            delete(student);
+        }
+        catch (NoResultException e) {
+            throw new DaoEntityNotFoundException();
+        }
     }
+
 }

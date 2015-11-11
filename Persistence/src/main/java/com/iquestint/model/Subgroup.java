@@ -1,5 +1,8 @@
 package com.iquestint.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -9,10 +12,12 @@ import java.util.List;
  * @author Georgian Vladutu
  */
 @Entity
+@Getter
+@Setter
 public class Subgroup {
 
     @Id
-    @Column(name = "SGP_ID")
+    @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
@@ -31,28 +36,12 @@ public class Subgroup {
         this.name = name;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof Subgroup)) {
             return false;
         }
 
@@ -61,11 +50,8 @@ public class Subgroup {
         if (id != subgroup.id) {
             return false;
         }
-        if (name != null ? !name.equals(subgroup.name) : subgroup.name != null) {
-            return false;
-        }
+        return !(name != null ? !name.equals(subgroup.name) : subgroup.name != null);
 
-        return true;
     }
 
     @Override
@@ -73,13 +59,5 @@ public class Subgroup {
         int result = id;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
-    }
-
-    public List<Student> getStudents() {
-        return students;
-    }
-
-    public void setStudents(List<Student> students) {
-        this.students = students;
     }
 }

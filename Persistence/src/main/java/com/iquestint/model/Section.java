@@ -1,5 +1,8 @@
 package com.iquestint.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -9,11 +12,13 @@ import java.util.List;
  * @author Georgian Vladutu
  */
 @Entity
+@Getter
+@Setter
 public class Section {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "SCT_ID")
+    @Column(name = "ID")
     private int id;
 
     @Basic
@@ -31,41 +36,19 @@ public class Section {
         this.name = name;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof Section)) {
             return false;
         }
 
         Section section = (Section) o;
 
-        if (id != section.id) {
-            return false;
-        }
-        if (name != null ? !name.equals(section.name) : section.name != null) {
-            return false;
-        }
+        return id == section.id && !(name != null ? !name.equals(section.name) : section.name != null);
 
-        return true;
     }
 
     @Override
@@ -73,13 +56,5 @@ public class Section {
         int result = id;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
-    }
-
-    public List<Student> getStudents() {
-        return students;
-    }
-
-    public void setStudents(List<Student> students) {
-        this.students = students;
     }
 }

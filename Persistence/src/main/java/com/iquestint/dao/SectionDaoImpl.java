@@ -9,7 +9,9 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
- * @author vladu
+ * This class implements GroupDao interface;
+ *
+ * @author Georgian Vladutu
  */
 @Repository("sectionDao")
 public class SectionDaoImpl extends AbstractDao<Section> implements SectionDao {

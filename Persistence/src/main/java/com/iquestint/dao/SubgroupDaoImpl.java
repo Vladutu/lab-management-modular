@@ -9,7 +9,9 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
- * @author vladu
+ * This class implements GroupDao interface;
+ *
+ * @author Georgian Vladutu
  */
 @Repository("subgroupDao")
 public class SubgroupDaoImpl extends AbstractDao<Subgroup> implements SubgroupDao {

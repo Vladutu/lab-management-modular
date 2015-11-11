@@ -1,5 +1,8 @@
 package com.iquestint.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -9,13 +12,15 @@ import java.util.List;
  * @author Georgian Vladutu
  */
 @Entity
-@Table(name = "group_table", schema = "", catalog = "project_db", uniqueConstraints = {
+@Table(name = "group_table", uniqueConstraints = {
     @UniqueConstraint(columnNames = "name") })
+@Getter
+@Setter
 public class Group {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "GRP_ID")
+    @Column(name = "ID")
     private int id;
 
     @Basic
@@ -32,41 +37,18 @@ public class Group {
         this.name = name;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof Group)) {
             return false;
         }
 
         Group group = (Group) o;
 
-        if (id != group.id) {
-            return false;
-        }
-        if (name != null ? !name.equals(group.name) : group.name != null) {
-            return false;
-        }
-
-        return true;
+        return id == group.id && !(name != null ? !name.equals(group.name) : group.name != null);
     }
 
     @Override
@@ -74,13 +56,5 @@ public class Group {
         int result = id;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
-    }
-
-    public List<Student> getStudents() {
-        return students;
-    }
-
-    public void setStudents(List<Student> students) {
-        this.students = students;
     }
 }
