@@ -34,7 +34,13 @@
     <h2 class="text-center">Update Form</h2>
 
     <form:form method="POST" modelAttribute="studentDto" role="form">
-        <form:input type="hidden" path="id" id="id"/>
+        <spring:bind path="pnc">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <label for="pnc" class="control-label">First Name: </label>
+                <form:input path="pnc" class="form-control" id="pnc"/>
+                <form:errors path="pnc" class="control-label"/>
+            </div>
+        </spring:bind>
 
         <spring:bind path="firstName">
             <div class="form-group ${status.error ? 'has-error' : ''}">

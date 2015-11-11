@@ -68,9 +68,9 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public void deleteStudent(int id) throws ServiceEntityNotFoundException {
+    public void deleteStudent(String pnc) throws ServiceEntityNotFoundException {
         try {
-            studentDao.deleteStudentById(id);
+            studentDao.deleteStudentByPnc(pnc);
         }
         catch (DaoEntityNotFoundException e) {
             throw new ServiceEntityNotFoundException(e);
@@ -78,9 +78,9 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student getStudentById(int id) throws ServiceEntityNotFoundException {
+    public Student getStudentById(String pnc) throws ServiceEntityNotFoundException {
         try {
-            return studentDao.findById(id);
+            return studentDao.findByPnc(pnc);
         }
         catch (DaoEntityNotFoundException e) {
             throw new ServiceEntityNotFoundException(e);

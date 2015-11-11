@@ -1,8 +1,11 @@
 package com.iquestint.dto;
 
 import com.iquestint.validation.GroupExists;
+import com.iquestint.validation.Pnc;
 import com.iquestint.validation.SectionExists;
 import com.iquestint.validation.SubgroupExists;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -12,9 +15,13 @@ import javax.validation.constraints.Size;
  *
  * @author Georgian Vladutu
  */
+@Getter
+@Setter
 public class StudentDto {
 
-    private int id;
+    @NotNull
+    @Pnc
+    private String pnc;
 
     @NotNull
     @Size(min = 3, max = 30)
@@ -39,51 +46,4 @@ public class StudentDto {
     @Size(min = 1, max = 2)
     private String subgroup;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getSection() {
-        return section;
-    }
-
-    public void setSection(String section) {
-        this.section = section;
-    }
-
-    public String getGroup() {
-        return group;
-    }
-
-    public void setGroup(String group) {
-        this.group = group;
-    }
-
-    public String getSubgroup() {
-        return subgroup;
-    }
-
-    public void setSubgroup(String subgroup) {
-        this.subgroup = subgroup;
-    }
 }

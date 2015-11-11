@@ -43,6 +43,15 @@
 
     <form:form method="POST" modelAttribute="studentDto" role="form">
 
+        <spring:bind path="pnc">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <label for="pnc">PNC: </label>
+                <form:input path="pnc" class="form-control" id="pnc"/>
+                <form:errors path="pnc" class="control-label"/>
+            </div>
+        </spring:bind>
+
+
         <spring:bind path="firstName">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <label for="firstName">First Name: </label>

@@ -81,7 +81,7 @@ public class WebAppConfiguration extends WebMvcConfigurerAdapter {
         PropertyMap<Student, StudentDto> studentStudentDtoPropertyMap = new PropertyMap<Student, StudentDto>() {
             @Override
             protected void configure() {
-                map(source.getId(), destination.getId());
+                map(source.getPnc(), destination.getPnc());
                 map(source.getFirstName(), destination.getFirstName());
                 map(source.getLastName(), destination.getLastName());
                 map(source.getSection().getName(), destination.getSection());
@@ -93,7 +93,7 @@ public class WebAppConfiguration extends WebMvcConfigurerAdapter {
         PropertyMap<StudentDto, Student> studentDtoStudentPropertyMap = new PropertyMap<StudentDto, Student>() {
             @Override
             protected void configure() {
-                map(source.getId(), destination.getId());
+                map(source.getPnc(), destination.getPnc());
                 map(source.getFirstName(), destination.getFirstName());
                 map(source.getLastName(), destination.getLastName());
                 map(source.getSection(), destination.getSection().getName());

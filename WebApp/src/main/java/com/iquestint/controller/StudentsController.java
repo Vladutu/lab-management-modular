@@ -120,17 +120,18 @@ public class StudentsController {
     }
 
     /**
-     * Deletes a students whose id is studentId. If the student doesn't exists it will return an error message.
+     * Deletes a students whose pnc is studentPnc. If the student doesn't exists it will return an error message.
      *
-     * @param studentId          the id of the student
+     * @param studentPnc         the pnc of the student
      * @param model              ModelMap
      * @param redirectAttributes RedirectAttributes
      * @return String
      */
-    @RequestMapping(value = "/students/delete/{studentId}", method = RequestMethod.GET)
-    public String deleteStudent(@PathVariable int studentId, ModelMap model, RedirectAttributes redirectAttributes) {
+    @RequestMapping(value = "/students/delete/{studentPnc}", method = RequestMethod.GET)
+    public String deleteStudent(@PathVariable String studentPnc, ModelMap model,
+        RedirectAttributes redirectAttributes) {
         try {
-            studentService.deleteStudent(studentId);
+            studentService.deleteStudent(studentPnc);
         }
         catch (ServiceEntityNotFoundException e) {
             redirectAttributes.addFlashAttribute("errorMessage", "The student does not exists or no longer exists");
@@ -140,17 +141,17 @@ public class StudentsController {
     }
 
     /**
-     * Returns a form to update a student whose id is studentId.
+     * Returns a form to update a student whose pnc is studentPnc.
      *
-     * @param studentId          the id of the student
+     * @param studentPnc         the pnc of the student
      * @param model              ModelMap
      * @param redirectAttributes RedirectAttributes
      * @return String
      */
-    @RequestMapping(value = "/students/edit/{studentId}", method = RequestMethod.GET)
-    public String editStudent(@PathVariable int studentId, ModelMap model, RedirectAttributes redirectAttributes) {
+    @RequestMapping(value = "/students/edit/{studentPnc}", method = RequestMethod.GET)
+    public String editStudent(@PathVariable String studentPnc, ModelMap model, RedirectAttributes redirectAttributes) {
         try {
-            Student student = studentService.getStudentById(studentId);
+            Student student = studentService.getStudentById(studentPnc);
             StudentDto studentDto = modelMapper.map(student, StudentDto.class);
 
             model.addAttribute("studentDto", studentDto);
@@ -170,13 +171,13 @@ public class StudentsController {
      * @param studentDto         the student model
      * @param bindingResult      BindingResult
      * @param model              ModelMap
-     * @param studentId          the id of the student
+     * @param studentPnc         the pnc of the student
      * @param redirectAttributes RedirectAttributes
      * @return String
      */
-    @RequestMapping(value = "/students/edit/{studentId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/students/edit/{studentPnc}", method = RequestMethod.POST)
     public String updateStudent(@Valid StudentDto studentDto, BindingResult bindingResult, ModelMap model,
-        @PathVariable int studentId, RedirectAttributes redirectAttributes) {
+        @PathVariable String studentPnc, RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
             return "updateStudent";
