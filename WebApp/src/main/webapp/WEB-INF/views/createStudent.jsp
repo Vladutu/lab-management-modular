@@ -43,30 +43,47 @@
 
     <form:form method="POST" modelAttribute="studentDto" role="form">
 
-        <div class="form-group">
-            <label for="firstName">First Name: </label>
-            <form:input path="firstName" class="form-control" id="firstName"/>
-        </div>
+        <spring:bind path="firstName">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <label for="firstName">First Name: </label>
+                <form:input path="firstName" class="form-control" id="firstName"/>
+                <form:errors path="firstName" class="control-label"/>
+            </div>
+        </spring:bind>
 
-        <div class="form-group">
-            <label for="lastName">Last Name: </label>
-            <form:input path="lastName" class="form-control" id="lastName"/>
-        </div>
+        <spring:bind path="lastName">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <label for="lastName">Last Name: </label>
+                <form:input path="lastName" class="form-control" id="lastName"/>
+                <form:errors path="lastName" class="control-label"/>
+            </div>
+        </spring:bind>
 
-        <div class="form-group">
-            <label for="section">Section: </label>
-            <form:select path="section" items="${sectionDtos}" multiple="false" class="form-control" id="section"/>
-        </div>
+        <spring:bind path="section">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <label for="section">Section: </label>
+                <form:select path="section" items="${sectionDtos}" multiple="false" class="form-control"
+                             id="section"/>
+                <form:errors path="section" class="control-label"/>
+            </div>
+        </spring:bind>
 
-        <div class="form-group">
-            <label for="group">Group: </label>
-            <form:select path="group" items="${groupDtos}" multiple="false" class="form-control" id="group"/>
-        </div>
+        <spring:bind path="group">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <label for="group">Group: </label>
+                <form:select path="group" items="${groupDtos}" multiple="false" class="form-control" id="group"/>
+                <form:errors path="group" class="control-label"/>
+            </div>
+        </spring:bind>
 
-        <div class="form-group">
-            <label for="subgroup">Subgroup: </label>
-            <form:select path="subgroup" items="${subgroupDtos}" multiple="false" class="form-control" id="subgroup"/>
-        </div>
+        <spring:bind path="subgroup">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <label for="subgroup">Subgroup: </label>
+                <form:select path="subgroup" items="${subgroupDtos}" multiple="false" class="form-control"
+                             id="subgroup"/>
+                <form:errors path="subgroup" class="control-label"/>
+            </div>
+        </spring:bind>
 
         <button type="submit" class="btn btn-success btn-lg">Register</button>
 

@@ -10,7 +10,9 @@ import javax.validation.ConstraintValidatorContext;
 import java.util.List;
 
 /**
- * @author vladu
+ * This class is a validator for the @SubgroupExists annotation.
+ *
+ * @author Georgian Vladutu
  */
 @Component
 public class SubgroupValidator implements ConstraintValidator<SubgroupExists, String> {

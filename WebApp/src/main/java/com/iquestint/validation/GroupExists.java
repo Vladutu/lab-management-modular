@@ -5,7 +5,9 @@ import javax.validation.Payload;
 import java.lang.annotation.*;
 
 /**
- * @author vladu
+ * This annotation express that a group is valid.
+ *
+ * @author Georgian Vladutu
  */
 @Constraint(validatedBy = { GroupValidator.class })
 @Target({ ElementType.FIELD, ElementType.PARAMETER })

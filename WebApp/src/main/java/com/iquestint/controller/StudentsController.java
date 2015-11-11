@@ -22,14 +22,16 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author vladu
+ * This class is a controller used for operations on Student objects.
+ *
+ * @author Georgian Vladutu
  */
 @Controller
 @RequestMapping("/")
@@ -50,9 +52,14 @@ public class StudentsController {
     @Autowired
     private ModelMapper modelMapper;
 
+    /**
+     * Returns all existing students.
+     *
+     * @param model ModelMap
+     * @return String
+     */
     @RequestMapping(value = "/students", method = RequestMethod.GET)
-    public String getStudents(@RequestParam(required = false) String errorMessage,
-        ModelMap model) {
+    public String getStudents(ModelMap model) {
         List<Student> students = studentService.getAllStudents();
         List<StudentDto> studentsDto = new ArrayList<>();
 
@@ -63,16 +70,138 @@ public class StudentsController {
 
         model.addAttribute("students", studentsDto);
 
-        if (errorMessage != null) {
-            model.addAttribute("errorMessage", errorMessage);
-        }
-
         return "listStudents";
     }
 
+    /**
+     * Returns form to add a new student.
+     *
+     * @param model ModelMap
+     * @return String
+     */
     @RequestMapping(value = "/students/new", method = RequestMethod.GET)
-    public String newStudent(@RequestParam(required = false) String errorMessage, ModelMap model) {
+    public String newStudent(ModelMap model) {
+        initializeStudentDto(model);
+
+        return "createStudent";
+    }
+
+    /**
+     * This method checks if all the student's fields are valid and saves it. If at least one of the fields are not valid
+     * the page returned will be the same.
+     *
+     * @param studentDto         student model
+     * @param bindingResult      BindingResult
+     * @param model              ModelMap
+     * @param redirectAttributes RequestAttributes
+     * @return String
+     */
+    @RequestMapping(value = "/students/new", method = RequestMethod.POST)
+    public String saveStudent(@Valid StudentDto studentDto, BindingResult bindingResult, ModelMap model,
+        RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            initializeDtoLists(model);
+            return "createStudent";
+        }
+
+        Student student = modelMapper.map(studentDto, Student.class);
+        try {
+            studentService.saveStudent(student);
+        }
+        catch (ServiceEntityNotFoundException ignored) {
+        }
+        catch (ServiceEntityAlreadyExistsException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Student already exists");
+
+            return "redirect:/students/new";
+        }
+
+        return "redirect:/students";
+    }
+
+    /**
+     * Deletes a students whose id is studentId. If the student doesn't exists it will return an error message.
+     *
+     * @param studentId          the id of the student
+     * @param model              ModelMap
+     * @param redirectAttributes RedirectAttributes
+     * @return String
+     */
+    @RequestMapping(value = "/students/delete/{studentId}", method = RequestMethod.GET)
+    public String deleteStudent(@PathVariable int studentId, ModelMap model, RedirectAttributes redirectAttributes) {
+        try {
+            studentService.deleteStudent(studentId);
+        }
+        catch (ServiceEntityNotFoundException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "The student does not exists or no longer exists");
+        }
+
+        return "redirect:/students";
+    }
+
+    /**
+     * Returns a form to update a student whose id is studentId.
+     *
+     * @param studentId          the id of the student
+     * @param model              ModelMap
+     * @param redirectAttributes RedirectAttributes
+     * @return String
+     */
+    @RequestMapping(value = "/students/edit/{studentId}", method = RequestMethod.GET)
+    public String editStudent(@PathVariable int studentId, ModelMap model, RedirectAttributes redirectAttributes) {
+        try {
+            Student student = studentService.getStudentById(studentId);
+            StudentDto studentDto = modelMapper.map(student, StudentDto.class);
+
+            model.addAttribute("studentDto", studentDto);
+
+            return "updateStudent";
+        }
+        catch (ServiceEntityNotFoundException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "The student does not exists or no longer exists");
+
+            return "redirect:/students";
+        }
+    }
+
+    /**
+     * Checks if the student model is valid, then updates it. If the student model is not valid the same page will be returned.
+     *
+     * @param studentDto         the student model
+     * @param bindingResult      BindingResult
+     * @param model              ModelMap
+     * @param studentId          the id of the student
+     * @param redirectAttributes RedirectAttributes
+     * @return String
+     */
+    @RequestMapping(value = "/students/edit/{studentId}", method = RequestMethod.POST)
+    public String updateStudent(@Valid StudentDto studentDto, BindingResult bindingResult, ModelMap model,
+        @PathVariable int studentId, RedirectAttributes redirectAttributes) {
+
+        if (bindingResult.hasErrors()) {
+            return "updateStudent";
+        }
+
+        try {
+            Student student = modelMapper.map(studentDto, Student.class);
+            studentService.updateStudent(student);
+
+            return "redirect:/students";
+        }
+        catch (ServiceEntityNotFoundException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "The student does not exists or no longer exists");
+
+            return "redirect:/students";
+        }
+    }
+
+    private void initializeStudentDto(ModelMap model) {
         StudentDto studentDto = new StudentDto();
+        model.addAttribute("studentDto", studentDto);
+        initializeDtoLists(model);
+    }
+
+    private void initializeDtoLists(ModelMap model) {
         List<Section> sections = sectionService.getAllSections();
         List<Group> groups = groupService.getAllGroups();
         List<Subgroup> subgroups = subgroupService.getAllSubgroups();
@@ -91,87 +220,8 @@ public class StudentsController {
         for (Subgroup subgroup : subgroups) {
             subgroupDtos.add(modelMapper.map(subgroup, SubgroupDto.class));
         }
-
-        model.addAttribute("studentDto", studentDto);
         model.addAttribute("sectionDtos", sectionDtos);
         model.addAttribute("groupDtos", groupDtos);
         model.addAttribute("subgroupDtos", subgroupDtos);
-
-        if (errorMessage != null) {
-            model.addAttribute("errorMessage", errorMessage);
-        }
-
-        return "createStudent";
-    }
-
-    @RequestMapping(value = "/students/new", method = RequestMethod.POST)
-    public String saveStudent(@Valid StudentDto studentDto, BindingResult bindingResult, ModelMap model) {
-        if (bindingResult.hasErrors()) {
-            return "/students/new";
-        }
-
-        Student student = modelMapper.map(studentDto, Student.class);
-        try {
-            studentService.saveStudent(student);
-        }
-        catch (ServiceEntityNotFoundException ignored) {
-        }
-        catch (ServiceEntityAlreadyExistsException e) {
-            model.addAttribute("errorMessage", "Student already exists");
-
-            return "redirect:/students/new";
-        }
-
-        return "redirect:/students";
-    }
-
-    @RequestMapping(value = "/students/delete/{studentId}", method = RequestMethod.GET)
-    public String deleteStudent(@PathVariable int studentId, ModelMap model) {
-        try {
-            studentService.deleteStudent(studentId);
-        }
-        catch (ServiceEntityNotFoundException e) {
-            model.addAttribute("errorMessage", "The student does not exists or no longer exists");
-        }
-
-        return "redirect:/students";
-    }
-
-    @RequestMapping(value = "/students/edit/{studentId}", method = RequestMethod.GET)
-    public String editStudent(@PathVariable int studentId, ModelMap model) {
-        try {
-            Student student = studentService.getStudentById(studentId);
-            StudentDto studentDto = modelMapper.map(student, StudentDto.class);
-
-            model.addAttribute("studentDto", studentDto);
-
-            return "updateStudent";
-        }
-        catch (ServiceEntityNotFoundException e) {
-            model.addAttribute("errorMessage", "The student does not exists or no longer exists");
-
-            return "redirect:/students";
-        }
-    }
-
-    @RequestMapping(value = "/students/edit/{studentId}", method = RequestMethod.POST)
-    public String updateStudent(@Valid StudentDto studentDto, BindingResult bindingResult, ModelMap model,
-        @PathVariable int studentId) {
-
-        if (bindingResult.hasErrors()) {
-            return "updateStudent";
-        }
-
-        try {
-            Student student = modelMapper.map(studentDto, Student.class);
-            studentService.updateStudent(student);
-
-            return "redirect:/students";
-        }
-        catch (ServiceEntityNotFoundException e) {
-            model.addAttribute("errorMessage", "The student does not exists or no longer exists");
-
-            return "redirect:/students";
-        }
     }
 }

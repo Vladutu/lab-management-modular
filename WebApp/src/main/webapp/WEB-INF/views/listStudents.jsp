@@ -29,6 +29,10 @@
 <p class="text-right"><a href="students?mylocale=en">English </a> | <a href="students?mylocale=ro">Romanian</a></p>
 
 <div class="container">
+    <a href="<c:url value='students/new' />">
+        <button type="button" class="btn btn-success"><spring:message code="student.new"/></button>
+    </a>
+
     <h2 class="text-center"><spring:message code="user.title"/></h2>
 
     <c:if test="${not empty errorMessage}">
@@ -76,9 +80,6 @@
     </table>
     <br/>
     <br/>
-    <a href="<c:url value='students/new' />">
-        <button type="button" class="btn btn-success"><spring:message code="student.new"/></button>
-    </a>
 </div>
 </body>
 </html>
