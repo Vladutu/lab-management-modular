@@ -151,7 +151,7 @@ public class StudentsController {
     @RequestMapping(value = "/students/edit/{studentPnc}", method = RequestMethod.GET)
     public String editStudent(@PathVariable String studentPnc, ModelMap model, RedirectAttributes redirectAttributes) {
         try {
-            Student student = studentService.getStudentById(studentPnc);
+            Student student = studentService.getStudentByPnc(studentPnc);
             StudentDto studentDto = modelMapper.map(student, StudentDto.class);
 
             model.addAttribute("studentDto", studentDto);

@@ -22,7 +22,7 @@ public interface StudentService {
      * @throws ServiceEntityNotFoundException
      * @throws ServiceEntityAlreadyExistsException
      */
-    public void saveStudent(Student student) throws ServiceEntityNotFoundException, ServiceEntityAlreadyExistsException;
+    void saveStudent(Student student) throws ServiceEntityNotFoundException, ServiceEntityAlreadyExistsException;
 
     /**
      * This method deletes a student by specifying his/her personal numeric code(pnc). It throws ServiceEntityNotFoundException
@@ -31,7 +31,7 @@ public interface StudentService {
      * @param pnc the personal numeric code of the student
      * @throws ServiceEntityNotFoundException
      */
-    public void deleteStudent(String pnc) throws ServiceEntityNotFoundException;
+    void deleteStudent(String pnc) throws ServiceEntityNotFoundException;
 
     /**
      * This method retrieves a student by specifying it's personal numeric code(pnc). It throws ServiceEntityNotFoundException
@@ -41,14 +41,14 @@ public interface StudentService {
      * @return Student
      * @throws ServiceEntityNotFoundException
      */
-    public Student getStudentById(String pnc) throws ServiceEntityNotFoundException;
+    Student getStudentByPnc(String pnc) throws ServiceEntityNotFoundException;
 
     /**
      * This method retrieves all students.
      *
      * @return List<Student>
      */
-    public List<Student> getAllStudents();
+    List<Student> getAllStudents();
 
     /**
      * This method update a student. It throws ServiceEntityNotFoundException if the student is not found.
@@ -56,7 +56,7 @@ public interface StudentService {
      * @param student the student to be updated
      * @throws ServiceEntityNotFoundException
      */
-    public void updateStudent(Student student) throws ServiceEntityNotFoundException;
+    void updateStudent(Student student) throws ServiceEntityNotFoundException;
 
     /**
      * This method retrieves a student by specifying his/her first name and last name. It throws
@@ -67,5 +67,5 @@ public interface StudentService {
      * @return Student
      * @throws ServiceEntityNotFoundException
      */
-    public Student getStudentByName(String firstName, String lastName) throws ServiceEntityNotFoundException;
+    Student getStudentByName(String firstName, String lastName) throws ServiceEntityNotFoundException;
 }

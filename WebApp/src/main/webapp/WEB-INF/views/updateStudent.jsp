@@ -31,7 +31,7 @@
 <p class="text-right"><a href="students?mylocale=en">English </a> | <a href="students?mylocale=ro">Romanian</a></p>
 
 <div class="container">
-    <h2 class="text-center">Update Form</h2>
+    <h2 class="text-center">Student Update Form</h2>
 
     <form:form method="POST" modelAttribute="studentDto" role="form">
         <spring:bind path="pnc">
