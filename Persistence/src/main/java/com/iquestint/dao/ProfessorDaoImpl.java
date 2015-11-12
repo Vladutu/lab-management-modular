@@ -2,7 +2,7 @@ package com.iquestint.dao;
 
 import com.iquestint.exception.DaoEntityAlreadyExists;
 import com.iquestint.exception.DaoEntityNotFoundException;
-import com.iquestint.model.Student;
+import com.iquestint.model.Professor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.NoResultException;
@@ -10,22 +10,22 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
- * This class implements StudentDao interface;
+ * This class implements ProfessorDao interface;
  *
  * @author Georgian Vladutu
  */
-@Repository("studentDao")
-public class StudentDaoImpl extends AbstractDao<Student> implements StudentDao {
+@Repository("professorDao")
+public class ProfessorDaoImpl extends AbstractDao<Professor> implements ProfessorDao {
 
     @Override
-    public List<Student> findAllStudents() {
+    public List<Professor> findAllProfessors() {
         return getAll();
     }
 
     @Override
-    public Student findByPnc(String pnc) throws DaoEntityNotFoundException {
-        TypedQuery<Student> query = getEntityManager().createQuery("SELECT s FROM Student s WHERE s.pnc = :pnc",
-            Student.class);
+    public Professor findByPnc(String pnc) throws DaoEntityNotFoundException {
+        TypedQuery<Professor> query = getEntityManager().createQuery("SELECT p FROM Professor p WHERE p.pnc = :pnc",
+            Professor.class);
         query.setParameter("pnc", pnc);
 
         try {
@@ -37,10 +37,10 @@ public class StudentDaoImpl extends AbstractDao<Student> implements StudentDao {
     }
 
     @Override
-    public Student findStudentByName(String firstName, String lastName) throws DaoEntityNotFoundException {
-        TypedQuery<Student> query = getEntityManager().createQuery(
-            "SELECT s FROM Student s WHERE s.firstName = :fName AND s.lastName = :lName ",
-            Student.class);
+    public Professor findProfessorByName(String firstName, String lastName) throws DaoEntityNotFoundException {
+        TypedQuery<Professor> query = getEntityManager().createQuery(
+            "SELECT p FROM Professor p WHERE p.firstName = :fName AND p.lastName = :lName ",
+            Professor.class);
         query.setParameter("fName", firstName);
         query.setParameter("lName", lastName);
 
@@ -53,12 +53,12 @@ public class StudentDaoImpl extends AbstractDao<Student> implements StudentDao {
     }
 
     @Override
-    public void saveStudent(Student student) throws DaoEntityAlreadyExists {
+    public void saveProfessor(Professor professor) throws DaoEntityAlreadyExists {
         try {
-            Student s = findByPnc(student.getPnc());
+            Professor p = findByPnc(professor.getPnc());
         }
         catch (DaoEntityNotFoundException e) {
-            persist(student);
+            persist(professor);
             return;
         }
 
@@ -66,10 +66,10 @@ public class StudentDaoImpl extends AbstractDao<Student> implements StudentDao {
     }
 
     @Override
-    public void updateStudent(Student student) throws DaoEntityNotFoundException {
+    public void updateProfessor(Professor professor) throws DaoEntityNotFoundException {
         try {
-            Student s = findByPnc(student.getPnc());
-            update(student);
+            Professor p = findByPnc(professor.getPnc());
+            update(professor);
         }
         catch (NoResultException e) {
             throw new DaoEntityNotFoundException();
@@ -77,14 +77,13 @@ public class StudentDaoImpl extends AbstractDao<Student> implements StudentDao {
     }
 
     @Override
-    public void deleteStudentByPnc(String pnc) throws DaoEntityNotFoundException {
+    public void deleteProfessorByPnc(String pnc) throws DaoEntityNotFoundException {
         try {
-            Student student = findByPnc(pnc);
-            delete(student);
+            Professor professor = findByPnc(pnc);
+            delete(professor);
         }
         catch (NoResultException e) {
             throw new DaoEntityNotFoundException();
         }
     }
-
 }

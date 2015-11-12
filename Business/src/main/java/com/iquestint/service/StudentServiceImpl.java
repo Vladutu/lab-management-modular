@@ -78,7 +78,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student getStudentById(String pnc) throws ServiceEntityNotFoundException {
+    public Student getStudentByPnc(String pnc) throws ServiceEntityNotFoundException {
         try {
             return studentDao.findByPnc(pnc);
         }
