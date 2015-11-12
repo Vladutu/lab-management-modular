@@ -10,7 +10,9 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
- * @author vladu
+ * This class implements ProfessorDao interface;
+ *
+ * @author Georgian Vladutu
  */
 @Repository("professorDao")
 public class ProfessorDaoImpl extends AbstractDao<Professor> implements ProfessorDao {

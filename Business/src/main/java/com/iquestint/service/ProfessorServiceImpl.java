@@ -13,7 +13,9 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 /**
- * @author vladu
+ * This class implements the ProfessorService interface.
+ *
+ * @author Georgian Vladutu
  */
 @Service("professorService")
 @Transactional

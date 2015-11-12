@@ -4,7 +4,9 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 /**
- * @author vladu
+ * This class is a validator for the @Pnc annotation.
+ *
+ * @author Georgian Vladutu
  */
 public class PncValidator implements ConstraintValidator<Pnc, String> {
 

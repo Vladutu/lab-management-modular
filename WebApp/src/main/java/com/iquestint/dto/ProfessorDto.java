@@ -8,7 +8,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
- * @author vladu
+ * This class is a dto that is passed to the view.
+ *
+ * @author Georgian Vladutu
  */
 @Getter
 @Setter

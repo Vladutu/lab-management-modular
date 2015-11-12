@@ -74,7 +74,7 @@ public class StudentsController {
     }
 
     /**
-     * Returns form to add a new student.
+     * Returns a form to add a new student.
      *
      * @param model ModelMap
      * @return String
@@ -120,7 +120,7 @@ public class StudentsController {
     }
 
     /**
-     * Deletes a students whose pnc is studentPnc. If the student doesn't exists it will return an error message.
+     * Deletes the students whose pnc is studentPnc. If the student doesn't exists it will return an error message.
      *
      * @param studentPnc         the pnc of the student
      * @param model              ModelMap

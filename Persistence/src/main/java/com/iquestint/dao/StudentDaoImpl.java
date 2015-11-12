@@ -10,7 +10,7 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
- * This class implements GroupDao interface;
+ * This class implements StudentDao interface;
  *
  * @author Georgian Vladutu
  */
