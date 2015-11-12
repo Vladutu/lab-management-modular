@@ -25,23 +25,23 @@ public interface StudentService {
     public void saveStudent(Student student) throws ServiceEntityNotFoundException, ServiceEntityAlreadyExistsException;
 
     /**
-     * This method deletes a student by specifying his/her id. It throws ServiceEntityNotFoundException if the student
-     * is not found.
+     * This method deletes a student by specifying his/her personal numeric code(pnc). It throws ServiceEntityNotFoundException
+     * if the student is not found.
      *
-     * @param id the id of the student
+     * @param pnc the personal numeric code of the student
      * @throws ServiceEntityNotFoundException
      */
-    public void deleteStudent(int id) throws ServiceEntityNotFoundException;
+    public void deleteStudent(String pnc) throws ServiceEntityNotFoundException;
 
     /**
-     * This method retrieves a student by specifying it's id. It throws ServiceEntityNotFoundException if the student
-     * is not found.
+     * This method retrieves a student by specifying it's personal numeric code(pnc). It throws ServiceEntityNotFoundException
+     * if the student is not found.
      *
-     * @param id the id of the student
+     * @param pnc the personal numeric code of the student
      * @return Student
      * @throws ServiceEntityNotFoundException
      */
-    public Student getStudentById(int id) throws ServiceEntityNotFoundException;
+    public Student getStudentById(String pnc) throws ServiceEntityNotFoundException;
 
     /**
      * This method retrieves all students.

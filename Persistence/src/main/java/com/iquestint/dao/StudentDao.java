@@ -21,14 +21,14 @@ public interface StudentDao {
     List<Student> findAllStudents();
 
     /**
-     * Returns the Student entity from the database which has the same id as the method parameter. This method throws
-     * DaoEntityNotFoundException if the student with the specified id is not found.
+     * Returns the Student entity from the database which has the same personal numeric code(pnc) as the method
+     * parameter. This method throws DaoEntityNotFoundException if the student with the specified pnc is not found.
      *
-     * @param id the id of the student
+     * @param pnc the personal numeric code of the student
      * @return Student
      * @throws DaoEntityNotFoundException
      */
-    Student findById(int id) throws DaoEntityNotFoundException;
+    Student findByPnc(String pnc) throws DaoEntityNotFoundException;
 
     /**
      * Returns the Student entity from the database which has the same first name and last name as the method parameters.
@@ -54,13 +54,15 @@ public interface StudentDao {
      * Updates the student into the database. This student primary key must already be present in the database.
      *
      * @param student student to be updated
+     * @throws DaoEntityNotFoundException
      */
     void updateStudent(Student student) throws DaoEntityNotFoundException;
 
     /**
-     * Deletes the student from the database by specifying his/her id.
+     * Deletes the student from the database by specifying his/her personal numeric code.
      *
-     * @param id the id of the student
+     * @param pnc the personal numeric code of the student
+     * @throws DaoEntityNotFoundException
      */
-    void deleteStudentById(int id) throws DaoEntityNotFoundException;
+    void deleteStudentByPnc(String pnc) throws DaoEntityNotFoundException;
 }

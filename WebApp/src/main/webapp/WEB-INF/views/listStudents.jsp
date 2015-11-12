@@ -47,6 +47,7 @@
     <table class="table table-hover">
         <thead>
         <tr>
+            <th><spring:message code="table.c0"/></th>
             <th><spring:message code="table.c1"/></th>
             <th><spring:message code="table.c2"/></th>
             <th><spring:message code="table.c3"/></th>
@@ -60,16 +61,17 @@
         <tbody>
         <c:forEach items="${students}" var="student">
             <tr>
+                <td>${student.pnc}</td>
                 <td>${student.firstName}</td>
                 <td>${student.lastName}</td>
                 <td>${student.section}</td>
                 <td>${student.group}</td>
                 <td>${student.subgroup}</td>
-                <td><a href="<c:url value='/students/edit/${student.id}' />">
+                <td><a href="<c:url value='/students/edit/${student.pnc}' />">
                     <button type="button" class="btn btn-primary btn-md"><spring:message code="student.edit"/></button>
                 </a>
                 </td>
-                <td><a href="<c:url value='/students/delete/${student.id}' />">
+                <td><a href="<c:url value='/students/delete/${student.pnc}' />">
                     <button type="button" class="btn btn-danger btn-md"><spring:message
                             code="student.delete"/></button>
                 </a>
