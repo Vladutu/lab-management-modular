@@ -1,9 +1,9 @@
 package com.iquestint.service;
 
-import com.iquestint.dao.GroupDao;
+import com.iquestint.dao.UserStateDao;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
-import com.iquestint.model.Group;
+import com.iquestint.model.UserState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,29 +11,27 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 /**
- * This class implements the GroupService interface.
- *
- * @author Georgian Vladutu
+ * @author vladu
  */
-@Service("groupService")
+@Service("userStateService")
 @Transactional
-public class GroupServiceImpl implements GroupService {
+public class UserStateServiceImpl implements UserStateService {
 
     @Autowired
-    private GroupDao groupDao;
+    private UserStateDao userStateDao;
 
     @Override
-    public List<Group> getAllGroups() {
-        return groupDao.getAllGroups();
-    }
-
-    @Override
-    public Group getGroupByName(String name) throws ServiceEntityNotFoundException {
+    public UserState getUserStateByName(String name) throws ServiceEntityNotFoundException {
         try {
-            return groupDao.getGroupByName(name);
+            return userStateDao.getUserStateByName(name);
         }
         catch (DaoEntityNotFoundException e) {
             throw new ServiceEntityNotFoundException(e);
         }
+    }
+
+    @Override
+    public List<UserState> getAllUserStates() {
+        return userStateDao.getAllUserStates();
     }
 }

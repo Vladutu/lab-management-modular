@@ -108,7 +108,6 @@ public class StudentServiceImpl implements StudentService {
             student.setSection(section);
 
             studentDao.updateStudent(student);
-
         }
         catch (DaoEntityNotFoundException e) {
             throw new ServiceEntityNotFoundException(e);

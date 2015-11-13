@@ -225,4 +225,5 @@ public class StudentsController {
         model.addAttribute("groupDtos", groupDtos);
         model.addAttribute("subgroupDtos", subgroupDtos);
     }
+
 }

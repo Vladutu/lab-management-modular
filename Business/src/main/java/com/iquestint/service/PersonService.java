@@ -8,4 +8,6 @@ import com.iquestint.exception.ServiceEntityNotFoundException;
  */
 public interface PersonService {
     Type getPersonType(String firstName, String lastName) throws ServiceEntityNotFoundException;
+
+    Type getPersonType(String pnc) throws ServiceEntityNotFoundException;
 }

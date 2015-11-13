@@ -9,4 +9,6 @@ import com.iquestint.exception.DaoEntityNotFoundException;
 public interface PersonDao {
 
     Type getPersonType(String firstName, String lastName) throws DaoEntityNotFoundException;
+
+    Type getPersonType(String pnc) throws DaoEntityNotFoundException;
 }

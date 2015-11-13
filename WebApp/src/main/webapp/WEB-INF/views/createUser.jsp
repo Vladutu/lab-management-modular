@@ -8,7 +8,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Student Registration Form</title>
+    <title>User Registration Form</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
           integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ=="
@@ -22,29 +22,63 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"
             integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ=="
             crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>
+        $(document).ready(function (e) {
 
+            $("input[id=pnc]").keyup(function () {
+
+                var pnc = $(this).val();
+
+                $.ajax({
+                    contentType: "application/json",
+                    method: "POST",
+                    url: "/users/new/ajax",
+                    dataType: "json",
+                    data: JSON.stringify(pnc),
+                    success: function (data) {
+                        $("#firstName").val(data.firstName);
+                        $("#lastName").val(data.lastName);
+                        $("#email").val(data.email);
+                        $("#userType").val(data.userType);
+                    }
+                });
+
+            });
+
+        });
+    </script>
 </head>
 
 <body>
-<p class="text-right"><a href="students?mylocale=en">English </a> | <a href="students?mylocale=ro">Romanian</a></p>
+<p class="text-right"><a href="users?mylocale=en">English </a> | <a href="users?mylocale=ro">Romanian</a></p>
 
 <div class="container">
-    <h2 class="text-center">Student Update Form</h2>
+    <h2 class="text-center">User Registration Form</h2>
 
-    <form:form method="POST" modelAttribute="studentDto" role="form">
+    <c:if test="${not empty errorMessage}">
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button>
+                ${errorMessage}
+        </div>
+    </c:if>
+
+    <form:form method="POST" modelAttribute="userDto" role="form">
+
         <spring:bind path="pnc">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <label for="pnc" class="control-label">PNC: </label>
+                <label for="pnc">PNC: </label>
                 <form:input path="pnc" class="form-control" id="pnc"/>
                 <form:errors path="pnc" class="control-label"/>
             </div>
         </spring:bind>
 
+
         <spring:bind path="firstName">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <label for="firstName" class="control-label">First Name: </label>
+                <label for="firstName">First Name: </label>
                 <form:input path="firstName" class="form-control" id="firstName"/>
                 <form:errors path="firstName" class="control-label"/>
             </div>
@@ -52,47 +86,44 @@
 
         <spring:bind path="lastName">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <label for="lastName" class="control-label">Last Name: </label>
+                <label for="lastName">Last Name: </label>
                 <form:input path="lastName" class="form-control" id="lastName"/>
                 <form:errors path="lastName" class="control-label"/>
             </div>
         </spring:bind>
 
-        <spring:bind path="section">
+        <spring:bind path="password">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <label for="section" class="control-label">Section: </label>
-                <form:input path="section" class="form-control" id="section"/>
-                <form:errors path="section" class="control-label"/>
+                <label for="password">Password: </label>
+                <form:password path="password" class="form-control" id="password"/>
+                <form:errors path="password" class="control-label"/>
             </div>
         </spring:bind>
 
-        <spring:bind path="group">
+        <spring:bind path="email">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <label for="group" class="control-label">Group: </label>
-                <form:input path="group" class="form-control" id="group"/>
-                <form:errors path="group" class="control-label"/>
+                <label for="email">Email: </label>
+                <form:input path="email" class="form-control" id="email"/>
+                <form:errors path="email" class="control-label"/>
             </div>
         </spring:bind>
 
-        <spring:bind path="subgroup">
+        <spring:bind path="userType">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <label for="subgroup" class="control-label">Subgroup: </label>
-                <form:input path="subgroup" class="form-control" id="subgroup"/>
-                <form:errors path="subgroup" class="control-label"/>
+                <label for="userType">Type: </label>
+                <form:select path="userType" items="${userTypeDtos}" multiple="false" class="form-control"
+                             id="userType"/>
+                <form:errors path="userType" class="control-label"/>
             </div>
         </spring:bind>
 
-
-        <button type="submit" class="btn btn-success btn-lg">Update</button>
-
+        <button type="submit" class="btn btn-success btn-lg">Register</button>
 
     </form:form>
     <br/>
     <br/>
 
-    <h2 class="text-left">Go back to <a href="<c:url value='/students' />">List of All Students</a></h2>
-
+    <h2 class="text-left">Go back to <a href="<c:url value='/users' />">List of All Users</a></h2>
 </div>
-
 </body>
 </html>

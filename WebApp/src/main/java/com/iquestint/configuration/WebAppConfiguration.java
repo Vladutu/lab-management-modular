@@ -1,7 +1,9 @@
 package com.iquestint.configuration;
 
 import com.iquestint.dto.StudentDto;
+import com.iquestint.dto.UserDto;
 import com.iquestint.model.Student;
+import com.iquestint.model.User;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.context.MessageSource;
@@ -74,6 +76,13 @@ public class WebAppConfiguration extends WebMvcConfigurerAdapter {
         return r;
     }
 
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        LocaleChangeInterceptor interceptor = new LocaleChangeInterceptor();
+        interceptor.setParamName("mylocale");
+        registry.addInterceptor(interceptor);
+    }
+
     @Bean
     public ModelMapper modelMapper() {
         ModelMapper modelMapper = new ModelMapper();
@@ -103,16 +112,37 @@ public class WebAppConfiguration extends WebMvcConfigurerAdapter {
             }
         };
 
+        PropertyMap<User, UserDto> userUserDtoPropertyMap = new PropertyMap<User, UserDto>() {
+            @Override
+            protected void configure() {
+                map(source.getPnc(), destination.getPnc());
+                map(source.getFirstName(), destination.getFirstName());
+                map(source.getLastName(), destination.getLastName());
+                map(source.getEmail(), destination.getEmail());
+                map(source.getPassword(), destination.getPassword());
+                map(source.getUserType().getName(), destination.getUserType());
+
+            }
+        };
+
+        PropertyMap<UserDto, User> userDtoUserPropertyMap = new PropertyMap<UserDto, User>() {
+            @Override
+            protected void configure() {
+                map(source.getPnc(), destination.getPnc());
+                map(source.getFirstName(), destination.getFirstName());
+                map(source.getLastName(), destination.getLastName());
+                map(source.getEmail(), destination.getEmail());
+                map(source.getPassword(), destination.getPassword());
+                map(source.getUserType(), destination.getUserType().getName());
+            }
+        };
+
         modelMapper.addMappings(studentStudentDtoPropertyMap);
         modelMapper.addMappings(studentDtoStudentPropertyMap);
+        modelMapper.addMappings(userUserDtoPropertyMap);
+        modelMapper.addMappings(userDtoUserPropertyMap);
 
         return modelMapper;
     }
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        LocaleChangeInterceptor interceptor = new LocaleChangeInterceptor();
-        interceptor.setParamName("mylocale");
-        registry.addInterceptor(interceptor);
-    }
 }

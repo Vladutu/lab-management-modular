@@ -14,12 +14,22 @@ import org.springframework.stereotype.Service;
 public class PersonServiceImpl implements PersonService {
 
     @Autowired
-    PersonDao personDao;
+    private PersonDao personDao;
 
     @Override
     public Type getPersonType(String firstName, String lastName) throws ServiceEntityNotFoundException {
         try {
             return personDao.getPersonType(firstName, lastName);
+        }
+        catch (DaoEntityNotFoundException e) {
+            throw new ServiceEntityNotFoundException(e);
+        }
+    }
+
+    @Override
+    public Type getPersonType(String pnc) throws ServiceEntityNotFoundException {
+        try {
+            return personDao.getPersonType(pnc);
         }
         catch (DaoEntityNotFoundException e) {
             throw new ServiceEntityNotFoundException(e);

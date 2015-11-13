@@ -22,7 +22,7 @@ import java.util.List;
 public class ProfessorServiceImpl implements ProfessorService {
 
     @Autowired
-    ProfessorDao professorDao;
+    private ProfessorDao professorDao;
 
     @Override
     public void saveProfessor(Professor professor) throws ServiceEntityAlreadyExistsException {

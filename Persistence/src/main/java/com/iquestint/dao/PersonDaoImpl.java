@@ -17,10 +17,10 @@ import javax.persistence.TypedQuery;
 public class PersonDaoImpl extends AbstractDao<Person> implements PersonDao {
 
     @Autowired
-    StudentDao studentDao;
+    private StudentDao studentDao;
 
     @Autowired
-    ProfessorDao professorDao;
+    private ProfessorDao professorDao;
 
     @Override
     public Type getPersonType(String firstName, String lastName) throws DaoEntityNotFoundException {
@@ -43,6 +43,29 @@ public class PersonDaoImpl extends AbstractDao<Person> implements PersonDao {
             return Type.STUDENT;
         }
         catch (NoResultException ignored) {
+            return Type.PROFESSOR;
+        }
+    }
+
+    @Override
+    public Type getPersonType(String pnc) throws DaoEntityNotFoundException {
+        TypedQuery<Person> query = getEntityManager().createQuery("SELECT p FROM Person p WHERE p.pnc = :pnc",
+            Person.class);
+        query.setParameter("pnc", pnc);
+
+        try {
+            Person person = query.getSingleResult();
+        }
+        catch (NoResultException e) {
+            throw new DaoEntityNotFoundException();
+        }
+
+        try {
+            Student student = studentDao.findByPnc(pnc);
+
+            return Type.STUDENT;
+        }
+        catch (NoResultException | DaoEntityNotFoundException ignored) {
             return Type.PROFESSOR;
         }
     }
