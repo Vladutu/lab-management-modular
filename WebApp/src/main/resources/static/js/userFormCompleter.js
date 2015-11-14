@@ -1,8 +1,6 @@
-$(document).ready(function (e) {
-
-    $("input[id=pnc]").keyup(function () {
-
-        var pnc = $(this).val();
+function userFormCompleter() {
+    $(document).ready(function () {
+        var pnc = $("input[id=pnc]").val();
         var token = $("meta[name='_csrf']").attr("content");
         var header = $("meta[name='_csrf_header']").attr("content");
         $.ajax({
@@ -11,7 +9,7 @@ $(document).ready(function (e) {
             },
             contentType: "application/json",
             method: "POST",
-            url: "localhost:8080/admin/users/new/ajax",
+            url: "/admin/users/new/ajax",
             dataType: "json",
             data: JSON.stringify(pnc),
             success: function (data) {
@@ -21,7 +19,5 @@ $(document).ready(function (e) {
                 $("#userType").val(data.userType);
             }
         });
-
     });
-
-});
+}

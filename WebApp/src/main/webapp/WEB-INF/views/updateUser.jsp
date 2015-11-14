@@ -10,22 +10,24 @@
     <jsp:include page="header.jsp"/>
     <title>User Update Form</title>
 
-    <script>
-        window.onload = function () {
-            document.getElementById('password').style.display = 'none';
-            document.getElementById('passError').style.display = 'none';
-        }
+    <!-- <script>
+         window.onload = function () {
+             document.getElementById('password').style.display = 'none';
+             document.getElementById('passError').style.display = 'none';
+         }
+         $(document).ready(function () {
+             $("#passButton").click(function () {
+                 $(this).hide();
+                 $("#password").show();
+                 $("#passError").show();
+                 $("#passLabel").text("New password:");
+             });
+         });
+     </script>  -->
 
+    <script src="<c:url value="/static/js/userPassword.js" />"></script>
+    <script>onWinLoad()</script>
 
-        $(document).ready(function () {
-            $("#passButton").click(function () {
-                $(this).hide();
-                $("#password").show();
-                $("#passError").show();
-                $("#passLabel").text("New password:");
-            });
-        });
-    </script>
 </head>
 
 <body>
@@ -73,7 +75,9 @@
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <label for="password" id="passLabel">Password: </label>
                 <form:password path="password" class="form-control" id="password"/>
-                <button type="button" class="btn btn-info" id="passButton">Change password</button>
+                <button type="button" class="btn btn-info" id="passButton" onclick="onPasswordButtonClick()">Change
+                    password
+                </button>
                 <form:errors path="password" class="control-label" id="passError"/>
             </div>
         </spring:bind>

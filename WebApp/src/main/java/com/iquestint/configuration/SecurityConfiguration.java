@@ -17,6 +17,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    CustomSuccessHandler customSuccessHandler;
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -35,7 +38,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
             .antMatchers("/", "/home").permitAll()
             .antMatchers("/admin/**").access("hasRole('ADMIN')")
-            .and().formLogin();
+            .and().formLogin().loginPage("/login").successHandler(customSuccessHandler)
+            .usernameParameter("pnc").passwordParameter("password")
+            .and().csrf();
 
     }
 }

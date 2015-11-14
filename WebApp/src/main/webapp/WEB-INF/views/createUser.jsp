@@ -9,38 +9,12 @@
 <head>
     <jsp:include page="header.jsp"/>
     <title>User Registration Form</title>
+
     <meta name="_csrf" content="${_csrf.token}"/>
     <!-- default header name is X-CSRF-TOKEN -->
     <meta name="_csrf_header" content="${_csrf.headerName}"/>
-    <script>
-        $(document).ready(function (e) {
+    <script src="<c:url value="/static/js/userFormCompleter.js" />"></script>
 
-            $("input[id=pnc]").keyup(function () {
-
-                var pnc = $(this).val();
-                var token = $("meta[name='_csrf']").attr("content");
-                var header = $("meta[name='_csrf_header']").attr("content");
-                $.ajax({
-                    beforeSend: function (request) {
-                        request.setRequestHeader(header, token);
-                    },
-                    contentType: "application/json",
-                    method: "POST",
-                    url: "/admin/users/new/ajax",
-                    dataType: "json",
-                    data: JSON.stringify(pnc),
-                    success: function (data) {
-                        $("#firstName").val(data.firstName);
-                        $("#lastName").val(data.lastName);
-                        $("#email").val(data.email);
-                        $("#userType").val(data.userType);
-                    }
-                });
-
-            });
-
-        });
-    </script>
 </head>
 
 <body>
@@ -62,7 +36,7 @@
         <spring:bind path="pnc">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <label for="pnc">PNC: </label>
-                <form:input path="pnc" class="form-control" id="pnc"/>
+                <form:input path="pnc" class="form-control" id="pnc" onkeyup="userFormCompleter()"/>
                 <form:errors path="pnc" class="control-label"/>
             </div>
         </spring:bind>
