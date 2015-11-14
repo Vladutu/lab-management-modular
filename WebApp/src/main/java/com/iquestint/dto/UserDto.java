@@ -1,9 +1,6 @@
 package com.iquestint.dto;
 
-import com.iquestint.validation.Email;
-import com.iquestint.validation.PersonExists;
-import com.iquestint.validation.Pnc;
-import com.iquestint.validation.TypeExists;
+import com.iquestint.validation.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -42,4 +39,8 @@ public class UserDto {
     @NotNull
     @TypeExists
     private String userType = "";
+
+    @NotNull
+    @StateExists
+    private String userState = "";
 }

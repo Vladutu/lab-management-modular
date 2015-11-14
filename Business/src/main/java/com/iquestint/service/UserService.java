@@ -21,5 +21,7 @@ public interface UserService {
 
     void updateUser(User user) throws ServiceEntityNotFoundException;
 
+    void updateUserNoPassword(User user) throws ServiceEntityNotFoundException;
+
     User getUserByName(String firstName, String lastName) throws ServiceEntityNotFoundException;
 }

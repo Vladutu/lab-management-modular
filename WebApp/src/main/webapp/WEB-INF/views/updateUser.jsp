@@ -8,14 +8,31 @@
 
 <head>
     <jsp:include page="header.jsp"/>
-    <title>Professor Update Form</title>
+    <title>User Update Form</title>
+
+    <script>
+        window.onload = function () {
+            document.getElementById('password').style.display = 'none';
+            document.getElementById('passError').style.display = 'none';
+        }
+
+
+        $(document).ready(function () {
+            $("#passButton").click(function () {
+                $(this).hide();
+                $("#password").show();
+                $("#passError").show();
+                $("#passLabel").text("New password:");
+            });
+        });
+    </script>
 </head>
 
 <body>
 <p class="text-right"><a href="professors?mylocale=en">English </a> | <a href="professors?mylocale=ro">Romanian</a></p>
 
 <div class="container">
-    <h2 class="text-center">Professor Update Form</h2>
+    <h2 class="text-center">User Update Form</h2>
 
     <c:if test="${not empty errorMessage}">
         <div class="alert alert-danger alert-dismissible" role="alert">
@@ -25,11 +42,11 @@
         </div>
     </c:if>
 
-    <form:form method="POST" modelAttribute="professorDto" role="form">
+    <form:form method="POST" modelAttribute="userDto" role="form">
 
         <spring:bind path="pnc">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <label for="pnc">PNC: </label>
+                <label for="pnc">Pnc: </label>
                 <form:input path="pnc" class="form-control" id="pnc"/>
                 <form:errors path="pnc" class="control-label"/>
             </div>
@@ -52,19 +69,12 @@
             </div>
         </spring:bind>
 
-        <spring:bind path="position">
+        <spring:bind path="password">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <label for="position">Position: </label>
-                <form:input path="position" class="form-control" id="position"/>
-                <form:errors path="position" class="control-label"/>
-            </div>
-        </spring:bind>
-
-        <spring:bind path="office">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <label for="office">Office: </label>
-                <form:input path="office" class="form-control" id="office"/>
-                <form:errors path="office" class="control-label"/>
+                <label for="password" id="passLabel">Password: </label>
+                <form:password path="password" class="form-control" id="password"/>
+                <button type="button" class="btn btn-info" id="passButton">Change password</button>
+                <form:errors path="password" class="control-label" id="passError"/>
             </div>
         </spring:bind>
 
@@ -76,13 +86,29 @@
             </div>
         </spring:bind>
 
+        <spring:bind path="userType">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <label for="userType">Type: </label>
+                <form:input path="userType" class="form-control" id="userType"/>
+                <form:errors path="userType" class="control-label"/>
+            </div>
+        </spring:bind>
+
+        <spring:bind path="userState">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <label for="userState">State: </label>
+                <form:input path="userState" class="form-control" id="userState"/>
+                <form:errors path="userState" class="control-label"/>
+            </div>
+        </spring:bind>
+
         <button type="submit" class="btn btn-success btn-lg">Update</button>
 
     </form:form>
     <br/>
     <br/>
 
-    <h2 class="text-left">Go back to <a href="<c:url value='/admin/professors' />">List of All Professors</a></h2>
+    <h2 class="text-left">Go back to <a href="<c:url value='/admin/users' />">List of All Users</a></h2>
 </div>
 </body>
 </html>

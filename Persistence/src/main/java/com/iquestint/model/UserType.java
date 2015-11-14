@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
 
 /**
  * @author vladu
@@ -25,8 +24,8 @@ public class UserType {
     @Column(name = "NAME", unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "userType")
-    private List<User> users;
+//    @OneToMany(mappedBy = "userType")
+//    private List<User> users;
 
     public UserType() {
     }

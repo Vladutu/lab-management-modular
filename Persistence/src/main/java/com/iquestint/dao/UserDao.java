@@ -21,5 +21,7 @@ public interface UserDao {
 
     void updateUser(User user) throws DaoEntityNotFoundException;
 
+    void updateUserNoPassword(User user) throws DaoEntityNotFoundException;
+
     void deleteUserByPnc(String pnc) throws DaoEntityNotFoundException;
 }

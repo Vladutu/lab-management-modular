@@ -1,5 +1,6 @@
 package com.iquestint.service;
 
+import com.iquestint.dao.PersonDao;
 import com.iquestint.dao.UserDao;
 import com.iquestint.dao.UserStateDao;
 import com.iquestint.dao.UserTypeDao;
@@ -7,6 +8,7 @@ import com.iquestint.exception.DaoEntityAlreadyExists;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
+import com.iquestint.model.Person;
 import com.iquestint.model.User;
 import com.iquestint.model.UserState;
 import com.iquestint.model.UserType;
@@ -32,14 +34,19 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserStateDao userStateDao;
 
+    @Autowired
+    private PersonDao personDao;
+
     @Override
     public void saveUser(User user) throws ServiceEntityNotFoundException, ServiceEntityAlreadyExistsException {
         UserType userType = null;
         UserState userState = null;
+        Person person = null;
 
         try {
             userType = userTypeDao.getUserTypeByName(user.getUserType().getName());
             userState = userStateDao.getUserStateByName(user.getUserState().getName());
+            person = personDao.getPersonByPnc(user.getPnc());
         }
         catch (DaoEntityNotFoundException e) {
             throw new ServiceEntityNotFoundException(e);
@@ -47,6 +54,7 @@ public class UserServiceImpl implements UserService {
 
         user.setUserType(userType);
         user.setUserState(userState);
+        user.setPerson(person);
 
         try {
             userDao.saveUser(user);
@@ -85,13 +93,16 @@ public class UserServiceImpl implements UserService {
     public void updateUser(User user) throws ServiceEntityNotFoundException {
         UserType userType = null;
         UserState userState = null;
+        Person person = null;
 
         try {
             userType = userTypeDao.getUserTypeByName(user.getUserType().getName());
             userState = userStateDao.getUserStateByName(user.getUserState().getName());
+            person = personDao.getPersonByPnc(user.getPnc());
 
             user.setUserState(userState);
             user.setUserType(userType);
+            user.setPerson(person);
 
             userDao.updateUser(user);
         }
@@ -99,6 +110,28 @@ public class UserServiceImpl implements UserService {
             throw new ServiceEntityNotFoundException(e);
         }
 
+    }
+
+    @Override
+    public void updateUserNoPassword(User user) throws ServiceEntityNotFoundException {
+        UserType userType = null;
+        UserState userState = null;
+        Person person = null;
+
+        try {
+            userType = userTypeDao.getUserTypeByName(user.getUserType().getName());
+            userState = userStateDao.getUserStateByName(user.getUserState().getName());
+            person = personDao.getPersonByPnc(user.getPnc());
+
+            user.setUserState(userState);
+            user.setUserType(userType);
+            user.getPerson().setPnc(person.getPnc());
+
+            userDao.updateUserNoPassword(user);
+        }
+        catch (DaoEntityNotFoundException e) {
+            throw new ServiceEntityNotFoundException(e);
+        }
     }
 
     @Override

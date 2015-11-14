@@ -10,10 +10,13 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "USER")
-@PrimaryKeyJoinColumn(name = "USERNAME")
 @Getter
 @Setter
-public class User extends Person {
+public class User {
+
+    @Id
+    @Column(name = "USERNAME")
+    private String pnc;
 
     @Basic
     @Column(name = "PASSWORD")
@@ -30,6 +33,10 @@ public class User extends Person {
     @ManyToOne
     @JoinColumn(name = "TYPE_ID", referencedColumnName = "ID", nullable = false)
     private UserType userType;
+
+    @OneToOne
+    @JoinColumn(name = "USERNAME", referencedColumnName = "PNC", nullable = false)
+    private Person person;
 
     @Override
     public boolean equals(Object o) {

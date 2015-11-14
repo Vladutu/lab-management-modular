@@ -14,10 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -80,6 +77,8 @@ public class UsersController {
     public String saveUser(@Valid UserDto userDto, BindingResult bindingResult, ModelMap model,
         RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
+            initializeDtoList(model);
+
             return "createUser";
         }
 
@@ -100,6 +99,67 @@ public class UsersController {
 
         return "redirect:/admin/users";
 
+    }
+
+    @RequestMapping(value = "/admin/users/delete/{pnc}", method = RequestMethod.GET)
+    public String deleteUser(@PathVariable String pnc, ModelMap model,
+        RedirectAttributes redirectAttributes) {
+        try {
+            userService.deleteUser(pnc);
+        }
+        catch (ServiceEntityNotFoundException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "The user does not exists or no longer exists");
+        }
+
+        return "redirect:/admin/users";
+    }
+
+    @RequestMapping(value = "/admin/users/edit/{pnc}", method = RequestMethod.GET)
+    public String editUser(@PathVariable String pnc, ModelMap model,
+        RedirectAttributes redirectAttributes) {
+        try {
+            User user = userService.getUserByPnc(pnc);
+            UserDto userDto = modelMapper.map(user, UserDto.class);
+            userDto.setPassword("");
+
+            model.addAttribute("userDto", userDto);
+
+            return "updateUser";
+        }
+        catch (ServiceEntityNotFoundException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "The user does not exists or no longer exists");
+
+            return "redirect:/admin/users";
+        }
+    }
+
+    @RequestMapping(value = "/admin/users/edit/{pnc}", method = RequestMethod.POST)
+    public String updateUser(@Valid UserDto userDto, BindingResult bindingResult, ModelMap model,
+        @PathVariable String pnc, RedirectAttributes redirectAttributes) {
+
+        if ((bindingResult.getErrorCount() > 1) ||
+            (bindingResult.getErrorCount() == 1 && !userDto.getPassword().equals(""))) {
+            return "updateUser";
+        }
+        
+        try {
+            User user = modelMapper.map(userDto, User.class);
+
+            if (user.getPassword().equals("")) {
+                userService.updateUserNoPassword(user);
+            }
+            else {
+                userService.updateUser(user);
+
+            }
+
+            return "redirect:/admin/users";
+        }
+        catch (ServiceEntityNotFoundException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "The user does not exists or no longer exists");
+
+            return "redirect:/admin/users";
+        }
     }
 
     @RequestMapping(value = "/admin/users/new/ajax", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")

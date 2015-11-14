@@ -1,5 +1,6 @@
 package com.iquestint.dto;
 
+import com.iquestint.validation.Email;
 import com.iquestint.validation.Pnc;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,6 +38,7 @@ public class ProfessorDto {
     private String office;
 
     @NotNull
+    @Email
     @Size(min = 10, max = 50)
     private String email;
 }
