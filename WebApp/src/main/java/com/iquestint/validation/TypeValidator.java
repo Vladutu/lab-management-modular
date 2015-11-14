@@ -3,6 +3,7 @@ package com.iquestint.validation;
 import com.iquestint.model.UserType;
 import com.iquestint.service.UserTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -11,6 +12,7 @@ import java.util.List;
 /**
  * @author vladu
  */
+@Component
 public class TypeValidator implements ConstraintValidator<TypeExists, String> {
 
     @Autowired
@@ -26,7 +28,7 @@ public class TypeValidator implements ConstraintValidator<TypeExists, String> {
         List<UserType> userTypeList = userTypeService.getAllUserTypes();
 
         for (UserType userType : userTypeList) {
-            if (value.equals(userType)) {
+            if (value.equals(userType.getName())) {
                 return true;
             }
         }

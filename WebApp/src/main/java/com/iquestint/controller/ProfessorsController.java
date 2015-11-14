@@ -39,7 +39,7 @@ public class ProfessorsController {
      * @param model ModelMap
      * @return String
      */
-    @RequestMapping(value = "/professors", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/professors", method = RequestMethod.GET)
     public String getProfessors(ModelMap model) {
         List<Professor> professors = professorService.getAllProfessors();
         List<ProfessorDto> professorDtos = new ArrayList<>();
@@ -59,7 +59,7 @@ public class ProfessorsController {
      * @param model ModelMap
      * @return String
      */
-    @RequestMapping(value = "/professors/new", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/professors/new", method = RequestMethod.GET)
     public String newProfessor(ModelMap model) {
         ProfessorDto professorDto = new ProfessorDto();
         model.addAttribute("professorDto", professorDto);
@@ -77,7 +77,7 @@ public class ProfessorsController {
      * @param redirectAttributes RequestAttributes
      * @return String
      */
-    @RequestMapping(value = "/professors/new", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/professors/new", method = RequestMethod.POST)
     public String saveProfessor(@Valid ProfessorDto professorDto, BindingResult bindingResult, ModelMap model,
         RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
@@ -92,10 +92,10 @@ public class ProfessorsController {
         catch (ServiceEntityAlreadyExistsException e) {
             redirectAttributes.addFlashAttribute("errorMessage", "Professor already exists");
 
-            return "redirect:/professors/new";
+            return "redirect:/admin/professors/new";
         }
 
-        return "redirect:/professors";
+        return "redirect:/admin/professors";
 
     }
 
@@ -107,7 +107,7 @@ public class ProfessorsController {
      * @param redirectAttributes RedirectAttributes
      * @return String
      */
-    @RequestMapping(value = "/professors/delete/{professorPnc}", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/professors/delete/{professorPnc}", method = RequestMethod.GET)
     public String deleteProfessor(@PathVariable String professorPnc, ModelMap model,
         RedirectAttributes redirectAttributes) {
         try {
@@ -117,7 +117,7 @@ public class ProfessorsController {
             redirectAttributes.addFlashAttribute("errorMessage", "The professor does not exists or no longer exists");
         }
 
-        return "redirect:/professors";
+        return "redirect:/admin/professors";
     }
 
     /**
@@ -128,7 +128,7 @@ public class ProfessorsController {
      * @param redirectAttributes RedirectAttributes
      * @return String
      */
-    @RequestMapping(value = "/professors/edit/{professorPnc}", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/professors/edit/{professorPnc}", method = RequestMethod.GET)
     public String editProfessor(@PathVariable String professorPnc, ModelMap model,
         RedirectAttributes redirectAttributes) {
         try {
@@ -142,7 +142,7 @@ public class ProfessorsController {
         catch (ServiceEntityNotFoundException e) {
             redirectAttributes.addFlashAttribute("errorMessage", "The professor does not exists or no longer exists");
 
-            return "redirect:/professors";
+            return "redirect:/admin/professors";
         }
     }
 
@@ -156,7 +156,7 @@ public class ProfessorsController {
      * @param redirectAttributes RedirectAttributes
      * @return String
      */
-    @RequestMapping(value = "/professors/edit/{professorPnc}", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/professors/edit/{professorPnc}", method = RequestMethod.POST)
     public String updateProfessor(@Valid ProfessorDto professorDto, BindingResult bindingResult, ModelMap model,
         @PathVariable String professorPnc, RedirectAttributes redirectAttributes) {
 
@@ -168,12 +168,12 @@ public class ProfessorsController {
             Professor professor = modelMapper.map(professorDto, Professor.class);
             professorService.updateProfessor(professor);
 
-            return "redirect:/professors";
+            return "redirect:/admin/professors";
         }
         catch (ServiceEntityNotFoundException e) {
             redirectAttributes.addFlashAttribute("errorMessage", "The professor does not exists or no longer exists");
 
-            return "redirect:/professors";
+            return "redirect:/admin/professors";
         }
     }
 

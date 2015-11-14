@@ -58,7 +58,7 @@ public class StudentsController {
      * @param model ModelMap
      * @return String
      */
-    @RequestMapping(value = "/students", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/students", method = RequestMethod.GET)
     public String getStudents(ModelMap model) {
         List<Student> students = studentService.getAllStudents();
         List<StudentDto> studentsDto = new ArrayList<>();
@@ -79,7 +79,7 @@ public class StudentsController {
      * @param model ModelMap
      * @return String
      */
-    @RequestMapping(value = "/students/new", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/students/new", method = RequestMethod.GET)
     public String newStudent(ModelMap model) {
         initializeStudentDto(model);
 
@@ -96,7 +96,7 @@ public class StudentsController {
      * @param redirectAttributes RequestAttributes
      * @return String
      */
-    @RequestMapping(value = "/students/new", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/students/new", method = RequestMethod.POST)
     public String saveStudent(@Valid StudentDto studentDto, BindingResult bindingResult, ModelMap model,
         RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
@@ -113,10 +113,10 @@ public class StudentsController {
         catch (ServiceEntityAlreadyExistsException e) {
             redirectAttributes.addFlashAttribute("errorMessage", "Student already exists");
 
-            return "redirect:/students/new";
+            return "redirect:/admin/students/new";
         }
 
-        return "redirect:/students";
+        return "redirect:/admin/students";
     }
 
     /**
@@ -127,7 +127,7 @@ public class StudentsController {
      * @param redirectAttributes RedirectAttributes
      * @return String
      */
-    @RequestMapping(value = "/students/delete/{studentPnc}", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/students/delete/{studentPnc}", method = RequestMethod.GET)
     public String deleteStudent(@PathVariable String studentPnc, ModelMap model,
         RedirectAttributes redirectAttributes) {
         try {
@@ -137,7 +137,7 @@ public class StudentsController {
             redirectAttributes.addFlashAttribute("errorMessage", "The student does not exists or no longer exists");
         }
 
-        return "redirect:/students";
+        return "redirect:/admin/students";
     }
 
     /**
@@ -148,7 +148,7 @@ public class StudentsController {
      * @param redirectAttributes RedirectAttributes
      * @return String
      */
-    @RequestMapping(value = "/students/edit/{studentPnc}", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/students/edit/{studentPnc}", method = RequestMethod.GET)
     public String editStudent(@PathVariable String studentPnc, ModelMap model, RedirectAttributes redirectAttributes) {
         try {
             Student student = studentService.getStudentByPnc(studentPnc);
@@ -161,7 +161,7 @@ public class StudentsController {
         catch (ServiceEntityNotFoundException e) {
             redirectAttributes.addFlashAttribute("errorMessage", "The student does not exists or no longer exists");
 
-            return "redirect:/students";
+            return "redirect:/admin/students";
         }
     }
 
@@ -175,7 +175,7 @@ public class StudentsController {
      * @param redirectAttributes RedirectAttributes
      * @return String
      */
-    @RequestMapping(value = "/students/edit/{studentPnc}", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/students/edit/{studentPnc}", method = RequestMethod.POST)
     public String updateStudent(@Valid StudentDto studentDto, BindingResult bindingResult, ModelMap model,
         @PathVariable String studentPnc, RedirectAttributes redirectAttributes) {
 
@@ -187,12 +187,12 @@ public class StudentsController {
             Student student = modelMapper.map(studentDto, Student.class);
             studentService.updateStudent(student);
 
-            return "redirect:/students";
+            return "redirect:/admin/students";
         }
         catch (ServiceEntityNotFoundException e) {
             redirectAttributes.addFlashAttribute("errorMessage", "The student does not exists or no longer exists");
 
-            return "redirect:/students";
+            return "redirect:/admin/students";
         }
     }
 

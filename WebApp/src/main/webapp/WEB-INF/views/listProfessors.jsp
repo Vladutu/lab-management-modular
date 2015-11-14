@@ -4,24 +4,8 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <jsp:include page="header.jsp"/>
     <title>Professors</title>
-
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
-          integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ=="
-          crossorigin="anonymous">
-
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"
-          integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"
-            integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ=="
-            crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </head>
 
 
@@ -29,7 +13,7 @@
 <p class="text-right"><a href="professors?mylocale=en">English </a> | <a href="professors?mylocale=ro">Romanian</a></p>
 
 <div class="container">
-    <a href="<c:url value='professors/new' />">
+    <a href="<c:url value='/admin/professors/new' />">
         <button type="button" class="btn btn-success">Add new professor</button>
     </a>
 
@@ -67,11 +51,11 @@
                 <td>${professor.position}</td>
                 <td>${professor.office}</td>
                 <td>${professor.email}</td>
-                <td><a href="<c:url value='/professors/edit/${professor.pnc}' />">
+                <td><a href="<c:url value='/admin/professors/edit/${professor.pnc}' />">
                     <button type="button" class="btn btn-primary btn-md">Edit</button>
                 </a>
                 </td>
-                <td><a href="<c:url value='/professors/delete/${professor.pnc}' />">
+                <td><a href="<c:url value='/admin/professors/delete/${professor.pnc}' />">
                     <button type="button" class="btn btn-danger btn-md">Delete</button>
                 </a>
                 </td>

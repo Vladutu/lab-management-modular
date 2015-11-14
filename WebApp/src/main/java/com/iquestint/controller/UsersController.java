@@ -2,22 +2,25 @@ package com.iquestint.controller;
 
 import com.iquestint.dto.UserDto;
 import com.iquestint.dto.UserTypeDto;
+import com.iquestint.enums.State;
 import com.iquestint.enums.Type;
+import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
-import com.iquestint.model.Professor;
-import com.iquestint.model.Student;
-import com.iquestint.model.User;
-import com.iquestint.model.UserType;
+import com.iquestint.model.*;
 import com.iquestint.service.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,7 +52,10 @@ public class UsersController {
     @Autowired
     ModelMapper modelMapper;
 
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
+    @RequestMapping(value = "/admin/users", method = RequestMethod.GET)
     public String getUsers(ModelMap model) {
         List<User> users = userService.getAllUsers();
         List<UserDto> userDtos = new ArrayList<>();
@@ -63,14 +69,40 @@ public class UsersController {
         return "listUsers";
     }
 
-    @RequestMapping(value = "/users/new", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/users/new", method = RequestMethod.GET)
     public String newUser(ModelMap model) {
         initalizeUserDto(model);
 
         return "createUser";
     }
 
-    @RequestMapping(value = "/users/new/ajax", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
+    @RequestMapping(value = "/admin/users/new", method = RequestMethod.POST)
+    public String saveUser(@Valid UserDto userDto, BindingResult bindingResult, ModelMap model,
+        RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            return "createUser";
+        }
+
+        User user = modelMapper.map(userDto, User.class);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setUserState(new UserState(State.ACTIVE.getState()));
+
+        try {
+            userService.saveUser(user);
+        }
+        catch (ServiceEntityAlreadyExistsException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "User already exists");
+
+            return "redirect:/admin/users/new";
+        }
+        catch (ServiceEntityNotFoundException ignored) {
+        }
+
+        return "redirect:/admin/users";
+
+    }
+
+    @RequestMapping(value = "/admin/users/new/ajax", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
     public
     @ResponseBody
     UserDto getUser(@RequestBody String pnc) {

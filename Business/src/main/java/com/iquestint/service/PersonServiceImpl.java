@@ -4,6 +4,7 @@ import com.iquestint.dao.PersonDao;
 import com.iquestint.enums.Type;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
+import com.iquestint.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,16 @@ public class PersonServiceImpl implements PersonService {
     public Type getPersonType(String pnc) throws ServiceEntityNotFoundException {
         try {
             return personDao.getPersonType(pnc);
+        }
+        catch (DaoEntityNotFoundException e) {
+            throw new ServiceEntityNotFoundException(e);
+        }
+    }
+
+    @Override
+    public Person getPersonByPnc(String pnc) throws ServiceEntityNotFoundException {
+        try {
+            return personDao.getPersonByPnc(pnc);
         }
         catch (DaoEntityNotFoundException e) {
             throw new ServiceEntityNotFoundException(e);

@@ -65,8 +65,22 @@ public class PersonDaoImpl extends AbstractDao<Person> implements PersonDao {
 
             return Type.STUDENT;
         }
-        catch (NoResultException | DaoEntityNotFoundException ignored) {
+        catch (DaoEntityNotFoundException ignored) {
             return Type.PROFESSOR;
+        }
+    }
+
+    @Override
+    public Person getPersonByPnc(String pnc) throws DaoEntityNotFoundException {
+        TypedQuery<Person> query = getEntityManager().createQuery("SELECT p FROM Person p WHERE p.pnc = :pnc",
+            Person.class);
+        query.setParameter("pnc", pnc);
+
+        try {
+            return query.getSingleResult();
+        }
+        catch (NoResultException e) {
+            throw new DaoEntityNotFoundException();
         }
     }
 }
