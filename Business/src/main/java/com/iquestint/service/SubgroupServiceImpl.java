@@ -20,7 +20,7 @@ import java.util.List;
 public class SubgroupServiceImpl implements SubgroupService {
 
     @Autowired
-    SubgroupDao subgroupDao;
+    private SubgroupDao subgroupDao;
 
     @Override
     public List<Subgroup> getAllSubgroups() {

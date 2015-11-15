@@ -7,27 +7,13 @@
 <html>
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <jsp:include page="libs.jsp"/>
     <title>Student Registration Form</title>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
-          integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ=="
-          crossorigin="anonymous">
-
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"
-          integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"
-            integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ=="
-            crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
 </head>
 
 <body>
+<jsp:include page="adminHeader.jsp"/>
+
 <p class="text-right"><a href="students?mylocale=en">English </a> | <a href="students?mylocale=ro">Romanian</a></p>
 
 <div class="container">
@@ -36,7 +22,7 @@
     <form:form method="POST" modelAttribute="studentDto" role="form">
         <spring:bind path="pnc">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <label for="pnc" class="control-label">First Name: </label>
+                <label for="pnc" class="control-label">PNC: </label>
                 <form:input path="pnc" class="form-control" id="pnc"/>
                 <form:errors path="pnc" class="control-label"/>
             </div>
@@ -58,10 +44,19 @@
             </div>
         </spring:bind>
 
+        <spring:bind path="email">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <label for="email" class="control-label">Email: </label>
+                <form:input path="email" class="form-control" id="email"/>
+                <form:errors path="email" class="control-label"/>
+            </div>
+        </spring:bind>
+
         <spring:bind path="section">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <label for="section" class="control-label">Section: </label>
-                <form:input path="section" class="form-control" id="section"/>
+                <form:select path="section" items="${sectionDtos}" multiple="false" class="form-control"
+                             id="section"/>
                 <form:errors path="section" class="control-label"/>
             </div>
         </spring:bind>
@@ -69,7 +64,7 @@
         <spring:bind path="group">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <label for="group" class="control-label">Group: </label>
-                <form:input path="group" class="form-control" id="group"/>
+                <form:select path="group" items="${groupDtos}" multiple="false" class="form-control" id="group"/>
                 <form:errors path="group" class="control-label"/>
             </div>
         </spring:bind>
@@ -77,7 +72,8 @@
         <spring:bind path="subgroup">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <label for="subgroup" class="control-label">Subgroup: </label>
-                <form:input path="subgroup" class="form-control" id="subgroup"/>
+                <form:select path="subgroup" items="${subgroupDtos}" multiple="false" class="form-control"
+                             id="subgroup"/>
                 <form:errors path="subgroup" class="control-label"/>
             </div>
         </spring:bind>
@@ -90,7 +86,7 @@
     <br/>
     <br/>
 
-    <h2 class="text-left">Go back to <a href="<c:url value='/students' />">List of All Students</a></h2>
+    <h2 class="text-left">Go back to <a href="<c:url value='/admin/students' />">List of All Students</a></h2>
 
 </div>
 

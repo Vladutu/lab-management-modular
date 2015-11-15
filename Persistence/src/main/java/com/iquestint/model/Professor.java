@@ -25,10 +25,6 @@ public class Professor extends Person {
     @Column(name = "OFFICE")
     private String office;
 
-    @Basic
-    @Column(name = "EMAIL")
-    private String email;
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -46,10 +42,23 @@ public class Professor extends Person {
         if (position != null ? !position.equals(professor.position) : professor.position != null) {
             return false;
         }
-        if (office != null ? !office.equals(professor.office) : professor.office != null) {
+
+        if (getFirstName() != null ? !getFirstName().equals(professor.getFirstName()) :
+            professor.getFirstName() != null) {
             return false;
         }
-        return !(email != null ? !email.equals(professor.email) : professor.email != null);
+
+        if (getLastName() != null ? !getLastName().equals(professor.getLastName()) :
+            professor.getLastName() != null) {
+            return false;
+        }
+
+        if (getEmail() != null ? !getEmail().equals(professor.getEmail()) :
+            professor.getEmail() != null) {
+            return false;
+        }
+
+        return !(office != null ? !office.equals(professor.office) : professor.office != null);
 
     }
 
@@ -57,8 +66,11 @@ public class Professor extends Person {
     public int hashCode() {
         int result = super.hashCode();
         result = 31 * result + (position != null ? position.hashCode() : 0);
+        result = 31 * result + (getFirstName() != null ? getFirstName().hashCode() : 0);
+        result = 31 * result + (getLastName() != null ? getLastName().hashCode() : 0);
+        result = 31 * result + (getEmail() != null ? getEmail().hashCode() : 0);
         result = 31 * result + (office != null ? office.hashCode() : 0);
-        result = 31 * result + (email != null ? email.hashCode() : 0);
+
         return result;
     }
 }

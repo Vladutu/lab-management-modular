@@ -3,7 +3,9 @@ package com.iquestint.configuration;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 /**
- * @author vladu
+ * This class registers the WebAppConfiguration class.
+ *
+ * @author Georgian Vladutu
  */
 public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 

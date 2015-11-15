@@ -7,27 +7,13 @@
 <html>
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <jsp:include page="libs.jsp"/>
     <title>Professor Registration Form</title>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
-          integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ=="
-          crossorigin="anonymous">
-
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"
-          integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"
-            integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ=="
-            crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
 </head>
 
 <body>
+<jsp:include page="adminHeader.jsp"/>
+
 <p class="text-right"><a href="professors?mylocale=en">English </a> | <a href="professors?mylocale=ro">Romanian</a></p>
 
 <div class="container">
@@ -68,6 +54,14 @@
             </div>
         </spring:bind>
 
+        <spring:bind path="email">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <label for="email">Email: </label>
+                <form:input path="email" class="form-control" id="email"/>
+                <form:errors path="email" class="control-label"/>
+            </div>
+        </spring:bind>
+
         <spring:bind path="position">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <label for="position">Position: </label>
@@ -84,21 +78,13 @@
             </div>
         </spring:bind>
 
-        <spring:bind path="email">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <label for="email">Email: </label>
-                <form:input path="email" class="form-control" id="email"/>
-                <form:errors path="email" class="control-label"/>
-            </div>
-        </spring:bind>
-
         <button type="submit" class="btn btn-success btn-lg">Register</button>
 
     </form:form>
     <br/>
     <br/>
 
-    <h2 class="text-left">Go back to <a href="<c:url value='/professors' />">List of All Professors</a></h2>
+    <h2 class="text-left">Go back to <a href="<c:url value='/admin/professors' />">List of All Professors</a></h2>
 </div>
 </body>
 </html>

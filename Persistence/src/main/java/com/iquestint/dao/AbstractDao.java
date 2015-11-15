@@ -15,7 +15,7 @@ import java.util.List;
  * This class is an abstract generic data access object class that implements the CRUD operations for all entities that
  * extend this class.
  *
- * @param <T> the type of the entity
+ * @param <T> the userType of the entity
  * @author Georgian Vladutu
  */
 public abstract class AbstractDao<T> {

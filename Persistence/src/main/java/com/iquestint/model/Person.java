@@ -29,6 +29,10 @@ public class Person {
     @Column(name = "LAST_NAME")
     private String lastName;
 
+    @Basic
+    @Column(name = "EMAIL")
+    private String email;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -43,8 +47,13 @@ public class Person {
         if (pnc != null ? !pnc.equals(person.pnc) : person.pnc != null) {
             return false;
         }
-        return !(firstName != null ? !firstName.equals(person.firstName) : person.firstName != null) &&
-            !(lastName != null ? !lastName.equals(person.lastName) : person.lastName != null);
+        if (firstName != null ? !firstName.equals(person.firstName) : person.firstName != null) {
+            return false;
+        }
+        if (lastName != null ? !lastName.equals(person.lastName) : person.lastName != null) {
+            return false;
+        }
+        return !(email != null ? !email.equals(person.email) : person.email != null);
 
     }
 
@@ -53,6 +62,7 @@ public class Person {
         int result = pnc != null ? pnc.hashCode() : 0;
         result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
         return result;
     }
 }

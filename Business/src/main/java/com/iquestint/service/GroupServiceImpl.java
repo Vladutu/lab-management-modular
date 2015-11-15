@@ -20,7 +20,7 @@ import java.util.List;
 public class GroupServiceImpl implements GroupService {
 
     @Autowired
-    GroupDao groupDao;
+    private GroupDao groupDao;
 
     @Override
     public List<Group> getAllGroups() {

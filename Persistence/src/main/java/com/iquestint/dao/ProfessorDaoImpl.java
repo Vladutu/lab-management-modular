@@ -67,23 +67,13 @@ public class ProfessorDaoImpl extends AbstractDao<Professor> implements Professo
 
     @Override
     public void updateProfessor(Professor professor) throws DaoEntityNotFoundException {
-        try {
-            Professor p = findByPnc(professor.getPnc());
-            update(professor);
-        }
-        catch (NoResultException e) {
-            throw new DaoEntityNotFoundException();
-        }
+        Professor p = findByPnc(professor.getPnc());
+        update(professor);
     }
 
     @Override
     public void deleteProfessorByPnc(String pnc) throws DaoEntityNotFoundException {
-        try {
-            Professor professor = findByPnc(pnc);
-            delete(professor);
-        }
-        catch (NoResultException e) {
-            throw new DaoEntityNotFoundException();
-        }
+        Professor professor = findByPnc(pnc);
+        delete(professor);
     }
 }

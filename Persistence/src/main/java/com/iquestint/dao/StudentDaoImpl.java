@@ -67,24 +67,14 @@ public class StudentDaoImpl extends AbstractDao<Student> implements StudentDao {
 
     @Override
     public void updateStudent(Student student) throws DaoEntityNotFoundException {
-        try {
-            Student s = findByPnc(student.getPnc());
-            update(student);
-        }
-        catch (NoResultException e) {
-            throw new DaoEntityNotFoundException();
-        }
+        Student s = findByPnc(student.getPnc());
+        update(student);
     }
 
     @Override
     public void deleteStudentByPnc(String pnc) throws DaoEntityNotFoundException {
-        try {
-            Student student = findByPnc(pnc);
-            delete(student);
-        }
-        catch (NoResultException e) {
-            throw new DaoEntityNotFoundException();
-        }
+        Student student = findByPnc(pnc);
+        delete(student);
     }
 
 }
