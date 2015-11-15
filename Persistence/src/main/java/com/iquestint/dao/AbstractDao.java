@@ -3,6 +3,7 @@ package com.iquestint.dao;
 import com.iquestint.exception.DaoEntityNotFoundException;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -62,5 +63,20 @@ public abstract class AbstractDao<T> {
 
     protected void update(T t) {
         getEntityManager().merge(t);
+    }
+
+    protected T getByName(String name) throws DaoEntityNotFoundException {
+        TypedQuery<T> query = getEntityManager().createQuery("SELECT t FROM " +
+                getPersistentClass().getSimpleName() +
+                " t WHERE t.name = :name ",
+            persistentClass);
+        query.setParameter("name", name);
+
+        try {
+            return query.getSingleResult();
+        }
+        catch (NoResultException e) {
+            throw new DaoEntityNotFoundException();
+        }
     }
 }

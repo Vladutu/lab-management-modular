@@ -4,8 +4,6 @@ import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.model.UserType;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.NoResultException;
-import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
@@ -18,16 +16,7 @@ public class UserTypeDaoImpl extends AbstractDao<UserType> implements UserTypeDa
 
     @Override
     public UserType getUserTypeByName(String name) throws DaoEntityNotFoundException {
-        TypedQuery<UserType> query = getEntityManager().createQuery("SELECT ut FROM UserType ut WHERE ut.name = :name ",
-            UserType.class);
-        query.setParameter("name", name);
-
-        try {
-            return query.getSingleResult();
-        }
-        catch (NoResultException e) {
-            throw new DaoEntityNotFoundException();
-        }
+        return getByName(name);
     }
 
     @Override
