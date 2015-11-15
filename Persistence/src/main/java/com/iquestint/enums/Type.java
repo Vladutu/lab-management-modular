@@ -1,7 +1,9 @@
 package com.iquestint.enums;
 
 /**
- * @author vladu
+ * This class contains all the roles that an account can have.
+ *
+ * @author Georgian Vladutu
  */
 public enum Type {
     ADMIN("ADMIN"), PROFESSOR("PROFESSOR"), STUDENT("STUDENT");

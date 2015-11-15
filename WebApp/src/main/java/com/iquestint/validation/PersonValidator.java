@@ -9,7 +9,9 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 /**
- * @author vladu
+ * This class is a validator for the @PersonExists annotation.
+ *
+ * @author Georgian Vladutu
  */
 @Component
 public class PersonValidator implements ConstraintValidator<PersonExists, String> {

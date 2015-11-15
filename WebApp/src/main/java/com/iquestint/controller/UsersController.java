@@ -23,7 +23,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author vladu
+ * This class is a controller used for operations on User objects.
+ *
+ * @author Georgian Vladutu
  */
 @Controller
 @RequestMapping("/")
@@ -53,6 +55,12 @@ public class UsersController {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    /**
+     * Returns all existing users.
+     *
+     * @param model ModelMap
+     * @return String
+     */
     @RequestMapping(value = "/admin/users", method = RequestMethod.GET)
     public String getUsers(ModelMap model) {
         List<User> users = userService.getAllUsers();
@@ -67,6 +75,12 @@ public class UsersController {
         return "listUsers";
     }
 
+    /**
+     * Returns a form to add a new user.
+     *
+     * @param model ModelMap
+     * @return String
+     */
     @RequestMapping(value = "/admin/users/new", method = RequestMethod.GET)
     public String newUser(ModelMap model) {
         initalizeUserDto(model);
@@ -74,6 +88,16 @@ public class UsersController {
         return "createUser";
     }
 
+    /**
+     * This method checks if all the user's fields are valid and saves it. If at least one of the fields are not valid
+     * the page returned will be the same.
+     *
+     * @param userDto            user model
+     * @param bindingResult      BindingResult
+     * @param model              ModelMap
+     * @param redirectAttributes RequestAttributes
+     * @return String
+     */
     @RequestMapping(value = "/admin/users/new", method = RequestMethod.POST)
     public String saveUser(@Valid UserDto userDto, BindingResult bindingResult, ModelMap model,
         RedirectAttributes redirectAttributes) {
@@ -102,6 +126,14 @@ public class UsersController {
 
     }
 
+    /**
+     * Deletes the user whose pnc is pnc. If the user doesn't exists it will return an error message.
+     *
+     * @param pnc                the pnc of the user
+     * @param model              ModelMap
+     * @param redirectAttributes RedirectAttributes
+     * @return String
+     */
     @RequestMapping(value = "/admin/users/delete/{pnc}", method = RequestMethod.GET)
     public String deleteUser(@PathVariable String pnc, ModelMap model,
         RedirectAttributes redirectAttributes) {
@@ -115,6 +147,14 @@ public class UsersController {
         return "redirect:/admin/users";
     }
 
+    /**
+     * Returns a form to update a user whose pnc is pnc.
+     *
+     * @param pnc                the pnc of the user
+     * @param model              ModelMap
+     * @param redirectAttributes RedirectAttributes
+     * @return String
+     */
     @RequestMapping(value = "/admin/users/edit/{pnc}", method = RequestMethod.GET)
     public String editUser(@PathVariable String pnc, ModelMap model,
         RedirectAttributes redirectAttributes) {
@@ -135,6 +175,16 @@ public class UsersController {
         }
     }
 
+    /**
+     * Checks if the user model is valid, then updates it. If the user model is not valid the same page will be returned.
+     *
+     * @param userDto            the user model
+     * @param bindingResult      BindingResult
+     * @param model              ModelMap
+     * @param pnc                the pnc of the user
+     * @param redirectAttributes RedirectAttributes
+     * @return String
+     */
     @RequestMapping(value = "/admin/users/edit/{pnc}", method = RequestMethod.POST)
     public String updateUser(@Valid UserDto userDto, BindingResult bindingResult, ModelMap model,
         @PathVariable String pnc, RedirectAttributes redirectAttributes) {
@@ -165,6 +215,12 @@ public class UsersController {
         }
     }
 
+    /**
+     * Returns a JSON object that consists on the fields that the user specified by his/her pnc already exists in the database.
+     *
+     * @param pnc the pnc of the user
+     * @return String
+     */
     @RequestMapping(value = "/admin/users/new/ajax", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
     public
     @ResponseBody

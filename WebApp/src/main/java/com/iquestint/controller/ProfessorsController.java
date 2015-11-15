@@ -147,12 +147,12 @@ public class ProfessorsController {
     }
 
     /**
-     * Checks if the profesor model is valid, then updates it. If the professor model is not valid the same page will be returned.
+     * Checks if the professor model is valid, then updates it. If the professor model is not valid the same page will be returned.
      *
-     * @param professorDto       the student model
+     * @param professorDto       the professor model
      * @param bindingResult      BindingResult
      * @param model              ModelMap
-     * @param professorPnc       the pnc of the student
+     * @param professorPnc       the pnc of the professor
      * @param redirectAttributes RedirectAttributes
      * @return String
      */

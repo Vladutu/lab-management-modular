@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * @author vladu
+ * This class implements PersonService interface.
+ *
+ * @author Georgian Vladutu
  */
 @Service("personService")
 public class PersonServiceImpl implements PersonService {

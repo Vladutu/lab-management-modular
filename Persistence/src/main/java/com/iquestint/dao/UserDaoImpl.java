@@ -15,7 +15,9 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 
 /**
- * @author vladu
+ * This class implements UserDao interface.
+ *
+ * @author Georgian Vladutu
  */
 @Repository("userDao")
 public class UserDaoImpl extends AbstractDao<User> implements UserDao {

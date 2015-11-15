@@ -28,7 +28,9 @@ import java.util.Locale;
 import java.util.Properties;
 
 /**
- * @author vladu
+ * This class is used for Spring configuration and bean declarations.
+ *
+ * @author Georgian Vladutu
  */
 @Configuration
 @EnableWebMvc

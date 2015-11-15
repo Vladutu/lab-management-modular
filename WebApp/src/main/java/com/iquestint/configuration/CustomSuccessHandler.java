@@ -15,7 +15,9 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * @author vladu
+ * This class is a handler that redirect an user after login depending on his/her role.
+ *
+ * @author Georgian Vladutu
  */
 @Component
 public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
@@ -35,9 +37,12 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         redirectStrategy.sendRedirect(request, response, targetUrl);
     }
 
-    /*
+    /**
      * This method extracts the roles of currently logged-in user and returns
      * appropriate URL according to his/her role.
+     *
+     * @param authentication Authentication
+     * @return String
      */
     protected String determineTargetUrl(Authentication authentication) {
         String url = "";

@@ -4,7 +4,9 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 /**
- * @author vladu
+ * This class is a validator for @Email annotation.
+ *
+ * @author Georgian Vladutu
  */
 public class EmailValidator implements ConstraintValidator<Email, String> {
 

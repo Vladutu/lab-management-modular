@@ -1,7 +1,9 @@
 package com.iquestint.enums;
 
 /**
- * @author vladu
+ * This enum contains all the states that an account can have.
+ *
+ * @author Georgian Vladutu
  */
 public enum State {
     ACTIVE("Active"), INACTIVE("Inactive"), DELETED("Deleted"), BLOCKED("Blocked");

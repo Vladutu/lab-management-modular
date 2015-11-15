@@ -6,7 +6,9 @@ import lombok.Setter;
 import javax.persistence.*;
 
 /**
- * @author vladu
+ * This is an model entity that maps the USER table.
+ *
+ * @author Georgian Vladutu
  */
 @Entity
 @Table(name = "USER")

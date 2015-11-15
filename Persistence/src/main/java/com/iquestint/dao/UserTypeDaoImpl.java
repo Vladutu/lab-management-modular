@@ -9,7 +9,9 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
- * @author vladu
+ * This class implements UserTypeDao interface.
+ *
+ * @author Georgian Vladutu
  */
 @Repository("userTypeDao")
 public class UserTypeDaoImpl extends AbstractDao<UserType> implements UserTypeDao {

@@ -9,7 +9,9 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
- * @author vladu
+ * This class implements UserStateDao interface.
+ *
+ * @author Georgian Vladutu
  */
 @Repository("userStateDao")
 public class UserStateDaoImpl extends AbstractDao<UserState> implements UserStateDao {

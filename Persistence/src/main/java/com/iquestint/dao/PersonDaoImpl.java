@@ -11,7 +11,9 @@ import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
 /**
- * @author vladu
+ * This class implements the PersonDao interface.
+ *
+ * @author Georgian Vladutu
  */
 @Repository("personDao")
 public class PersonDaoImpl extends AbstractDao<Person> implements PersonDao {

@@ -11,7 +11,9 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 /**
- * @author vladu
+ * This class implements UserStateService interface.
+ *
+ * @author Georgian Vladutu
  */
 @Service("userStateService")
 @Transactional

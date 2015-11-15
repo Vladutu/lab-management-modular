@@ -12,22 +12,41 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @author vladu
+ * This class is a controller that handles login and logout operations.
+ *
+ * @author Georgian Vladutu
  */
 @Controller
 @RequestMapping("/")
 public class LoginController {
 
+    /**
+     * Redirects the user to the login method in this controller.
+     *
+     * @return String
+     */
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String defaultRoute() {
         return "redirect:/login";
     }
 
+    /**
+     * Returns the login page.
+     *
+     * @return String
+     */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage() {
         return "login";
     }
 
+    /**
+     * This method logs out the user and redirects him/her to the login page.
+     *
+     * @param request  HttpServletRequest
+     * @param response HttpServletResponse
+     * @return String
+     */
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

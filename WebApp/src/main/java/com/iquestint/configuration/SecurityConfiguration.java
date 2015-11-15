@@ -11,7 +11,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
- * @author vladu
+ * This class is used for security configurations.
+ *
+ * @author Georgian Vladutu
  */
 @Configuration
 @EnableWebSecurity
