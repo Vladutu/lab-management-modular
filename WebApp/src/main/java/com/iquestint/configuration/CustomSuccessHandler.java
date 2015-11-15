@@ -30,7 +30,6 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         String targetUrl = determineTargetUrl(authentication);
 
         if (response.isCommitted()) {
-            System.out.println("Can't redirect");
             return;
         }
 
@@ -63,10 +62,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     }
 
     private boolean isAdmin(List<String> roles) {
-        if (roles.contains("ROLE_ADMIN")) {
-            return true;
-        }
-        return false;
+        return roles.contains("ROLE_ADMIN");
     }
 
     public void setRedirectStrategy(RedirectStrategy redirectStrategy) {
