@@ -44,10 +44,19 @@
             </div>
         </spring:bind>
 
+        <spring:bind path="email">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <label for="email" class="control-label">Email: </label>
+                <form:input path="email" class="form-control" id="email"/>
+                <form:errors path="email" class="control-label"/>
+            </div>
+        </spring:bind>
+
         <spring:bind path="section">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <label for="section" class="control-label">Section: </label>
-                <form:input path="section" class="form-control" id="section"/>
+                <form:select path="section" items="${sectionDtos}" multiple="false" class="form-control"
+                             id="section"/>
                 <form:errors path="section" class="control-label"/>
             </div>
         </spring:bind>
@@ -55,7 +64,7 @@
         <spring:bind path="group">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <label for="group" class="control-label">Group: </label>
-                <form:input path="group" class="form-control" id="group"/>
+                <form:select path="group" items="${groupDtos}" multiple="false" class="form-control" id="group"/>
                 <form:errors path="group" class="control-label"/>
             </div>
         </spring:bind>
@@ -63,7 +72,8 @@
         <spring:bind path="subgroup">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <label for="subgroup" class="control-label">Subgroup: </label>
-                <form:input path="subgroup" class="form-control" id="subgroup"/>
+                <form:select path="subgroup" items="${subgroupDtos}" multiple="false" class="form-control"
+                             id="subgroup"/>
                 <form:errors path="subgroup" class="control-label"/>
             </div>
         </spring:bind>

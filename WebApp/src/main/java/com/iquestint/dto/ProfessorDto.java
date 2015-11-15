@@ -1,7 +1,5 @@
 package com.iquestint.dto;
 
-import com.iquestint.validation.Email;
-import com.iquestint.validation.Pnc;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,19 +13,7 @@ import javax.validation.constraints.Size;
  */
 @Getter
 @Setter
-public class ProfessorDto {
-
-    @NotNull
-    @Pnc
-    private String pnc;
-
-    @NotNull
-    @Size(min = 3, max = 30)
-    private String firstName;
-
-    @NotNull
-    @Size(min = 3, max = 30)
-    private String lastName;
+public class ProfessorDto extends PersonDto {
 
     @NotNull
     @Size(min = 3, max = 15)
@@ -37,8 +23,4 @@ public class ProfessorDto {
     @Size(min = 3, max = 10)
     private String office;
 
-    @NotNull
-    @Email
-    @Size(min = 10, max = 50)
-    private String email;
 }

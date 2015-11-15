@@ -38,6 +38,7 @@
             <th>Last name</th>
             <th>Email</th>
             <th>Type</th>
+            <th>State</th>
             <th></th>
             <th></th>
         </tr>
@@ -51,6 +52,7 @@
                 <td>${user.lastName}</td>
                 <td>${user.email}</td>
                 <td>${user.userType}</td>
+                <td>${user.userState}</td>
                 <td><a href="<c:url value='/admin/users/edit/${user.pnc}' />">
                     <button type="button" class="btn btn-primary btn-md">Edit</button>
                 </a>

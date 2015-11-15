@@ -36,9 +36,9 @@
             <th>Pnc</th>
             <th>First name</th>
             <th>Last name</th>
+            <th>Email</th>
             <th>Position</th>
             <th>Office</th>
-            <th>Email</th>
             <th></th>
             <th></th>
         </tr>
@@ -50,9 +50,9 @@
                 <td>${professor.pnc}</td>
                 <td>${professor.firstName}</td>
                 <td>${professor.lastName}</td>
+                <td>${professor.email}</td>
                 <td>${professor.position}</td>
                 <td>${professor.office}</td>
-                <td>${professor.email}</td>
                 <td><a href="<c:url value='/admin/professors/edit/${professor.pnc}' />">
                     <button type="button" class="btn btn-primary btn-md">Edit</button>
                 </a>

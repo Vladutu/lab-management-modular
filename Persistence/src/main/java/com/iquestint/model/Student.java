@@ -58,6 +58,10 @@ public class Student extends Person {
             return false;
         }
 
+        if (getEmail() != null ? !getEmail().equals(student.getEmail()) : student.getEmail() != null) {
+            return false;
+        }
+
         return !(subgroup != null ? !subgroup.equals(student.subgroup) : student.subgroup != null);
 
     }
@@ -69,6 +73,7 @@ public class Student extends Person {
         result = 31 * result + (group != null ? group.hashCode() : 0);
         result = 31 * result + (subgroup != null ? subgroup.hashCode() : 0);
         result = 31 * result + (getFirstName() != null ? getFirstName().hashCode() : 0);
+        result = 31 * result + (getEmail() != null ? getEmail().hashCode() : 0);
         result = 31 * result + (getLastName() != null ? getLastName().hashCode() : 0);
 
         return result;

@@ -87,7 +87,6 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaUpdate<User> updateCriteria = cb.createCriteriaUpdate(User.class);
         Root<User> root = updateCriteria.from(User.class);
-        updateCriteria.set(root.get("email"), user.getEmail());
         updateCriteria.set(root.get("userState"), user.getUserState());
         updateCriteria.set(root.get("userType"), user.getUserType());
         updateCriteria.where(cb.equal(root.get("pnc"), user.getPnc()));
@@ -97,19 +96,14 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
         Root<Person> personRoot = personCriteriaUpdate.from(Person.class);
         personCriteriaUpdate.set(personRoot.get("firstName"), user.getPerson().getFirstName());
         personCriteriaUpdate.set(personRoot.get("lastName"), user.getPerson().getLastName());
+        personCriteriaUpdate.set(personRoot.get("email"), user.getPerson().getEmail());
         personCriteriaUpdate.where(cb.equal(personRoot.get("pnc"), user.getPnc()));
         getEntityManager().createQuery(personCriteriaUpdate).executeUpdate();
-
     }
 
     @Override
     public void deleteUserByPnc(String pnc) throws DaoEntityNotFoundException {
-        try {
-            User user = findUserByPnc(pnc);
-            delete(user);
-        }
-        catch (NoResultException e) {
-            throw new DaoEntityNotFoundException();
-        }
+        User user = findUserByPnc(pnc);
+        delete(user);
     }
 }

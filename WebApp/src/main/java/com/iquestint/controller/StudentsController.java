@@ -153,8 +153,9 @@ public class StudentsController {
         try {
             Student student = studentService.getStudentByPnc(studentPnc);
             StudentDto studentDto = modelMapper.map(student, StudentDto.class);
-
             model.addAttribute("studentDto", studentDto);
+
+            initializeDtoLists(model);
 
             return "updateStudent";
         }

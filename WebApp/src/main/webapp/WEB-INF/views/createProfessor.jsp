@@ -54,6 +54,14 @@
             </div>
         </spring:bind>
 
+        <spring:bind path="email">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <label for="email">Email: </label>
+                <form:input path="email" class="form-control" id="email"/>
+                <form:errors path="email" class="control-label"/>
+            </div>
+        </spring:bind>
+
         <spring:bind path="position">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <label for="position">Position: </label>
@@ -67,14 +75,6 @@
                 <label for="office">Office: </label>
                 <form:input path="office" class="form-control" id="office"/>
                 <form:errors path="office" class="control-label"/>
-            </div>
-        </spring:bind>
-
-        <spring:bind path="email">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <label for="email">Email: </label>
-                <form:input path="email" class="form-control" id="email"/>
-                <form:errors path="email" class="control-label"/>
             </div>
         </spring:bind>
 

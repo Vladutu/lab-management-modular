@@ -22,10 +22,6 @@ public class User {
     @Column(name = "PASSWORD")
     private String password;
 
-    @Basic
-    @Column(name = "EMAIL")
-    private String email;
-
     @ManyToOne
     @JoinColumn(name = "STATE_ID", referencedColumnName = "ID", nullable = false)
     private UserState userState;
@@ -46,32 +42,32 @@ public class User {
         if (!(o instanceof User)) {
             return false;
         }
-        if (!super.equals(o)) {
-            return false;
-        }
 
         User user = (User) o;
 
-        if (password != null ? !password.equals(user.password) : user.password != null) {
+        if (pnc != null ? !pnc.equals(user.pnc) : user.pnc != null) {
             return false;
         }
-        if (email != null ? !email.equals(user.email) : user.email != null) {
+        if (password != null ? !password.equals(user.password) : user.password != null) {
             return false;
         }
         if (userState != null ? !userState.equals(user.userState) : user.userState != null) {
             return false;
         }
-        return !(userType != null ? !userType.equals(user.userType) : user.userType != null);
+        if (userType != null ? !userType.equals(user.userType) : user.userType != null) {
+            return false;
+        }
+        return !(person != null ? !person.equals(user.person) : user.person != null);
 
     }
 
     @Override
     public int hashCode() {
-        int result = super.hashCode();
+        int result = pnc != null ? pnc.hashCode() : 0;
         result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (userState != null ? userState.hashCode() : 0);
         result = 31 * result + (userType != null ? userType.hashCode() : 0);
+        result = 31 * result + (person != null ? person.hashCode() : 0);
         return result;
     }
 }

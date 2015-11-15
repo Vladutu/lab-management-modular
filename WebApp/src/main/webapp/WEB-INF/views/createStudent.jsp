@@ -54,6 +54,14 @@
             </div>
         </spring:bind>
 
+        <spring:bind path="email">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <label for="email">Email: </label>
+                <form:input path="email" class="form-control" id="email"/>
+                <form:errors path="email" class="control-label"/>
+            </div>
+        </spring:bind>
+
         <spring:bind path="section">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <label for="section">Section: </label>

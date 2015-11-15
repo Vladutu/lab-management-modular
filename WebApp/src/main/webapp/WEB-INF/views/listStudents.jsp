@@ -39,6 +39,7 @@
             <th><spring:message code="table.c3"/></th>
             <th><spring:message code="table.c4"/></th>
             <th><spring:message code="table.c5"/></th>
+            <th><spring:message code="table.c6"/></th>
             <th></th>
             <th></th>
         </tr>
@@ -50,6 +51,7 @@
                 <td>${student.pnc}</td>
                 <td>${student.firstName}</td>
                 <td>${student.lastName}</td>
+                <td>${student.email}</td>
                 <td>${student.section}</td>
                 <td>${student.group}</td>
                 <td>${student.subgroup}</td>

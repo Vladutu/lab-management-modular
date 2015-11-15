@@ -109,6 +109,7 @@ public class WebAppConfiguration extends WebMvcConfigurerAdapter {
                 map(source.getSection().getName(), destination.getSection());
                 map(source.getGroup().getName(), destination.getGroup());
                 map(source.getSubgroup().getName(), destination.getSubgroup());
+                map(source.getEmail(), destination.getEmail());
             }
         };
 
@@ -121,6 +122,7 @@ public class WebAppConfiguration extends WebMvcConfigurerAdapter {
                 map(source.getSection(), destination.getSection().getName());
                 map(source.getGroup(), destination.getGroup().getName());
                 map(source.getSubgroup(), destination.getSubgroup().getName());
+                map(source.getEmail(), destination.getEmail());
 
             }
         };
@@ -131,7 +133,7 @@ public class WebAppConfiguration extends WebMvcConfigurerAdapter {
                 map(source.getPnc(), destination.getPnc());
                 map(source.getPerson().getFirstName(), destination.getFirstName());
                 map(source.getPerson().getLastName(), destination.getLastName());
-                map(source.getEmail(), destination.getEmail());
+                map(source.getPerson().getEmail(), destination.getEmail());
                 map(source.getPassword(), destination.getPassword());
                 map(source.getUserType().getName(), destination.getUserType());
                 map(source.getUserState().getName(), destination.getUserState());
@@ -144,7 +146,7 @@ public class WebAppConfiguration extends WebMvcConfigurerAdapter {
                 map(source.getPnc(), destination.getPnc());
                 map(source.getFirstName(), destination.getPerson().getFirstName());
                 map(source.getLastName(), destination.getPerson().getLastName());
-                map(source.getEmail(), destination.getEmail());
+                map(source.getEmail(), destination.getPerson().getEmail());
                 map(source.getPassword(), destination.getPassword());
                 map(source.getUserType(), destination.getUserType().getName());
                 map(source.getUserState(), destination.getUserState().getName());

@@ -1,6 +1,7 @@
 package com.iquestint.controller;
 
 import com.iquestint.dto.UserDto;
+import com.iquestint.dto.UserStateDto;
 import com.iquestint.dto.UserTypeDto;
 import com.iquestint.enums.State;
 import com.iquestint.enums.Type;
@@ -121,6 +122,7 @@ public class UsersController {
             User user = userService.getUserByPnc(pnc);
             UserDto userDto = modelMapper.map(user, UserDto.class);
             userDto.setPassword("");
+            initializeDtoList(model);
 
             model.addAttribute("userDto", userDto);
 
@@ -176,6 +178,7 @@ public class UsersController {
                 userDto.setLastName(student.getLastName());
                 userDto.setFirstName(student.getFirstName());
                 userDto.setUserType(personType.getType());
+                userDto.setEmail(student.getEmail());
             }
             else if (personType.equals(Type.PROFESSOR)) {
                 Professor professor = professorService.getProfessorByPnc(pnc);
@@ -202,10 +205,18 @@ public class UsersController {
         List<UserType> userTypes = userTypeService.getAllUserTypes();
         List<UserTypeDto> userTypeDtos = new ArrayList<>();
 
+        List<UserState> userStates = userStateService.getAllUserStates();
+        List<UserStateDto> userStateDtos = new ArrayList<>();
+
         for (UserType userType : userTypes) {
             userTypeDtos.add(modelMapper.map(userType, UserTypeDto.class));
         }
 
+        for (UserState userState : userStates) {
+            userStateDtos.add(modelMapper.map(userState, UserStateDto.class));
+        }
+
         model.addAttribute("userTypeDtos", userTypeDtos);
+        model.addAttribute("userStateDtos", userStateDtos);
     }
 }
