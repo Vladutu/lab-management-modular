@@ -141,7 +141,7 @@ public class UsersController {
             (bindingResult.getErrorCount() == 1 && !userDto.getPassword().equals(""))) {
             return "updateUser";
         }
-        
+
         try {
             User user = modelMapper.map(userDto, User.class);
 
@@ -149,6 +149,7 @@ public class UsersController {
                 userService.updateUserNoPassword(user);
             }
             else {
+                user.setPassword(passwordEncoder.encode(user.getPassword()));
                 userService.updateUser(user);
 
             }

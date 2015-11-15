@@ -7,7 +7,7 @@
 <html>
 
 <head>
-    <jsp:include page="header.jsp"/>
+    <jsp:include page="libs.jsp"/>
     <title>User Registration Form</title>
 
     <meta name="_csrf" content="${_csrf.token}"/>
@@ -18,6 +18,8 @@
 </head>
 
 <body>
+<jsp:include page="adminHeader.jsp"/>
+
 <p class="text-right"><a href="users?mylocale=en">English </a> | <a href="users?mylocale=ro">Romanian</a></p>
 
 <div class="container">
@@ -82,6 +84,8 @@
                 <form:errors path="userType" class="control-label"/>
             </div>
         </spring:bind>
+
+        <form:input type="hidden" path="userState" id="userState" value="Active"/>
 
         <button type="submit" class="btn btn-success btn-lg">Register</button>
 

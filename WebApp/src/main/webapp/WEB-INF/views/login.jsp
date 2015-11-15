@@ -5,12 +5,27 @@
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Login page</title>
     <link href="<c:url value='/static/css/login.css' />" rel="stylesheet"/>
-    <jsp:include page="header.jsp"/>
+    <jsp:include page="libs.jsp"/>
     <link rel="stylesheet" type="text/css"
           href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.css"/>
 </head>
 
 <body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/login">Laboratory Management</a>
+        </div>
+        <div>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
 <div id="mainWrapper">
     <div class="login-container">
         <div class="login-card">

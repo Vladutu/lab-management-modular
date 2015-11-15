@@ -7,11 +7,13 @@
 <html>
 
 <head>
-    <jsp:include page="header.jsp"/>
+    <jsp:include page="libs.jsp"/>
     <title>Student Registration Form</title>
 </head>
 
 <body>
+<jsp:include page="adminHeader.jsp"/>
+
 <p class="text-right"><a href="students?mylocale=en">English </a> | <a href="students?mylocale=ro">Romanian</a></p>
 
 <div class="container">

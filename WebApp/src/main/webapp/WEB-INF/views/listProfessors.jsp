@@ -4,12 +4,14 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <html>
 <head>
-    <jsp:include page="header.jsp"/>
+    <jsp:include page="libs.jsp"/>
     <title>Professors</title>
 </head>
 
 
 <body>
+<jsp:include page="adminHeader.jsp"/>
+
 <p class="text-right"><a href="professors?mylocale=en">English </a> | <a href="professors?mylocale=ro">Romanian</a></p>
 
 <div class="container">
