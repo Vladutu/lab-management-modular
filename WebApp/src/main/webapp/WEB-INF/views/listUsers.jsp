@@ -12,7 +12,6 @@
 <body>
 <jsp:include page="adminHeader.jsp"/>
 
-<p class="text-right"><a href="users?mylocale=en">English </a> | <a href="users?mylocale=ro">Romanian</a></p>
 
 <div class="container">
     <a href="<c:url value='/admin/users/new' />">

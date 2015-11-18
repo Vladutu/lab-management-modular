@@ -12,7 +12,6 @@
 <body>
 <jsp:include page="adminHeader.jsp"/>
 
-<p class="text-right"><a href="professors?mylocale=en">English </a> | <a href="professors?mylocale=ro">Romanian</a></p>
 
 <div class="container">
     <a href="<c:url value='/admin/professors/new' />">
