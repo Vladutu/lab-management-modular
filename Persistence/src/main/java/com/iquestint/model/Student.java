@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * This is an model entity that maps the STUDENT table.
@@ -28,6 +29,17 @@ public class Student extends Person {
     @ManyToOne
     @JoinColumn(name = "SUBGROUP_ID", referencedColumnName = "ID", nullable = false)
     private Subgroup subgroup;
+
+    @ManyToOne
+    @JoinColumn(name = "YEAR_ID", referencedColumnName = "ID", nullable = false)
+    private Year year;
+
+    @ManyToOne
+    @JoinColumn(name = "SEMESTER_ID", referencedColumnName = "ID", nullable = false)
+    private Semester semester;
+
+    @ManyToMany(mappedBy = "students")
+    private List<Laboratory> laboratories;
 
     @Override
     public boolean equals(Object o) {

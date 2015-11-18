@@ -92,7 +92,6 @@
     <br/>
     <br/>
 
-    <h2 class="text-left">Go back to <a href="<c:url value='/admin/users' />">List of All Users</a></h2>
 </div>
 </body>
 </html>

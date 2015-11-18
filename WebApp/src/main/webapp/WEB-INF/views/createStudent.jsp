@@ -60,6 +60,24 @@
             </div>
         </spring:bind>
 
+        <spring:bind path="year">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <label for="year">Year: </label>
+                <form:select path="year" items="${yearDtos}" multiple="false" class="form-control"
+                             id="year"/>
+                <form:errors path="year" class="control-label"/>
+            </div>
+        </spring:bind>
+
+        <spring:bind path="semester">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <label for="semester">Semester: </label>
+                <form:select path="semester" items="${semesterDtos}" multiple="false" class="form-control"
+                             id="semester"/>
+                <form:errors path="semester" class="control-label"/>
+            </div>
+        </spring:bind>
+
         <spring:bind path="section">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <label for="section">Section: </label>
@@ -92,7 +110,6 @@
     <br/>
     <br/>
 
-    <h2 class="text-left">Go back to <a href="<c:url value='/admin/students' />">List of All Students</a></h2>
 </div>
 </body>
 </html>

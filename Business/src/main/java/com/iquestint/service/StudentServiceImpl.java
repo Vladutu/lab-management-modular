@@ -1,17 +1,11 @@
 package com.iquestint.service;
 
-import com.iquestint.dao.GroupDao;
-import com.iquestint.dao.SectionDao;
-import com.iquestint.dao.StudentDao;
-import com.iquestint.dao.SubgroupDao;
+import com.iquestint.dao.*;
 import com.iquestint.exception.DaoEntityAlreadyExists;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
-import com.iquestint.model.Group;
-import com.iquestint.model.Section;
-import com.iquestint.model.Student;
-import com.iquestint.model.Subgroup;
+import com.iquestint.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,17 +33,27 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     private SubgroupDao subgroupDao;
 
+    @Autowired
+    private YearDao yearDao;
+
+    @Autowired
+    private SemesterDao semesterDao;
+
     @Override
     public void saveStudent(Student student) throws ServiceEntityNotFoundException,
         ServiceEntityAlreadyExistsException {
         Section section = null;
         Group group = null;
         Subgroup subgroup = null;
+        Year year = null;
+        Semester semester = null;
 
         try {
             section = sectionDao.getSectionByName(student.getSection().getName());
             group = groupDao.getGroupByName(student.getGroup().getName());
             subgroup = subgroupDao.getSubgroupByName(student.getSubgroup().getName());
+            year = yearDao.getYearByName(student.getYear().getName());
+            semester = semesterDao.getSemesterByName(student.getSemester().getName());
         }
         catch (DaoEntityNotFoundException e) {
             throw new ServiceEntityNotFoundException(e);
@@ -58,6 +62,8 @@ public class StudentServiceImpl implements StudentService {
         student.setGroup(group);
         student.setSubgroup(subgroup);
         student.setSection(section);
+        student.setYear(year);
+        student.setSemester(semester);
 
         try {
             studentDao.saveStudent(student);
@@ -97,15 +103,21 @@ public class StudentServiceImpl implements StudentService {
         Section section = null;
         Group group = null;
         Subgroup subgroup = null;
+        Year year = null;
+        Semester semester = null;
 
         try {
             section = sectionDao.getSectionByName(student.getSection().getName());
             group = groupDao.getGroupByName(student.getGroup().getName());
             subgroup = subgroupDao.getSubgroupByName(student.getSubgroup().getName());
+            year = yearDao.getYearByName(student.getYear().getName());
+            semester = semesterDao.getSemesterByName(student.getSemester().getName());
 
             student.setGroup(group);
             student.setSubgroup(subgroup);
             student.setSection(section);
+            student.setYear(year);
+            student.setSemester(semester);
 
             studentDao.updateStudent(student);
         }

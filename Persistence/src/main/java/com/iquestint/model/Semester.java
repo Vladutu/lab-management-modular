@@ -7,54 +7,48 @@ import javax.persistence.*;
 import java.util.List;
 
 /**
- * This is an model entity that maps the SUBGROUP table.
- *
- * @author Georgian Vladutu
+ * @author vladu
  */
 @Entity
+@Table(name = "SEMESTER")
 @Getter
 @Setter
-public class Subgroup {
+public class Semester {
 
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @Basic
-    @Column(name = "NAME", unique = true)
+    @Column(name = "NAME")
     private String name;
 
-    @OneToMany(mappedBy = "subgroup")
+    @OneToMany(mappedBy = "semester")
     private List<Student> students;
 
-    @OneToMany(mappedBy = "subgroup")
+    @OneToMany(mappedBy = "semester")
     private List<Laboratory> laboratories;
-
-    public Subgroup() {
-
-    }
-
-    public Subgroup(String name) {
-        this.name = name;
-    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Subgroup)) {
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
 
-        Subgroup subgroup = (Subgroup) o;
+        Semester semester = (Semester) o;
 
-        if (id != subgroup.id) {
+        if (id != semester.id) {
             return false;
         }
-        return !(name != null ? !name.equals(subgroup.name) : subgroup.name != null);
+        if (name != null ? !name.equals(semester.name) : semester.name != null) {
+            return false;
+        }
 
+        return true;
     }
 
     @Override

@@ -1,8 +1,6 @@
 package com.iquestint.dto;
 
-import com.iquestint.validation.GroupExists;
-import com.iquestint.validation.SectionExists;
-import com.iquestint.validation.SubgroupExists;
+import com.iquestint.validation.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,5 +30,15 @@ public class StudentDto extends PersonDto {
     @SubgroupExists
     @Size(min = 1, max = 2)
     private String subgroup;
+
+    @NotNull
+    @Size(min = 1, max = 3)
+    @YearExists
+    private String year;
+
+    @NotNull
+    @Size(min = 1, max = 3)
+    @SemesterExists
+    private String semester;
 
 }

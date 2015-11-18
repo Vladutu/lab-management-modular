@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * This is an model entity that maps the PROFESSOR table.
@@ -24,6 +25,9 @@ public class Professor extends Person {
     @Basic
     @Column(name = "OFFICE")
     private String office;
+
+    @OneToMany(mappedBy = "professor")
+    private List<Laboratory> laboratories;
 
     @Override
     public boolean equals(Object o) {

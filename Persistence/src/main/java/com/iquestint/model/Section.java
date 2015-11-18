@@ -28,6 +28,9 @@ public class Section {
     @OneToMany(mappedBy = "section")
     private List<Student> students;
 
+    @OneToMany(mappedBy = "section")
+    private List<Laboratory> laboratories;
+
     public Section() {
 
     }

@@ -1,19 +1,10 @@
 package com.iquestint.controller;
 
-import com.iquestint.dto.GroupDto;
-import com.iquestint.dto.SectionDto;
-import com.iquestint.dto.StudentDto;
-import com.iquestint.dto.SubgroupDto;
+import com.iquestint.dto.*;
 import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
-import com.iquestint.model.Group;
-import com.iquestint.model.Section;
-import com.iquestint.model.Student;
-import com.iquestint.model.Subgroup;
-import com.iquestint.service.GroupService;
-import com.iquestint.service.SectionService;
-import com.iquestint.service.StudentService;
-import com.iquestint.service.SubgroupService;
+import com.iquestint.model.*;
+import com.iquestint.service.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -48,6 +39,12 @@ public class StudentsController {
 
     @Autowired
     private SubgroupService subgroupService;
+
+    @Autowired
+    private YearService yearService;
+
+    @Autowired
+    private SemesterService semesterService;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -207,6 +204,8 @@ public class StudentsController {
         List<Section> sections = sectionService.getAllSections();
         List<Group> groups = groupService.getAllGroups();
         List<Subgroup> subgroups = subgroupService.getAllSubgroups();
+        List<Year> years = yearService.getAllYears();
+        List<Semester> semesters = semesterService.getAllSemesters();
 
         List<SectionDto> sectionDtos = new ArrayList<>();
         for (Section section : sections) {
@@ -222,9 +221,22 @@ public class StudentsController {
         for (Subgroup subgroup : subgroups) {
             subgroupDtos.add(modelMapper.map(subgroup, SubgroupDto.class));
         }
+
+        List<YearDto> yearDtos = new ArrayList<>();
+        for (Year year : years) {
+            yearDtos.add(modelMapper.map(year, YearDto.class));
+        }
+
+        List<SemesterDto> semesterDtos = new ArrayList<>();
+        for (Semester semester : semesters) {
+            semesterDtos.add(modelMapper.map(semester, SemesterDto.class));
+        }
+
         model.addAttribute("sectionDtos", sectionDtos);
         model.addAttribute("groupDtos", groupDtos);
         model.addAttribute("subgroupDtos", subgroupDtos);
+        model.addAttribute("yearDtos", yearDtos);
+        model.addAttribute("semesterDtos", semesterDtos);
     }
 
 }
