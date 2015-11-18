@@ -11,7 +11,7 @@ import javax.persistence.*;
  * @author Georgian Vladutu
  */
 @Entity
-@Table(name = "TYPE", uniqueConstraints = {
+@Table(name = "TYPE_TABLE", uniqueConstraints = {
     @UniqueConstraint(columnNames = "name") })
 @Getter
 @Setter

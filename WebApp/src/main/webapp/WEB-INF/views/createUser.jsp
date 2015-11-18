@@ -20,7 +20,6 @@
 <body>
 <jsp:include page="adminHeader.jsp"/>
 
-<p class="text-right"><a href="users?mylocale=en">English </a> | <a href="users?mylocale=ro">Romanian</a></p>
 
 <div class="container">
     <h2 class="text-center">User Registration Form</h2>

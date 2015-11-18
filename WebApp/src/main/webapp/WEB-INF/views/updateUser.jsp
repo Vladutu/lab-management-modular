@@ -10,20 +10,6 @@
     <jsp:include page="libs.jsp"/>
     <title>User Update Form</title>
 
-    <!-- <script>
-         window.onload = function () {
-             document.getElementById('password').style.display = 'none';
-             document.getElementById('passError').style.display = 'none';
-         }
-         $(document).ready(function () {
-             $("#passButton").click(function () {
-                 $(this).hide();
-                 $("#password").show();
-                 $("#passError").show();
-                 $("#passLabel").text("New password:");
-             });
-         });
-     </script>  -->
 
     <script src="<c:url value="/static/js/userPassword.js" />"></script>
     <script>onWinLoad()</script>
