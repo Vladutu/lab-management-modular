@@ -1,6 +1,6 @@
 package com.iquestint.service;
 
-import com.iquestint.dao.YearDao;
+import com.iquestint.dao.interfaces.YearDao;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.model.Year;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -6,7 +6,7 @@ import com.iquestint.model.UserType;
 import java.util.List;
 
 /**
- * This interface provides methods for manipulating UserType objects.
+ * This interfaces provides methods for manipulating UserType objects.
  *
  * @author Georgian Vladutu
  */

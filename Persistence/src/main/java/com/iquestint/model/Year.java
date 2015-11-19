@@ -45,14 +45,14 @@ public class Year {
         if (id != year.id) {
             return false;
         }
-        return value == year.value;
+        return !(value != null ? !value.equals(year.value) : year.value != null);
 
     }
 
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + value;
+        result = 31 * result + (value != null ? value.hashCode() : 0);
         return result;
     }
 }

@@ -1,6 +1,6 @@
 package com.iquestint.service;
 
-import com.iquestint.dao.SectionDao;
+import com.iquestint.dao.interfaces.SectionDao;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
 import com.iquestint.model.Section;
@@ -11,7 +11,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 /**
- * This class implements the SectionService interface.
+ * This class implements the SectionService interfaces.
  *
  * @author Georgian Vladutu
  */

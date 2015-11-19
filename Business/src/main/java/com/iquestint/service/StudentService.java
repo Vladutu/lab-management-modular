@@ -7,7 +7,7 @@ import com.iquestint.model.Student;
 import java.util.List;
 
 /**
- * This interface provides methods for manipulating Student objects.
+ * This interfaces provides methods for manipulating Student objects.
  *
  * @author Georgian Vladutu
  */

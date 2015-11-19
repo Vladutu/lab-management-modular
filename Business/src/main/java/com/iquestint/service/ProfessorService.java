@@ -7,7 +7,7 @@ import com.iquestint.model.Professor;
 import java.util.List;
 
 /**
- * This interface provides methods for manipulating Professor objects.
+ * This interfaces provides methods for manipulating Professor objects.
  *
  * @author Georgian Vladutu
  */

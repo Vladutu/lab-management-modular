@@ -6,7 +6,7 @@ import com.iquestint.model.Group;
 import java.util.List;
 
 /**
- * This interface provides methods for manipulating Group objects.
+ * This interfaces provides methods for manipulating Group objects.
  *
  * @author Georgian Vladutu
  */

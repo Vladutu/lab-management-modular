@@ -1,6 +1,6 @@
 package com.iquestint.service;
 
-import com.iquestint.dao.SubgroupDao;
+import com.iquestint.dao.interfaces.SubgroupDao;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
 import com.iquestint.model.Subgroup;
@@ -11,7 +11,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 /**
- * This class implements the SubgroupService interface.
+ * This class implements the SubgroupService interfaces.
  *
  * @author Georgian Vladutu
  */

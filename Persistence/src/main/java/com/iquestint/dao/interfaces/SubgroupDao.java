@@ -1,4 +1,4 @@
-package com.iquestint.dao;
+package com.iquestint.dao.interfaces;
 
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.model.Subgroup;
@@ -6,7 +6,7 @@ import com.iquestint.model.Subgroup;
 import java.util.List;
 
 /**
- * This interface provides methods for working with Subgroup entity explicitly (and Subgroup database table implicitly).
+ * This interfaces provides methods for working with Subgroup entity explicitly (and Subgroup database table implicitly).
  *
  * @author Georgian Vladutu
  */

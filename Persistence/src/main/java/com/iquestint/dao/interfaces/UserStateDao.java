@@ -1,4 +1,4 @@
-package com.iquestint.dao;
+package com.iquestint.dao.interfaces;
 
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.model.UserState;
@@ -6,7 +6,7 @@ import com.iquestint.model.UserState;
 import java.util.List;
 
 /**
- * This interface provides methods for working with UserState entity explicitly (and State database table implicitly).
+ * This interfaces provides methods for working with UserState entity explicitly (and State database table implicitly).
  *
  * @author Georgian Vladutu
  */

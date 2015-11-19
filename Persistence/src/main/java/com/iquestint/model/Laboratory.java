@@ -1,5 +1,8 @@
 package com.iquestint.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -8,7 +11,10 @@ import java.util.List;
  */
 @Entity
 @Table(name = "LABORATORY")
+@Getter
+@Setter
 public class Laboratory {
+
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -63,7 +69,7 @@ public class Laboratory {
     private WeeklyOccurrence weeklyOccurrence;
 
     @ManyToMany
-    @JoinTable(name = "student_laboratory",
+    @JoinTable(name = "STUDENT_LABORATORY",
         joinColumns = @JoinColumn(name = "LABORATORY_ID", referencedColumnName = "ID", nullable = false),
         inverseJoinColumns = @JoinColumn(name = "STUDENT_PNC", referencedColumnName = "PNC", nullable = false))
     private List<Student> students;

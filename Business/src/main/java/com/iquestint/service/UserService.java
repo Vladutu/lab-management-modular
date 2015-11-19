@@ -7,7 +7,7 @@ import com.iquestint.model.User;
 import java.util.List;
 
 /**
- * This interface provides methods for manipulating User objects.
+ * This interfaces provides methods for manipulating User objects.
  *
  * @author Georgian Vladutu
  */

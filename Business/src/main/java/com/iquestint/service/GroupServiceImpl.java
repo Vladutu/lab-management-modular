@@ -1,6 +1,6 @@
 package com.iquestint.service;
 
-import com.iquestint.dao.GroupDao;
+import com.iquestint.dao.interfaces.GroupDao;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
 import com.iquestint.model.Group;
@@ -11,7 +11,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 /**
- * This class implements the GroupService interface.
+ * This class implements the GroupService interfaces.
  *
  * @author Georgian Vladutu
  */

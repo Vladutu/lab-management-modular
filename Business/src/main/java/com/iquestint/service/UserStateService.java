@@ -6,7 +6,7 @@ import com.iquestint.model.UserState;
 import java.util.List;
 
 /**
- * This interface provides methods for manipulating UserState objects.
+ * This interfaces provides methods for manipulating UserState objects.
  *
  * @author Georgian Vladutu
  */

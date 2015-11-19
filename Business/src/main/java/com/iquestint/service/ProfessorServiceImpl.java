@@ -1,6 +1,6 @@
 package com.iquestint.service;
 
-import com.iquestint.dao.ProfessorDao;
+import com.iquestint.dao.interfaces.ProfessorDao;
 import com.iquestint.exception.DaoEntityAlreadyExists;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.exception.ServiceEntityAlreadyExistsException;
@@ -13,7 +13,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 /**
- * This class implements the ProfessorService interface.
+ * This class implements the ProfessorService interfaces.
  *
  * @author Georgian Vladutu
  */
@@ -47,7 +47,7 @@ public class ProfessorServiceImpl implements ProfessorService {
     @Override
     public Professor getProfessorByPnc(String pnc) throws ServiceEntityNotFoundException {
         try {
-            return professorDao.findByPnc(pnc);
+            return professorDao.findProfessorByPnc(pnc);
         }
         catch (DaoEntityNotFoundException e) {
             throw new ServiceEntityNotFoundException(e);

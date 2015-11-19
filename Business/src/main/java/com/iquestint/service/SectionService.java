@@ -6,7 +6,7 @@ import com.iquestint.model.Section;
 import java.util.List;
 
 /**
- * This interface provides methods for manipulating Section objects.
+ * This interfaces provides methods for manipulating Section objects.
  *
  * @author Georgian Vladutu
  */

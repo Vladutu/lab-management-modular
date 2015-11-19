@@ -1,5 +1,6 @@
-package com.iquestint.dao;
+package com.iquestint.dao.implementations;
 
+import com.iquestint.dao.interfaces.UserTypeDao;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.model.UserType;
 import org.springframework.stereotype.Repository;
@@ -7,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * This class implements UserTypeDao interface.
+ * This class implements UserTypeDao interfaces.
  *
  * @author Georgian Vladutu
  */

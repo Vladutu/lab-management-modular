@@ -1,4 +1,4 @@
-package com.iquestint.dao;
+package com.iquestint.dao.interfaces;
 
 import com.iquestint.exception.DaoEntityAlreadyExists;
 import com.iquestint.exception.DaoEntityNotFoundException;
@@ -7,7 +7,7 @@ import com.iquestint.model.Professor;
 import java.util.List;
 
 /**
- * This interface provides methods for working with Professor entity explicitly (and Professor database table implicitly).
+ * This interfaces provides methods for working with Professor entity explicitly (and Professor database table implicitly).
  *
  * @author Georgian Vladutu
  */
@@ -28,7 +28,18 @@ public interface ProfessorDao {
      * @return Professor
      * @throws DaoEntityNotFoundException
      */
-    Professor findByPnc(String pnc) throws DaoEntityNotFoundException;
+    Professor findProfessorByPnc(String pnc) throws DaoEntityNotFoundException;
+
+    /**
+     * Returns the Professor entity from the database which has the same personal numeric code(pnc) as the method
+     * parameter and his/her laboratories. This method throws DaoEntityNotFoundException if the professor with the
+     * specified pnc is not found or if the laboratories cannot be initialized.
+     *
+     * @param pnc the personal numeric code of the professor
+     * @return Professor
+     * @throws DaoEntityNotFoundException
+     */
+    Professor findByPncWithLaboratories(String pnc) throws DaoEntityNotFoundException;
 
     /**
      * Returns the Professor entity from the database which has the same first name and last name as the method parameters.

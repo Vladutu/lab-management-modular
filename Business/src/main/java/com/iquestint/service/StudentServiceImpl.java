@@ -1,6 +1,6 @@
 package com.iquestint.service;
 
-import com.iquestint.dao.*;
+import com.iquestint.dao.interfaces.*;
 import com.iquestint.exception.DaoEntityAlreadyExists;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.exception.ServiceEntityAlreadyExistsException;
@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * This class implements the StudentService interface.
+ * This class implements the StudentService interfaces.
  *
  * @author Georgian Vladutu
  */
@@ -86,7 +86,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Student getStudentByPnc(String pnc) throws ServiceEntityNotFoundException {
         try {
-            return studentDao.findByPnc(pnc);
+            return studentDao.findStudentByPnc(pnc);
         }
         catch (DaoEntityNotFoundException e) {
             throw new ServiceEntityNotFoundException(e);

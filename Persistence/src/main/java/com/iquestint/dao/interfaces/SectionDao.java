@@ -1,4 +1,4 @@
-package com.iquestint.dao;
+package com.iquestint.dao.interfaces;
 
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.model.Section;
@@ -6,7 +6,7 @@ import com.iquestint.model.Section;
 import java.util.List;
 
 /**
- * This interface provides methods for working with Section entity explicitly (and Section database table implicitly).
+ * This interfaces provides methods for working with Section entity explicitly (and Section database table implicitly).
  *
  * @author Georgian Vladutu
  */

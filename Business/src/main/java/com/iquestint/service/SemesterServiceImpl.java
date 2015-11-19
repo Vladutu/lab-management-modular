@@ -1,6 +1,6 @@
 package com.iquestint.service;
 
-import com.iquestint.dao.SemesterDao;
+import com.iquestint.dao.interfaces.SemesterDao;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.model.Semester;
 import org.springframework.beans.factory.annotation.Autowired;

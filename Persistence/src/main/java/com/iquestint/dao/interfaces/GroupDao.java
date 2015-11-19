@@ -1,4 +1,4 @@
-package com.iquestint.dao;
+package com.iquestint.dao.interfaces;
 
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.model.Group;
@@ -6,7 +6,7 @@ import com.iquestint.model.Group;
 import java.util.List;
 
 /**
- * This interface provides methods for working with Group entity explicitly (and Group database table implicitly).
+ * This interfaces provides methods for working with Group entity explicitly (and Group database table implicitly).
  *
  * @author Georgian Vladutu
  */

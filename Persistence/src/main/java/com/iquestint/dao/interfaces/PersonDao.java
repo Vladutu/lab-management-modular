@@ -1,11 +1,11 @@
-package com.iquestint.dao;
+package com.iquestint.dao.interfaces;
 
 import com.iquestint.enums.Type;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.model.Person;
 
 /**
- * This interface provides methods for retrieving the type of Person objects.
+ * This interfaces provides methods for retrieving the type of Person objects.
  *
  * @author Georgian Vladutu
  */

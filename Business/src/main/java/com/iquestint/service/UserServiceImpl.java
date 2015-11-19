@@ -1,9 +1,9 @@
 package com.iquestint.service;
 
-import com.iquestint.dao.PersonDao;
-import com.iquestint.dao.UserDao;
-import com.iquestint.dao.UserStateDao;
-import com.iquestint.dao.UserTypeDao;
+import com.iquestint.dao.interfaces.PersonDao;
+import com.iquestint.dao.interfaces.UserDao;
+import com.iquestint.dao.interfaces.UserStateDao;
+import com.iquestint.dao.interfaces.UserTypeDao;
 import com.iquestint.exception.DaoEntityAlreadyExists;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.exception.ServiceEntityAlreadyExistsException;
@@ -19,7 +19,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 /**
- * This class implements UserService interface.
+ * This class implements UserService interfaces.
  *
  * @author Georgian Vladutu
  */

@@ -5,7 +5,7 @@ import com.iquestint.exception.ServiceEntityNotFoundException;
 import com.iquestint.model.Person;
 
 /**
- * This interface provides methods for manipulating Person objects.
+ * This interfaces provides methods for manipulating Person objects.
  *
  * @author Georgian Vladutu
  */

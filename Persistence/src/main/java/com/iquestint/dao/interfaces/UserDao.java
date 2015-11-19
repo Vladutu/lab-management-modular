@@ -1,4 +1,4 @@
-package com.iquestint.dao;
+package com.iquestint.dao.interfaces;
 
 import com.iquestint.exception.DaoEntityAlreadyExists;
 import com.iquestint.exception.DaoEntityNotFoundException;
@@ -7,7 +7,7 @@ import com.iquestint.model.User;
 import java.util.List;
 
 /**
- * This interface provides methods for working with User entity explicitly (and User database table implicitly).
+ * This interfaces provides methods for working with User entity explicitly (and User database table implicitly).
  *
  * @author Georgian Vladutu
  */

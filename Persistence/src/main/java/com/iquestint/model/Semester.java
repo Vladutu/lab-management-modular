@@ -45,14 +45,14 @@ public class Semester {
         if (id != semester.id) {
             return false;
         }
-        return value == semester.value;
+        return !(value != null ? !value.equals(semester.value) : semester.value != null);
 
     }
 
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + value;
+        result = 31 * result + (value != null ? value.hashCode() : 0);
         return result;
     }
 }

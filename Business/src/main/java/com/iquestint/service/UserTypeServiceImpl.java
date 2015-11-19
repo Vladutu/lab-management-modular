@@ -1,6 +1,6 @@
 package com.iquestint.service;
 
-import com.iquestint.dao.UserTypeDao;
+import com.iquestint.dao.interfaces.UserTypeDao;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
 import com.iquestint.model.UserType;
@@ -11,7 +11,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 /**
- * This class implements UserTypeService interface.
+ * This class implements UserTypeService interfaces.
  *
  * @author Georgian Vladutu
  */

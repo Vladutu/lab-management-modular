@@ -1,6 +1,6 @@
 package com.iquestint.service;
 
-import com.iquestint.dao.PersonDao;
+import com.iquestint.dao.interfaces.PersonDao;
 import com.iquestint.enums.Type;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * This class implements PersonService interface.
+ * This class implements PersonService interfaces.
  *
  * @author Georgian Vladutu
  */

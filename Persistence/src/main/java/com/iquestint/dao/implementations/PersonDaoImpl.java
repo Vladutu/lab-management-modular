@@ -1,5 +1,8 @@
-package com.iquestint.dao;
+package com.iquestint.dao.implementations;
 
+import com.iquestint.dao.interfaces.PersonDao;
+import com.iquestint.dao.interfaces.ProfessorDao;
+import com.iquestint.dao.interfaces.StudentDao;
 import com.iquestint.enums.Type;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.model.Person;
@@ -11,7 +14,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
 /**
- * This class implements the PersonDao interface.
+ * This class implements the PersonDao interfaces.
  *
  * @author Georgian Vladutu
  */
@@ -63,7 +66,7 @@ public class PersonDaoImpl extends AbstractDao<Person> implements PersonDao {
         }
 
         try {
-            Student student = studentDao.findByPnc(pnc);
+            Student student = studentDao.findStudentByPnc(pnc);
 
             return Type.STUDENT;
         }

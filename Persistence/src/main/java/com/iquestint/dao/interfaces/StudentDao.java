@@ -1,4 +1,4 @@
-package com.iquestint.dao;
+package com.iquestint.dao.interfaces;
 
 import com.iquestint.exception.DaoEntityAlreadyExists;
 import com.iquestint.exception.DaoEntityNotFoundException;
@@ -7,7 +7,7 @@ import com.iquestint.model.Student;
 import java.util.List;
 
 /**
- * This interface provides methods for working with Student entity explicitly (and Student database table implicitly).
+ * This interfaces provides methods for working with Student entity explicitly (and Student database table implicitly).
  *
  * @author Georgian Vladutu
  */
@@ -28,7 +28,18 @@ public interface StudentDao {
      * @return Student
      * @throws DaoEntityNotFoundException
      */
-    Student findByPnc(String pnc) throws DaoEntityNotFoundException;
+    Student findStudentByPnc(String pnc) throws DaoEntityNotFoundException;
+
+    /**
+     * Returns the Student entity from the database which has the same personal numeric code(pnc) as the method
+     * parameter and also his/her laboratories. This method throws DaoEntityNotFoundException if the student with the
+     * specified pnc is not found or if the laboratories cannot be initialized.
+     *
+     * @param pnc the personal numeric code of the student
+     * @return Student
+     * @throws DaoEntityNotFoundException
+     */
+    Student findByPncWithLaboratories(String pnc) throws DaoEntityNotFoundException;
 
     /**
      * Returns the Student entity from the database which has the same first name and last name as the method parameters.

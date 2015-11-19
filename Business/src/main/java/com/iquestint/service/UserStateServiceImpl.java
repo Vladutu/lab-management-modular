@@ -1,6 +1,6 @@
 package com.iquestint.service;
 
-import com.iquestint.dao.UserStateDao;
+import com.iquestint.dao.interfaces.UserStateDao;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
 import com.iquestint.model.UserState;
@@ -11,7 +11,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 /**
- * This class implements UserStateService interface.
+ * This class implements UserStateService interfaces.
  *
  * @author Georgian Vladutu
  */

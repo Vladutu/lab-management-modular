@@ -1,4 +1,4 @@
-package com.iquestint.dao;
+package com.iquestint.dao.implementations;
 
 import com.iquestint.exception.DaoEntityNotFoundException;
 
@@ -50,7 +50,13 @@ public abstract class AbstractDao<T> {
     }
 
     protected T getById(int id) throws DaoEntityNotFoundException {
-        return getEntityManager().find(getPersistentClass(), id);
+        T t = getEntityManager().find(getPersistentClass(), id);
+
+        if (t == null) {
+            throw new DaoEntityNotFoundException();
+        }
+
+        return t;
     }
 
     protected void persist(T t) {

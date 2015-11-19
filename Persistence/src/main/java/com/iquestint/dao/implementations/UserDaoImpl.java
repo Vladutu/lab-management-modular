@@ -1,5 +1,8 @@
-package com.iquestint.dao;
+package com.iquestint.dao.implementations;
 
+import com.iquestint.dao.interfaces.UserDao;
+import com.iquestint.dao.interfaces.UserStateDao;
+import com.iquestint.dao.interfaces.UserTypeDao;
 import com.iquestint.exception.DaoEntityAlreadyExists;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.model.Person;
@@ -15,7 +18,7 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 
 /**
- * This class implements UserDao interface.
+ * This class implements UserDao interfaces.
  *
  * @author Georgian Vladutu
  */

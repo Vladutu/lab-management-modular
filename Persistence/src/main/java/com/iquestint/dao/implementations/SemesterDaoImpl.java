@@ -1,5 +1,6 @@
-package com.iquestint.dao;
+package com.iquestint.dao.implementations;
 
+import com.iquestint.dao.interfaces.SemesterDao;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.model.Semester;
 import org.springframework.stereotype.Repository;

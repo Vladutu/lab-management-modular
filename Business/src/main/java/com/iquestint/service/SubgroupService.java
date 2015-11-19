@@ -6,7 +6,7 @@ import com.iquestint.model.Subgroup;
 import java.util.List;
 
 /**
- * This interface provides methods for manipulating Subgroup objects.
+ * This interfaces provides methods for manipulating Subgroup objects.
  *
  * @author Georgian Vladutu
  */

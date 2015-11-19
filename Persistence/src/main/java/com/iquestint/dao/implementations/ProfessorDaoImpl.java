@@ -1,5 +1,6 @@
-package com.iquestint.dao;
+package com.iquestint.dao.implementations;
 
+import com.iquestint.dao.interfaces.ProfessorDao;
 import com.iquestint.exception.DaoEntityAlreadyExists;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.model.Professor;
@@ -10,7 +11,7 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
- * This class implements ProfessorDao interface;
+ * This class implements ProfessorDao interfaces;
  *
  * @author Georgian Vladutu
  */
@@ -23,9 +24,23 @@ public class ProfessorDaoImpl extends AbstractDao<Professor> implements Professo
     }
 
     @Override
-    public Professor findByPnc(String pnc) throws DaoEntityNotFoundException {
+    public Professor findProfessorByPnc(String pnc) throws DaoEntityNotFoundException {
         TypedQuery<Professor> query = getEntityManager().createQuery("SELECT p FROM Professor p WHERE p.pnc = :pnc",
             Professor.class);
+        query.setParameter("pnc", pnc);
+
+        try {
+            return query.getSingleResult();
+        }
+        catch (NoResultException e) {
+            throw new DaoEntityNotFoundException();
+        }
+    }
+
+    @Override
+    public Professor findByPncWithLaboratories(String pnc) throws DaoEntityNotFoundException {
+        TypedQuery<Professor> query = getEntityManager().createQuery(
+            "SELECT p FROM Professor p JOIN FETCH p.laboratories WHERE p.pnc = :pnc", Professor.class);
         query.setParameter("pnc", pnc);
 
         try {
@@ -55,7 +70,7 @@ public class ProfessorDaoImpl extends AbstractDao<Professor> implements Professo
     @Override
     public void saveProfessor(Professor professor) throws DaoEntityAlreadyExists {
         try {
-            Professor p = findByPnc(professor.getPnc());
+            Professor p = findProfessorByPnc(professor.getPnc());
         }
         catch (DaoEntityNotFoundException e) {
             persist(professor);
@@ -67,13 +82,13 @@ public class ProfessorDaoImpl extends AbstractDao<Professor> implements Professo
 
     @Override
     public void updateProfessor(Professor professor) throws DaoEntityNotFoundException {
-        Professor p = findByPnc(professor.getPnc());
+        Professor p = findProfessorByPnc(professor.getPnc());
         update(professor);
     }
 
     @Override
     public void deleteProfessorByPnc(String pnc) throws DaoEntityNotFoundException {
-        Professor professor = findByPnc(pnc);
+        Professor professor = findProfessorByPnc(pnc);
         delete(professor);
     }
 }
