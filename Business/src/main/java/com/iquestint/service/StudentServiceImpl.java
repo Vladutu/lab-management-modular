@@ -52,8 +52,8 @@ public class StudentServiceImpl implements StudentService {
             section = sectionDao.getSectionByName(student.getSection().getName());
             group = groupDao.getGroupByName(student.getGroup().getName());
             subgroup = subgroupDao.getSubgroupByName(student.getSubgroup().getName());
-            year = yearDao.getYearByName(student.getYear().getName());
-            semester = semesterDao.getSemesterByName(student.getSemester().getName());
+            year = yearDao.getYearByValue(student.getYear().getValue());
+            semester = semesterDao.getSemesterByValue(student.getSemester().getValue());
         }
         catch (DaoEntityNotFoundException e) {
             throw new ServiceEntityNotFoundException(e);
@@ -110,8 +110,8 @@ public class StudentServiceImpl implements StudentService {
             section = sectionDao.getSectionByName(student.getSection().getName());
             group = groupDao.getGroupByName(student.getGroup().getName());
             subgroup = subgroupDao.getSubgroupByName(student.getSubgroup().getName());
-            year = yearDao.getYearByName(student.getYear().getName());
-            semester = semesterDao.getSemesterByName(student.getSemester().getName());
+            year = yearDao.getYearByValue(student.getYear().getValue());
+            semester = semesterDao.getSemesterByValue(student.getSemester().getValue());
 
             student.setGroup(group);
             student.setSubgroup(subgroup);

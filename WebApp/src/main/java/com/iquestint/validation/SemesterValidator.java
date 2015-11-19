@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * @author vladu
  */
-public class SemesterValidator implements ConstraintValidator<SemesterExists, String> {
+public class SemesterValidator implements ConstraintValidator<SemesterExists, Integer> {
 
     @Autowired
     private SemesterService semesterService;
@@ -22,11 +22,11 @@ public class SemesterValidator implements ConstraintValidator<SemesterExists, St
     }
 
     @Override
-    public boolean isValid(String value, ConstraintValidatorContext constraintValidatorContext) {
+    public boolean isValid(Integer value, ConstraintValidatorContext constraintValidatorContext) {
         List<Semester> semesters = semesterService.getAllSemesters();
 
         for (Semester semester : semesters) {
-            if (semester.getName().equals(value)) {
+            if (semester.getValue().equals(value)) {
                 return true;
             }
         }

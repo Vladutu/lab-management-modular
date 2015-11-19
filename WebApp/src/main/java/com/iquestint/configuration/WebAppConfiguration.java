@@ -112,8 +112,8 @@ public class WebAppConfiguration extends WebMvcConfigurerAdapter {
                 map(source.getGroup().getName(), destination.getGroup());
                 map(source.getSubgroup().getName(), destination.getSubgroup());
                 map(source.getEmail(), destination.getEmail());
-                map(source.getYear().getName(), destination.getYear());
-                map(source.getSemester().getName(), destination.getSemester());
+                map(source.getYear().getValue(), destination.getYear());
+                map(source.getSemester().getValue(), destination.getSemester());
             }
         };
 
@@ -127,8 +127,8 @@ public class WebAppConfiguration extends WebMvcConfigurerAdapter {
                 map(source.getGroup(), destination.getGroup().getName());
                 map(source.getSubgroup(), destination.getSubgroup().getName());
                 map(source.getEmail(), destination.getEmail());
-                map(source.getYear(), destination.getYear().getName());
-                map(source.getSemester(), destination.getSemester().getName());
+                map(source.getYear(), destination.getYear().getValue());
+                map(source.getSemester(), destination.getSemester().getValue());
 
             }
         };

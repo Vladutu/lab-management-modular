@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * @author vladu
  */
-public class YearValidator implements ConstraintValidator<YearExists, String> {
+public class YearValidator implements ConstraintValidator<YearExists, Integer> {
 
     @Autowired
     private YearService yearService;
@@ -22,11 +22,11 @@ public class YearValidator implements ConstraintValidator<YearExists, String> {
     }
 
     @Override
-    public boolean isValid(String value, ConstraintValidatorContext constraintValidatorContext) {
+    public boolean isValid(Integer value, ConstraintValidatorContext constraintValidatorContext) {
         List<Year> years = yearService.getAllYears();
 
         for (Year year : years) {
-            if (year.getName().equals(value)) {
+            if (year.getValue().equals(value)) {
                 return true;
             }
         }

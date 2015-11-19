@@ -10,7 +10,8 @@ import java.util.List;
  * @author vladu
  */
 @Entity
-@Table(name = "SEMESTER")
+@Table(name = "SEMESTER", uniqueConstraints = {
+    @UniqueConstraint(columnNames = "value") })
 @Getter
 @Setter
 public class Semester {
@@ -21,8 +22,8 @@ public class Semester {
     private int id;
 
     @Basic
-    @Column(name = "NAME")
-    private String name;
+    @Column(name = "VALUE")
+    private Integer value;
 
     @OneToMany(mappedBy = "semester")
     private List<Student> students;
@@ -35,7 +36,7 @@ public class Semester {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof Semester)) {
             return false;
         }
 
@@ -44,17 +45,14 @@ public class Semester {
         if (id != semester.id) {
             return false;
         }
-        if (name != null ? !name.equals(semester.name) : semester.name != null) {
-            return false;
-        }
+        return value == semester.value;
 
-        return true;
     }
 
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + value;
         return result;
     }
 }

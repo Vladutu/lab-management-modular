@@ -23,7 +23,8 @@ public class SemesterServiceImpl implements SemesterService {
     }
 
     @Override
-    public Semester getSemesterByName(String name) throws DaoEntityNotFoundException {
-        return semesterDao.getSemesterByName(name);
+    public Semester getSemesterByValue(int value) throws DaoEntityNotFoundException {
+        return semesterDao.getSemesterByValue(value);
     }
+
 }

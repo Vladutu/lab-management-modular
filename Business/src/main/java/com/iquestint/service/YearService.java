@@ -12,5 +12,5 @@ public interface YearService {
 
     List<Year> getAllYears();
 
-    Year getYearByName(String name) throws DaoEntityNotFoundException;
+    Year getYearByValue(int value) throws DaoEntityNotFoundException;
 }

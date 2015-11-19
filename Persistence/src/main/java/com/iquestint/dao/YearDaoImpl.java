@@ -13,8 +13,8 @@ import java.util.List;
 public class YearDaoImpl extends AbstractDao<Year> implements YearDao {
 
     @Override
-    public Year getYearByName(String name) throws DaoEntityNotFoundException {
-        return getByName(name);
+    public Year getYearByValue(int value) throws DaoEntityNotFoundException {
+        return getByValue(value);
     }
 
     @Override

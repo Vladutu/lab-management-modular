@@ -79,4 +79,19 @@ public abstract class AbstractDao<T> {
             throw new DaoEntityNotFoundException();
         }
     }
+
+    protected T getByValue(int value) throws DaoEntityNotFoundException {
+        TypedQuery<T> query = getEntityManager().createQuery("SELECT t FROM " +
+                getPersistentClass().getSimpleName() +
+                " t WHERE t.value = :value ",
+            persistentClass);
+        query.setParameter("value", value);
+
+        try {
+            return query.getSingleResult();
+        }
+        catch (NoResultException e) {
+            throw new DaoEntityNotFoundException();
+        }
+    }
 }

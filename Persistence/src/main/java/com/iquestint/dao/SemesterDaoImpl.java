@@ -13,8 +13,8 @@ import java.util.List;
 public class SemesterDaoImpl extends AbstractDao<Semester> implements SemesterDao {
 
     @Override
-    public Semester getSemesterByName(String name) throws DaoEntityNotFoundException {
-        return getByName(name);
+    public Semester getSemesterByValue(int value) throws DaoEntityNotFoundException {
+        return getByValue(value);
     }
 
     @Override

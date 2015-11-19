@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface YearDao {
 
-    Year getYearByName(String name) throws DaoEntityNotFoundException;
+    Year getYearByValue(int value) throws DaoEntityNotFoundException;
 
     List<Year> getAllYears();
 }

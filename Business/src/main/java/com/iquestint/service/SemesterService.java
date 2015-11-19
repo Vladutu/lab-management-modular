@@ -12,5 +12,5 @@ public interface SemesterService {
 
     List<Semester> getAllSemesters();
 
-    Semester getSemesterByName(String name) throws DaoEntityNotFoundException;
+    Semester getSemesterByValue(int value) throws DaoEntityNotFoundException;
 }

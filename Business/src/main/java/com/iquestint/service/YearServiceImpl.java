@@ -23,7 +23,8 @@ public class YearServiceImpl implements YearService {
     }
 
     @Override
-    public Year getYearByName(String name) throws DaoEntityNotFoundException {
-        return yearDao.getYearByName(name);
+    public Year getYearByValue(int value) throws DaoEntityNotFoundException {
+        return yearDao.getYearByValue(value);
     }
+
 }

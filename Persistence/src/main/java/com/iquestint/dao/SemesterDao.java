@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface SemesterDao {
 
-    Semester getSemesterByName(String name) throws DaoEntityNotFoundException;
+    Semester getSemesterByValue(int value) throws DaoEntityNotFoundException;
 
     List<Semester> getAllSemesters();
 }

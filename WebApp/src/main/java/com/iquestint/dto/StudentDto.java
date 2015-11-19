@@ -32,13 +32,11 @@ public class StudentDto extends PersonDto {
     private String subgroup;
 
     @NotNull
-    @Size(min = 1, max = 3)
     @YearExists
-    private String year;
+    private Integer year;
 
     @NotNull
-    @Size(min = 1, max = 3)
     @SemesterExists
-    private String semester;
+    private Integer semester;
 
 }

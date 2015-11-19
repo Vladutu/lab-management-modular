@@ -12,10 +12,10 @@ public class YearDto {
 
     private int id;
 
-    private String name;
+    private Integer value;
 
     @Override
     public String toString() {
-        return name;
+        return value.toString();
     }
 }
