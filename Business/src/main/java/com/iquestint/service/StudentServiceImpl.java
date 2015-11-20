@@ -6,6 +6,7 @@ import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
 import com.iquestint.model.*;
+import com.iquestint.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

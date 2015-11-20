@@ -1,7 +1,9 @@
 package com.iquestint.configuration;
 
+import com.iquestint.dto.LaboratoryDto;
 import com.iquestint.dto.StudentDto;
 import com.iquestint.dto.UserDto;
+import com.iquestint.model.Laboratory;
 import com.iquestint.model.Student;
 import com.iquestint.model.User;
 import org.modelmapper.ModelMapper;
@@ -159,10 +161,50 @@ public class WebAppConfiguration extends WebMvcConfigurerAdapter {
             }
         };
 
+        PropertyMap<Laboratory, LaboratoryDto> laboratoryLaboratoryDtoPropertyMap = new PropertyMap<Laboratory, LaboratoryDto>() {
+            @Override
+            protected void configure() {
+                map(source.getId(), destination.getId());
+                map(source.getName(), destination.getName());
+                map(source.getSemester().getValue(), destination.getSemester());
+                map(source.getSection().getName(), destination.getSection());
+                map(source.getYear().getValue(), destination.getYear());
+                map(source.getDay().getValue(), destination.getDay());
+                map(source.getFrom().getValue(), destination.getFrom());
+                map(source.getTo().getValue(), destination.getTo());
+                map(source.getGroup().getName(), destination.getGroup());
+                map(source.getSubgroup().getName(), destination.getSubgroup());
+                map(source.getRoom().getName(), destination.getRoom());
+                map(source.getProfessor(), destination.getProfessorDto());
+                map(source.getWeeklyOccurrence().getName(), destination.getWeeklyOccurrence());
+            }
+        };
+
+        PropertyMap<LaboratoryDto, Laboratory> laboratoryDtoLaboratoryPropertyMap = new PropertyMap<LaboratoryDto, Laboratory>() {
+            @Override
+            protected void configure() {
+                map(source.getId(), destination.getId());
+                map(source.getName(), destination.getName());
+                map(source.getSemester(), destination.getSemester().getValue());
+                map(source.getSection(), destination.getSection().getName());
+                map(source.getYear(), destination.getYear().getValue());
+                map(source.getDay(), destination.getDay().getValue());
+                map(source.getFrom(), destination.getFrom().getValue());
+                map(source.getTo(), destination.getTo().getValue());
+                map(source.getGroup(), destination.getGroup().getName());
+                map(source.getSubgroup(), destination.getSubgroup().getName());
+                map(source.getRoom(), destination.getRoom().getName());
+                map(source.getProfessorDto(), destination.getProfessor());
+                map(source.getWeeklyOccurrence(), destination.getWeeklyOccurrence().getName());
+            }
+        };
+
         modelMapper.addMappings(studentStudentDtoPropertyMap);
         modelMapper.addMappings(studentDtoStudentPropertyMap);
         modelMapper.addMappings(userUserDtoPropertyMap);
         modelMapper.addMappings(userDtoUserPropertyMap);
+        modelMapper.addMappings(laboratoryDtoLaboratoryPropertyMap);
+        modelMapper.addMappings(laboratoryLaboratoryDtoPropertyMap);
 
         return modelMapper;
     }

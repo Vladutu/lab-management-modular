@@ -4,6 +4,7 @@ import com.iquestint.dao.interfaces.SectionDao;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
 import com.iquestint.model.Section;
+import com.iquestint.service.SectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

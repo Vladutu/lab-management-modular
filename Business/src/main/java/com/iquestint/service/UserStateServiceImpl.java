@@ -4,6 +4,7 @@ import com.iquestint.dao.interfaces.UserStateDao;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
 import com.iquestint.model.UserState;
+import com.iquestint.service.UserStateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

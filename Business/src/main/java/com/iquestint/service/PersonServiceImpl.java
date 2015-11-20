@@ -5,8 +5,11 @@ import com.iquestint.enums.Type;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
 import com.iquestint.model.Person;
+import com.iquestint.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 
 /**
  * This class implements PersonService interfaces.
@@ -14,6 +17,7 @@ import org.springframework.stereotype.Service;
  * @author Georgian Vladutu
  */
 @Service("personService")
+@Transactional
 public class PersonServiceImpl implements PersonService {
 
     @Autowired

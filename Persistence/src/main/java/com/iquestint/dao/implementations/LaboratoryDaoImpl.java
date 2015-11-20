@@ -4,8 +4,12 @@ import com.iquestint.dao.interfaces.LaboratoryDao;
 import com.iquestint.exception.DaoEntityAlreadyExists;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.model.Laboratory;
+import com.iquestint.model.Section;
+import com.iquestint.model.Semester;
+import com.iquestint.model.Year;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
@@ -17,6 +21,19 @@ public class LaboratoryDaoImpl extends AbstractDao<Laboratory> implements Labora
     @Override
     public List<Laboratory> findAllLaboratories() {
         return getAll();
+    }
+
+    @Override
+    public List<Laboratory> findLaboratories(Section section, Year year, Semester semester) {
+        TypedQuery<Laboratory> query = getEntityManager().createQuery(
+            "SELECT l FROM Laboratory l WHERE l.section.name = :section AND l.year.value = :year AND l.semester.value = :semester ORDER BY " +
+                "l.group.name, l.subgroup.name,l.day.value,l.from.value",
+            Laboratory.class);
+        query.setParameter("section", section.getName());
+        query.setParameter("year", year.getValue());
+        query.setParameter("semester", semester.getValue());
+
+        return query.getResultList();
     }
 
     @Override

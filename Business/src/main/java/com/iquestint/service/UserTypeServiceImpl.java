@@ -4,6 +4,7 @@ import com.iquestint.dao.interfaces.UserTypeDao;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
 import com.iquestint.model.UserType;
+import com.iquestint.service.UserTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

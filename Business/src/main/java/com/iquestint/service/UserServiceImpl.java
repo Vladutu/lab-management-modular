@@ -12,6 +12,7 @@ import com.iquestint.model.Person;
 import com.iquestint.model.User;
 import com.iquestint.model.UserState;
 import com.iquestint.model.UserType;
+import com.iquestint.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

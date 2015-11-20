@@ -31,6 +31,13 @@ public class Year {
     @OneToMany(mappedBy = "year")
     private List<Laboratory> laboratories;
 
+    public Year() {
+    }
+
+    public Year(int value) {
+        this.value = value;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

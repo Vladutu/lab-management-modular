@@ -10,6 +10,7 @@
                 <li><a href="/admin/students">Students</a></li>
                 <li><a href="/admin/professors">Professors</a></li>
                 <li><a href="/admin/users">Users</a></li>
+                <li><a href="/admin/laboratories">Laboratories</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="">Language<span

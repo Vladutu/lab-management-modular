@@ -27,6 +27,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/")
 public class ProfessorsController {
+
     @Autowired
     private ProfessorService professorService;
 

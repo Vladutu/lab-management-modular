@@ -31,6 +31,13 @@ public class Semester {
     @OneToMany(mappedBy = "semester")
     private List<Laboratory> laboratories;
 
+    public Semester() {
+    }
+
+    public Semester(int value) {
+        this.value = value;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

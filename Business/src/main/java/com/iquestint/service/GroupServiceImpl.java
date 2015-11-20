@@ -4,6 +4,7 @@ import com.iquestint.dao.interfaces.GroupDao;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
 import com.iquestint.model.Group;
+import com.iquestint.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

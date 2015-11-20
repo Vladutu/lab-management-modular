@@ -3,15 +3,18 @@ package com.iquestint.service;
 import com.iquestint.dao.interfaces.SemesterDao;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.model.Semester;
+import com.iquestint.service.SemesterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
  * @author vladu
  */
 @Service("semesterService")
+@Transactional
 public class SemesterServiceImpl implements SemesterService {
 
     @Autowired
