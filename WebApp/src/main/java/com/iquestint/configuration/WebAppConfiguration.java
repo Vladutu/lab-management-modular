@@ -1,9 +1,11 @@
 package com.iquestint.configuration;
 
 import com.iquestint.dto.LaboratoryDto;
+import com.iquestint.dto.SimplifiedProfessorDto;
 import com.iquestint.dto.StudentDto;
 import com.iquestint.dto.UserDto;
 import com.iquestint.model.Laboratory;
+import com.iquestint.model.Professor;
 import com.iquestint.model.Student;
 import com.iquestint.model.User;
 import org.modelmapper.ModelMapper;
@@ -161,6 +163,24 @@ public class WebAppConfiguration extends WebMvcConfigurerAdapter {
             }
         };
 
+        PropertyMap<Professor, SimplifiedProfessorDto> professorSimplifiedProfessorDtoPropertyMap = new PropertyMap<Professor, SimplifiedProfessorDto>() {
+            @Override
+            protected void configure() {
+                map(source.getPnc(), destination.getPnc());
+                map(source.getFirstName(), destination.getFirstName());
+                map(source.getLastName(), destination.getLastName());
+            }
+        };
+
+        PropertyMap<SimplifiedProfessorDto, Professor> simplifiedProfessorDtoProfessorPropertyMap = new PropertyMap<SimplifiedProfessorDto, Professor>() {
+            @Override
+            protected void configure() {
+                map(source.getPnc(), destination.getPnc());
+                map(source.getFirstName(), destination.getFirstName());
+                map(source.getLastName(), destination.getLastName());
+            }
+        };
+
         PropertyMap<Laboratory, LaboratoryDto> laboratoryLaboratoryDtoPropertyMap = new PropertyMap<Laboratory, LaboratoryDto>() {
             @Override
             protected void configure() {
@@ -199,6 +219,8 @@ public class WebAppConfiguration extends WebMvcConfigurerAdapter {
             }
         };
 
+        modelMapper.addMappings(professorSimplifiedProfessorDtoPropertyMap);
+        modelMapper.addMappings(simplifiedProfessorDtoProfessorPropertyMap);
         modelMapper.addMappings(studentStudentDtoPropertyMap);
         modelMapper.addMappings(studentDtoStudentPropertyMap);
         modelMapper.addMappings(userUserDtoPropertyMap);

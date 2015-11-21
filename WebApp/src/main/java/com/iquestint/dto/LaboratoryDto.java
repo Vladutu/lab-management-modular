@@ -1,7 +1,10 @@
 package com.iquestint.dto;
 
+import com.iquestint.validation.ProfessorExists;
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * @author vladu
@@ -12,27 +15,40 @@ public class LaboratoryDto {
 
     private Integer id;
 
+    @NotNull
     private String name;
 
+    @NotNull
     private Integer from;
 
+    @NotNull
     private Integer to;
 
+    @NotNull
     private String room;
 
+    @NotNull
     private Integer day;
 
+    @NotNull
     private String section;
 
+    @NotNull
     private String group;
 
+    @NotNull
     private String subgroup;
 
+    @NotNull
     private Integer year;
 
+    @NotNull
     private Integer semester;
 
+    @NotNull
     private String weeklyOccurrence;
 
-    private ProfessorDto professorDto;
+    @NotNull
+    @ProfessorExists
+    private SimplifiedProfessorDto professorDto;
 }

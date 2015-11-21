@@ -102,7 +102,7 @@ public class UsersController {
     public String saveUser(@Valid UserDto userDto, BindingResult bindingResult, ModelMap model,
         RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
-            initializeDtoList(model);
+            initializeDtoLists(model);
 
             return "createUser";
         }
@@ -162,7 +162,7 @@ public class UsersController {
             User user = userService.getUserByPnc(pnc);
             UserDto userDto = modelMapper.map(user, UserDto.class);
             userDto.setPassword("");
-            initializeDtoList(model);
+            initializeDtoLists(model);
 
             model.addAttribute("userDto", userDto);
 
@@ -254,10 +254,10 @@ public class UsersController {
     private void initalizeUserDto(ModelMap model) {
         UserDto userDto = new UserDto();
         model.addAttribute("userDto", userDto);
-        initializeDtoList(model);
+        initializeDtoLists(model);
     }
 
-    private void initializeDtoList(ModelMap model) {
+    private void initializeDtoLists(ModelMap model) {
         List<UserType> userTypes = userTypeService.getAllUserTypes();
         List<UserTypeDto> userTypeDtos = new ArrayList<>();
 

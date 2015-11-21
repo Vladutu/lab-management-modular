@@ -1,6 +1,5 @@
 package com.iquestint.service;
 
-import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
 import com.iquestint.model.Laboratory;
@@ -18,7 +17,7 @@ public interface LaboratoryService {
     void saveLaboratory(Laboratory laboratory)
         throws ServiceEntityNotFoundException, ServiceEntityAlreadyExistsException;
 
-    void deleteLaboratory(int id) throws DaoEntityNotFoundException, ServiceEntityNotFoundException;
+    void deleteLaboratory(int id) throws ServiceEntityNotFoundException;
 
     Laboratory getLaboratoryById(int id) throws ServiceEntityNotFoundException;
 
