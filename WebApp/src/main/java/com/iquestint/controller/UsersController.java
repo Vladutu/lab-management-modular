@@ -7,9 +7,11 @@ import com.iquestint.enums.State;
 import com.iquestint.enums.Type;
 import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
+import com.iquestint.mapper.UserMapper;
+import com.iquestint.mapper.UserStateMapper;
+import com.iquestint.mapper.UserTypeMapper;
 import com.iquestint.model.*;
 import com.iquestint.service.*;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -19,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -50,10 +51,16 @@ public class UsersController {
     private ProfessorService professorService;
 
     @Autowired
-    ModelMapper modelMapper;
+    PasswordEncoder passwordEncoder;
 
     @Autowired
-    PasswordEncoder passwordEncoder;
+    private UserMapper userMapper;
+
+    @Autowired
+    private UserStateMapper userStateMapper;
+
+    @Autowired
+    private UserTypeMapper userTypeMapper;
 
     /**
      * Returns all existing users.
@@ -64,11 +71,7 @@ public class UsersController {
     @RequestMapping(value = "/admin/users", method = RequestMethod.GET)
     public String getUsers(ModelMap model) {
         List<User> users = userService.getAllUsers();
-        List<UserDto> userDtos = new ArrayList<>();
-
-        for (User user : users) {
-            userDtos.add(modelMapper.map(user, UserDto.class));
-        }
+        List<UserDto> userDtos = userMapper.mapList(users);
 
         model.addAttribute("users", userDtos);
 
@@ -107,7 +110,7 @@ public class UsersController {
             return "createUser";
         }
 
-        User user = modelMapper.map(userDto, User.class);
+        User user = userMapper.reverseMap(userDto);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setUserState(new UserState(State.ACTIVE.getState()));
 
@@ -160,7 +163,7 @@ public class UsersController {
         RedirectAttributes redirectAttributes) {
         try {
             User user = userService.getUserByPnc(pnc);
-            UserDto userDto = modelMapper.map(user, UserDto.class);
+            UserDto userDto = userMapper.map(user);
             userDto.setPassword("");
             initializeDtoLists(model);
 
@@ -195,7 +198,7 @@ public class UsersController {
         }
 
         try {
-            User user = modelMapper.map(userDto, User.class);
+            User user = userMapper.reverseMap(userDto);
 
             if (user.getPassword().equals("")) {
                 userService.updateUserNoPassword(user);
@@ -259,18 +262,10 @@ public class UsersController {
 
     private void initializeDtoLists(ModelMap model) {
         List<UserType> userTypes = userTypeService.getAllUserTypes();
-        List<UserTypeDto> userTypeDtos = new ArrayList<>();
-
         List<UserState> userStates = userStateService.getAllUserStates();
-        List<UserStateDto> userStateDtos = new ArrayList<>();
 
-        for (UserType userType : userTypes) {
-            userTypeDtos.add(modelMapper.map(userType, UserTypeDto.class));
-        }
-
-        for (UserState userState : userStates) {
-            userStateDtos.add(modelMapper.map(userState, UserStateDto.class));
-        }
+        List<UserTypeDto> userTypeDtos = userTypeMapper.mapList(userTypes);
+        List<UserStateDto> userStateDtos = userStateMapper.mapList(userStates);
 
         model.addAttribute("userTypeDtos", userTypeDtos);
         model.addAttribute("userStateDtos", userStateDtos);

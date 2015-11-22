@@ -1,6 +1,6 @@
 package com.iquestint.validation;
 
-import com.iquestint.dto.ProfessorDto;
+import com.iquestint.dto.SimplifiedProfessorDto;
 import com.iquestint.exception.ServiceEntityNotFoundException;
 import com.iquestint.model.Professor;
 import com.iquestint.service.ProfessorService;
@@ -14,7 +14,7 @@ import javax.validation.ConstraintValidatorContext;
  * @author vladu
  */
 @Component
-public class ProfessorValidator implements ConstraintValidator<ProfessorExists, ProfessorDto> {
+public class ProfessorValidator implements ConstraintValidator<ProfessorExists, SimplifiedProfessorDto> {
 
     @Autowired
     ProfessorService professorService;
@@ -25,7 +25,7 @@ public class ProfessorValidator implements ConstraintValidator<ProfessorExists, 
     }
 
     @Override
-    public boolean isValid(ProfessorDto professorDto, ConstraintValidatorContext constraintValidatorContext) {
+    public boolean isValid(SimplifiedProfessorDto professorDto, ConstraintValidatorContext constraintValidatorContext) {
         try {
             Professor professor = professorService.getProfessorByPnc(professorDto.getPnc());
 

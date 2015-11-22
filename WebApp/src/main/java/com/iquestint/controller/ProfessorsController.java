@@ -3,9 +3,9 @@ package com.iquestint.controller;
 import com.iquestint.dto.ProfessorDto;
 import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
+import com.iquestint.mapper.ProfessorMapper;
 import com.iquestint.model.Professor;
 import com.iquestint.service.ProfessorService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,7 +31,7 @@ public class ProfessorsController {
     private ProfessorService professorService;
 
     @Autowired
-    private ModelMapper modelMapper;
+    private ProfessorMapper professorMapper;
 
     /**
      * Returns all existing professors.
@@ -43,11 +42,7 @@ public class ProfessorsController {
     @RequestMapping(value = "/admin/professors", method = RequestMethod.GET)
     public String getProfessors(ModelMap model) {
         List<Professor> professors = professorService.getAllProfessors();
-        List<ProfessorDto> professorDtos = new ArrayList<>();
-
-        for (Professor professor : professors) {
-            professorDtos.add(modelMapper.map(professor, ProfessorDto.class));
-        }
+        List<ProfessorDto> professorDtos = professorMapper.mapList(professors);
 
         model.addAttribute("professors", professorDtos);
 
@@ -85,7 +80,7 @@ public class ProfessorsController {
             return "createProfessor";
         }
 
-        Professor professor = modelMapper.map(professorDto, Professor.class);
+        Professor professor = professorMapper.reverseMap(professorDto);
 
         try {
             professorService.saveProfessor(professor);
@@ -134,7 +129,7 @@ public class ProfessorsController {
         RedirectAttributes redirectAttributes) {
         try {
             Professor professor = professorService.getProfessorByPnc(professorPnc);
-            ProfessorDto professorDto = modelMapper.map(professor, ProfessorDto.class);
+            ProfessorDto professorDto = professorMapper.map(professor);
 
             model.addAttribute("professorDto", professorDto);
 
@@ -166,7 +161,7 @@ public class ProfessorsController {
         }
 
         try {
-            Professor professor = modelMapper.map(professorDto, Professor.class);
+            Professor professor = professorMapper.reverseMap(professorDto);
             professorService.updateProfessor(professor);
 
             return "redirect:/admin/professors";

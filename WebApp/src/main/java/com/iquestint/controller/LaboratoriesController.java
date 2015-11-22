@@ -1,16 +1,10 @@
 package com.iquestint.controller;
 
-import com.iquestint.dto.LaboratoryDto;
-import com.iquestint.dto.SectionDto;
-import com.iquestint.dto.SemesterDto;
-import com.iquestint.dto.YearDto;
+import com.iquestint.dto.*;
 import com.iquestint.exception.ServiceEntityNotFoundException;
-import com.iquestint.model.Laboratory;
-import com.iquestint.model.Section;
-import com.iquestint.model.Semester;
-import com.iquestint.model.Year;
+import com.iquestint.mapper.*;
+import com.iquestint.model.*;
 import com.iquestint.service.*;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -19,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -60,11 +53,44 @@ public class LaboratoriesController {
     private SubgroupService subgroupService;
 
     @Autowired
-    ModelMapper modelMapper;
+    private ProfessorService professorService;
+
+    @Autowired
+    private LaboratoryMapper laboratoryMapper;
+
+    @Autowired
+    private SectionMapper sectionMapper;
+
+    @Autowired
+    private YearMapper yearMapper;
+
+    @Autowired
+    private SemesterMapper semesterMapper;
+
+    @Autowired
+    private HourMapper hourMapper;
+
+    @Autowired
+    private GroupMapper groupMapper;
+
+    @Autowired
+    private SubgroupMapper subgroupMapper;
+
+    @Autowired
+    private RoomMapper roomMapper;
+
+    @Autowired
+    private DayMapper dayMapper;
+
+    @Autowired
+    private WeeklyOccurrenceMapper weeklyOccurrenceMapper;
+
+    @Autowired
+    private SimplifiedProfessorMapper simplifiedProfessorMapper;
 
     @RequestMapping(value = "/admin/laboratories", method = RequestMethod.GET)
     public String getAllLaboratories(ModelMap model) {
-        initializeDtoLists(model);
+        initializeDtoListsForShowingLaboratories(model);
 
         return "listLaboratoryCategories";
     }
@@ -72,15 +98,13 @@ public class LaboratoriesController {
     @RequestMapping(value = "/admin/laboratories/{section}/{year}/{semester}", method = RequestMethod.GET)
     public String getLaboratories(@PathVariable String section, @PathVariable int year, @PathVariable int semester,
         ModelMap model) {
-
         List<Laboratory> laboratories = laboratoryService.getLaboratories(new Section(section), new Year(year),
             new Semester(semester));
-        List<LaboratoryDto> laboratoryDtos = new ArrayList<>();
+        List<LaboratoryDto> laboratoryDtos = laboratoryMapper.mapList(laboratories);
 
-        for (Laboratory laboratory : laboratories) {
-            laboratoryDtos.add(modelMapper.map(laboratory, LaboratoryDto.class));
-        }
-
+        model.addAttribute("section", section);
+        model.addAttribute("year", year);
+        model.addAttribute("semester", semester);
         model.addAttribute("laboratoryDtos", laboratoryDtos);
 
         return "listLaboratories";
@@ -105,32 +129,54 @@ public class LaboratoriesController {
         ModelMap model) {
         LaboratoryDto laboratoryDto = new LaboratoryDto();
         model.addAttribute("laboratoryDto", laboratoryDto);
+        model.addAttribute("section", section);
+        model.addAttribute("year", year);
+        model.addAttribute("semester", semester);
+
+        initializeDtoListsForCreatingLaboratory(model);
 
         return "createLaboratory";
     }
 
-    private void initializeDtoLists(ModelMap model) {
+    private void initializeDtoListsForShowingLaboratories(ModelMap model) {
         List<Section> sections = sectionService.getAllSections();
         List<Year> years = yearService.getAllYears();
         List<Semester> semesters = semesterService.getAllSemesters();
 
-        List<SectionDto> sectionDtos = new ArrayList<>();
-        List<YearDto> yearDtos = new ArrayList<>();
-        List<SemesterDto> semesterDtos = new ArrayList<>();
-
-        for (Section section : sections) {
-            sectionDtos.add(modelMapper.map(section, SectionDto.class));
-        }
-        for (Year year : years) {
-            yearDtos.add(modelMapper.map(year, YearDto.class));
-        }
-        for (Semester semester : semesters) {
-            semesterDtos.add(modelMapper.map(semester, SemesterDto.class));
-        }
+        List<SectionDto> sectionDtos = sectionMapper.mapList(sections);
+        List<YearDto> yearDtos = yearMapper.mapList(years);
+        List<SemesterDto> semesterDtos = semesterMapper.mapList(semesters);
 
         model.addAttribute("sectionDtos", sectionDtos);
         model.addAttribute("yearDtos", yearDtos);
         model.addAttribute("semesterDtos", semesterDtos);
+    }
+
+    private void initializeDtoListsForCreatingLaboratory(ModelMap model) {
+        List<Hour> hours = hourService.getAllHours();
+        List<Day> days = dayService.getAllDays();
+        List<Room> rooms = roomService.getAllRooms();
+        List<Group> groups = groupService.getAllGroups();
+        List<Subgroup> subgroups = subgroupService.getAllSubgroups();
+        List<WeeklyOccurrence> weeklyOccurrences = weeklyOccurrenceService.getAllWeeklyOccurrence();
+        List<Professor> professors = professorService.getAllProfessors();
+
+        List<HourDto> hourDtos = hourMapper.mapList(hours);
+        List<DayDto> dayDtos = dayMapper.mapList(days);
+        List<RoomDto> roomDtos = roomMapper.mapList(rooms);
+        List<GroupDto> groupDtos = groupMapper.mapList(groups);
+        List<SubgroupDto> subgroupDtos = subgroupMapper.mapList(subgroups);
+        List<WeeklyOccurrenceDto> weeklyOccurrenceDtos = weeklyOccurrenceMapper.mapList(weeklyOccurrences);
+        List<SimplifiedProfessorDto> professorDtos = simplifiedProfessorMapper.mapList(professors);
+
+        model.addAttribute("hourDtos", hourDtos);
+        model.addAttribute("dayDtos", dayDtos);
+        model.addAttribute("roomDtos", roomDtos);
+        model.addAttribute("groupDtos", groupDtos);
+        model.addAttribute("subgroupDtos", subgroupDtos);
+        model.addAttribute("weeklyOccurrenceDtos", weeklyOccurrenceDtos);
+        model.addAttribute("professorDtos", professorDtos);
+
     }
 
 }

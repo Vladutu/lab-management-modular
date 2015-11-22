@@ -3,9 +3,9 @@ package com.iquestint.controller;
 import com.iquestint.dto.*;
 import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
+import com.iquestint.mapper.*;
 import com.iquestint.model.*;
 import com.iquestint.service.*;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,7 +46,22 @@ public class StudentsController {
     private SemesterService semesterService;
 
     @Autowired
-    private ModelMapper modelMapper;
+    private StudentMapper studentMapper;
+
+    @Autowired
+    private YearMapper yearMapper;
+
+    @Autowired
+    private SemesterMapper semesterMapper;
+
+    @Autowired
+    private SectionMapper sectionMapper;
+
+    @Autowired
+    private GroupMapper groupMapper;
+
+    @Autowired
+    private SubgroupMapper subgroupMapper;
 
     /**
      * Returns all existing students.
@@ -58,12 +72,7 @@ public class StudentsController {
     @RequestMapping(value = "/admin/students", method = RequestMethod.GET)
     public String getStudents(ModelMap model) {
         List<Student> students = studentService.getAllStudents();
-        List<StudentDto> studentsDto = new ArrayList<>();
-
-        for (Student student : students) {
-            StudentDto studentDto = modelMapper.map(student, StudentDto.class);
-            studentsDto.add(studentDto);
-        }
+        List<StudentDto> studentsDto = studentMapper.mapList(students);
 
         model.addAttribute("students", studentsDto);
 
@@ -101,7 +110,7 @@ public class StudentsController {
             return "createStudent";
         }
 
-        Student student = modelMapper.map(studentDto, Student.class);
+        Student student = studentMapper.reverseMap(studentDto);
         try {
             studentService.saveStudent(student);
         }
@@ -149,7 +158,7 @@ public class StudentsController {
     public String editStudent(@PathVariable String studentPnc, ModelMap model, RedirectAttributes redirectAttributes) {
         try {
             Student student = studentService.getStudentByPnc(studentPnc);
-            StudentDto studentDto = modelMapper.map(student, StudentDto.class);
+            StudentDto studentDto = studentMapper.map(student);
             model.addAttribute("studentDto", studentDto);
 
             initializeDtoLists(model);
@@ -182,7 +191,7 @@ public class StudentsController {
         }
 
         try {
-            Student student = modelMapper.map(studentDto, Student.class);
+            Student student = studentMapper.reverseMap(studentDto);
             studentService.updateStudent(student);
 
             return "redirect:/admin/students";
@@ -207,30 +216,11 @@ public class StudentsController {
         List<Year> years = yearService.getAllYears();
         List<Semester> semesters = semesterService.getAllSemesters();
 
-        List<SectionDto> sectionDtos = new ArrayList<>();
-        for (Section section : sections) {
-            sectionDtos.add(modelMapper.map(section, SectionDto.class));
-        }
-
-        List<GroupDto> groupDtos = new ArrayList<>();
-        for (Group group : groups) {
-            groupDtos.add(modelMapper.map(group, GroupDto.class));
-        }
-
-        List<SubgroupDto> subgroupDtos = new ArrayList<>();
-        for (Subgroup subgroup : subgroups) {
-            subgroupDtos.add(modelMapper.map(subgroup, SubgroupDto.class));
-        }
-
-        List<YearDto> yearDtos = new ArrayList<>();
-        for (Year year : years) {
-            yearDtos.add(modelMapper.map(year, YearDto.class));
-        }
-
-        List<SemesterDto> semesterDtos = new ArrayList<>();
-        for (Semester semester : semesters) {
-            semesterDtos.add(modelMapper.map(semester, SemesterDto.class));
-        }
+        List<SectionDto> sectionDtos = sectionMapper.mapList(sections);
+        List<GroupDto> groupDtos = groupMapper.mapList(groups);
+        List<SubgroupDto> subgroupDtos = subgroupMapper.mapList(subgroups);
+        List<YearDto> yearDtos = yearMapper.mapList(years);
+        List<SemesterDto> semesterDtos = semesterMapper.mapList(semesters);
 
         model.addAttribute("sectionDtos", sectionDtos);
         model.addAttribute("groupDtos", groupDtos);

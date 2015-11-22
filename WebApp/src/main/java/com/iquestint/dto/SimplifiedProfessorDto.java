@@ -15,4 +15,9 @@ public class SimplifiedProfessorDto {
     private String firstName;
 
     private String lastName;
+
+    @Override
+    public String toString() {
+        return pnc + " (" + firstName + " " + lastName + ")";
+    }
 }

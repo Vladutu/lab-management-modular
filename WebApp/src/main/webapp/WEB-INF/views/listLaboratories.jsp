@@ -15,7 +15,7 @@
 
 <div class="container">
 
-    <a href="<c:url value='/admin/laboratories/${laboratory.section}/${laboratory.year}/${laboratory.semester}/new' />">
+    <a href="<c:url value='/admin/laboratories/${section}/${year}/${semester}/new/' />">
         <button type="button" class="btn btn-success">Add new laboratory</button>
     </a>
 
