@@ -1,7 +1,7 @@
 package com.iquestint.validation;
 
 import com.iquestint.exception.ServiceEntityNotFoundException;
-import com.iquestint.service.PersonService;
+import com.iquestint.service.interfaces.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

@@ -1,7 +1,7 @@
 package com.iquestint.validation;
 
 import com.iquestint.model.Semester;
-import com.iquestint.service.SemesterService;
+import com.iquestint.service.interfaces.SemesterService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.validation.ConstraintValidator;

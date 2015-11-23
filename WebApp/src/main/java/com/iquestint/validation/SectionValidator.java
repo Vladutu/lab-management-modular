@@ -1,6 +1,6 @@
 package com.iquestint.validation;
 
-import com.iquestint.service.SectionService;
+import com.iquestint.service.interfaces.SectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

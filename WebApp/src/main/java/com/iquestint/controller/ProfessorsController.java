@@ -5,7 +5,7 @@ import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
 import com.iquestint.mapper.ProfessorMapper;
 import com.iquestint.model.Professor;
-import com.iquestint.service.ProfessorService;
+import com.iquestint.service.interfaces.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

@@ -4,7 +4,7 @@ import com.iquestint.dto.*;
 import com.iquestint.exception.ServiceEntityNotFoundException;
 import com.iquestint.mapper.*;
 import com.iquestint.model.*;
-import com.iquestint.service.*;
+import com.iquestint.service.interfaces.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

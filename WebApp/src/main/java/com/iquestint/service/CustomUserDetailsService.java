@@ -2,6 +2,7 @@ package com.iquestint.service;
 
 import com.iquestint.exception.ServiceEntityNotFoundException;
 import com.iquestint.model.User;
+import com.iquestint.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

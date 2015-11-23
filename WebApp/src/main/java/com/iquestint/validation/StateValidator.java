@@ -1,7 +1,7 @@
 package com.iquestint.validation;
 
 import com.iquestint.model.UserState;
-import com.iquestint.service.UserStateService;
+import com.iquestint.service.interfaces.UserStateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

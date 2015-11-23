@@ -1,7 +1,7 @@
 package com.iquestint.validation;
 
 import com.iquestint.model.Subgroup;
-import com.iquestint.service.SubgroupService;
+import com.iquestint.service.interfaces.SubgroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
