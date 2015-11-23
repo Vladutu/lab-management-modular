@@ -1,12 +1,13 @@
 package com.iquestint.service;
 
+import com.iquestint.dao.interfaces.LaboratoryDao;
 import com.iquestint.dao.interfaces.ProfessorDao;
 import com.iquestint.exception.DaoEntityAlreadyExists;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
+import com.iquestint.model.Laboratory;
 import com.iquestint.model.Professor;
-import com.iquestint.service.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,9 @@ public class ProfessorServiceImpl implements ProfessorService {
     @Autowired
     private ProfessorDao professorDao;
 
+    @Autowired
+    private LaboratoryDao laboratoryDao;
+
     @Override
     public void saveProfessor(Professor professor) throws ServiceEntityAlreadyExistsException {
         try {
@@ -38,6 +42,11 @@ public class ProfessorServiceImpl implements ProfessorService {
     @Override
     public void deleteProfessor(String pnc) throws ServiceEntityNotFoundException {
         try {
+            Professor professor = professorDao.findByPncWithLaboratories(pnc);
+            for (Laboratory laboratory : professor.getLaboratories()) {
+                laboratoryDao.deleteLaboratoryById(laboratory.getId());
+            }
+
             professorDao.deleteProfessorByPnc(pnc);
         }
         catch (DaoEntityNotFoundException e) {

@@ -6,7 +6,6 @@ import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
 import com.iquestint.model.*;
-import com.iquestint.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,6 +38,9 @@ public class StudentServiceImpl implements StudentService {
 
     @Autowired
     private SemesterDao semesterDao;
+
+    @Autowired
+    private LaboratoryDao laboratoryDao;
 
     @Override
     public void saveStudent(Student student) throws ServiceEntityNotFoundException,
@@ -77,6 +79,11 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void deleteStudent(String pnc) throws ServiceEntityNotFoundException {
         try {
+            Student student = studentDao.findByPncWithLaboratories(pnc);
+            for (Laboratory laboratory : student.getLaboratories()) {
+                laboratoryDao.deleteLaboratoryById(laboratory.getId());
+            }
+
             studentDao.deleteStudentByPnc(pnc);
         }
         catch (DaoEntityNotFoundException e) {
