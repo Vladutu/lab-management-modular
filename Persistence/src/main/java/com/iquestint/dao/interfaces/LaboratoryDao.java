@@ -2,10 +2,7 @@ package com.iquestint.dao.interfaces;
 
 import com.iquestint.exception.DaoEntityAlreadyExists;
 import com.iquestint.exception.DaoEntityNotFoundException;
-import com.iquestint.model.Laboratory;
-import com.iquestint.model.Section;
-import com.iquestint.model.Semester;
-import com.iquestint.model.Year;
+import com.iquestint.model.*;
 
 import java.util.List;
 
@@ -17,6 +14,8 @@ public interface LaboratoryDao {
     List<Laboratory> findAllLaboratories();
 
     List<Laboratory> findLaboratories(Section section, Year year, Semester semester);
+
+    List<Laboratory> findLaboratories(Section section, Year year, Semester semester, Group group, Subgroup subgroup);
 
     Laboratory findLaboratoryById(int id) throws DaoEntityNotFoundException;
 

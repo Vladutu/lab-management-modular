@@ -76,4 +76,5 @@ public interface StudentDao {
      * @throws DaoEntityNotFoundException
      */
     void deleteStudentByPnc(String pnc) throws DaoEntityNotFoundException;
+
 }

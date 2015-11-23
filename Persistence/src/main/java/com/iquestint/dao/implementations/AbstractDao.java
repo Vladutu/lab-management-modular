@@ -60,7 +60,7 @@ public abstract class AbstractDao<T> {
     }
 
     protected void persist(T t) {
-        getEntityManager().merge(t);
+        getEntityManager().persist(t);
     }
 
     protected void delete(T t) {

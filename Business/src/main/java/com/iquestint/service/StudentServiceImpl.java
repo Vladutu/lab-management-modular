@@ -50,6 +50,7 @@ public class StudentServiceImpl implements StudentService {
         Subgroup subgroup = null;
         Year year = null;
         Semester semester = null;
+        List<Laboratory> laboratories = null;
 
         try {
             section = sectionDao.getSectionByName(student.getSection().getName());
@@ -57,6 +58,7 @@ public class StudentServiceImpl implements StudentService {
             subgroup = subgroupDao.getSubgroupByName(student.getSubgroup().getName());
             year = yearDao.getYearByValue(student.getYear().getValue());
             semester = semesterDao.getSemesterByValue(student.getSemester().getValue());
+            laboratories = laboratoryDao.findLaboratories(section, year, semester, group, subgroup);
         }
         catch (DaoEntityNotFoundException e) {
             throw new ServiceEntityNotFoundException(e);
@@ -67,6 +69,7 @@ public class StudentServiceImpl implements StudentService {
         student.setSection(section);
         student.setYear(year);
         student.setSemester(semester);
+        student.setLaboratories(laboratories);
 
         try {
             studentDao.saveStudent(student);
@@ -74,6 +77,7 @@ public class StudentServiceImpl implements StudentService {
         catch (DaoEntityAlreadyExists e) {
             throw new ServiceEntityAlreadyExistsException(e);
         }
+
     }
 
     @Override
