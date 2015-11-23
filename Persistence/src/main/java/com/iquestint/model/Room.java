@@ -27,6 +27,13 @@ public class Room {
     @OneToMany(mappedBy = "room")
     private List<Laboratory> laboratories;
 
+    public Room() {
+    }
+
+    public Room(String name) {
+        this.name = name;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

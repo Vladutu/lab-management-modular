@@ -2,7 +2,7 @@ package com.iquestint.dao.interfaces;
 
 import com.iquestint.exception.DaoEntityAlreadyExists;
 import com.iquestint.exception.DaoEntityNotFoundException;
-import com.iquestint.model.Student;
+import com.iquestint.model.*;
 
 import java.util.List;
 
@@ -77,4 +77,15 @@ public interface StudentDao {
      */
     void deleteStudentByPnc(String pnc) throws DaoEntityNotFoundException;
 
+    /**
+     * Returns the students that have the same fields as the method parameters.
+     *
+     * @param section  Section
+     * @param year     Year
+     * @param semester Semester
+     * @param group    Group
+     * @param subgroup Subgroup
+     * @return List<Student>
+     */
+    List<Student> findStudents(Section section, Year year, Semester semester, Group group, Subgroup subgroup);
 }

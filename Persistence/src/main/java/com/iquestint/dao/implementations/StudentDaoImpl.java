@@ -3,7 +3,7 @@ package com.iquestint.dao.implementations;
 import com.iquestint.dao.interfaces.StudentDao;
 import com.iquestint.exception.DaoEntityAlreadyExists;
 import com.iquestint.exception.DaoEntityNotFoundException;
-import com.iquestint.model.Student;
+import com.iquestint.model.*;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.NoResultException;
@@ -91,6 +91,21 @@ public class StudentDaoImpl extends AbstractDao<Student> implements StudentDao {
     public void deleteStudentByPnc(String pnc) throws DaoEntityNotFoundException {
         Student student = findStudentByPnc(pnc);
         delete(student);
+    }
+
+    @Override
+    public List<Student> findStudents(Section section, Year year, Semester semester, Group group, Subgroup subgroup) {
+        TypedQuery<Student> query = getEntityManager().createQuery(
+            "SELECT s FROM Student s WHERE s.section.name = :section AND s.year.value = :year AND s.semester.value = :semester " +
+                "AND s.group.name = :groupName AND s.subgroup.name = :subgroup",
+            Student.class);
+        query.setParameter("section", section.getName());
+        query.setParameter("year", year.getValue());
+        query.setParameter("semester", semester.getValue());
+        query.setParameter("groupName", group.getName());
+        query.setParameter("subgroup", subgroup.getName());
+
+        return query.getResultList();
     }
 
 }

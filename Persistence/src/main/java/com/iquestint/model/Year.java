@@ -34,7 +34,7 @@ public class Year {
     public Year() {
     }
 
-    public Year(int value) {
+    public Year(Integer value) {
         this.value = value;
     }
 

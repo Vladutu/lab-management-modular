@@ -53,6 +53,9 @@ public class LaboratoryServiceImpl implements LaboratoryService {
     @Autowired
     private WeeklyOccurrenceDao weeklyOccurrenceDao;
 
+    @Autowired
+    private StudentDao studentDao;
+
     @Override
     public void saveLaboratory(Laboratory laboratory)
         throws ServiceEntityNotFoundException, ServiceEntityAlreadyExistsException {
@@ -67,6 +70,7 @@ public class LaboratoryServiceImpl implements LaboratoryService {
         Year year = null;
         Semester semester = null;
         WeeklyOccurrence weeklyOccurrence = null;
+        List<Student> students = null;
 
         try {
             from = hourDao.getHourByValue(laboratory.getFrom().getValue());
@@ -81,6 +85,7 @@ public class LaboratoryServiceImpl implements LaboratoryService {
             semester = semesterDao.getSemesterByValue(laboratory.getSemester().getValue());
             weeklyOccurrence = weeklyOccurrenceDao.getWeeklyOccurrenceByName(
                 laboratory.getWeeklyOccurrence().getName());
+            students = studentDao.findStudents(section, year, semester, group, subgroup);
         }
         catch (DaoEntityNotFoundException e) {
             throw new ServiceEntityNotFoundException(e);
@@ -97,6 +102,7 @@ public class LaboratoryServiceImpl implements LaboratoryService {
         laboratory.setYear(year);
         laboratory.setSemester(semester);
         laboratory.setWeeklyOccurrence(weeklyOccurrence);
+        laboratory.setStudents(students);
 
         try {
             laboratoryDao.saveLaboratory(laboratory);

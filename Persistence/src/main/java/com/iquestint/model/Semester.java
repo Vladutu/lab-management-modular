@@ -34,7 +34,7 @@ public class Semester {
     public Semester() {
     }
 
-    public Semester(int value) {
+    public Semester(Integer value) {
         this.value = value;
     }
 

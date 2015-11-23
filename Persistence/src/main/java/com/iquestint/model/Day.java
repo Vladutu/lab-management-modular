@@ -28,6 +28,13 @@ public class Day {
     @OneToMany(mappedBy = "day")
     private List<Laboratory> laboratories;
 
+    public Day() {
+    }
+
+    public Day(Integer value) {
+        this.value = value;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

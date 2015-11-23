@@ -31,6 +31,13 @@ public class Hour {
     @OneToMany(mappedBy = "to")
     private List<Laboratory> laboratoriesTo;
 
+    public Hour() {
+    }
+
+    public Hour(Integer value) {
+        this.value = value;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

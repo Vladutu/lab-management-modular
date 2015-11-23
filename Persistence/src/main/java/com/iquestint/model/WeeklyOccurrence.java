@@ -27,6 +27,13 @@ public class WeeklyOccurrence {
     @OneToMany(mappedBy = "weeklyOccurrence")
     private List<Laboratory> laboratories;
 
+    public WeeklyOccurrence() {
+    }
+
+    public WeeklyOccurrence(String name) {
+        this.name = name;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

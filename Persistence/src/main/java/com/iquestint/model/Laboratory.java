@@ -68,7 +68,10 @@ public class Laboratory {
     @JoinColumn(name = "WEEKLY_OCCURRENCE_ID", referencedColumnName = "ID", nullable = false)
     private WeeklyOccurrence weeklyOccurrence;
 
-    @ManyToMany(mappedBy = "laboratories")
+    @ManyToMany
+    @JoinTable(name = "STUDENT_LABORATORY",
+        joinColumns = @JoinColumn(name = "LABORATORY_ID", referencedColumnName = "ID", nullable = false),
+        inverseJoinColumns = @JoinColumn(name = "STUDENT_PNC", referencedColumnName = "PNC", nullable = false))
     private List<Student> students;
 
     @Override
