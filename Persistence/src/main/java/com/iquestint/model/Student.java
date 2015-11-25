@@ -38,10 +38,7 @@ public class Student extends Person {
     @JoinColumn(name = "SEMESTER_ID", referencedColumnName = "ID", nullable = false)
     private Semester semester;
 
-    @ManyToMany
-    @JoinTable(name = "STUDENT_LABORATORY",
-        joinColumns = @JoinColumn(name = "STUDENT_PNC", referencedColumnName = "PNC", nullable = false),
-        inverseJoinColumns = @JoinColumn(name = "LABORATORY_ID", referencedColumnName = "ID", nullable = false))
+    @ManyToMany(mappedBy = "students")
     private List<Laboratory> laboratories;
 
     @Override

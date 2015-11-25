@@ -1,11 +1,11 @@
 package com.iquestint.controller;
 
-import com.iquestint.dto.*;
+import com.iquestint.dto.FormStudentDto;
+import com.iquestint.dto.StudentDto;
 import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
-import com.iquestint.mapper.*;
-import com.iquestint.model.*;
-import com.iquestint.service.interfaces.*;
+import com.iquestint.service.StudentService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -31,37 +31,7 @@ public class StudentsController {
     private StudentService studentService;
 
     @Autowired
-    private SectionService sectionService;
-
-    @Autowired
-    private GroupService groupService;
-
-    @Autowired
-    private SubgroupService subgroupService;
-
-    @Autowired
-    private YearService yearService;
-
-    @Autowired
-    private SemesterService semesterService;
-
-    @Autowired
-    private StudentMapper studentMapper;
-
-    @Autowired
-    private YearMapper yearMapper;
-
-    @Autowired
-    private SemesterMapper semesterMapper;
-
-    @Autowired
-    private SectionMapper sectionMapper;
-
-    @Autowired
-    private GroupMapper groupMapper;
-
-    @Autowired
-    private SubgroupMapper subgroupMapper;
+    ModelMapper modelMapper;
 
     /**
      * Returns all existing students.
@@ -71,10 +41,8 @@ public class StudentsController {
      */
     @RequestMapping(value = "/admin/students", method = RequestMethod.GET)
     public String getStudents(ModelMap model) {
-        List<Student> students = studentService.getAllStudents();
-        List<StudentDto> studentsDto = studentMapper.mapList(students);
-
-        model.addAttribute("students", studentsDto);
+        List<StudentDto> studentDtos = studentService.getAllStudents();
+        model.addAttribute("students", studentDtos);
 
         return "listStudents";
     }
@@ -87,7 +55,10 @@ public class StudentsController {
      */
     @RequestMapping(value = "/admin/students/new", method = RequestMethod.GET)
     public String newStudent(ModelMap model) {
-        initializeStudentDto(model);
+        FormStudentDto formStudentDto = new FormStudentDto();
+        studentService.initializeFormStudentDto(formStudentDto);
+
+        model.addAttribute("formStudentDto", formStudentDto);
 
         return "createStudent";
     }
@@ -106,17 +77,18 @@ public class StudentsController {
     public String saveStudent(@Valid StudentDto studentDto, BindingResult bindingResult, ModelMap model,
         RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
-            initializeDtoLists(model);
+            FormStudentDto formStudentDto = new FormStudentDto();
+            studentService.initializeFormStudentDto(formStudentDto);
+
+            model.addAttribute("formStudentDto", formStudentDto);
+
             return "createStudent";
         }
 
-        Student student = studentMapper.reverseMap(studentDto);
         try {
-            studentService.saveStudent(student);
-        }
-        catch (ServiceEntityNotFoundException ignored) {
-        }
-        catch (ServiceEntityAlreadyExistsException e) {
+            studentService.saveStudent(studentDto);
+        } catch (ServiceEntityNotFoundException ignored) {
+        } catch (ServiceEntityAlreadyExistsException e) {
             redirectAttributes.addFlashAttribute("errorMessage", "Student already exists");
 
             return "redirect:/admin/students/new";
@@ -138,8 +110,7 @@ public class StudentsController {
         RedirectAttributes redirectAttributes) {
         try {
             studentService.deleteStudent(studentPnc);
-        }
-        catch (ServiceEntityNotFoundException e) {
+        } catch (ServiceEntityNotFoundException e) {
             redirectAttributes.addFlashAttribute("errorMessage", "The student does not exists or no longer exists");
         }
 
@@ -157,15 +128,15 @@ public class StudentsController {
     @RequestMapping(value = "/admin/students/edit/{studentPnc}", method = RequestMethod.GET)
     public String editStudent(@PathVariable String studentPnc, ModelMap model, RedirectAttributes redirectAttributes) {
         try {
-            Student student = studentService.getStudentByPnc(studentPnc);
-            StudentDto studentDto = studentMapper.map(student);
-            model.addAttribute("studentDto", studentDto);
+            StudentDto studentDto = studentService.getStudentByPnc(studentPnc);
 
-            initializeDtoLists(model);
+            FormStudentDto formStudentDto = modelMapper.map(studentDto, FormStudentDto.class);
+            studentService.initializeFormStudentDto(formStudentDto);
+
+            model.addAttribute("formStudentDto", formStudentDto);
 
             return "updateStudent";
-        }
-        catch (ServiceEntityNotFoundException e) {
+        } catch (ServiceEntityNotFoundException e) {
             redirectAttributes.addFlashAttribute("errorMessage", "The student does not exists or no longer exists");
 
             return "redirect:/admin/students";
@@ -191,42 +162,14 @@ public class StudentsController {
         }
 
         try {
-            Student student = studentMapper.reverseMap(studentDto);
-            studentService.updateStudent(student);
+            studentService.updateStudent(studentDto);
 
             return "redirect:/admin/students";
-        }
-        catch (ServiceEntityNotFoundException e) {
+        } catch (ServiceEntityNotFoundException e) {
             redirectAttributes.addFlashAttribute("errorMessage", "The student does not exists or no longer exists");
 
             return "redirect:/admin/students";
         }
-    }
-
-    private void initializeStudentDto(ModelMap model) {
-        StudentDto studentDto = new StudentDto();
-        model.addAttribute("studentDto", studentDto);
-        initializeDtoLists(model);
-    }
-
-    private void initializeDtoLists(ModelMap model) {
-        List<Section> sections = sectionService.getAllSections();
-        List<Group> groups = groupService.getAllGroups();
-        List<Subgroup> subgroups = subgroupService.getAllSubgroups();
-        List<Year> years = yearService.getAllYears();
-        List<Semester> semesters = semesterService.getAllSemesters();
-
-        List<SectionDto> sectionDtos = sectionMapper.mapList(sections);
-        List<GroupDto> groupDtos = groupMapper.mapList(groups);
-        List<SubgroupDto> subgroupDtos = subgroupMapper.mapList(subgroups);
-        List<YearDto> yearDtos = yearMapper.mapList(years);
-        List<SemesterDto> semesterDtos = semesterMapper.mapList(semesters);
-
-        model.addAttribute("sectionDtos", sectionDtos);
-        model.addAttribute("groupDtos", groupDtos);
-        model.addAttribute("subgroupDtos", subgroupDtos);
-        model.addAttribute("yearDtos", yearDtos);
-        model.addAttribute("semesterDtos", semesterDtos);
     }
 
 }

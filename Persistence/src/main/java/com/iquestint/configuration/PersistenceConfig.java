@@ -81,8 +81,6 @@ public class PersistenceConfig {
 
     @Bean
     JpaVendorAdapter jpaVendorAdapter() {
-        HibernateJpaVendorAdapter hibernateJpaVendorAdapter = new HibernateJpaVendorAdapter();
-        hibernateJpaVendorAdapter.setGenerateDdl(false);
-        return hibernateJpaVendorAdapter;
+        return new HibernateJpaVendorAdapter();
     }
 }
