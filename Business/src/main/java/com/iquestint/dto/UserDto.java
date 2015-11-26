@@ -1,4 +1,4 @@
-package com.iquestint.notUsed;
+package com.iquestint.dto;
 
 import com.iquestint.validation.*;
 import lombok.Getter;

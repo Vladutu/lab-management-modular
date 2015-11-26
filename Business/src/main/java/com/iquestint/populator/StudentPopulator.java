@@ -47,5 +47,6 @@ public class StudentPopulator {
         student.setFirstName(studentDto.getFirstName());
         student.setLastName(studentDto.getLastName());
         student.setEmail(studentDto.getEmail());
+        student.setPnc(studentDto.getPnc());
     }
 }

@@ -1,22 +1,23 @@
 package com.iquestint.service.impl;
 
-import com.iquestint.dao.PersonDao;
-import com.iquestint.dao.UserDao;
-import com.iquestint.dao.UserStateDao;
-import com.iquestint.dao.UserTypeDao;
+import com.iquestint.dao.*;
+import com.iquestint.dto.FormUserDto;
+import com.iquestint.dto.UnregisteredUserDto;
+import com.iquestint.dto.UserDto;
+import com.iquestint.dto.UserTypeDto;
 import com.iquestint.exception.DaoEntityAlreadyExists;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
-import com.iquestint.model.Person;
-import com.iquestint.model.User;
-import com.iquestint.model.UserState;
-import com.iquestint.model.UserType;
+import com.iquestint.model.*;
 import com.iquestint.service.UserService;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.lang.reflect.Type;
 import java.util.List;
 
 /**
@@ -40,18 +41,27 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private PersonDao personDao;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
+    @Autowired
+    private StudentDao studentDao;
+
+    @Autowired
+    private ProfessorDao professorDao;
+
     @Override
-    public void saveUser(User user) throws ServiceEntityNotFoundException, ServiceEntityAlreadyExistsException {
+    public void saveUser(UserDto userDto) throws ServiceEntityNotFoundException, ServiceEntityAlreadyExistsException {
         UserType userType = null;
         UserState userState = null;
         Person person = null;
+        User user = modelMapper.map(userDto, User.class);
 
         try {
             userType = userTypeDao.getUserTypeByName(user.getUserType().getName());
             userState = userStateDao.getUserStateByName(user.getUserState().getName());
             person = personDao.getPersonByPnc(user.getPnc());
-        }
-        catch (DaoEntityNotFoundException e) {
+        } catch (DaoEntityNotFoundException e) {
             throw new ServiceEntityNotFoundException(e);
         }
 
@@ -61,8 +71,7 @@ public class UserServiceImpl implements UserService {
 
         try {
             userDao.saveUser(user);
-        }
-        catch (DaoEntityAlreadyExists e) {
+        } catch (DaoEntityAlreadyExists e) {
             throw new ServiceEntityAlreadyExistsException(e);
         }
     }
@@ -71,32 +80,37 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(String pnc) throws ServiceEntityNotFoundException {
         try {
             userDao.deleteUserByPnc(pnc);
-        }
-        catch (DaoEntityNotFoundException e) {
+        } catch (DaoEntityNotFoundException e) {
             throw new ServiceEntityNotFoundException(e);
         }
     }
 
     @Override
-    public User getUserByPnc(String pnc) throws ServiceEntityNotFoundException {
+    public UserDto getUserByPnc(String pnc) throws ServiceEntityNotFoundException {
         try {
-            return userDao.findUserByPnc(pnc);
-        }
-        catch (DaoEntityNotFoundException e) {
+            User user = userDao.findUserByPnc(pnc);
+
+            return modelMapper.map(user, UserDto.class);
+        } catch (DaoEntityNotFoundException e) {
             throw new ServiceEntityNotFoundException(e);
         }
     }
 
     @Override
-    public List<User> getAllUsers() {
-        return userDao.findAllUsers();
+    public List<UserDto> getAllUsers() {
+        List<User> users = userDao.findAllUsers();
+        Type listType = new TypeToken<List<UserDto>>() {
+        }.getType();
+
+        return modelMapper.map(users, listType);
     }
 
     @Override
-    public void updateUser(User user) throws ServiceEntityNotFoundException {
+    public void updateUser(UserDto userDto) throws ServiceEntityNotFoundException {
         UserType userType = null;
         UserState userState = null;
         Person person = null;
+        User user = modelMapper.map(userDto, User.class);
 
         try {
             userType = userTypeDao.getUserTypeByName(user.getUserType().getName());
@@ -108,19 +122,18 @@ public class UserServiceImpl implements UserService {
             user.setPerson(person);
 
             userDao.updateUser(user);
-        }
-        catch (DaoEntityNotFoundException e) {
+        } catch (DaoEntityNotFoundException e) {
             throw new ServiceEntityNotFoundException(e);
         }
 
     }
 
     @Override
-    public void updateUserNoPassword(User user) throws ServiceEntityNotFoundException {
+    public void updateUserNoPassword(UserDto userDto) throws ServiceEntityNotFoundException {
         UserType userType = null;
         UserState userState = null;
         Person person = null;
-
+        User user = modelMapper.map(userDto, User.class);
         try {
             userType = userTypeDao.getUserTypeByName(user.getUserType().getName());
             userState = userStateDao.getUserStateByName(user.getUserState().getName());
@@ -131,8 +144,7 @@ public class UserServiceImpl implements UserService {
             user.getPerson().setPnc(person.getPnc());
 
             userDao.updateUserNoPassword(user);
-        }
-        catch (DaoEntityNotFoundException e) {
+        } catch (DaoEntityNotFoundException e) {
             throw new ServiceEntityNotFoundException(e);
         }
     }
@@ -141,8 +153,43 @@ public class UserServiceImpl implements UserService {
     public User getUserByName(String firstName, String lastName) throws ServiceEntityNotFoundException {
         try {
             return userDao.findUserByName(firstName, lastName);
+        } catch (DaoEntityNotFoundException e) {
+            throw new ServiceEntityNotFoundException(e);
         }
-        catch (DaoEntityNotFoundException e) {
+    }
+
+    @Override
+    public void initializeFormUserDto(FormUserDto formUserDto) {
+        List<UserType> userTypes = userTypeDao.getAllUserTypes();
+
+        List<UserTypeDto> userTypeDtos = modelMapper.map(userTypes, new TypeToken<List<UserTypeDto>>() {
+        }.getType());
+
+        formUserDto.setTypes(userTypeDtos);
+    }
+
+    @Override
+    public UnregisteredUserDto getUnregisteredUser(String pnc) throws ServiceEntityNotFoundException {
+        UnregisteredUserDto unregisteredUserDto = new UnregisteredUserDto();
+        try {
+            com.iquestint.enums.Type type = personDao.getPersonType(pnc);
+            unregisteredUserDto.setUserType(type.getType());
+
+            if (type.equals(com.iquestint.enums.Type.STUDENT)) {
+                Student student = studentDao.findStudentByPnc(pnc);
+                unregisteredUserDto.setEmail(student.getEmail());
+                unregisteredUserDto.setFirstName(student.getFirstName());
+                unregisteredUserDto.setLastName(student.getLastName());
+            }
+            else if (type.equals(com.iquestint.enums.Type.PROFESSOR)) {
+                Professor professor = professorDao.findProfessorByPnc(pnc);
+                unregisteredUserDto.setEmail(professor.getEmail());
+                unregisteredUserDto.setFirstName(professor.getFirstName());
+                unregisteredUserDto.setLastName(professor.getLastName());
+            }
+
+            return unregisteredUserDto;
+        } catch (DaoEntityNotFoundException e) {
             throw new ServiceEntityNotFoundException(e);
         }
     }

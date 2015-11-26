@@ -2,12 +2,12 @@ package com.iquestint.configuration;
 
 import com.iquestint.mapper.StudentDtoToStudentMap;
 import com.iquestint.mapper.StudentToStudentDtoMap;
+import com.iquestint.mapper.UserDtoToUserMap;
+import com.iquestint.mapper.UserToUserDtoMap;
 import com.iquestint.model.Laboratory;
 import com.iquestint.model.Professor;
-import com.iquestint.model.User;
 import com.iquestint.notUsed.LaboratoryDto;
 import com.iquestint.notUsed.SimplifiedProfessorDto;
-import com.iquestint.notUsed.UserDto;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.context.annotation.Bean;
@@ -28,32 +28,6 @@ public class BusinessConfig {
     @Bean
     public ModelMapper modelMapper() {
         ModelMapper modelMapper = new ModelMapper();
-
-        PropertyMap<User, UserDto> userUserDtoPropertyMap = new PropertyMap<User, UserDto>() {
-            @Override
-            protected void configure() {
-                map(source.getPnc(), destination.getPnc());
-                map(source.getPerson().getFirstName(), destination.getFirstName());
-                map(source.getPerson().getLastName(), destination.getLastName());
-                map(source.getPerson().getEmail(), destination.getEmail());
-                map(source.getPassword(), destination.getPassword());
-                map(source.getUserType().getName(), destination.getUserType());
-                map(source.getUserState().getName(), destination.getUserState());
-            }
-        };
-
-        PropertyMap<UserDto, User> userDtoUserPropertyMap = new PropertyMap<UserDto, User>() {
-            @Override
-            protected void configure() {
-                map(source.getPnc(), destination.getPnc());
-                map(source.getFirstName(), destination.getPerson().getFirstName());
-                map(source.getLastName(), destination.getPerson().getLastName());
-                map(source.getEmail(), destination.getPerson().getEmail());
-                map(source.getPassword(), destination.getPassword());
-                map(source.getUserType(), destination.getUserType().getName());
-                map(source.getUserState(), destination.getUserState().getName());
-            }
-        };
 
         PropertyMap<Professor, SimplifiedProfessorDto> professorSimplifiedProfessorDtoPropertyMap = new PropertyMap<Professor, SimplifiedProfessorDto>() {
             @Override
@@ -113,6 +87,8 @@ public class BusinessConfig {
 
         modelMapper.addMappings(new StudentToStudentDtoMap());
         modelMapper.addMappings(new StudentDtoToStudentMap());
+        modelMapper.addMappings(new UserToUserDtoMap());
+        modelMapper.addMappings(new UserDtoToUserMap());
 
         return modelMapper;
     }

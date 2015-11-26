@@ -30,7 +30,6 @@ public interface StudentDao {
      */
     Student findStudentByPnc(String pnc) throws DaoEntityNotFoundException;
 
-
     /**
      * Returns the Student entity from the database which has the same first name and last name as the method parameters.
      * This method throws DaoEntityNotFoundException if the student with the specified name is not found.

@@ -31,6 +31,9 @@ public class StudentServiceImpl implements StudentService {
     private StudentDao studentDao;
 
     @Autowired
+    private UserDao userDao;
+
+    @Autowired
     private GroupDao groupDao;
 
     @Autowired
@@ -80,8 +83,9 @@ public class StudentServiceImpl implements StudentService {
         try {
             Student student = studentDao.findStudentByPnc(pnc);
             List<Laboratory> laboratories = student.getLaboratories();
-
             removeStudentFromLaboratories(student, laboratories);
+
+            userDao.deleteUserByPnc(pnc);
 
             studentDao.deleteStudentByPnc(pnc);
         } catch (DaoEntityNotFoundException e) {

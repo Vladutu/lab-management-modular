@@ -4,6 +4,7 @@ import com.iquestint.dto.FormStudentDto;
 import com.iquestint.dto.StudentDto;
 import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
+import com.iquestint.populator.FormStudentDtoPopulator;
 import com.iquestint.service.StudentService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,9 @@ public class StudentsController {
 
     @Autowired
     ModelMapper modelMapper;
+
+    @Autowired
+    FormStudentDtoPopulator formStudentDtoPopulator;
 
     /**
      * Returns all existing students.
@@ -79,6 +83,7 @@ public class StudentsController {
         if (bindingResult.hasErrors()) {
             FormStudentDto formStudentDto = new FormStudentDto();
             studentService.initializeFormStudentDto(formStudentDto);
+            formStudentDtoPopulator.populatePersonSpecificFields(formStudentDto, studentDto);
 
             model.addAttribute("formStudentDto", formStudentDto);
 

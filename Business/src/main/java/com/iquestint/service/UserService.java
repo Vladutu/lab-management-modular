@@ -1,5 +1,8 @@
 package com.iquestint.service;
 
+import com.iquestint.dto.FormUserDto;
+import com.iquestint.dto.UnregisteredUserDto;
+import com.iquestint.dto.UserDto;
 import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
 import com.iquestint.model.User;
@@ -16,10 +19,10 @@ public interface UserService {
     /**
      * This method saves a user. It throws ServiceEntityAlreadyExistsException if the user already exists.
      *
-     * @param user user to be saved
+     * @param userDto user to be saved
      * @throws ServiceEntityAlreadyExistsException
      */
-    void saveUser(User user) throws ServiceEntityNotFoundException, ServiceEntityAlreadyExistsException;
+    void saveUser(UserDto userDto) throws ServiceEntityNotFoundException, ServiceEntityAlreadyExistsException;
 
     /**
      * This method deletes a user by specifying his/her personal numeric code(pnc). It throws ServiceEntityNotFoundException
@@ -38,30 +41,30 @@ public interface UserService {
      * @return User
      * @throws ServiceEntityNotFoundException
      */
-    User getUserByPnc(String pnc) throws ServiceEntityNotFoundException;
+    UserDto getUserByPnc(String pnc) throws ServiceEntityNotFoundException;
 
     /**
      * This method retrieves all user.
      *
      * @return List<User>
      */
-    List<User> getAllUsers();
+    List<UserDto> getAllUsers();
 
     /**
      * This method update a user. It throws ServiceEntityNotFoundException if the user is not found.
      *
-     * @param user the user to be updated
+     * @param userDto the user to be updated
      * @throws ServiceEntityNotFoundException
      */
-    void updateUser(User user) throws ServiceEntityNotFoundException;
+    void updateUser(UserDto userDto) throws ServiceEntityNotFoundException;
 
     /**
      * This method update a user without his/her password. It throws ServiceEntityNotFoundException if the user is not found.
      *
-     * @param user the user to be updated
+     * @param userDto the user to be updated
      * @throws ServiceEntityNotFoundException
      */
-    void updateUserNoPassword(User user) throws ServiceEntityNotFoundException;
+    void updateUserNoPassword(UserDto userDto) throws ServiceEntityNotFoundException;
 
     /**
      * This method retrieves a user by specifying his/her first name and last name. It throws
@@ -73,4 +76,8 @@ public interface UserService {
      * @throws ServiceEntityNotFoundException
      */
     User getUserByName(String firstName, String lastName) throws ServiceEntityNotFoundException;
+
+    void initializeFormUserDto(FormUserDto formUserDto);
+
+    UnregisteredUserDto getUnregisteredUser(String pnc) throws ServiceEntityNotFoundException;
 }

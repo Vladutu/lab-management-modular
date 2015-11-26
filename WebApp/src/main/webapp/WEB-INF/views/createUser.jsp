@@ -32,7 +32,7 @@
         </div>
     </c:if>
 
-    <form:form method="POST" modelAttribute="userDto" role="form">
+    <form:form method="POST" modelAttribute="formUserDto" role="form">
 
         <spring:bind path="pnc">
             <div class="form-group ${status.error ? 'has-error' : ''}">
@@ -78,7 +78,7 @@
         <spring:bind path="userType">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <label for="userType">Type: </label>
-                <form:select path="userType" items="${userTypeDtos}" multiple="false" class="form-control"
+                <form:select path="userType" items="${formUserDto.types}" multiple="false" class="form-control"
                              id="userType"/>
                 <form:errors path="userType" class="control-label"/>
             </div>
