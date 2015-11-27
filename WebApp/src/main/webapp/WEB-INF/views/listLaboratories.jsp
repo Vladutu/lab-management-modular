@@ -59,7 +59,7 @@
                 <td>${laboratory.subgroup}</td>
                 <td>${laboratory.weeklyOccurrence}</td>
 
-                <td>${laboratory.professorDto.firstName}&nbsp${laboratory.professorDto.lastName}</td>
+                <td>${laboratory.formProfessorDto.firstName}&nbsp${laboratory.formProfessorDto.lastName}</td>
                 <td>
                     <a href="<c:url value='/admin/laboratories/${laboratory.section}/${laboratory.year}/${laboratory.semester}/edit/${laboratory.id}' />">
                         <button type="button" class="btn btn-primary btn-md">Edit</button>

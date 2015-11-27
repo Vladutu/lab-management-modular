@@ -50,5 +50,5 @@ public class LaboratoryDto {
 
     @NotNull
     @ProfessorExists
-    private FormProfessorDto professorDto;
+    private FormProfessorDto formProfessorDto;
 }

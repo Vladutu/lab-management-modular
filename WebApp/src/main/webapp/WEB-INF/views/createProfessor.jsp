@@ -25,7 +25,7 @@
         </div>
     </c:if>
 
-    <form:form method="POST" modelAttribute="professorDto" role="form">
+    <form:form method="POST" modelAttribute="formProfessorDto" role="form">
 
         <spring:bind path="pnc">
             <div class="form-group ${status.error ? 'has-error' : ''}">

@@ -15,7 +15,7 @@ import java.util.List;
  */
 public interface LaboratoryService {
 
-    void saveLaboratory(Laboratory laboratory)
+    void saveLaboratory(LaboratoryDto laboratoryDto)
         throws ServiceEntityNotFoundException, ServiceEntityAlreadyExistsException;
 
     void deleteLaboratory(int id) throws ServiceEntityNotFoundException;

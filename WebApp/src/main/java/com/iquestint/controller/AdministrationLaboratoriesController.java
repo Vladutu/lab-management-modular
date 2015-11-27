@@ -1,17 +1,20 @@
 package com.iquestint.controller;
 
 import com.iquestint.dto.*;
+import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
 import com.iquestint.service.AdministrationFormService;
 import com.iquestint.service.LaboratoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -76,6 +79,30 @@ public class AdministrationLaboratoriesController {
         model.addAttribute("formLaboratoryCreateDto", formLaboratoryCreateDto);
 
         return "createLaboratory";
+    }
+
+    @RequestMapping(value = "/admin/laboratories/{section}/{year}/{semester}/new", method = RequestMethod.POST)
+    public String saveLaboratory(@Valid LaboratoryDto laboratoryDto, BindingResult bindingResult, ModelMap model,
+        @PathVariable String section, @PathVariable int year, @PathVariable int semester,
+        RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            FormLaboratoryCreateDto formLaboratoryCreateDto = administrationFormService.getFormLaboratoryCreateDto();
+
+            model.addAttribute("formLaboratoryCreateDto", formLaboratoryCreateDto);
+
+            return "createLaboratory";
+        }
+
+        try {
+            laboratoryService.saveLaboratory(laboratoryDto);
+        } catch (ServiceEntityNotFoundException ignored) {
+        } catch (ServiceEntityAlreadyExistsException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Laboratory already exists");
+
+            return "redirect:/admin/laboratories/" + section + "/" + year + "/" + semester;
+        }
+
+        return "redirect:/admin/laboratories/" + section + "/" + year + "/" + semester;
     }
 
 }

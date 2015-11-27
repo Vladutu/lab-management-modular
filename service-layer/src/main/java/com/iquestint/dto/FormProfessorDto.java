@@ -16,8 +16,10 @@ public class FormProfessorDto {
 
     private String lastName;
 
+    private String compressedFields;
+
     @Override
     public String toString() {
-        return pnc + " (" + firstName + " " + lastName + ")";
+        return compressedFields;
     }
 }

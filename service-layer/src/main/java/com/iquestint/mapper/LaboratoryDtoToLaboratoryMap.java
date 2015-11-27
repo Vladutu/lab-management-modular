@@ -22,7 +22,7 @@ public class LaboratoryDtoToLaboratoryMap extends PropertyMap<LaboratoryDto, Lab
         map(source.getGroup(), destination.getGroup().getName());
         map(source.getSubgroup(), destination.getSubgroup().getName());
         map(source.getRoom(), destination.getRoom().getName());
-        map(source.getProfessorDto(), destination.getProfessor());
+        map(source.getFormProfessorDto(), destination.getProfessor());
         map(source.getWeeklyOccurrence(), destination.getWeeklyOccurrence().getName());
     }
 }

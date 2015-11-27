@@ -94,8 +94,7 @@
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <label for="semester">Semester: </label>
                 <form:input path="semester" class="form-control" id="semester"
-                            value="${semester}"
-                            disabled="true"/>
+                            value="${semester}" disabled="true"/>
                 <form:errors path="semester" class="control-label"/>
             </div>
         </spring:bind>
@@ -104,8 +103,7 @@
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <label for="group">Group: </label>
                 <form:select path="group" items="${formLaboratoryCreateDto.groups}" multiple="false"
-                             class="form-control"
-                             id="group"/>
+                             class="form-control" id="group"/>
                 <form:errors path="group" class="control-label"/>
             </div>
         </spring:bind>
@@ -114,8 +112,7 @@
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <label for="subgroup">Subgroup: </label>
                 <form:select path="subgroup" items="${formLaboratoryCreateDto.subgroups}" multiple="false"
-                             class="form-control"
-                             id="subgroup"/>
+                             class="form-control" id="subgroup"/>
                 <form:errors path="subgroup" class="control-label"/>
             </div>
         </spring:bind>
@@ -124,20 +121,17 @@
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <label for="weeklyOccurrence">Weekly occurrence: </label>
                 <form:select path="weeklyOccurrence" items="${formLaboratoryCreateDto.weeklyOccurrences}"
-                             multiple="false"
-                             class="form-control"
-                             id="weeklyOccurrence"/>
+                             multiple="false" class="form-control" id="weeklyOccurrence"/>
                 <form:errors path="weeklyOccurrence" class="control-label"/>
             </div>
         </spring:bind>
 
-        <spring:bind path="professorDto.pnc">
+        <spring:bind path="formProfessorDto.compressedFields">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <label for="professorDto.pnc">Professor: </label>
-                <form:select path="professorDto.pnc" items="${formLaboratoryCreateDto.professors}" multiple="false"
-                             class="form-control"
-                             id="professorDto.pnc"/>
-                <form:errors path="professorDto.pnc" class="control-label"/>
+                <label for="formProfessorDto.compressedFields">Professor: </label>
+                <form:select path="formProfessorDto.compressedFields" items="${formLaboratoryCreateDto.professors}"
+                             multiple="false" class="form-control" id="formProfessorDto.compressedFields"/>
+                <form:errors path="formProfessorDto.compressedFields" class="control-label"/>
             </div>
         </spring:bind>
 
