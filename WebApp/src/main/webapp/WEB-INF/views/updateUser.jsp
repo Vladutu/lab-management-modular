@@ -81,15 +81,17 @@
         <spring:bind path="userType">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <label for="userType">Type: </label>
-                <form:input path="userType" class="form-control" id="userType"/>
+                <form:select path="userType" items="${formUserDto.types}" multiple="false" class="form-control"
+                             id="userType"/>
                 <form:errors path="userType" class="control-label"/>
             </div>
         </spring:bind>
 
         <spring:bind path="userState">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <label for="userState">State: </label>
-                <form:input path="userState" class="form-control" id="userState"/>
+                <label for="userState">Semester: </label>
+                <form:select path="userState" items="${formUserDto.states}" multiple="false" class="form-control"
+                             id="userState"/>
                 <form:errors path="userState" class="control-label"/>
             </div>
         </spring:bind>

@@ -14,6 +14,14 @@ public class SemesterDto {
 
     private Integer value;
 
+    public SemesterDto() {
+
+    }
+
+    public SemesterDto(Integer value) {
+        this.value = value;
+    }
+
     @Override
     public String toString() {
         return value.toString();

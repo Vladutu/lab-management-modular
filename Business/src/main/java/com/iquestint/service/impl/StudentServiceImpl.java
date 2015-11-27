@@ -1,13 +1,12 @@
 package com.iquestint.service.impl;
 
 import com.iquestint.dao.*;
-import com.iquestint.dto.*;
+import com.iquestint.dto.StudentDto;
 import com.iquestint.exception.DaoEntityAlreadyExists;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
 import com.iquestint.model.*;
-import com.iquestint.populator.StudentPopulator;
 import com.iquestint.service.StudentService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -34,6 +33,12 @@ public class StudentServiceImpl implements StudentService {
     private UserDao userDao;
 
     @Autowired
+    private LaboratoryDao laboratoryDao;
+
+    @Autowired
+    private ModelMapper modelMapper;
+
+    @Autowired
     private GroupDao groupDao;
 
     @Autowired
@@ -43,19 +48,10 @@ public class StudentServiceImpl implements StudentService {
     private SubgroupDao subgroupDao;
 
     @Autowired
-    private YearDao yearDao;
-
-    @Autowired
     private SemesterDao semesterDao;
 
     @Autowired
-    private LaboratoryDao laboratoryDao;
-
-    @Autowired
-    private ModelMapper modelMapper;
-
-    @Autowired
-    private StudentPopulator studentPopulator;
+    private YearDao yearDao;
 
     @Override
     public void saveStudent(StudentDto studentDto) throws ServiceEntityNotFoundException,
@@ -63,8 +59,8 @@ public class StudentServiceImpl implements StudentService {
         Student student = modelMapper.map(studentDto, Student.class);
 
         try {
-            studentPopulator.populateStudentSpecificFields(student, studentDto);
-            List<Laboratory> laboratories = laboratoryDao.findLaboratories(student.getSection(), student.getYear(),
+            populateStudentSpecificFields(student, studentDto);
+            List<Laboratory> laboratories = laboratoryDao.getLaboratories(student.getSection(), student.getYear(),
                 student.getSemester(), student.getGroup(), student.getSubgroup());
 
             studentDao.saveStudent(student);
@@ -81,11 +77,15 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void deleteStudent(String pnc) throws ServiceEntityNotFoundException {
         try {
-            Student student = studentDao.findStudentByPnc(pnc);
+            Student student = studentDao.getStudentByPnc(pnc);
             List<Laboratory> laboratories = student.getLaboratories();
             removeStudentFromLaboratories(student, laboratories);
 
-            userDao.deleteUserByPnc(pnc);
+            try {
+                userDao.deleteUserByPnc(pnc);
+            } catch (DaoEntityNotFoundException ignored) {
+
+            }
 
             studentDao.deleteStudentByPnc(pnc);
         } catch (DaoEntityNotFoundException e) {
@@ -96,7 +96,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public StudentDto getStudentByPnc(String pnc) throws ServiceEntityNotFoundException {
         try {
-            Student student = studentDao.findStudentByPnc(pnc);
+            Student student = studentDao.getStudentByPnc(pnc);
 
             return modelMapper.map(student, StudentDto.class);
         } catch (DaoEntityNotFoundException e) {
@@ -106,7 +106,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<StudentDto> getAllStudents() {
-        List<Student> students = studentDao.findAllStudents();
+        List<Student> students = studentDao.getAllStudents();
         Type listType = new TypeToken<List<StudentDto>>() {
         }.getType();
 
@@ -114,48 +114,25 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public void initializeFormStudentDto(FormStudentDto formStudentDto) {
-        List<Section> sections = sectionDao.getAllSections();
-        List<Group> groups = groupDao.getAllGroups();
-        List<Subgroup> subgroups = subgroupDao.getAllSubgroups();
-        List<Semester> semesters = semesterDao.getAllSemesters();
-        List<Year> years = yearDao.getAllYears();
-
-        List<SectionDto> sectionDtos = modelMapper.map(sections, new TypeToken<List<SectionDto>>() {
-        }.getType());
-        List<GroupDto> groupDtos = modelMapper.map(groups, new TypeToken<List<GroupDto>>() {
-        }.getType());
-        List<SubgroupDto> subgroupDtos = modelMapper.map(subgroups, new TypeToken<List<SubgroupDto>>() {
-        }.getType());
-        List<SemesterDto> semesterDtos = modelMapper.map(semesters, new TypeToken<List<SemesterDto>>() {
-        }.getType());
-        List<YearDto> yearDtos = modelMapper.map(years, new TypeToken<List<YearDto>>() {
-        }.getType());
-
-        formStudentDto.setSections(sectionDtos);
-        formStudentDto.setGroups(groupDtos);
-        formStudentDto.setSubgroups(subgroupDtos);
-        formStudentDto.setSemesters(semesterDtos);
-        formStudentDto.setYears(yearDtos);
-    }
-
-    @Override
     public void updateStudent(StudentDto studentDto) throws ServiceEntityNotFoundException {
 
         try {
-            Student student = studentDao.findStudentByPnc(studentDto.getPnc());
+            Student student = studentDao.getStudentByPnc(studentDto.getPnc());
 
-            studentPopulator.populateStudentSpecificFields(student, studentDto);
-            studentPopulator.populatePersonSpecificFields(student, studentDto);
+            boolean laboratoryNeedsUpdate = laboratoryNeedsUpdate(studentDto, student);
+            populateStudentSpecificFields(student, studentDto);
+            populatePersonSpecificFields(student, studentDto);
 
             studentDao.updateStudent(student);
 
-            List<Laboratory> laboratories = student.getLaboratories();
-            removeStudentFromLaboratories(student, laboratories);
+            if (laboratoryNeedsUpdate) {
+                List<Laboratory> laboratories = student.getLaboratories();
+                removeStudentFromLaboratories(student, laboratories);
 
-            laboratories = laboratoryDao.findLaboratories(student.getSection(), student.getYear(),
-                student.getSemester(), student.getGroup(), student.getSubgroup());
-            addStudentToLaboratories(student, laboratories);
+                laboratories = laboratoryDao.getLaboratories(student.getSection(), student.getYear(),
+                    student.getSemester(), student.getGroup(), student.getSubgroup());
+                addStudentToLaboratories(student, laboratories);
+            }
 
         } catch (DaoEntityNotFoundException e) {
             throw new ServiceEntityNotFoundException(e);
@@ -165,7 +142,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Student getStudentByName(String firstName, String lastName) throws ServiceEntityNotFoundException {
         try {
-            return studentDao.findStudentByName(firstName, lastName);
+            return studentDao.getStudentByName(firstName, lastName);
         } catch (DaoEntityNotFoundException e) {
             throw new ServiceEntityNotFoundException(e);
         }
@@ -185,5 +162,37 @@ public class StudentServiceImpl implements StudentService {
             laboratory.getStudents().remove(student);
             laboratoryDao.updateLaboratory(laboratory);
         }
+    }
+
+    private boolean laboratoryNeedsUpdate(StudentDto studentDto, Student student) {
+        boolean sectionMatches = studentDto.getSection().equals(student.getSection().getName());
+        boolean groupMatches = studentDto.getGroup().equals(student.getGroup().getName());
+        boolean subgroupMatches = studentDto.getSubgroup().equals(student.getSubgroup().getName());
+        boolean yearMatches = studentDto.getYear().equals(student.getYear().getValue());
+        boolean semesterMatches = studentDto.getSemester().equals(student.getSemester().getValue());
+
+        return !(sectionMatches && groupMatches && subgroupMatches && yearMatches && semesterMatches);
+    }
+
+    private void populateStudentSpecificFields(Student student, StudentDto studentDto)
+        throws DaoEntityNotFoundException {
+        Section section = sectionDao.getSectionByName(studentDto.getSection());
+        Group group = groupDao.getGroupByName(studentDto.getGroup());
+        Subgroup subgroup = subgroupDao.getSubgroupByName(studentDto.getSubgroup());
+        Year year = yearDao.getYearByValue(studentDto.getYear());
+        Semester semester = semesterDao.getSemesterByValue(studentDto.getSemester());
+
+        student.setGroup(group);
+        student.setSubgroup(subgroup);
+        student.setSection(section);
+        student.setYear(year);
+        student.setSemester(semester);
+    }
+
+    private void populatePersonSpecificFields(Student student, StudentDto studentDto) {
+        student.setFirstName(studentDto.getFirstName());
+        student.setLastName(studentDto.getLastName());
+        student.setEmail(studentDto.getEmail());
+        student.setPnc(studentDto.getPnc());
     }
 }

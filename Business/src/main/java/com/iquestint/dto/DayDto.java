@@ -1,4 +1,4 @@
-package com.iquestint.notUsed;
+package com.iquestint.dto;
 
 import lombok.Getter;
 import lombok.Setter;

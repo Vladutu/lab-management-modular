@@ -4,7 +4,7 @@ import com.iquestint.dto.FormStudentDto;
 import com.iquestint.dto.StudentDto;
 import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
-import com.iquestint.populator.FormStudentDtoPopulator;
+import com.iquestint.service.AdministrationFormService;
 import com.iquestint.service.StudentService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/")
-public class StudentsController {
+public class AdministrationStudentsController {
 
     @Autowired
     private StudentService studentService;
@@ -35,7 +35,7 @@ public class StudentsController {
     ModelMapper modelMapper;
 
     @Autowired
-    FormStudentDtoPopulator formStudentDtoPopulator;
+    AdministrationFormService administrationFormService;
 
     /**
      * Returns all existing students.
@@ -59,9 +59,10 @@ public class StudentsController {
      */
     @RequestMapping(value = "/admin/students/new", method = RequestMethod.GET)
     public String newStudent(ModelMap model) {
-        FormStudentDto formStudentDto = new FormStudentDto();
-        studentService.initializeFormStudentDto(formStudentDto);
+        StudentDto studentDto = new StudentDto();
+        FormStudentDto formStudentDto = administrationFormService.getFormStudent();
 
+        model.addAttribute("studentDto", studentDto);
         model.addAttribute("formStudentDto", formStudentDto);
 
         return "createStudent";
@@ -81,9 +82,7 @@ public class StudentsController {
     public String saveStudent(@Valid StudentDto studentDto, BindingResult bindingResult, ModelMap model,
         RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
-            FormStudentDto formStudentDto = new FormStudentDto();
-            studentService.initializeFormStudentDto(formStudentDto);
-            formStudentDtoPopulator.populatePersonSpecificFields(formStudentDto, studentDto);
+            FormStudentDto formStudentDto = administrationFormService.getFormStudent();
 
             model.addAttribute("formStudentDto", formStudentDto);
 
@@ -134,11 +133,10 @@ public class StudentsController {
     public String editStudent(@PathVariable String studentPnc, ModelMap model, RedirectAttributes redirectAttributes) {
         try {
             StudentDto studentDto = studentService.getStudentByPnc(studentPnc);
-
-            FormStudentDto formStudentDto = modelMapper.map(studentDto, FormStudentDto.class);
-            studentService.initializeFormStudentDto(formStudentDto);
+            FormStudentDto formStudentDto = administrationFormService.getFormStudent();
 
             model.addAttribute("formStudentDto", formStudentDto);
+            model.addAttribute("studentDto", studentDto);
 
             return "updateStudent";
         } catch (ServiceEntityNotFoundException e) {
@@ -163,6 +161,10 @@ public class StudentsController {
         @PathVariable String studentPnc, RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
+            FormStudentDto formStudentDto = administrationFormService.getFormStudent();
+
+            model.addAttribute("formStudentDto", formStudentDto);
+
             return "updateStudent";
         }
 

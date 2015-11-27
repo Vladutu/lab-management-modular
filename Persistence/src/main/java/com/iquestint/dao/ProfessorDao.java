@@ -18,7 +18,7 @@ public interface ProfessorDao {
      *
      * @return List<Professor>
      */
-    List<Professor> findAllProfessors();
+    List<Professor> getAllProfessors();
 
     /**
      * Returns the Professor entity from the database which has the same personal numeric code(pnc) as the method
@@ -28,7 +28,7 @@ public interface ProfessorDao {
      * @return Professor
      * @throws DaoEntityNotFoundException
      */
-    Professor findProfessorByPnc(String pnc) throws DaoEntityNotFoundException;
+    Professor getProfessorByPnc(String pnc) throws DaoEntityNotFoundException;
 
     /**
      * Returns the Professor entity from the database which has the same personal numeric code(pnc) as the method
@@ -39,7 +39,7 @@ public interface ProfessorDao {
      * @return Professor
      * @throws DaoEntityNotFoundException
      */
-    Professor findByPncWithLaboratories(String pnc) throws DaoEntityNotFoundException;
+    Professor getProfessorByPncWithLaboratories(String pnc) throws DaoEntityNotFoundException;
 
     /**
      * Returns the Professor entity from the database which has the same first name and last name as the method parameters.
@@ -50,7 +50,7 @@ public interface ProfessorDao {
      * @return Professor
      * @throws DaoEntityNotFoundException
      */
-    Professor findProfessorByName(String firstName, String lastName) throws DaoEntityNotFoundException;
+    Professor getProfessorByName(String firstName, String lastName) throws DaoEntityNotFoundException;
 
     /**
      * Saves the professor into the database. This method throws DaoEntityAlreadyExists if the professor already exists

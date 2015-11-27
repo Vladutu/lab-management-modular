@@ -19,12 +19,12 @@ import java.util.List;
 public class StudentDaoImpl extends AbstractDao<Student> implements StudentDao {
 
     @Override
-    public List<Student> findAllStudents() {
+    public List<Student> getAllStudents() {
         return getAll();
     }
 
     @Override
-    public Student findStudentByPnc(String pnc) throws DaoEntityNotFoundException {
+    public Student getStudentByPnc(String pnc) throws DaoEntityNotFoundException {
         TypedQuery<Student> query = getEntityManager().createQuery("SELECT s FROM Student s WHERE s.pnc = :pnc",
             Student.class);
         query.setParameter("pnc", pnc);
@@ -37,7 +37,7 @@ public class StudentDaoImpl extends AbstractDao<Student> implements StudentDao {
     }
 
     @Override
-    public Student findStudentByName(String firstName, String lastName) throws DaoEntityNotFoundException {
+    public Student getStudentByName(String firstName, String lastName) throws DaoEntityNotFoundException {
         TypedQuery<Student> query = getEntityManager().createQuery(
             "SELECT s FROM Student s WHERE s.firstName = :fName AND s.lastName = :lName ",
             Student.class);
@@ -54,7 +54,7 @@ public class StudentDaoImpl extends AbstractDao<Student> implements StudentDao {
     @Override
     public void saveStudent(Student student) throws DaoEntityAlreadyExists {
         try {
-            Student s = findStudentByPnc(student.getPnc());
+            Student s = getStudentByPnc(student.getPnc());
         } catch (DaoEntityNotFoundException e) {
             persist(student);
             return;
@@ -65,18 +65,18 @@ public class StudentDaoImpl extends AbstractDao<Student> implements StudentDao {
 
     @Override
     public void updateStudent(Student student) throws DaoEntityNotFoundException {
-        Student s = findStudentByPnc(student.getPnc());
+        Student s = getStudentByPnc(student.getPnc());
         update(student);
     }
 
     @Override
     public void deleteStudentByPnc(String pnc) throws DaoEntityNotFoundException {
-        Student student = findStudentByPnc(pnc);
+        Student student = getStudentByPnc(pnc);
         delete(student);
     }
 
     @Override
-    public List<Student> findStudents(Section section, Year year, Semester semester, Group group, Subgroup subgroup) {
+    public List<Student> getStudents(Section section, Year year, Semester semester, Group group, Subgroup subgroup) {
         TypedQuery<Student> query = getEntityManager().createQuery(
             "SELECT s FROM Student s WHERE s.section.name = :section AND s.year.value = :year AND s.semester.value = :semester " +
                 "AND s.group.name = :groupName AND s.subgroup.name = :subgroup",

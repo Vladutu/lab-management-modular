@@ -3,7 +3,7 @@ package com.iquestint.validation;
 import com.iquestint.dao.ProfessorDao;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.model.Professor;
-import com.iquestint.notUsed.SimplifiedProfessorDto;
+import com.iquestint.dto.FormProfessorDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +14,7 @@ import javax.validation.ConstraintValidatorContext;
  * @author vladu
  */
 @Component
-public class ProfessorValidator implements ConstraintValidator<ProfessorExists, SimplifiedProfessorDto> {
+public class ProfessorValidator implements ConstraintValidator<ProfessorExists, FormProfessorDto> {
 
     @Autowired
     ProfessorDao professorDao;
@@ -25,9 +25,9 @@ public class ProfessorValidator implements ConstraintValidator<ProfessorExists, 
     }
 
     @Override
-    public boolean isValid(SimplifiedProfessorDto professorDto, ConstraintValidatorContext constraintValidatorContext) {
+    public boolean isValid(FormProfessorDto professorDto, ConstraintValidatorContext constraintValidatorContext) {
         try {
-            Professor professor = professorDao.findProfessorByPnc(professorDto.getPnc());
+            Professor professor = professorDao.getProfessorByPnc(professorDto.getPnc());
 
             return true;
         } catch (DaoEntityNotFoundException e) {

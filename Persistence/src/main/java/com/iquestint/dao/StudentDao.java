@@ -18,7 +18,7 @@ public interface StudentDao {
      *
      * @return List<Student>
      */
-    List<Student> findAllStudents();
+    List<Student> getAllStudents();
 
     /**
      * Returns the Student entity from the database which has the same personal numeric code(pnc) as the method
@@ -28,7 +28,7 @@ public interface StudentDao {
      * @return Student
      * @throws DaoEntityNotFoundException
      */
-    Student findStudentByPnc(String pnc) throws DaoEntityNotFoundException;
+    Student getStudentByPnc(String pnc) throws DaoEntityNotFoundException;
 
     /**
      * Returns the Student entity from the database which has the same first name and last name as the method parameters.
@@ -39,7 +39,7 @@ public interface StudentDao {
      * @return Student
      * @throws DaoEntityNotFoundException
      */
-    Student findStudentByName(String firstName, String lastName) throws DaoEntityNotFoundException;
+    Student getStudentByName(String firstName, String lastName) throws DaoEntityNotFoundException;
 
     /**
      * Saves the student into the database. This method throws DaoEntityAlreadyExists if the student already exists
@@ -76,5 +76,5 @@ public interface StudentDao {
      * @param subgroup Subgroup
      * @return List<Student>
      */
-    List<Student> findStudents(Section section, Year year, Semester semester, Group group, Subgroup subgroup);
+    List<Student> getStudents(Section section, Year year, Semester semester, Group group, Subgroup subgroup);
 }

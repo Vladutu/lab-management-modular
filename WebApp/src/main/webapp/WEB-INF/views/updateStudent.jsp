@@ -18,7 +18,7 @@
 <div class="container">
     <h2 class="text-center">Student Update Form</h2>
 
-    <form:form method="POST" modelAttribute="formStudentDto" role="form">
+    <form:form method="POST" modelAttribute="studentDto" role="form">
         <spring:bind path="pnc">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <label for="pnc" class="control-label">PNC: </label>

@@ -16,12 +16,12 @@ import java.util.List;
 public class LaboratoryDaoImpl extends AbstractDao<Laboratory> implements LaboratoryDao {
 
     @Override
-    public List<Laboratory> findAllLaboratories() {
+    public List<Laboratory> getAllLaboratories() {
         return getAll();
     }
 
     @Override
-    public List<Laboratory> findLaboratories(Section section, Year year, Semester semester) {
+    public List<Laboratory> getLaboratories(Section section, Year year, Semester semester) {
         TypedQuery<Laboratory> query = getEntityManager().createQuery(
             "SELECT l FROM Laboratory l WHERE l.section.name = :section AND l.year.value = :year AND l.semester.value = :semester ORDER BY l.name",
             Laboratory.class);
@@ -33,7 +33,7 @@ public class LaboratoryDaoImpl extends AbstractDao<Laboratory> implements Labora
     }
 
     @Override
-    public List<Laboratory> findLaboratories(Section section, Year year, Semester semester, Group group,
+    public List<Laboratory> getLaboratories(Section section, Year year, Semester semester, Group group,
         Subgroup subgroup) {
         TypedQuery<Laboratory> query = getEntityManager().createQuery(
             "SELECT l FROM Laboratory l WHERE l.section.name = :section AND l.year.value = :year AND l.semester.value = :semester " +
@@ -49,14 +49,14 @@ public class LaboratoryDaoImpl extends AbstractDao<Laboratory> implements Labora
     }
 
     @Override
-    public Laboratory findLaboratoryById(int id) throws DaoEntityNotFoundException {
+    public Laboratory getLaboratoryById(int id) throws DaoEntityNotFoundException {
         return getById(id);
     }
 
     @Override
     public void saveLaboratory(Laboratory laboratory) throws DaoEntityAlreadyExists {
         try {
-            Laboratory l = findLaboratoryById(laboratory.getId());
+            Laboratory l = getLaboratoryById(laboratory.getId());
         } catch (DaoEntityNotFoundException e) {
             persist(laboratory);
             return;
@@ -67,13 +67,13 @@ public class LaboratoryDaoImpl extends AbstractDao<Laboratory> implements Labora
 
     @Override
     public void updateLaboratory(Laboratory laboratory) throws DaoEntityNotFoundException {
-        Laboratory l = findLaboratoryById(laboratory.getId());
+        Laboratory l = getLaboratoryById(laboratory.getId());
         update(laboratory);
     }
 
     @Override
     public void deleteLaboratoryById(int id) throws DaoEntityNotFoundException {
-        Laboratory laboratory = findLaboratoryById(id);
+        Laboratory laboratory = getLaboratoryById(id);
         delete(laboratory);
     }
 }

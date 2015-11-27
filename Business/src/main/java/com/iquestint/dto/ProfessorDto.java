@@ -1,6 +1,5 @@
-package com.iquestint.notUsed;
+package com.iquestint.dto;
 
-import com.iquestint.dto.PersonDto;
 import lombok.Getter;
 import lombok.Setter;
 

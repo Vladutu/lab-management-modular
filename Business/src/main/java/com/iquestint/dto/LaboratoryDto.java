@@ -1,4 +1,4 @@
-package com.iquestint.notUsed;
+package com.iquestint.dto;
 
 import com.iquestint.validation.ProfessorExists;
 import lombok.Getter;
@@ -50,5 +50,5 @@ public class LaboratoryDto {
 
     @NotNull
     @ProfessorExists
-    private SimplifiedProfessorDto professorDto;
+    private FormProfessorDto professorDto;
 }

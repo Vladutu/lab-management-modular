@@ -9,7 +9,7 @@ import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
 import com.iquestint.model.Laboratory;
 import com.iquestint.model.Professor;
-import com.iquestint.notUsed.ProfessorDto;
+import com.iquestint.dto.ProfessorDto;
 import com.iquestint.service.ProfessorService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -54,7 +54,7 @@ public class ProfessorServiceImpl implements ProfessorService {
     @Override
     public void deleteProfessor(String pnc) throws ServiceEntityNotFoundException {
         try {
-            Professor professor = professorDao.findProfessorByPnc(pnc);
+            Professor professor = professorDao.getProfessorByPnc(pnc);
             for (Laboratory laboratory : professor.getLaboratories()) {
                 laboratoryDao.deleteLaboratoryById(laboratory.getId());
             }
@@ -69,7 +69,7 @@ public class ProfessorServiceImpl implements ProfessorService {
     @Override
     public ProfessorDto getProfessorByPnc(String pnc) throws ServiceEntityNotFoundException {
         try {
-            Professor professor = professorDao.findProfessorByPnc(pnc);
+            Professor professor = professorDao.getProfessorByPnc(pnc);
 
             return modelMapper.map(professor, ProfessorDto.class);
         } catch (DaoEntityNotFoundException e) {
@@ -79,7 +79,7 @@ public class ProfessorServiceImpl implements ProfessorService {
 
     @Override
     public List<ProfessorDto> getAllProfessors() {
-        List<Professor> professors = professorDao.findAllProfessors();
+        List<Professor> professors = professorDao.getAllProfessors();
         Type listType = new TypeToken<List<ProfessorDto>>() {
         }.getType();
 
@@ -99,7 +99,7 @@ public class ProfessorServiceImpl implements ProfessorService {
     @Override
     public Professor getProfessorByName(String firstName, String lastName) throws ServiceEntityNotFoundException {
         try {
-            return professorDao.findProfessorByName(firstName, lastName);
+            return professorDao.getProfessorByName(firstName, lastName);
         } catch (DaoEntityNotFoundException e) {
             throw new ServiceEntityNotFoundException(e);
         }

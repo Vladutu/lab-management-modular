@@ -3,7 +3,7 @@ package com.iquestint.service;
 import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
 import com.iquestint.model.Professor;
-import com.iquestint.notUsed.ProfessorDto;
+import com.iquestint.dto.ProfessorDto;
 
 import java.util.List;
 

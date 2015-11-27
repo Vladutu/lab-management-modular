@@ -19,12 +19,12 @@ import java.util.List;
 public class ProfessorDaoImpl extends AbstractDao<Professor> implements ProfessorDao {
 
     @Override
-    public List<Professor> findAllProfessors() {
+    public List<Professor> getAllProfessors() {
         return getAll();
     }
 
     @Override
-    public Professor findProfessorByPnc(String pnc) throws DaoEntityNotFoundException {
+    public Professor getProfessorByPnc(String pnc) throws DaoEntityNotFoundException {
         TypedQuery<Professor> query = getEntityManager().createQuery("SELECT p FROM Professor p WHERE p.pnc = :pnc",
             Professor.class);
         query.setParameter("pnc", pnc);
@@ -38,7 +38,7 @@ public class ProfessorDaoImpl extends AbstractDao<Professor> implements Professo
     }
 
     @Override
-    public Professor findByPncWithLaboratories(String pnc) throws DaoEntityNotFoundException {
+    public Professor getProfessorByPncWithLaboratories(String pnc) throws DaoEntityNotFoundException {
         TypedQuery<Professor> query = getEntityManager().createQuery(
             "SELECT p FROM Professor p JOIN FETCH p.laboratories WHERE p.pnc = :pnc", Professor.class);
         query.setParameter("pnc", pnc);
@@ -52,7 +52,7 @@ public class ProfessorDaoImpl extends AbstractDao<Professor> implements Professo
     }
 
     @Override
-    public Professor findProfessorByName(String firstName, String lastName) throws DaoEntityNotFoundException {
+    public Professor getProfessorByName(String firstName, String lastName) throws DaoEntityNotFoundException {
         TypedQuery<Professor> query = getEntityManager().createQuery(
             "SELECT p FROM Professor p WHERE p.firstName = :fName AND p.lastName = :lName ",
             Professor.class);
@@ -70,7 +70,7 @@ public class ProfessorDaoImpl extends AbstractDao<Professor> implements Professo
     @Override
     public void saveProfessor(Professor professor) throws DaoEntityAlreadyExists {
         try {
-            Professor p = findProfessorByPnc(professor.getPnc());
+            Professor p = getProfessorByPnc(professor.getPnc());
         }
         catch (DaoEntityNotFoundException e) {
             persist(professor);
@@ -82,13 +82,13 @@ public class ProfessorDaoImpl extends AbstractDao<Professor> implements Professo
 
     @Override
     public void updateProfessor(Professor professor) throws DaoEntityNotFoundException {
-        Professor p = findProfessorByPnc(professor.getPnc());
+        Professor p = getProfessorByPnc(professor.getPnc());
         update(professor);
     }
 
     @Override
     public void deleteProfessorByPnc(String pnc) throws DaoEntityNotFoundException {
-        Professor professor = findProfessorByPnc(pnc);
+        Professor professor = getProfessorByPnc(pnc);
         delete(professor);
     }
 }

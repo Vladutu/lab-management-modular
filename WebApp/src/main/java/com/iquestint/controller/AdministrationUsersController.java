@@ -6,9 +6,7 @@ import com.iquestint.dto.UserDto;
 import com.iquestint.enums.State;
 import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
-import com.iquestint.populator.FormUserDtoPopulator;
-import com.iquestint.service.ProfessorService;
-import com.iquestint.service.StudentService;
+import com.iquestint.service.AdministrationFormService;
 import com.iquestint.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -28,22 +26,16 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/")
-public class UsersController {
+public class AdministrationUsersController {
 
     @Autowired
     private UserService userService;
 
     @Autowired
-    private StudentService studentService;
-
-    @Autowired
-    private ProfessorService professorService;
-
-    @Autowired
     PasswordEncoder passwordEncoder;
 
     @Autowired
-    private FormUserDtoPopulator formUserDtoPopulator;
+    private AdministrationFormService administrationFormService;
 
     /**
      * Returns all existing users.
@@ -68,10 +60,11 @@ public class UsersController {
      */
     @RequestMapping(value = "/admin/users/new", method = RequestMethod.GET)
     public String newUser(ModelMap model) {
-        FormUserDto formUserDto = new FormUserDto();
-        userService.initializeFormUserDto(formUserDto);
+        FormUserDto formUserDto = administrationFormService.getFormUser();
+        UserDto userDto = new UserDto();
 
         model.addAttribute("formUserDto", formUserDto);
+        model.addAttribute("userDto", userDto);
 
         return "createUser";
     }
@@ -90,9 +83,7 @@ public class UsersController {
     public String saveUser(@Valid UserDto userDto, BindingResult bindingResult, ModelMap model,
         RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
-            FormUserDto formUserDto = new FormUserDto();
-            userService.initializeFormUserDto(formUserDto);
-            formUserDtoPopulator.populateFormUserDto(formUserDto, userDto);
+            FormUserDto formUserDto = administrationFormService.getFormUser();
 
             model.addAttribute("formUserDto", formUserDto);
 
@@ -128,8 +119,7 @@ public class UsersController {
         RedirectAttributes redirectAttributes) {
         try {
             userService.deleteUser(pnc);
-        }
-        catch (ServiceEntityNotFoundException e) {
+        } catch (ServiceEntityNotFoundException e) {
             redirectAttributes.addFlashAttribute("errorMessage", "The user does not exists or no longer exists");
         }
 
@@ -150,12 +140,13 @@ public class UsersController {
         try {
             UserDto userDto = userService.getUserByPnc(pnc);
             userDto.setPassword("");
+            FormUserDto formUserDto = administrationFormService.getFormUser();
 
             model.addAttribute("userDto", userDto);
+            model.addAttribute("formUserDto", formUserDto);
 
             return "updateUser";
-        }
-        catch (ServiceEntityNotFoundException e) {
+        } catch (ServiceEntityNotFoundException e) {
             redirectAttributes.addFlashAttribute("errorMessage", "The user does not exists or no longer exists");
 
             return "redirect:/admin/users";
@@ -178,6 +169,10 @@ public class UsersController {
 
         if ((bindingResult.getErrorCount() > 1) ||
             (bindingResult.getErrorCount() == 1 && !userDto.getPassword().equals(""))) {
+            FormUserDto formUserDto = administrationFormService.getFormUser();
+
+            model.addAttribute("formUserDto", formUserDto);
+
             return "updateUser";
         }
 
@@ -193,14 +188,12 @@ public class UsersController {
             }
 
             return "redirect:/admin/users";
-        }
-        catch (ServiceEntityNotFoundException e) {
+        } catch (ServiceEntityNotFoundException e) {
             redirectAttributes.addFlashAttribute("errorMessage", "The user does not exists or no longer exists");
 
             return "redirect:/admin/users";
         }
     }
-
 
     /**
      * Returns a JSON object that consists on the fields that the user specified by his/her pnc already exists in the database.

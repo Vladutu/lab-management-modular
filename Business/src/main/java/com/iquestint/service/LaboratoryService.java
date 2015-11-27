@@ -1,11 +1,12 @@
 package com.iquestint.service;
 
+import com.iquestint.dto.SectionDto;
+import com.iquestint.dto.SemesterDto;
+import com.iquestint.dto.YearDto;
 import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
 import com.iquestint.model.Laboratory;
-import com.iquestint.model.Section;
-import com.iquestint.model.Semester;
-import com.iquestint.model.Year;
+import com.iquestint.dto.LaboratoryDto;
 
 import java.util.List;
 
@@ -23,7 +24,7 @@ public interface LaboratoryService {
 
     List<Laboratory> getAllLaboratories();
 
-    List<Laboratory> getLaboratories(Section section, Year year, Semester semester);
+    List<LaboratoryDto> getLaboratories(SectionDto sectionDto, YearDto yearDto, SemesterDto semesterDto);
 
     void updateLaboratory(Laboratory laboratory) throws ServiceEntityNotFoundException;
 }

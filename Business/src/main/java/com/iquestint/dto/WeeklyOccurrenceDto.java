@@ -1,4 +1,4 @@
-package com.iquestint.notUsed;
+package com.iquestint.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,7 +8,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class RoomDto {
+public class WeeklyOccurrenceDto {
 
     private int id;
 

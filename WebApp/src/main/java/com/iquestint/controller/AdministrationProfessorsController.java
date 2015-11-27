@@ -2,7 +2,7 @@ package com.iquestint.controller;
 
 import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
-import com.iquestint.notUsed.ProfessorDto;
+import com.iquestint.dto.ProfessorDto;
 import com.iquestint.service.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +23,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/")
-public class ProfessorsController {
+public class AdministrationProfessorsController {
 
     @Autowired
     private ProfessorService professorService;

@@ -11,13 +11,13 @@ import java.util.List;
  */
 public interface LaboratoryDao {
 
-    List<Laboratory> findAllLaboratories();
+    List<Laboratory> getAllLaboratories();
 
-    List<Laboratory> findLaboratories(Section section, Year year, Semester semester);
+    List<Laboratory> getLaboratories(Section section, Year year, Semester semester);
 
-    List<Laboratory> findLaboratories(Section section, Year year, Semester semester, Group group, Subgroup subgroup);
+    List<Laboratory> getLaboratories(Section section, Year year, Semester semester, Group group, Subgroup subgroup);
 
-    Laboratory findLaboratoryById(int id) throws DaoEntityNotFoundException;
+    Laboratory getLaboratoryById(int id) throws DaoEntityNotFoundException;
 
     void saveLaboratory(Laboratory laboratory) throws DaoEntityAlreadyExists;
 

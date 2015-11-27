@@ -16,6 +16,13 @@ public class SectionDto {
 
     private String name;
 
+    public SectionDto() {
+    }
+
+    public SectionDto(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return name;

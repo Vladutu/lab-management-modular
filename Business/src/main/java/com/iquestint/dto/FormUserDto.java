@@ -13,19 +13,7 @@ import java.util.List;
 @Setter
 public class FormUserDto {
 
-    private String pnc = "";
-
-    private String firstName = "";
-
-    private String lastName = "";
-
-    private String password = "";
-
-    private String email = "";
-
-    private String userType = "";
-
-    private String userState = "";
-
     private List<UserTypeDto> types = new ArrayList<>();
+
+    private List<UserStateDto> states = new ArrayList<>();
 }

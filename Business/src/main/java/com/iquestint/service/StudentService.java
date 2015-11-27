@@ -1,6 +1,5 @@
 package com.iquestint.service;
 
-import com.iquestint.dto.FormStudentDto;
 import com.iquestint.dto.StudentDto;
 import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
@@ -50,14 +49,6 @@ public interface StudentService {
      * @return List<StudentDto>
      */
     List<StudentDto> getAllStudents();
-
-    /**
-     * This method initializes list fields from FormStudentDto with the elements that are saved. The object must not
-     * be null when passed to the method.
-     *
-     * @param formStudentDto
-     */
-    void initializeFormStudentDto(FormStudentDto formStudentDto);
 
     /**
      * This method update a student. It throws ServiceEntityNotFoundException if the student is not found.

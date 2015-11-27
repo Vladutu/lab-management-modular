@@ -18,7 +18,7 @@ public interface UserDao {
      *
      * @return List<User>
      */
-    List<User> findAllUsers();
+    List<User> getAllUsers();
 
     /**
      * Returns the User entity from the database which has the same personal numeric code(pnc) as the method
@@ -28,7 +28,7 @@ public interface UserDao {
      * @return User
      * @throws DaoEntityNotFoundException
      */
-    User findUserByPnc(String pnc) throws DaoEntityNotFoundException;
+    User getUserByPnc(String pnc) throws DaoEntityNotFoundException;
 
     /**
      * Returns the User entity from the database which has the same first name and last name as the method parameters.
@@ -39,7 +39,7 @@ public interface UserDao {
      * @return User
      * @throws DaoEntityNotFoundException
      */
-    User findUserByName(String firstName, String lastName) throws DaoEntityNotFoundException;
+    User getUserByName(String firstName, String lastName) throws DaoEntityNotFoundException;
 
     /**
      * Saves the user into the database. This method throws DaoEntityAlreadyExists if the user already exists

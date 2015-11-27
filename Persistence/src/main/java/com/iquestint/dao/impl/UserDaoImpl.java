@@ -32,12 +32,12 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
     private UserTypeDao userTypeDao;
 
     @Override
-    public List<User> findAllUsers() {
+    public List<User> getAllUsers() {
         return getAll();
     }
 
     @Override
-    public User findUserByPnc(String pnc) throws DaoEntityNotFoundException {
+    public User getUserByPnc(String pnc) throws DaoEntityNotFoundException {
         TypedQuery<User> query = getEntityManager().createQuery("SELECT u FROM User u WHERE u.pnc = :pnc",
             User.class);
         query.setParameter("pnc", pnc);
@@ -51,7 +51,7 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
     }
 
     @Override
-    public User findUserByName(String firstName, String lastName) throws DaoEntityNotFoundException {
+    public User getUserByName(String firstName, String lastName) throws DaoEntityNotFoundException {
         TypedQuery<User> query = getEntityManager().createQuery(
             "SELECT u FROM User u WHERE u.person.firstName = :fName AND u.person.lastName = :lName ",
             User.class);
@@ -69,7 +69,7 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
     @Override
     public void saveUser(User user) throws DaoEntityAlreadyExists {
         try {
-            User u = findUserByPnc(user.getPnc());
+            User u = getUserByPnc(user.getPnc());
         }
         catch (DaoEntityNotFoundException e) {
             persist(user);
@@ -81,13 +81,13 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
 
     @Override
     public void updateUser(User user) throws DaoEntityNotFoundException {
-        User s = findUserByPnc(user.getPnc());
+        User s = getUserByPnc(user.getPnc());
         update(user);
     }
 
     @Override
     public void updateUserNoPassword(User user) throws DaoEntityNotFoundException {
-        User s = findUserByPnc(user.getPnc());
+        User s = getUserByPnc(user.getPnc());
 
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaUpdate<User> updateCriteria = cb.createCriteriaUpdate(User.class);
@@ -108,7 +108,7 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
 
     @Override
     public void deleteUserByPnc(String pnc) throws DaoEntityNotFoundException {
-        User user = findUserByPnc(pnc);
+        User user = getUserByPnc(pnc);
         delete(user);
     }
 }

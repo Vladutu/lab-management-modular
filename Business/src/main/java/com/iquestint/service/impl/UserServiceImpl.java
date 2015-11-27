@@ -88,7 +88,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto getUserByPnc(String pnc) throws ServiceEntityNotFoundException {
         try {
-            User user = userDao.findUserByPnc(pnc);
+            User user = userDao.getUserByPnc(pnc);
 
             return modelMapper.map(user, UserDto.class);
         } catch (DaoEntityNotFoundException e) {
@@ -98,7 +98,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDto> getAllUsers() {
-        List<User> users = userDao.findAllUsers();
+        List<User> users = userDao.getAllUsers();
         Type listType = new TypeToken<List<UserDto>>() {
         }.getType();
 
@@ -152,7 +152,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByName(String firstName, String lastName) throws ServiceEntityNotFoundException {
         try {
-            return userDao.findUserByName(firstName, lastName);
+            return userDao.getUserByName(firstName, lastName);
         } catch (DaoEntityNotFoundException e) {
             throw new ServiceEntityNotFoundException(e);
         }
@@ -176,13 +176,13 @@ public class UserServiceImpl implements UserService {
             unregisteredUserDto.setUserType(type.getType());
 
             if (type.equals(com.iquestint.enums.Type.STUDENT)) {
-                Student student = studentDao.findStudentByPnc(pnc);
+                Student student = studentDao.getStudentByPnc(pnc);
                 unregisteredUserDto.setEmail(student.getEmail());
                 unregisteredUserDto.setFirstName(student.getFirstName());
                 unregisteredUserDto.setLastName(student.getLastName());
             }
             else if (type.equals(com.iquestint.enums.Type.PROFESSOR)) {
-                Professor professor = professorDao.findProfessorByPnc(pnc);
+                Professor professor = professorDao.getProfessorByPnc(pnc);
                 unregisteredUserDto.setEmail(professor.getEmail());
                 unregisteredUserDto.setFirstName(professor.getFirstName());
                 unregisteredUserDto.setLastName(professor.getLastName());

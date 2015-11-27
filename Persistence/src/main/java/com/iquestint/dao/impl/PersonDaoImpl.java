@@ -43,7 +43,7 @@ public class PersonDaoImpl extends AbstractDao<Person> implements PersonDao {
         }
 
         try {
-            Student student = studentDao.findStudentByName(firstName, lastName);
+            Student student = studentDao.getStudentByName(firstName, lastName);
 
             return Type.STUDENT;
         }
@@ -66,7 +66,7 @@ public class PersonDaoImpl extends AbstractDao<Person> implements PersonDao {
         }
 
         try {
-            Student student = studentDao.findStudentByPnc(pnc);
+            Student student = studentDao.getStudentByPnc(pnc);
 
             return Type.STUDENT;
         }

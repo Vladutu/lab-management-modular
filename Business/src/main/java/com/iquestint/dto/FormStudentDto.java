@@ -13,24 +13,6 @@ import java.util.List;
 @Setter
 public class FormStudentDto {
 
-    private String pnc = "";
-
-    private String firstName = "";
-
-    private String lastName = "";
-
-    private String email = "";
-
-    private String section;
-
-    private String group;
-
-    private String subgroup;
-
-    private Integer year;
-
-    private Integer semester;
-
     private List<SectionDto> sections = new ArrayList<>();
 
     private List<GroupDto> groups = new ArrayList<>();
