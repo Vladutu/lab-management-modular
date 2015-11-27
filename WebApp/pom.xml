@@ -36,7 +36,7 @@
         </dependency>
         <dependency>
             <groupId>com.iquestint</groupId>
-            <artifactId>business</artifactId>
+            <artifactId>service-layer</artifactId>
         </dependency>
         <!-- jsr303 validation -->
         <dependency>

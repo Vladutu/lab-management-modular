@@ -2,7 +2,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>business</artifactId>
+    <artifactId>service-layer</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <parent>
@@ -10,7 +10,7 @@
         <artifactId>laboratory-management</artifactId>
         <version>1.0</version>
     </parent>
-    <name>business</name>
+    <name>service-layer</name>
     <url>http://maven.apache.org</url>
 
     <properties>
@@ -20,7 +20,7 @@
     <dependencies>
         <dependency>
             <groupId>com.iquestint</groupId>
-            <artifactId>persistence</artifactId>
+            <artifactId>persistence-layer</artifactId>
         </dependency>
 
         <!-- Spring Security -->
