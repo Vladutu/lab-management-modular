@@ -105,4 +105,45 @@ public class AdministrationLaboratoriesController {
         return "redirect:/admin/laboratories/" + section + "/" + year + "/" + semester;
     }
 
+    @RequestMapping(value = "/admin/laboratories/{section}/{year}/{semester}/edit/{laboratoryId}", method = RequestMethod.GET)
+    public String editStudent(@PathVariable String section, @PathVariable int year, @PathVariable int semester,
+        @PathVariable int laboratoryId, ModelMap model, RedirectAttributes redirectAttributes) {
+        try {
+            LaboratoryDto laboratoryDto = laboratoryService.getLaboratoryById(laboratoryId);
+            FormLaboratoryCreateDto formLaboratoryCreateDto = administrationFormService.getFormLaboratoryCreateDto();
+
+            model.addAttribute("formLaboratoryCreateDto", formLaboratoryCreateDto);
+            model.addAttribute("laboratoryDto", laboratoryDto);
+
+            return "updateLaboratory";
+        } catch (ServiceEntityNotFoundException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "The laboratory does not exists or no longer exists");
+
+            return "redirect:/admin/laboratories/" + section + "/" + year + "/" + semester;
+        }
+    }
+
+    @RequestMapping(value = "/admin/laboratories/{section}/{year}/{semester}/edit/{laboratoryId}", method = RequestMethod.POST)
+    public String updateLaboratory(@Valid LaboratoryDto laboratoryDto, BindingResult bindingResult,
+        @PathVariable String section, @PathVariable int year, @PathVariable int semester,
+        @PathVariable int laboratoryId, ModelMap model,
+        RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            FormLaboratoryCreateDto formLaboratoryCreateDto = administrationFormService.getFormLaboratoryCreateDto();
+            model.addAttribute("formLaboratoryCreateDto", formLaboratoryCreateDto);
+
+            return "updateLaboratory";
+        }
+
+        try {
+            laboratoryService.updateLaboratory(laboratoryDto);
+
+            return "redirect:/admin/laboratories/" + section + "/" + year + "/" + semester;
+        } catch (ServiceEntityNotFoundException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "The laboratory does not exists or no longer exists");
+
+            return "redirect:/admin/laboratories/" + section + "/" + year + "/" + semester;
+        }
+    }
+
 }

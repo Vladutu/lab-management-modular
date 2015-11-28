@@ -20,11 +20,11 @@ public interface LaboratoryService {
 
     void deleteLaboratory(int id) throws ServiceEntityNotFoundException;
 
-    Laboratory getLaboratoryById(int id) throws ServiceEntityNotFoundException;
+    LaboratoryDto getLaboratoryById(int id) throws ServiceEntityNotFoundException;
 
     List<Laboratory> getAllLaboratories();
 
     List<LaboratoryDto> getLaboratories(SectionDto sectionDto, YearDto yearDto, SemesterDto semesterDto);
 
-    void updateLaboratory(Laboratory laboratory) throws ServiceEntityNotFoundException;
+    void updateLaboratory(LaboratoryDto laboratoryDto) throws ServiceEntityNotFoundException;
 }

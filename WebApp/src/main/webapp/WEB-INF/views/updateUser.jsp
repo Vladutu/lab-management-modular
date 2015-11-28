@@ -19,8 +19,6 @@
 <body>
 <jsp:include page="adminHeader.jsp"/>
 
-<p class="text-right"><a href="professors?mylocale=en">English </a> | <a href="professors?mylocale=ro">Romanian</a></p>
-
 <div class="container">
     <h2 class="text-center">User Update Form</h2>
 

@@ -91,9 +91,11 @@ public class LaboratoryServiceImpl implements LaboratoryService {
     }
 
     @Override
-    public Laboratory getLaboratoryById(int id) throws ServiceEntityNotFoundException {
+    public LaboratoryDto getLaboratoryById(int id) throws ServiceEntityNotFoundException {
         try {
-            return laboratoryDao.getLaboratoryById(id);
+            Laboratory laboratory = laboratoryDao.getLaboratoryById(id);
+
+            return modelMapper.map(laboratory, LaboratoryDto.class);
         } catch (DaoEntityNotFoundException e) {
             throw new ServiceEntityNotFoundException(e);
         }
@@ -117,49 +119,64 @@ public class LaboratoryServiceImpl implements LaboratoryService {
     }
 
     @Override
-    public void updateLaboratory(Laboratory laboratory) throws ServiceEntityNotFoundException {
-        Hour from = null;
-        Hour to = null;
-        Professor professor = null;
-        Room room = null;
-        Day day = null;
-        Section section = null;
-        Group group = null;
-        Subgroup subgroup = null;
-        Year year = null;
-        Semester semester = null;
-        WeeklyOccurrence weeklyOccurrence = null;
-
+    public void updateLaboratory(LaboratoryDto laboratoryDto) throws ServiceEntityNotFoundException {
         try {
-            from = hourDao.getHourByValue(laboratory.getFrom().getValue());
-            to = hourDao.getHourByValue(laboratory.getTo().getValue());
-            professor = professorDao.getProfessorByPnc(laboratory.getProfessor().getPnc());
-            room = roomDao.getRoomByName(laboratory.getRoom().getName());
-            day = dayDao.getDayByValue(laboratory.getDay().getValue());
-            section = sectionDao.getSectionByName(laboratory.getSection().getName());
-            group = groupDao.getGroupByName(laboratory.getGroup().getName());
-            subgroup = subgroupDao.getSubgroupByName(laboratory.getSubgroup().getName());
-            year = yearDao.getYearByValue(laboratory.getYear().getValue());
-            semester = semesterDao.getSemesterByValue(laboratory.getSemester().getValue());
-            weeklyOccurrence = weeklyOccurrenceDao.getWeeklyOccurrenceByName(
-                laboratory.getWeeklyOccurrence().getName());
-
-            laboratory.setFrom(from);
-            laboratory.setTo(to);
-            laboratory.setProfessor(professor);
-            laboratory.setRoom(room);
-            laboratory.setDay(day);
-            laboratory.setSection(section);
-            laboratory.setGroup(group);
-            laboratory.setSubgroup(subgroup);
-            laboratory.setYear(year);
-            laboratory.setSemester(semester);
-            laboratory.setWeeklyOccurrence(weeklyOccurrence);
+            Laboratory laboratory = laboratoryDao.getLaboratoryById(laboratoryDto.getId());
+            boolean studentsNeedUpdate = studentsNeedUpdate(laboratory, laboratoryDto);
+            updateLaboratoryFields(laboratory, laboratoryDto);
 
             laboratoryDao.updateLaboratory(laboratory);
+
+            if (studentsNeedUpdate) {
+                laboratory.getStudents().clear();
+
+                List<Student> students = studentDao.getStudents(laboratory.getSection(), laboratory.getYear(),
+                    laboratory.getSemester(), laboratory.getGroup(), laboratory.getSubgroup());
+                laboratory.setStudents(students);
+            }
+
         } catch (DaoEntityNotFoundException e) {
             throw new ServiceEntityNotFoundException(e);
         }
+    }
+
+    private void updateLaboratoryFields(Laboratory laboratory, LaboratoryDto laboratoryDto)
+        throws DaoEntityNotFoundException {
+
+        String compressedFields = laboratoryDto.getFormProfessorDto().getCompressedFields();
+        String pnc = compressedFields.replaceAll("\\)", " ").replaceAll("\\(", " ").split(" ")[0];
+
+        Hour from = hourDao.getHourByValue(laboratoryDto.getFrom());
+        Hour to = hourDao.getHourByValue(laboratoryDto.getTo());
+        Professor professor = professorDao.getProfessorByPnc(pnc);
+        Room room = roomDao.getRoomByName(laboratoryDto.getRoom());
+        Day day = dayDao.getDayByValue(laboratoryDto.getDay());
+        Section section = sectionDao.getSectionByName(laboratoryDto.getSection());
+        Group group = groupDao.getGroupByName(laboratoryDto.getGroup());
+        Subgroup subgroup = subgroupDao.getSubgroupByName(laboratoryDto.getSubgroup());
+        Year year = yearDao.getYearByValue(laboratoryDto.getYear());
+        Semester semester = semesterDao.getSemesterByValue(laboratoryDto.getSemester());
+        WeeklyOccurrence weeklyOccurrence = weeklyOccurrenceDao.getWeeklyOccurrenceByName(
+            laboratoryDto.getWeeklyOccurrence());
+
+        laboratory.setFrom(from);
+        laboratory.setTo(to);
+        laboratory.setProfessor(professor);
+        laboratory.setRoom(room);
+        laboratory.setDay(day);
+        laboratory.setSection(section);
+        laboratory.setGroup(group);
+        laboratory.setSubgroup(subgroup);
+        laboratory.setYear(year);
+        laboratory.setSemester(semester);
+        laboratory.setWeeklyOccurrence(weeklyOccurrence);
+    }
+
+    private boolean studentsNeedUpdate(Laboratory laboratory, LaboratoryDto laboratoryDto) {
+        boolean groupMatches = laboratory.getGroup().getName().equals(laboratoryDto.getGroup());
+        boolean subgroupMathces = laboratory.getSubgroup().getName().equals(laboratoryDto.getSubgroup());
+
+        return !(subgroupMathces && groupMatches);
     }
 
     private void populateLaboratoryFields(Laboratory laboratory)
