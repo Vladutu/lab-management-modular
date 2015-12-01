@@ -51,10 +51,28 @@
             </div>
         </spring:bind>
 
+        <spring:bind path="year">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <label for="year">Year: </label>
+                <form:select path="year" items="${formStudentDto.years}" multiple="false" class="form-control"
+                             id="year"/>
+                <form:errors path="year" class="control-label"/>
+            </div>
+        </spring:bind>
+
+        <spring:bind path="semester">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <label for="semester">Semester: </label>
+                <form:select path="semester" items="${formStudentDto.semesters}" multiple="false" class="form-control"
+                             id="semester"/>
+                <form:errors path="semester" class="control-label"/>
+            </div>
+        </spring:bind>
+
         <spring:bind path="section">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <label for="section" class="control-label">Section: </label>
-                <form:select path="section" items="${sectionDtos}" multiple="false" class="form-control"
+                <form:select path="section" items="${formStudentDto.sections}" multiple="false" class="form-control"
                              id="section"/>
                 <form:errors path="section" class="control-label"/>
             </div>
@@ -63,7 +81,8 @@
         <spring:bind path="group">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <label for="group" class="control-label">Group: </label>
-                <form:select path="group" items="${groupDtos}" multiple="false" class="form-control" id="group"/>
+                <form:select path="group" items="${formStudentDto.groups}" multiple="false" class="form-control"
+                             id="group"/>
                 <form:errors path="group" class="control-label"/>
             </div>
         </spring:bind>
@@ -71,7 +90,7 @@
         <spring:bind path="subgroup">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <label for="subgroup" class="control-label">Subgroup: </label>
-                <form:select path="subgroup" items="${subgroupDtos}" multiple="false" class="form-control"
+                <form:select path="subgroup" items="${formStudentDto.subgroups}" multiple="false" class="form-control"
                              id="subgroup"/>
                 <form:errors path="subgroup" class="control-label"/>
             </div>
@@ -85,7 +104,6 @@
     <br/>
     <br/>
 
-    <h2 class="text-left">Go back to <a href="<c:url value='/admin/students' />">List of All Students</a></h2>
 
 </div>
 

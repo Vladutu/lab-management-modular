@@ -78,7 +78,7 @@
         <spring:bind path="userType">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <label for="userType">Type: </label>
-                <form:select path="userType" items="${userTypeDtos}" multiple="false" class="form-control"
+                <form:select path="userType" items="${formUserDto.types}" multiple="false" class="form-control"
                              id="userType"/>
                 <form:errors path="userType" class="control-label"/>
             </div>
@@ -92,7 +92,6 @@
     <br/>
     <br/>
 
-    <h2 class="text-left">Go back to <a href="<c:url value='/admin/users' />">List of All Users</a></h2>
 </div>
 </body>
 </html>

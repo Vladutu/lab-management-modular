@@ -83,7 +83,6 @@
     <br/>
     <br/>
 
-    <h2 class="text-left">Go back to <a href="<c:url value='/admin/professors' />">List of All Professors</a></h2>
 </div>
 </body>
 </html>

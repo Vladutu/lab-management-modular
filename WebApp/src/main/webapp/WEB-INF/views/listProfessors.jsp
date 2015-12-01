@@ -44,7 +44,7 @@
         </thead>
 
         <tbody>
-        <c:forEach items="${professors}" var="professor">
+        <c:forEach items="${professorDtos}" var="professor">
             <tr>
                 <td>${professor.pnc}</td>
                 <td>${professor.firstName}</td>

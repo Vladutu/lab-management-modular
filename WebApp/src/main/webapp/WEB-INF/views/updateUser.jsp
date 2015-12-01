@@ -19,8 +19,6 @@
 <body>
 <jsp:include page="adminHeader.jsp"/>
 
-<p class="text-right"><a href="professors?mylocale=en">English </a> | <a href="professors?mylocale=ro">Romanian</a></p>
-
 <div class="container">
     <h2 class="text-center">User Update Form</h2>
 
@@ -81,8 +79,7 @@
         <spring:bind path="userType">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <label for="userType">Type: </label>
-                <form:select path="userType" selected="userType" items="${userTypeDtos}" multiple="false"
-                             class="form-control"
+                <form:select path="userType" items="${formUserDto.types}" multiple="false" class="form-control"
                              id="userType"/>
                 <form:errors path="userType" class="control-label"/>
             </div>
@@ -90,9 +87,8 @@
 
         <spring:bind path="userState">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <label for="userState">State: </label>
-                <form:select path="userState" selected="userState" items="${userStateDtos}" multiple="false"
-                             class="form-control"
+                <label for="userState">Semester: </label>
+                <form:select path="userState" items="${formUserDto.states}" multiple="false" class="form-control"
                              id="userState"/>
                 <form:errors path="userState" class="control-label"/>
             </div>
@@ -104,7 +100,6 @@
     <br/>
     <br/>
 
-    <h2 class="text-left">Go back to <a href="<c:url value='/admin/users' />">List of All Users</a></h2>
 </div>
 </body>
 </html>

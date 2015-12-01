@@ -36,7 +36,7 @@
         </dependency>
         <dependency>
             <groupId>com.iquestint</groupId>
-            <artifactId>business</artifactId>
+            <artifactId>service-layer</artifactId>
         </dependency>
         <!-- jsr303 validation -->
         <dependency>
@@ -46,11 +46,6 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.modelmapper</groupId>
-            <artifactId>modelmapper</artifactId>
         </dependency>
 
         <dependency>
