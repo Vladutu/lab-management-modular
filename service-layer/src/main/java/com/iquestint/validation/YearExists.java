@@ -5,7 +5,9 @@ import javax.validation.Payload;
 import java.lang.annotation.*;
 
 /**
- * @author vladu
+ * This annotation express that an year is valid.
+ *
+ * @author Georgian Vladutu
  */
 @Constraint(validatedBy = { YearValidator.class })
 @Target({ ElementType.FIELD, ElementType.PARAMETER })

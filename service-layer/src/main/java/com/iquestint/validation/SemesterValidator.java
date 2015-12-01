@@ -9,7 +9,9 @@ import javax.validation.ConstraintValidatorContext;
 import java.util.List;
 
 /**
- * @author vladu
+ * This class is a validator for @SemesterExists annotation.
+ *
+ * @author Georgian Vladutu
  */
 public class SemesterValidator implements ConstraintValidator<SemesterExists, Integer> {
 

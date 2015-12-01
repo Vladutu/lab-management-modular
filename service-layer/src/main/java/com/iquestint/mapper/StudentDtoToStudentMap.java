@@ -5,7 +5,9 @@ import com.iquestint.model.Student;
 import org.modelmapper.PropertyMap;
 
 /**
- * @author vladu
+ * This class is used by ModelMapper to map from StudentDto class to Student class.
+ *
+ * @author Georgian Vladutu
  */
 public class StudentDtoToStudentMap extends PropertyMap<StudentDto, Student> {
 

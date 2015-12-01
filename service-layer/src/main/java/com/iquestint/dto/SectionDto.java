@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * This class is a dto that is passed to the view.
+ * This class represents a data transfer object.
  *
  * @author Georgian Vladutu
  */

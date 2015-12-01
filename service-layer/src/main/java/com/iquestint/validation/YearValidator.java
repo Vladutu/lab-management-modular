@@ -9,7 +9,9 @@ import javax.validation.ConstraintValidatorContext;
 import java.util.List;
 
 /**
- * @author vladu
+ * This class is a validator for @YearExists annotation.
+ *
+ * @author Georgian Vladutu
  */
 public class YearValidator implements ConstraintValidator<YearExists, Integer> {
 

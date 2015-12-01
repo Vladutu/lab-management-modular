@@ -6,7 +6,9 @@ import com.iquestint.model.Professor;
 import org.modelmapper.PropertyMap;
 
 /**
- * @author vladu
+ * This class is used by ModelMapper to map from Professor class to FormProfessorDto class.
+ *
+ * @author Georgian Vladutu
  */
 public class ProfessorToFormProfessorDtoMap extends PropertyMap<Professor, FormProfessorDto> {
 

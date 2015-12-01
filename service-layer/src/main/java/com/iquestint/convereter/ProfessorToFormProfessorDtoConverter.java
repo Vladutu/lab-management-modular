@@ -4,7 +4,9 @@ import com.iquestint.model.Professor;
 import org.modelmapper.AbstractConverter;
 
 /**
- * @author vladu
+ * This class is used by ModelMapper to concatenate Professor fields into one string.
+ *
+ * @author Georgian Vladutu
  */
 public class ProfessorToFormProfessorDtoConverter extends AbstractConverter<Professor, String> {
 

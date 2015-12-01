@@ -1,11 +1,13 @@
 package com.iquestint.mapper;
 
-import com.iquestint.model.Laboratory;
 import com.iquestint.dto.LaboratoryDto;
+import com.iquestint.model.Laboratory;
 import org.modelmapper.PropertyMap;
 
 /**
- * @author vladu
+ * This class is used by ModelMapper to map from LaboratoryDto class to Laboratory class.
+ *
+ * @author Georgian Vladutu
  */
 public class LaboratoryDtoToLaboratoryMap extends PropertyMap<LaboratoryDto, Laboratory> {
 

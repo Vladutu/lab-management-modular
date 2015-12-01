@@ -3,13 +3,13 @@ package com.iquestint.service.impl;
 import com.iquestint.dao.LaboratoryDao;
 import com.iquestint.dao.ProfessorDao;
 import com.iquestint.dao.UserDao;
+import com.iquestint.dto.ProfessorDto;
 import com.iquestint.exception.DaoEntityAlreadyExists;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
 import com.iquestint.model.Laboratory;
 import com.iquestint.model.Professor;
-import com.iquestint.dto.ProfessorDto;
 import com.iquestint.service.ProfessorService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -21,7 +21,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 /**
- * This class implements the ProfessorService interfaces.
+ * This class implements the ProfessorService interface.
  *
  * @author Georgian Vladutu
  */

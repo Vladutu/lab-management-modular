@@ -20,7 +20,9 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 /**
- * @author vladu
+ * This class implements the LaboratoryService interface.
+ *
+ * @author Georgian Vladutu
  */
 @Service("laboratoryService")
 @Transactional

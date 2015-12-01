@@ -5,7 +5,9 @@ import javax.validation.Payload;
 import java.lang.annotation.*;
 
 /**
- * @author vladu
+ * This annotation express that a professor is valid.
+ *
+ * @author Georgian Vladutu
  */
 @Constraint(validatedBy = { ProfessorValidator.class })
 @Target({ ElementType.FIELD, ElementType.PARAMETER })

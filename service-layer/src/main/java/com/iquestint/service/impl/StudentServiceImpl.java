@@ -18,7 +18,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 /**
- * This class implements the StudentService interfaces.
+ * This class implements the StudentService interface.
  *
  * @author Georgian Vladutu
  */

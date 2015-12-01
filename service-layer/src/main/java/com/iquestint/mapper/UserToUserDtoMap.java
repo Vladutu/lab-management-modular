@@ -5,7 +5,9 @@ import com.iquestint.model.User;
 import org.modelmapper.PropertyMap;
 
 /**
- * @author vladu
+ * This class is used by ModelMapper to map from User class to UserDto class.
+ *
+ * @author Georgian Vladutu
  */
 public class UserToUserDtoMap extends PropertyMap<User, UserDto> {
 

@@ -1,6 +1,5 @@
 package com.iquestint.service;
 
-import com.iquestint.dto.FormUserDto;
 import com.iquestint.dto.UnregisteredUserDto;
 import com.iquestint.dto.UserDto;
 import com.iquestint.exception.ServiceEntityAlreadyExistsException;
@@ -17,29 +16,28 @@ import java.util.List;
 public interface UserService {
 
     /**
-     * This method saves a user. It throws ServiceEntityAlreadyExistsException if the user already exists.
+     * This method saves a user.
      *
      * @param userDto user to be saved
-     * @throws ServiceEntityAlreadyExistsException
+     * @throws ServiceEntityAlreadyExistsException if the user already exists in the repository
+     * @throws ServiceEntityNotFoundException      if any of it's component fields are not found
      */
     void saveUser(UserDto userDto) throws ServiceEntityNotFoundException, ServiceEntityAlreadyExistsException;
 
     /**
-     * This method deletes a user by specifying his/her personal numeric code(pnc). It throws ServiceEntityNotFoundException
-     * if the user is not found.
+     * This method deletes a user by specifying his/her personal numeric code(pnc).
      *
      * @param pnc the personal numeric code of the user
-     * @throws ServiceEntityNotFoundException
+     * @throws ServiceEntityNotFoundException if the user is not found
      */
     void deleteUser(String pnc) throws ServiceEntityNotFoundException;
 
     /**
-     * This method retrieves a user by specifying it's personal numeric code(pnc). It throws ServiceEntityNotFoundException
-     * if the user is not found.
+     * This method retrieves a user by specifying it's personal numeric code(pnc).
      *
      * @param pnc the personal numeric code of the user
      * @return User
-     * @throws ServiceEntityNotFoundException
+     * @throws ServiceEntityNotFoundException if the user is not found
      */
     UserDto getUserByPnc(String pnc) throws ServiceEntityNotFoundException;
 
@@ -51,33 +49,37 @@ public interface UserService {
     List<UserDto> getAllUsers();
 
     /**
-     * This method update a user. It throws ServiceEntityNotFoundException if the user is not found.
+     * This method update a user.
      *
      * @param userDto the user to be updated
-     * @throws ServiceEntityNotFoundException
+     * @throws ServiceEntityNotFoundException if the user is not found
      */
     void updateUser(UserDto userDto) throws ServiceEntityNotFoundException;
 
     /**
-     * This method update a user without his/her password. It throws ServiceEntityNotFoundException if the user is not found.
+     * This method update a user without his/her password.
      *
      * @param userDto the user to be updated
-     * @throws ServiceEntityNotFoundException
+     * @throws ServiceEntityNotFoundException if the user is not found
      */
     void updateUserNoPassword(UserDto userDto) throws ServiceEntityNotFoundException;
 
     /**
-     * This method retrieves a user by specifying his/her first name and last name. It throws
-     * ServiceEntityNotFoundException if the user is not found.
+     * This method retrieves a user by specifying his/her first name and last name.
      *
      * @param firstName the user's first name
      * @param lastName  the user's last name
      * @return User
-     * @throws ServiceEntityNotFoundException
+     * @throws ServiceEntityNotFoundException if the user is not found
      */
     User getUserByName(String firstName, String lastName) throws ServiceEntityNotFoundException;
 
-    void initializeFormUserDto(FormUserDto formUserDto);
-
+    /**
+     * Returns a person that exists in the repository but is not a user yet by specifying his/her pnc.
+     *
+     * @param pnc the personal numeric code
+     * @return UnregisteredUserDto
+     * @throws ServiceEntityNotFoundException if the person is not found
+     */
     UnregisteredUserDto getUnregisteredUser(String pnc) throws ServiceEntityNotFoundException;
 }

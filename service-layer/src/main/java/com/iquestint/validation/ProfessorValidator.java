@@ -11,7 +11,9 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 /**
- * @author vladu
+ * This class is a validator for @ProfessorExists annotation.
+ *
+ * @author Georgian Vladutu
  */
 @Component
 public class ProfessorValidator implements ConstraintValidator<ProfessorExists, FormProfessorDto> {

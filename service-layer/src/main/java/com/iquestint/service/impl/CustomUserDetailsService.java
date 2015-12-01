@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class implements Spring's UserDetailsService interfaces.
+ * This class implements UserDetailsService interface.
  *
  * @author Georgian Vladutu
  */

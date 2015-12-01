@@ -3,7 +3,9 @@ package com.iquestint.convereter;
 import org.modelmapper.AbstractConverter;
 
 /**
- * @author vladu
+ * This class is used by ModelMapper to extract professor's pnc from a concatenated string.
+ *
+ * @author Georgian Vladutu
  */
 public class FormProfessorDtoToProfessorConverter extends AbstractConverter<String, String> {
 

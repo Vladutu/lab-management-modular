@@ -1,9 +1,9 @@
 package com.iquestint.service;
 
+import com.iquestint.dto.ProfessorDto;
 import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
 import com.iquestint.model.Professor;
-import com.iquestint.dto.ProfessorDto;
 
 import java.util.List;
 
@@ -15,29 +15,27 @@ import java.util.List;
 public interface ProfessorService {
 
     /**
-     * This method saves a professor. It throws ServiceEntityAlreadyExistsException if the professor was already saved.
+     * This method saves a professor.
      *
      * @param professorDto professor to be saved
-     * @throws ServiceEntityAlreadyExistsException
+     * @throws ServiceEntityAlreadyExistsException if the professor already exists in the repository
      */
     void saveProfessor(ProfessorDto professorDto) throws ServiceEntityAlreadyExistsException;
 
     /**
-     * This method deletes a professor by specifying his/her personal numeric code(pnc). It throws ServiceEntityNotFoundException
-     * if the professor is not found.
+     * This method deletes a professor by specifying his/her personal numeric code(pnc).
      *
      * @param pnc the personal numeric code of the professor
-     * @throws ServiceEntityNotFoundException
+     * @throws ServiceEntityNotFoundException if the professor is not found
      */
     void deleteProfessor(String pnc) throws ServiceEntityNotFoundException;
 
     /**
-     * This method retrieves a professor by specifying it's personal numeric code(pnc). It throws ServiceEntityNotFoundException
-     * if the professor is not found.
+     * This method retrieves a professor by specifying it's personal numeric code(pnc).
      *
      * @param pnc the personal numeric code of the professor
      * @return Professor
-     * @throws ServiceEntityNotFoundException
+     * @throws ServiceEntityNotFoundException if the professor is not found
      */
     ProfessorDto getProfessorByPnc(String pnc) throws ServiceEntityNotFoundException;
 
@@ -49,21 +47,20 @@ public interface ProfessorService {
     List<ProfessorDto> getAllProfessors();
 
     /**
-     * This method update a professor. It throws ServiceEntityNotFoundException if the professor is not found.
+     * This method update a professor.
      *
      * @param professorDto the professor to be updated
-     * @throws ServiceEntityNotFoundException
+     * @throws ServiceEntityNotFoundException if the professor is not found
      */
     void updateProfessor(ProfessorDto professorDto) throws ServiceEntityNotFoundException;
 
     /**
-     * This method retrieves a professor by specifying his/her first name and last name. It throws
-     * ServiceEntityNotFoundException if the professor is not found.
+     * This method retrieves a professor by specifying his/her first name and last name.
      *
      * @param firstName the professor's first name
      * @param lastName  the professor's last name
      * @return Professor
-     * @throws ServiceEntityNotFoundException
+     * @throws ServiceEntityNotFoundException if the professor is not found
      */
     Professor getProfessorByName(String firstName, String lastName) throws ServiceEntityNotFoundException;
 }

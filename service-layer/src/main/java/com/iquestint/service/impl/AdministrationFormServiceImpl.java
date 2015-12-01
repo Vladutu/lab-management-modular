@@ -13,7 +13,9 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 /**
- * @author vladu
+ * This class implements the AdministrationFormService interface.
+ *
+ * @author Georgian Vladutu
  */
 @Service("administrationFormService")
 @Transactional

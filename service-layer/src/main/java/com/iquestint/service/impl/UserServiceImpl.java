@@ -1,10 +1,8 @@
 package com.iquestint.service.impl;
 
 import com.iquestint.dao.*;
-import com.iquestint.dto.FormUserDto;
 import com.iquestint.dto.UnregisteredUserDto;
 import com.iquestint.dto.UserDto;
-import com.iquestint.dto.UserTypeDto;
 import com.iquestint.exception.DaoEntityAlreadyExists;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.exception.ServiceEntityAlreadyExistsException;
@@ -21,7 +19,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 /**
- * This class implements UserService interfaces.
+ * This class implements UserService interface.
  *
  * @author Georgian Vladutu
  */
@@ -156,16 +154,6 @@ public class UserServiceImpl implements UserService {
         } catch (DaoEntityNotFoundException e) {
             throw new ServiceEntityNotFoundException(e);
         }
-    }
-
-    @Override
-    public void initializeFormUserDto(FormUserDto formUserDto) {
-        List<UserType> userTypes = userTypeDao.getAllUserTypes();
-
-        List<UserTypeDto> userTypeDtos = modelMapper.map(userTypes, new TypeToken<List<UserTypeDto>>() {
-        }.getType());
-
-        formUserDto.setTypes(userTypeDtos);
     }
 
     @Override
