@@ -11,7 +11,7 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
- * This class implements ProfessorDao interfaces;
+ * This class implements ProfessorDao interface;
  *
  * @author Georgian Vladutu
  */
@@ -31,22 +31,7 @@ public class ProfessorDaoImpl extends AbstractDao<Professor> implements Professo
 
         try {
             return query.getSingleResult();
-        }
-        catch (NoResultException e) {
-            throw new DaoEntityNotFoundException();
-        }
-    }
-
-    @Override
-    public Professor getProfessorByPncWithLaboratories(String pnc) throws DaoEntityNotFoundException {
-        TypedQuery<Professor> query = getEntityManager().createQuery(
-            "SELECT p FROM Professor p JOIN FETCH p.laboratories WHERE p.pnc = :pnc", Professor.class);
-        query.setParameter("pnc", pnc);
-
-        try {
-            return query.getSingleResult();
-        }
-        catch (NoResultException e) {
+        } catch (NoResultException e) {
             throw new DaoEntityNotFoundException();
         }
     }
@@ -61,8 +46,7 @@ public class ProfessorDaoImpl extends AbstractDao<Professor> implements Professo
 
         try {
             return query.getSingleResult();
-        }
-        catch (NoResultException e) {
+        } catch (NoResultException e) {
             throw new DaoEntityNotFoundException();
         }
     }
@@ -71,8 +55,7 @@ public class ProfessorDaoImpl extends AbstractDao<Professor> implements Professo
     public void saveProfessor(Professor professor) throws DaoEntityAlreadyExists {
         try {
             Professor p = getProfessorByPnc(professor.getPnc());
-        }
-        catch (DaoEntityNotFoundException e) {
+        } catch (DaoEntityNotFoundException e) {
             persist(professor);
             return;
         }

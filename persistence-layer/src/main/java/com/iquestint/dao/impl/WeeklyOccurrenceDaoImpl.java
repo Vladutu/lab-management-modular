@@ -8,7 +8,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * @author vladu
+ * This class implements WeeklyOccurrenceDao interface;
+ *
+ * @author Georgian Vladutu
  */
 @Repository("weeklyOccurrenceDao")
 public class WeeklyOccurrenceDaoImpl extends AbstractDao<WeeklyOccurrence> implements WeeklyOccurrenceDao {

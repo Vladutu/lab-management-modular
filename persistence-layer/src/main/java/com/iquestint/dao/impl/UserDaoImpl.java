@@ -18,7 +18,7 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 
 /**
- * This class implements UserDao interfaces.
+ * This class implements UserDao interface.
  *
  * @author Georgian Vladutu
  */
@@ -44,8 +44,7 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
 
         try {
             return query.getSingleResult();
-        }
-        catch (NoResultException e) {
+        } catch (NoResultException e) {
             throw new DaoEntityNotFoundException();
         }
     }
@@ -60,8 +59,7 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
 
         try {
             return query.getSingleResult();
-        }
-        catch (NoResultException e) {
+        } catch (NoResultException e) {
             throw new DaoEntityNotFoundException();
         }
     }
@@ -70,8 +68,7 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
     public void saveUser(User user) throws DaoEntityAlreadyExists {
         try {
             User u = getUserByPnc(user.getPnc());
-        }
-        catch (DaoEntityNotFoundException e) {
+        } catch (DaoEntityNotFoundException e) {
             persist(user);
             return;
         }

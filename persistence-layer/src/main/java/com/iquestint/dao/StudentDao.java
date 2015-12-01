@@ -22,39 +22,37 @@ public interface StudentDao {
 
     /**
      * Returns the Student entity from the database which has the same personal numeric code(pnc) as the method
-     * parameter. This method throws DaoEntityNotFoundException if the student with the specified pnc is not found.
+     * parameter.
      *
      * @param pnc the personal numeric code of the student
      * @return Student
-     * @throws DaoEntityNotFoundException
+     * @throws DaoEntityNotFoundException if the student with the specified pnc is not found
      */
     Student getStudentByPnc(String pnc) throws DaoEntityNotFoundException;
 
     /**
      * Returns the Student entity from the database which has the same first name and last name as the method parameters.
-     * This method throws DaoEntityNotFoundException if the student with the specified name is not found.
      *
      * @param firstName student's first name
      * @param lastName  student's last name
      * @return Student
-     * @throws DaoEntityNotFoundException
+     * @throws DaoEntityNotFoundException if the student with the specified name is not found
      */
     Student getStudentByName(String firstName, String lastName) throws DaoEntityNotFoundException;
 
     /**
-     * Saves the student into the database. This method throws DaoEntityAlreadyExists if the student already exists
-     * in the database.
+     * Saves student into the database.
      *
      * @param student the student to be saved
-     * @throws DaoEntityAlreadyExists
+     * @throws DaoEntityAlreadyExists if the student already exists in the database
      */
     void saveStudent(Student student) throws DaoEntityAlreadyExists;
 
     /**
-     * Updates the student into the database. This student primary key must already be present in the database.
+     * Updates student into the database. This student primary key must already be present in the database.
      *
      * @param student student to be updated
-     * @throws DaoEntityNotFoundException
+     * @throws DaoEntityNotFoundException if the student is not found
      */
     void updateStudent(Student student) throws DaoEntityNotFoundException;
 
@@ -62,12 +60,12 @@ public interface StudentDao {
      * Deletes the student from the database by specifying his/her personal numeric code.
      *
      * @param pnc the personal numeric code of the student
-     * @throws DaoEntityNotFoundException
+     * @throws DaoEntityNotFoundException if the student with the specified pnc is not found
      */
     void deleteStudentByPnc(String pnc) throws DaoEntityNotFoundException;
 
     /**
-     * Returns the students that have the same fields as the method parameters.
+     * Returns the students that have the same section, year, semester, group, subgroup as the method parameters.
      *
      * @param section  Section
      * @param year     Year

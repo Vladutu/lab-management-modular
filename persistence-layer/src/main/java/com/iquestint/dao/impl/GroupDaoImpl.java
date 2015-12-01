@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * This class implements GroupDao interfaces;
+ * This class implements GroupDao interface;
  *
  * @author Georgian Vladutu
  */

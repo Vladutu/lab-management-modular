@@ -11,7 +11,7 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
- * This class implements StudentDao interfaces;
+ * This class implements StudentDao interface;
  *
  * @author Georgian Vladutu
  */

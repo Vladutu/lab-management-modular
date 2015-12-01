@@ -14,7 +14,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
 /**
- * This class implements the PersonDao interfaces.
+ * This class implements the PersonDao interface.
  *
  * @author Georgian Vladutu
  */
@@ -37,8 +37,7 @@ public class PersonDaoImpl extends AbstractDao<Person> implements PersonDao {
 
         try {
             Person person = query.getSingleResult();
-        }
-        catch (NoResultException e) {
+        } catch (NoResultException e) {
             throw new DaoEntityNotFoundException();
         }
 
@@ -46,8 +45,7 @@ public class PersonDaoImpl extends AbstractDao<Person> implements PersonDao {
             Student student = studentDao.getStudentByName(firstName, lastName);
 
             return Type.STUDENT;
-        }
-        catch (NoResultException ignored) {
+        } catch (NoResultException ignored) {
             return Type.PROFESSOR;
         }
     }
@@ -60,8 +58,7 @@ public class PersonDaoImpl extends AbstractDao<Person> implements PersonDao {
 
         try {
             Person person = query.getSingleResult();
-        }
-        catch (NoResultException e) {
+        } catch (NoResultException e) {
             throw new DaoEntityNotFoundException();
         }
 
@@ -69,8 +66,7 @@ public class PersonDaoImpl extends AbstractDao<Person> implements PersonDao {
             Student student = studentDao.getStudentByPnc(pnc);
 
             return Type.STUDENT;
-        }
-        catch (DaoEntityNotFoundException ignored) {
+        } catch (DaoEntityNotFoundException ignored) {
             return Type.PROFESSOR;
         }
     }
@@ -83,8 +79,7 @@ public class PersonDaoImpl extends AbstractDao<Person> implements PersonDao {
 
         try {
             return query.getSingleResult();
-        }
-        catch (NoResultException e) {
+        } catch (NoResultException e) {
             throw new DaoEntityNotFoundException();
         }
     }

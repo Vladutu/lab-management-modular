@@ -8,7 +8,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * @author vladu
+ * This class implements SemesterDao interface;
+ *
+ * @author Georgian Vladutu
  */
 @Repository("semesterDao")
 public class SemesterDaoImpl extends AbstractDao<Semester> implements SemesterDao {

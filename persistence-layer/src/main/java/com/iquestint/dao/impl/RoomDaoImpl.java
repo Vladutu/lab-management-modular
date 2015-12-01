@@ -8,7 +8,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * @author vladu
+ * This class implements RoomDao interface;
+ *
+ * @author Georgian Vladutu
  */
 @Repository("roomDao")
 public class RoomDaoImpl extends AbstractDao<Room> implements RoomDao {

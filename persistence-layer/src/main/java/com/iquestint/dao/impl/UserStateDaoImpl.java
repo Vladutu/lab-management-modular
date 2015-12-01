@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * This class implements UserStateDao interfaces.
+ * This class implements UserStateDao interface.
  *
  * @author Georgian Vladutu
  */

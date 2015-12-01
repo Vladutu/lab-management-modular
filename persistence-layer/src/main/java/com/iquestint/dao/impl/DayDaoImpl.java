@@ -8,7 +8,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * @author vladu
+ * This class implements DayDao interface;
+ *
+ * @author Georgian Vladutu
  */
 @Repository("dayDao")
 public class DayDaoImpl extends AbstractDao<Day> implements DayDao {

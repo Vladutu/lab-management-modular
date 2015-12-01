@@ -13,12 +13,11 @@ import java.util.List;
 public interface UserStateDao {
 
     /**
-     * Returns the UserState entity from the database which has the same name as the method parameter. This method throws
-     * DaoEntityNotFoundException if the userState with the specified name is not found.
+     * Returns the UserState entity from the database which has the same name as the method parameter.
      *
      * @param name the name of the userState
      * @return UserState
-     * @throws DaoEntityNotFoundException
+     * @throws DaoEntityNotFoundException if the userState with the specified name is not found
      */
     UserState getUserStateByName(String name) throws DaoEntityNotFoundException;
 

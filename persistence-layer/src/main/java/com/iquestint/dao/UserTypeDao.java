@@ -13,12 +13,11 @@ import java.util.List;
 public interface UserTypeDao {
 
     /**
-     * Returns the UserType entity from the database which has the same name as the method parameter. This method throws
-     * DaoEntityNotFoundException if the userType with the specified name is not found.
+     * Returns the UserType entity from the database which has the same name as the method parameter.
      *
      * @param name the name of the userType
      * @return UserType
-     * @throws DaoEntityNotFoundException
+     * @throws DaoEntityNotFoundException if the userType with the specified name is not found
      */
     UserType getUserTypeByName(String name) throws DaoEntityNotFoundException;
 

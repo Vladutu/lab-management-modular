@@ -13,12 +13,11 @@ import java.util.List;
 public interface SectionDao {
 
     /**
-     * Returns the Section entity from the database which has the same name as the method parameter. This method throws
-     * DaoEntityNotFoundException if the section with the specified name is not found.
+     * Returns the Section entity from the database which has the same name as the method parameter.
      *
      * @param name the name of the section
      * @return Section
-     * @throws DaoEntityNotFoundException
+     * @throws DaoEntityNotFoundException if the section with the specified name is not found
      */
     public Section getSectionByName(String name) throws DaoEntityNotFoundException;
 

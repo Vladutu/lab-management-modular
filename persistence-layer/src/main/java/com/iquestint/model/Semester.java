@@ -7,7 +7,9 @@ import javax.persistence.*;
 import java.util.List;
 
 /**
- * @author vladu
+ * This is an model entity that maps the SEMESTER table.
+ *
+ * @author Georgian Vladutu
  */
 @Entity
 @Table(name = "SEMESTER", uniqueConstraints = {

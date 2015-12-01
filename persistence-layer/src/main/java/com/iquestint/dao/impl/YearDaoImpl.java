@@ -8,7 +8,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * @author vladu
+ * This class implements YearDao interface;
+ *
+ * @author Georgian Vladutu
  */
 @Repository("yearDao")
 public class YearDaoImpl extends AbstractDao<Year> implements YearDao {

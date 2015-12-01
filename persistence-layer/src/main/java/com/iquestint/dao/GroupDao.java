@@ -13,12 +13,11 @@ import java.util.List;
 public interface GroupDao {
 
     /**
-     * Returns the Group entity from the database which has the same name as the method parameter. This method throws
-     * DaoEntityNotFoundException if the group with the specified name is not found.
+     * Returns the Group entity from the database which has the same name as the method parameter.
      *
      * @param name the name of the group
      * @return Group
-     * @throws DaoEntityNotFoundException
+     * @throws DaoEntityNotFoundException if the group with the specified name is not found
      */
     public Group getGroupByName(String name) throws DaoEntityNotFoundException;
 

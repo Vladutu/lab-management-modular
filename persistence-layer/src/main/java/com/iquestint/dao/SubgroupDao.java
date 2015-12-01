@@ -13,12 +13,11 @@ import java.util.List;
 public interface SubgroupDao {
 
     /**
-     * Returns the Subgroup entity from the database which has the same name as the method parameter. This method
-     * throws DaoEntityNotFoundException if the subgroup with the specified name is not found.
+     * Returns the Subgroup entity from the database which has the same name as the method parameter.
      *
      * @param name the name of the section
      * @return Subgroup
-     * @throws DaoEntityNotFoundException
+     * @throws DaoEntityNotFoundException if the subgroup with the specified name is not found
      */
     public Subgroup getSubgroupByName(String name) throws DaoEntityNotFoundException;
 

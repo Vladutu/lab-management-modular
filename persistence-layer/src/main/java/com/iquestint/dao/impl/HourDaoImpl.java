@@ -8,7 +8,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * @author vladu
+ * This class implements HourDao interface;
+ *
+ * @author Georgian Vladutu
  */
 @Repository("hourDao")
 public class HourDaoImpl extends AbstractDao<Hour> implements HourDao {
