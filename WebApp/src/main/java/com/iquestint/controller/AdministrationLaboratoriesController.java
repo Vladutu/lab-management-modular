@@ -18,7 +18,9 @@ import javax.validation.Valid;
 import java.util.List;
 
 /**
- * @author vladu
+ * This class is a controller used for operations on Laboratory objects.
+ *
+ * @author Georgian Vladutu
  */
 @Controller
 @RequestMapping("/")
@@ -30,6 +32,12 @@ public class AdministrationLaboratoriesController {
     @Autowired
     private AdministrationFormService administrationFormService;
 
+    /**
+     * Returns laboratory categories, ordered by section, year and semester
+     *
+     * @param model ModelMap
+     * @return String
+     */
     @RequestMapping(value = "/admin/laboratories", method = RequestMethod.GET)
     public String getAllLaboratories(ModelMap model) {
         FormLaboratoryShowDto formLaboratoryShowDto = administrationFormService.getFormLaboratoryShowDto();
@@ -39,6 +47,15 @@ public class AdministrationLaboratoriesController {
         return "listLaboratoryCategories";
     }
 
+    /**
+     * Returns all existing laboratory models which have the same section, year and semester as method parameters.
+     *
+     * @param section  section
+     * @param year     year
+     * @param semester semester
+     * @param model    ModelMap
+     * @return String
+     */
     @RequestMapping(value = "/admin/laboratories/{section}/{year}/{semester}", method = RequestMethod.GET)
     public String getLaboratories(@PathVariable String section, @PathVariable int year, @PathVariable int semester,
         ModelMap model) {
@@ -53,6 +70,17 @@ public class AdministrationLaboratoriesController {
         return "listLaboratories";
     }
 
+    /**
+     * Deletes the laboratory whose id is laboratoryId. If the laboratory does not exists it will return an error message.
+     *
+     * @param section            section
+     * @param year               year
+     * @param semester           semester
+     * @param laboratoryId       laboratoryId
+     * @param model              ModelMap
+     * @param redirectAttributes RedirectAttributes
+     * @return String
+     */
     @RequestMapping(value = "/admin/laboratories/{section}/{year}/{semester}/delete/{laboratoryId}", method = RequestMethod.GET)
     public String deleteLaboratory(@PathVariable String section, @PathVariable int year, @PathVariable int semester,
         @PathVariable int laboratoryId, ModelMap model,
@@ -66,6 +94,15 @@ public class AdministrationLaboratoriesController {
         return "redirect:/admin/laboratories/" + section + "/" + year + "/" + semester;
     }
 
+    /**
+     * Returns a form to add a new laboratory.
+     *
+     * @param section  section
+     * @param year     year
+     * @param semester semester
+     * @param model    ModelMap
+     * @return String
+     */
     @RequestMapping(value = "/admin/laboratories/{section}/{year}/{semester}/new", method = RequestMethod.GET)
     public String newLaboratory(@PathVariable String section, @PathVariable int year, @PathVariable int semester,
         ModelMap model) {
@@ -81,6 +118,19 @@ public class AdministrationLaboratoriesController {
         return "createLaboratory";
     }
 
+    /**
+     * This method checks if all the laboratory's fields are valid and then saves it. If at least one of the fields are not valid
+     * the page returned will be the same.
+     *
+     * @param laboratoryDto      laboratoryDto
+     * @param bindingResult      bindingResult
+     * @param model              ModelMap
+     * @param section            section
+     * @param year               year
+     * @param semester           semester
+     * @param redirectAttributes RedirectAttributes
+     * @return String
+     */
     @RequestMapping(value = "/admin/laboratories/{section}/{year}/{semester}/new", method = RequestMethod.POST)
     public String saveLaboratory(@Valid LaboratoryDto laboratoryDto, BindingResult bindingResult, ModelMap model,
         @PathVariable String section, @PathVariable int year, @PathVariable int semester,
@@ -105,6 +155,17 @@ public class AdministrationLaboratoriesController {
         return "redirect:/admin/laboratories/" + section + "/" + year + "/" + semester;
     }
 
+    /**
+     * Returns a form to update a laboratory whose id is laboratoryId.
+     *
+     * @param section            section
+     * @param year               year
+     * @param semester           semester
+     * @param laboratoryId       laboratoryId
+     * @param model              ModelMap
+     * @param redirectAttributes RedirectAttributes
+     * @return String
+     */
     @RequestMapping(value = "/admin/laboratories/{section}/{year}/{semester}/edit/{laboratoryId}", method = RequestMethod.GET)
     public String editStudent(@PathVariable String section, @PathVariable int year, @PathVariable int semester,
         @PathVariable int laboratoryId, ModelMap model, RedirectAttributes redirectAttributes) {
@@ -123,6 +184,19 @@ public class AdministrationLaboratoriesController {
         }
     }
 
+    /**
+     * Checks if the laboratory model is valid, then updates it. If the laboratory model is not valid the same page will be returned.
+     *
+     * @param laboratoryDto      laboratoryDto
+     * @param bindingResult      BindingResult
+     * @param section            section
+     * @param year               year
+     * @param semester           semester
+     * @param laboratoryId       laboratoryId
+     * @param model              ModelMap
+     * @param redirectAttributes RedirectAttributes
+     * @return String
+     */
     @RequestMapping(value = "/admin/laboratories/{section}/{year}/{semester}/edit/{laboratoryId}", method = RequestMethod.POST)
     public String updateLaboratory(@Valid LaboratoryDto laboratoryDto, BindingResult bindingResult,
         @PathVariable String section, @PathVariable int year, @PathVariable int semester,

@@ -102,7 +102,7 @@ public class AdministrationStudentsController {
     }
 
     /**
-     * Deletes the students whose pnc is studentPnc. If the student doesn't exists it will return an error message.
+     * Deletes the student whose pnc is studentPnc. If the student doesn't exists it will return an error message.
      *
      * @param studentPnc         the pnc of the student
      * @param model              ModelMap
