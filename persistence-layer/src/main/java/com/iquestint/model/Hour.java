@@ -24,7 +24,7 @@ public class Hour {
     private int id;
 
     @Basic
-    @Column(name = "VALUE")
+    @Column(name = "VALUE", nullable = false)
     private Integer value;
 
     @OneToMany(mappedBy = "from")

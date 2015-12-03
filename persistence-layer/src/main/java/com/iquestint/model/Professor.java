@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 /**
@@ -19,11 +20,13 @@ import java.util.List;
 public class Professor extends Person {
 
     @Basic
-    @Column(name = "POSITION")
+    @Column(name = "POSITION", nullable = false)
+    @Size(min = 3, max = 15)
     private String position;
 
     @Basic
-    @Column(name = "OFFICE")
+    @Column(name = "OFFICE", nullable = false)
+    @Size(min = 3, max = 10)
     private String office;
 
     @OneToMany(mappedBy = "professor")

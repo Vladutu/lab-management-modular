@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 /**
  * This is an model entity that maps the USER table.
@@ -17,11 +19,13 @@ import javax.persistence.*;
 public class User {
 
     @Id
-    @Column(name = "USERNAME")
+    @Column(name = "USERNAME", nullable = false)
+    @Pattern(regexp = "\\b[1-8]\\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])(0[1-9]|[1-4]\\d|5[0-2]|99)\\d{4}\\b")
     private String pnc;
 
     @Basic
-    @Column(name = "PASSWORD")
+    @Column(name = "PASSWORD", nullable = false)
+    @Size(min = 6)
     private String password;
 
     @ManyToOne

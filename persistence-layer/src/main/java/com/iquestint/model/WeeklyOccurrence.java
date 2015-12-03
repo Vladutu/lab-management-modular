@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 /**
@@ -23,7 +24,8 @@ public class WeeklyOccurrence {
     private int id;
 
     @Basic
-    @Column(name = "NAME")
+    @Column(name = "NAME", nullable = false)
+    @Size(min = 15, max = 20)
     private String name;
 
     @OneToMany(mappedBy = "weeklyOccurrence")
