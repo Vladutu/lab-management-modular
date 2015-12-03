@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author Georgian Vladutu
  */
-public interface UserService {
+public interface AdministrationUserService {
 
     /**
      * This method saves a user.

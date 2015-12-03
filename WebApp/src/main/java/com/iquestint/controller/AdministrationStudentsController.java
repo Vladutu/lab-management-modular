@@ -5,7 +5,7 @@ import com.iquestint.dto.StudentDto;
 import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
 import com.iquestint.service.AdministrationFormService;
-import com.iquestint.service.StudentService;
+import com.iquestint.service.AdministrationStudentService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,7 +29,7 @@ import java.util.List;
 public class AdministrationStudentsController {
 
     @Autowired
-    private StudentService studentService;
+    private AdministrationStudentService administrationStudentService;
 
     @Autowired
     ModelMapper modelMapper;
@@ -45,7 +45,7 @@ public class AdministrationStudentsController {
      */
     @RequestMapping(value = "/admin/students", method = RequestMethod.GET)
     public String getStudents(ModelMap model) {
-        List<StudentDto> studentDtos = studentService.getAllStudents();
+        List<StudentDto> studentDtos = administrationStudentService.getAllStudents();
         model.addAttribute("students", studentDtos);
 
         return "listStudents";
@@ -90,7 +90,7 @@ public class AdministrationStudentsController {
         }
 
         try {
-            studentService.saveStudent(studentDto);
+            administrationStudentService.saveStudent(studentDto);
         } catch (ServiceEntityNotFoundException ignored) {
         } catch (ServiceEntityAlreadyExistsException e) {
             redirectAttributes.addFlashAttribute("errorMessage", "Student already exists");
@@ -113,7 +113,7 @@ public class AdministrationStudentsController {
     public String deleteStudent(@PathVariable String studentPnc, ModelMap model,
         RedirectAttributes redirectAttributes) {
         try {
-            studentService.deleteStudent(studentPnc);
+            administrationStudentService.deleteStudent(studentPnc);
         } catch (ServiceEntityNotFoundException e) {
             redirectAttributes.addFlashAttribute("errorMessage", "The student does not exists or no longer exists");
         }
@@ -132,7 +132,7 @@ public class AdministrationStudentsController {
     @RequestMapping(value = "/admin/students/edit/{studentPnc}", method = RequestMethod.GET)
     public String editStudent(@PathVariable String studentPnc, ModelMap model, RedirectAttributes redirectAttributes) {
         try {
-            StudentDto studentDto = studentService.getStudentByPnc(studentPnc);
+            StudentDto studentDto = administrationStudentService.getStudentByPnc(studentPnc);
             FormStudentDto formStudentDto = administrationFormService.getFormStudent();
 
             model.addAttribute("formStudentDto", formStudentDto);
@@ -169,7 +169,7 @@ public class AdministrationStudentsController {
         }
 
         try {
-            studentService.updateStudent(studentDto);
+            administrationStudentService.updateStudent(studentDto);
 
             return "redirect:/admin/students";
         } catch (ServiceEntityNotFoundException e) {

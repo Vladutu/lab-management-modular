@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author Georgian Vladutu
  */
-public interface StudentService {
+public interface AdministrationStudentService {
 
     /**
      * This method saves a student.

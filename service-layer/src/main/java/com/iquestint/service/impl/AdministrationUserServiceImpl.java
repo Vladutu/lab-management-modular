@@ -8,7 +8,7 @@ import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
 import com.iquestint.model.*;
-import com.iquestint.service.UserService;
+import com.iquestint.service.AdministrationUserService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +19,13 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 /**
- * This class implements UserService interface.
+ * This class implements AdministrationUserService interface.
  *
  * @author Georgian Vladutu
  */
-@Service("userService")
+@Service("administrationUserService")
 @Transactional
-public class UserServiceImpl implements UserService {
+public class AdministrationUserServiceImpl implements AdministrationUserService {
 
     @Autowired
     private UserDao userDao;

@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author Georgian Vladutu
  */
-public interface ProfessorService {
+public interface AdministrationProfessorService {
 
     /**
      * This method saves a professor.

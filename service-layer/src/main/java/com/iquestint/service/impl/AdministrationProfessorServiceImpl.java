@@ -10,7 +10,7 @@ import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
 import com.iquestint.model.Laboratory;
 import com.iquestint.model.Professor;
-import com.iquestint.service.ProfessorService;
+import com.iquestint.service.AdministrationProfessorService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +21,13 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 /**
- * This class implements the ProfessorService interface.
+ * This class implements the AdministrationProfessorService interface.
  *
  * @author Georgian Vladutu
  */
-@Service("professorService")
+@Service("administrationProfessorService")
 @Transactional
-public class ProfessorServiceImpl implements ProfessorService {
+public class AdministrationProfessorServiceImpl implements AdministrationProfessorService {
 
     @Autowired
     private ProfessorDao professorDao;

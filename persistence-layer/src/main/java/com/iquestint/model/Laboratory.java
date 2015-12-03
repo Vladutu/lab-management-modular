@@ -76,6 +76,9 @@ public class Laboratory {
         inverseJoinColumns = @JoinColumn(name = "STUDENT_PNC", referencedColumnName = "PNC", nullable = false))
     private List<Student> students;
 
+    @OneToMany(mappedBy = "laboratory")
+    private List<Grade> grades;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

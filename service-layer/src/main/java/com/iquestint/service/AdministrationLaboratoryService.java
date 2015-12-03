@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @author Georgian Vladutu
  */
-public interface LaboratoryService {
+public interface AdministrationLaboratoryService {
 
     /**
      * This method saves a laboratory.

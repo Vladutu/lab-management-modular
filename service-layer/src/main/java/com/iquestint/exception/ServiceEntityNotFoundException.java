@@ -1,7 +1,7 @@
 package com.iquestint.exception;
 
 /**
- * This exception is thrown from the sevice layer when a searched entity is not found.
+ * This exception is thrown from the service layer when a searched entity is not found.
  *
  * @author Georgian Vladutu
  */
