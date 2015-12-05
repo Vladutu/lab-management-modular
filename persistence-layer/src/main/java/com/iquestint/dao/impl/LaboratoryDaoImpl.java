@@ -15,7 +15,7 @@ import java.util.List;
  * @author Georgian Vladutu
  */
 @Repository("laboratoryDao")
-public class LaboratoryDaoImpl extends AbstractDao<Laboratory> implements LaboratoryDao {
+public class LaboratoryDaoImpl extends JpaDao<Laboratory> implements LaboratoryDao {
 
     @Override
     public List<Laboratory> getAllLaboratories() {

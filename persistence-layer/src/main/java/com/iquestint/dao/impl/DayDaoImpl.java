@@ -13,7 +13,7 @@ import java.util.List;
  * @author Georgian Vladutu
  */
 @Repository("dayDao")
-public class DayDaoImpl extends AbstractDao<Day> implements DayDao {
+public class DayDaoImpl extends JpaDao<Day> implements DayDao {
 
     @Override
     public Day getDayByValue(int value) throws DaoEntityNotFoundException {

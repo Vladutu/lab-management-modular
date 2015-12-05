@@ -23,7 +23,7 @@ import java.util.List;
  * @author Georgian Vladutu
  */
 @Repository("userDao")
-public class UserDaoImpl extends AbstractDao<User> implements UserDao {
+public class UserDaoImpl extends JpaDao<User> implements UserDao {
 
     @Autowired
     private UserStateDao userStateDao;

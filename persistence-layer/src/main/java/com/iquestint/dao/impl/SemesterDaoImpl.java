@@ -13,7 +13,7 @@ import java.util.List;
  * @author Georgian Vladutu
  */
 @Repository("semesterDao")
-public class SemesterDaoImpl extends AbstractDao<Semester> implements SemesterDao {
+public class SemesterDaoImpl extends JpaDao<Semester> implements SemesterDao {
 
     @Override
     public Semester getSemesterByValue(int value) throws DaoEntityNotFoundException {

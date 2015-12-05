@@ -19,7 +19,7 @@ import javax.persistence.TypedQuery;
  * @author Georgian Vladutu
  */
 @Repository("personDao")
-public class PersonDaoImpl extends AbstractDao<Person> implements PersonDao {
+public class PersonDaoImpl extends JpaDao<Person> implements PersonDao {
 
     @Autowired
     private StudentDao studentDao;

@@ -13,7 +13,7 @@ import java.util.List;
  * @author Georgian Vladutu
  */
 @Repository("weeklyOccurrenceDao")
-public class WeeklyOccurrenceDaoImpl extends AbstractDao<WeeklyOccurrence> implements WeeklyOccurrenceDao {
+public class WeeklyOccurrenceDaoImpl extends JpaDao<WeeklyOccurrence> implements WeeklyOccurrenceDao {
 
     @Override
     public WeeklyOccurrence getWeeklyOccurrenceByName(String name) throws DaoEntityNotFoundException {

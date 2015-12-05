@@ -13,7 +13,7 @@ import java.util.List;
  * @author Georgian Vladutu
  */
 @Repository("hourDao")
-public class HourDaoImpl extends AbstractDao<Hour> implements HourDao {
+public class HourDaoImpl extends JpaDao<Hour> implements HourDao {
 
     @Override
     public Hour getHourByValue(int value) throws DaoEntityNotFoundException {

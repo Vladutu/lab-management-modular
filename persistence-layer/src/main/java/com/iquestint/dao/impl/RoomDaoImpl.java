@@ -13,7 +13,7 @@ import java.util.List;
  * @author Georgian Vladutu
  */
 @Repository("roomDao")
-public class RoomDaoImpl extends AbstractDao<Room> implements RoomDao {
+public class RoomDaoImpl extends JpaDao<Room> implements RoomDao {
 
     @Override
     public Room getRoomByName(String name) throws DaoEntityNotFoundException {
