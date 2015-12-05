@@ -7,11 +7,12 @@ import org.springframework.stereotype.Component;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.Month;
 import java.time.temporal.ChronoUnit;
 
 /**
- * @author vladu
+ * This class is an utility class used to calculate the university week given a date.
+ *
+ * @author Georgian Vladutu
  */
 @Component
 public class WeekCalculator {
@@ -20,19 +21,22 @@ public class WeekCalculator {
     private Environment environment;
 
     private static final int FIRST_SEMESTER = 1;
+
     private static final int SECOND_SEMESTER = 2;
+
     private static final int NO_DAYS_IN_WEEK = 7;
 
+    /**
+     * Returns the university week since the semester start. This method reads the start of the first and second semester from a properties file
+     * and computes the week number given a date.
+     *
+     * @param date LocalDate
+     * @return Integer
+     * @throws ServiceInvalidSemesterException if date does not belong to a semester
+     */
     public int getWeek(LocalDate date) throws ServiceInvalidSemesterException {
-        int firstSemesterYear = Integer.parseInt(environment.getRequiredProperty("first.year"));
-        Month firstSemesterMonth = Month.valueOf(environment.getRequiredProperty("first.month"));
-        int firstSemesterDay = Integer.parseInt(environment.getRequiredProperty("first.day"));
-        int secondSemesterYear = Integer.parseInt(environment.getRequiredProperty("second.year"));
-        Month secondSemesterMonth = Month.valueOf(environment.getRequiredProperty("second.month"));
-        int secondSemesterDay = Integer.parseInt(environment.getRequiredProperty("second.day"));
-
-        LocalDate firstSemesterStart = LocalDate.of(firstSemesterYear, firstSemesterMonth, firstSemesterDay);
-        LocalDate secondSemesterStart = LocalDate.of(secondSemesterYear, secondSemesterMonth, secondSemesterDay);
+        LocalDate firstSemesterStart = LocalDate.parse(environment.getRequiredProperty("first.date"));
+        LocalDate secondSemesterStart = LocalDate.parse(environment.getRequiredProperty("second.date"));
 
         int semester = getSemester(date, firstSemesterStart, secondSemesterStart);
 
