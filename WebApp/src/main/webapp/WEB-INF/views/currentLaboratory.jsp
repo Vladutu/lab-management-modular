@@ -14,17 +14,39 @@
 
 
 <div class="container">
-    <br><br><br><br><br><br><br><br><br><br>
+    <h2 class="text-center">${professorLaboratoryDto.name}</h2>
 
-    <div class="row">
-        <div class="col-sm-4">
-            <button type="button" class="btn btn-success btn-xlarge">${laboratoryDto.name}</button>
+    <c:if test="${not empty errorMessage}">
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button>
+                ${errorMessage}
         </div>
-        <div class="col-sm-4"></div>
-        <div class="col-sm-4">
-            <button type="button" class="btn btn-success btn-xlarge">${laboratoryDto.day}</button>
-        </div>
-    </div>
+    </c:if>
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Attendance</th>
+            <th>Grade</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <c:forEach items="${professorLaboratoryDto.students}" var="student">
+            <tr>
+                <td>${student.firstName}</td>
+                <td>${student.lastName}</td>
+                <td><input type="checkbox" name="attendance" value="attendance"></td>
+                <td><input type="number" name="grade" min="1" max="10"></td>
+
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+
 </div>
 </body>
 </html>

@@ -1,6 +1,6 @@
 package com.iquestint.controller;
 
-import com.iquestint.dto.LaboratoryDto;
+import com.iquestint.dto.ProfessorLaboratoryDto;
 import com.iquestint.dto.WelcomeUserDto;
 import com.iquestint.exception.ServiceEntityNotFoundException;
 import com.iquestint.exception.ServiceInvalidSemesterException;
@@ -44,9 +44,9 @@ public class ProfessorsController {
         WelcomeUserDto welcomeUserDto = getPrincipal();
         model.addAttribute("welcomeUserDto", welcomeUserDto);
         try {
-            LaboratoryDto laboratoryDto = professorService.getCurrentLaboratory(welcomeUserDto.getPnc(),
-                LocalDateTime.now());
-            model.addAttribute("laboratoryDto", laboratoryDto);
+            ProfessorLaboratoryDto professorLaboratoryDto = professorService.getCurrentLaboratory(
+                welcomeUserDto.getPnc(), LocalDateTime.now());
+            model.addAttribute("professorLaboratoryDto", professorLaboratoryDto);
 
             return "currentLaboratory";
 

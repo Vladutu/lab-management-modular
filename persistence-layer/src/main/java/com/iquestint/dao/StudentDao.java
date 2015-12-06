@@ -75,4 +75,6 @@ public interface StudentDao {
      * @return List<Student>
      */
     List<Student> getStudents(Section section, Year year, Semester semester, Group group, Subgroup subgroup);
+
+    List<Student> getStudents(Laboratory laboratory);
 }

@@ -90,4 +90,14 @@ public class StudentDaoImpl extends JpaDao<Student> implements StudentDao {
         return query.getResultList();
     }
 
+    @Override
+    public List<Student> getStudents(Laboratory laboratory) {
+        TypedQuery<Student> query = getEntityManager().createQuery(
+            "SELECT s FROM Student s INNER JOIN s.laboratories lab WHERE lab.id IN :id",
+            Student.class);
+        query.setParameter("id", laboratory.getId());
+
+        return query.getResultList();
+    }
+
 }

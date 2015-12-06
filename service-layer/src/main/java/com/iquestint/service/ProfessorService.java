@@ -1,6 +1,6 @@
 package com.iquestint.service;
 
-import com.iquestint.dto.LaboratoryDto;
+import com.iquestint.dto.ProfessorLaboratoryDto;
 import com.iquestint.exception.ServiceEntityNotFoundException;
 import com.iquestint.exception.ServiceInvalidSemesterException;
 
@@ -11,6 +11,6 @@ import java.time.LocalDateTime;
  */
 public interface ProfessorService {
 
-    LaboratoryDto getCurrentLaboratory(String professorPnc, LocalDateTime date)
+    ProfessorLaboratoryDto getCurrentLaboratory(String professorPnc, LocalDateTime date)
         throws ServiceInvalidSemesterException, ServiceEntityNotFoundException;
 }
