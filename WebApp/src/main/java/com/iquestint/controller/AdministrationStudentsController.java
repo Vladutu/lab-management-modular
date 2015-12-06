@@ -6,7 +6,6 @@ import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
 import com.iquestint.service.AdministrationFormService;
 import com.iquestint.service.AdministrationStudentService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -30,9 +29,6 @@ public class AdministrationStudentsController {
 
     @Autowired
     private AdministrationStudentService administrationStudentService;
-
-    @Autowired
-    ModelMapper modelMapper;
 
     @Autowired
     AdministrationFormService administrationFormService;

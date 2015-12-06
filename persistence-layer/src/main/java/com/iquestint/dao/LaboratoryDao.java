@@ -75,4 +75,6 @@ public interface LaboratoryDao {
      * @throws DaoEntityNotFoundException if the laboratory with the specified id is not found
      */
     void deleteLaboratoryById(int id) throws DaoEntityNotFoundException;
+
+    List<Laboratory> getLaboratoriesByDateAndTime(String professorPnc, Hour from, Day day);
 }

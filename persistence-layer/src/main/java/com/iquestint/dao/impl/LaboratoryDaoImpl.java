@@ -78,4 +78,16 @@ public class LaboratoryDaoImpl extends JpaDao<Laboratory> implements LaboratoryD
         Laboratory laboratory = getLaboratoryById(id);
         delete(laboratory);
     }
+
+    @Override
+    public List<Laboratory> getLaboratoriesByDateAndTime(String professorPnc, Hour from, Day day) {
+        TypedQuery<Laboratory> query = getEntityManager().createQuery(
+            "SELECT l FROM Laboratory l WHERE l.from.value = :fromH and l.day.value = :day and l.professor.pnc = :pnc",
+            Laboratory.class);
+        query.setParameter("fromH", from.getValue());
+        query.setParameter("day", day.getValue());
+        query.setParameter("pnc", professorPnc);
+
+        return query.getResultList();
+    }
 }
