@@ -1,9 +1,10 @@
 package com.iquestint.controller;
 
-import com.iquestint.dto.ProfessorLaboratoryDto;
+import com.iquestint.dto.LaboratoryWithStudentsDto;
 import com.iquestint.dto.WelcomeUserDto;
 import com.iquestint.exception.ServiceEntityNotFoundException;
 import com.iquestint.exception.ServiceInvalidSemesterException;
+import com.iquestint.form.StudentWithGradeAndAttendanceFrom;
 import com.iquestint.service.ProfessorService;
 import com.iquestint.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,11 +43,15 @@ public class ProfessorsController {
     @RequestMapping(value = "/professor/currentLaboratory", method = RequestMethod.GET)
     public String getCurrentLaboratory(ModelMap model, RedirectAttributes redirectAttributes) {
         WelcomeUserDto welcomeUserDto = getPrincipal();
+        StudentWithGradeAndAttendanceFrom studentWithGradeAndAttendanceFrom = new StudentWithGradeAndAttendanceFrom();
+
         model.addAttribute("welcomeUserDto", welcomeUserDto);
+        model.addAttribute("studentWithGradeAndAttendanceFrom", studentWithGradeAndAttendanceFrom);
+
         try {
-            ProfessorLaboratoryDto professorLaboratoryDto = professorService.getCurrentLaboratory(
+            LaboratoryWithStudentsDto laboratoryWithStudentsDto = professorService.getCurrentLaboratory(
                 welcomeUserDto.getPnc(), LocalDateTime.now());
-            model.addAttribute("professorLaboratoryDto", professorLaboratoryDto);
+            model.addAttribute("laboratoryWithStudentsDto", laboratoryWithStudentsDto);
 
             return "currentLaboratory";
 

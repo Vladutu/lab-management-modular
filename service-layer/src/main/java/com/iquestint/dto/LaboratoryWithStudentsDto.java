@@ -11,9 +11,9 @@ import java.util.List;
  */
 @Getter
 @Setter
-public class ProfessorLaboratoryDto {
+public class LaboratoryWithStudentsDto {
 
-    private String name;
+    private LaboratoryDto laboratory;
 
     private List<StudentDto> students = new ArrayList<>();
 }

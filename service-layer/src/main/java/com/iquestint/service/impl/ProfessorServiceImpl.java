@@ -2,7 +2,8 @@ package com.iquestint.service.impl;
 
 import com.iquestint.dao.LaboratoryDao;
 import com.iquestint.dao.StudentDao;
-import com.iquestint.dto.ProfessorLaboratoryDto;
+import com.iquestint.dto.LaboratoryDto;
+import com.iquestint.dto.LaboratoryWithStudentsDto;
 import com.iquestint.dto.StudentDto;
 import com.iquestint.exception.ServiceEntityNotFoundException;
 import com.iquestint.exception.ServiceInvalidSemesterException;
@@ -41,17 +42,17 @@ public class ProfessorServiceImpl implements ProfessorService {
     private ModelMapper modelMapper;
 
     @Override
-    public ProfessorLaboratoryDto getCurrentLaboratory(String professorPnc, LocalDateTime date)
+    public LaboratoryWithStudentsDto getCurrentLaboratory(String professorPnc, LocalDateTime date)
         throws ServiceInvalidSemesterException, ServiceEntityNotFoundException {
         Laboratory laboratory = getLaboratory(professorPnc, date);
         List<Student> students = studentDao.getStudents(laboratory);
 
-        ProfessorLaboratoryDto professorLaboratoryDto = new ProfessorLaboratoryDto();
-        professorLaboratoryDto.setName(laboratory.getName());
-        professorLaboratoryDto.setStudents(modelMapper.map(students, new TypeToken<List<StudentDto>>() {
+        LaboratoryWithStudentsDto laboratoryWithStudentsDto = new LaboratoryWithStudentsDto();
+        laboratoryWithStudentsDto.setLaboratory(modelMapper.map(laboratory, LaboratoryDto.class));
+        laboratoryWithStudentsDto.setStudents(modelMapper.map(students, new TypeToken<List<StudentDto>>() {
         }.getType()));
 
-        return professorLaboratoryDto;
+        return laboratoryWithStudentsDto;
     }
 
     private Laboratory getLaboratory(String professorPnc, LocalDateTime date)
