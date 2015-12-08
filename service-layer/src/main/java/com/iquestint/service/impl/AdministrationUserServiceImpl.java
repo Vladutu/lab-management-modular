@@ -37,10 +37,10 @@ public class AdministrationUserServiceImpl implements AdministrationUserService 
     private UserStateDao userStateDao;
 
     @Autowired
-    private PersonDao personDao;
+    private ModelMapper modelMapper;
 
     @Autowired
-    private ModelMapper modelMapper;
+    private PersonDao personDao;
 
     @Autowired
     private StudentDao studentDao;
@@ -52,20 +52,17 @@ public class AdministrationUserServiceImpl implements AdministrationUserService 
     public void saveUser(UserDto userDto) throws ServiceEntityNotFoundException, ServiceEntityAlreadyExistsException {
         UserType userType = null;
         UserState userState = null;
-        Person person = null;
         User user = modelMapper.map(userDto, User.class);
 
         try {
             userType = userTypeDao.getUserTypeByName(user.getUserType().getName());
             userState = userStateDao.getUserStateByName(user.getUserState().getName());
-            person = personDao.getPersonByPnc(user.getPnc());
         } catch (DaoEntityNotFoundException e) {
             throw new ServiceEntityNotFoundException(e);
         }
 
         user.setUserType(userType);
         user.setUserState(userState);
-        user.setPerson(person);
 
         try {
             userDao.saveUser(user);
@@ -87,8 +84,11 @@ public class AdministrationUserServiceImpl implements AdministrationUserService 
     public UserDto getUserByPnc(String pnc) throws ServiceEntityNotFoundException {
         try {
             User user = userDao.getUserByPnc(pnc);
+            UserDto userDto = modelMapper.map(user, UserDto.class);
+            Person person = personDao.getPersonByPnc(userDto.getPnc());
+            populateUserDtoFromPerson(userDto, person);
 
-            return modelMapper.map(user, UserDto.class);
+            return userDto;
         } catch (DaoEntityNotFoundException e) {
             throw new ServiceEntityNotFoundException(e);
         }
@@ -99,31 +99,52 @@ public class AdministrationUserServiceImpl implements AdministrationUserService 
         List<User> users = userDao.getAllUsers();
         Type listType = new TypeToken<List<UserDto>>() {
         }.getType();
+        List<UserDto> userDtos = modelMapper.map(users, listType);
 
-        return modelMapper.map(users, listType);
+        for (UserDto userDto : userDtos) {
+            try {
+                Person person = personDao.getPersonByPnc(userDto.getPnc());
+                populateUserDtoFromPerson(userDto, person);
+            } catch (DaoEntityNotFoundException ignored) {
+            }
+        }
+
+        return userDtos;
     }
 
     @Override
     public void updateUser(UserDto userDto) throws ServiceEntityNotFoundException {
         UserType userType = null;
         UserState userState = null;
-        Person person = null;
         User user = modelMapper.map(userDto, User.class);
 
         try {
             userType = userTypeDao.getUserTypeByName(user.getUserType().getName());
             userState = userStateDao.getUserStateByName(user.getUserState().getName());
-            person = personDao.getPersonByPnc(user.getPnc());
-
             user.setUserState(userState);
             user.setUserType(userType);
-            user.setPerson(person);
 
             userDao.updateUser(user);
+
+            if (userDto.getUserType().equals(com.iquestint.enums.Type.STUDENT.getType())) {
+                updateStudent(userDto);
+            }
+            else {
+                updateProfessor(userDto);
+            }
         } catch (DaoEntityNotFoundException e) {
             throw new ServiceEntityNotFoundException(e);
         }
 
+    }
+
+    private void updateStudent(UserDto userDto) throws DaoEntityNotFoundException {
+        Student student = studentDao.getStudentByPnc(userDto.getPnc());
+        student.setFirstName(userDto.getFirstName());
+        student.setLastName(userDto.getLastName());
+        student.setEmail(userDto.getEmail());
+
+        studentDao.updateStudent(student);
     }
 
     @Override
@@ -135,25 +156,30 @@ public class AdministrationUserServiceImpl implements AdministrationUserService 
         try {
             userType = userTypeDao.getUserTypeByName(user.getUserType().getName());
             userState = userStateDao.getUserStateByName(user.getUserState().getName());
-            person = personDao.getPersonByPnc(user.getPnc());
 
             user.setUserState(userState);
             user.setUserType(userType);
-            user.getPerson().setPnc(person.getPnc());
 
             userDao.updateUserNoPassword(user);
+
+            if (userDto.getUserType().equals(com.iquestint.enums.Type.STUDENT.getType())) {
+                updateStudent(userDto);
+            }
+            else {
+                updateProfessor(userDto);
+            }
         } catch (DaoEntityNotFoundException e) {
             throw new ServiceEntityNotFoundException(e);
         }
     }
 
-    @Override
-    public User getUserByName(String firstName, String lastName) throws ServiceEntityNotFoundException {
-        try {
-            return userDao.getUserByName(firstName, lastName);
-        } catch (DaoEntityNotFoundException e) {
-            throw new ServiceEntityNotFoundException(e);
-        }
+    private void updateProfessor(UserDto userDto) throws DaoEntityNotFoundException {
+        Professor professor = professorDao.getProfessorByPnc(userDto.getPnc());
+        professor.setFirstName(userDto.getFirstName());
+        professor.setLastName(userDto.getLastName());
+        professor.setEmail(userDto.getEmail());
+
+        professorDao.updateProfessor(professor);
     }
 
     @Override
@@ -180,5 +206,11 @@ public class AdministrationUserServiceImpl implements AdministrationUserService 
         } catch (DaoEntityNotFoundException e) {
             throw new ServiceEntityNotFoundException(e);
         }
+    }
+
+    private void populateUserDtoFromPerson(UserDto userDto, Person person) {
+        userDto.setLastName(person.getLastName());
+        userDto.setFirstName(person.getFirstName());
+        userDto.setEmail(person.getEmail());
     }
 }

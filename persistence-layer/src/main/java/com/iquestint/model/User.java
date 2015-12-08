@@ -36,10 +36,6 @@ public class User {
     @JoinColumn(name = "TYPE_ID", referencedColumnName = "ID", nullable = false)
     private UserType userType;
 
-    @OneToOne
-    @JoinColumn(name = "USERNAME", referencedColumnName = "PNC", nullable = false)
-    private Person person;
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -60,10 +56,7 @@ public class User {
         if (userState != null ? !userState.equals(user.userState) : user.userState != null) {
             return false;
         }
-        if (userType != null ? !userType.equals(user.userType) : user.userType != null) {
-            return false;
-        }
-        return !(person != null ? !person.equals(user.person) : user.person != null);
+        return !(userType != null ? !userType.equals(user.userType) : user.userType != null);
 
     }
 
@@ -73,7 +66,6 @@ public class User {
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (userState != null ? userState.hashCode() : 0);
         result = 31 * result + (userType != null ? userType.hashCode() : 0);
-        result = 31 * result + (person != null ? person.hashCode() : 0);
         return result;
     }
 }

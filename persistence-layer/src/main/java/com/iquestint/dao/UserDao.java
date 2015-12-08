@@ -31,16 +31,6 @@ public interface UserDao {
     User getUserByPnc(String pnc) throws DaoEntityNotFoundException;
 
     /**
-     * Returns the User entity from the database which has the same first name and last name as the method parameters.
-     *
-     * @param firstName user's first name
-     * @param lastName  user's last name
-     * @return User
-     * @throws DaoEntityNotFoundException if the user with the specified name is not found
-     */
-    User getUserByName(String firstName, String lastName) throws DaoEntityNotFoundException;
-
-    /**
      * Saves  user into the database.
      *
      * @param user the user to be saved

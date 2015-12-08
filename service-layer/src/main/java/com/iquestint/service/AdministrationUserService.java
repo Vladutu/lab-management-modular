@@ -4,7 +4,6 @@ import com.iquestint.dto.UnregisteredUserDto;
 import com.iquestint.dto.UserDto;
 import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
-import com.iquestint.model.User;
 
 import java.util.List;
 
@@ -63,16 +62,6 @@ public interface AdministrationUserService {
      * @throws ServiceEntityNotFoundException if the user is not found
      */
     void updateUserNoPassword(UserDto userDto) throws ServiceEntityNotFoundException;
-
-    /**
-     * This method retrieves a user by specifying his/her first name and last name.
-     *
-     * @param firstName the user's first name
-     * @param lastName  the user's last name
-     * @return User
-     * @throws ServiceEntityNotFoundException if the user is not found
-     */
-    User getUserByName(String firstName, String lastName) throws ServiceEntityNotFoundException;
 
     /**
      * Returns a person that exists in the repository but is not a user yet by specifying his/her pnc.
