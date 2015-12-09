@@ -33,6 +33,18 @@ public class GradeDaoImpl extends JpaDao<Grade> implements GradeDao {
     }
 
     @Override
+    public void updateGrade(Grade grade) throws DaoEntityAlreadyExists {
+        try {
+            Grade g = getGradeById(grade.getId());
+        } catch (DaoEntityNotFoundException e) {
+            update(grade);
+            return;
+        }
+
+        throw new DaoEntityAlreadyExists();
+    }
+
+    @Override
     public List<Grade> getStudentGrades(String studentPnc) {
         TypedQuery<Grade> query = getEntityManager().createQuery("SELECT g FROM Grade g WHERE g.student.pnc = :pnc",
             Grade.class);

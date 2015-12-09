@@ -15,5 +15,7 @@ public interface AttendanceDao {
 
     void saveAttendance(Attendance attendance) throws DaoEntityAlreadyExists;
 
+    void updateAttendance(Attendance attendance) throws DaoEntityAlreadyExists;
+
     List<Attendance> getStudentAttendances(String studentPnc);
 }

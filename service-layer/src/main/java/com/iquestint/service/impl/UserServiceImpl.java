@@ -1,10 +1,10 @@
 package com.iquestint.service.impl;
 
-import com.iquestint.dao.UserDao;
+import com.iquestint.dao.PersonDao;
 import com.iquestint.dto.WelcomeUserDto;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
-import com.iquestint.model.User;
+import com.iquestint.model.Person;
 import com.iquestint.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import javax.transaction.Transactional;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserDao userDao;
+    private PersonDao personDao;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -30,9 +30,9 @@ public class UserServiceImpl implements UserService {
         WelcomeUserDto welcomeUserDto = new WelcomeUserDto();
 
         try {
-            User user = userDao.getUserByPnc(pnc);
+            Person person = personDao.getPersonByPnc(pnc);
 
-            return modelMapper.map(user, WelcomeUserDto.class);
+            return modelMapper.map(person, WelcomeUserDto.class);
         } catch (DaoEntityNotFoundException e) {
             throw new ServiceEntityNotFoundException(e);
         }

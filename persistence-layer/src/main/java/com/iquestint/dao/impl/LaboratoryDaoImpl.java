@@ -90,4 +90,15 @@ public class LaboratoryDaoImpl extends JpaDao<Laboratory> implements LaboratoryD
 
         return query.getResultList();
     }
+
+    @Override
+    public List<Laboratory> getLaboratoriesByProfessor(String professorPnc) {
+        TypedQuery<Laboratory> query = getEntityManager().createQuery(
+            "SELECT l FROM Laboratory l WHERE l.professor.pnc = :pnc",
+            Laboratory.class);
+
+        query.setParameter("pnc", professorPnc);
+
+        return query.getResultList();
+    }
 }

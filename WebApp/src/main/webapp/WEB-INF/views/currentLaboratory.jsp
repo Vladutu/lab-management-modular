@@ -29,7 +29,7 @@
         </div>
     </c:if>
 
-    <form:form method="POST" modelAttribute="studentWithGradeAndAttendanceFrom" role="form">
+    <form:form method="POST" modelAttribute="formStudentsWithGradeAndAttendanceDto" role="form">
         <table class="table table-hover">
             <thead>
             <tr>
@@ -45,10 +45,14 @@
                 <tr>
                     <td>${student.firstName}</td>
                     <td>${student.lastName}</td>
-                    <td><input type="checkbox" path="studentsWithGradeAndAttendance[${status.index}].attendance"
-                               class="form-control" id="attendance"/></td>
+                    <td><form:checkbox path="studentsWithGradeAndAttendance[${status.index}].attendance"
+                                       class="form-control" id="attendance"/></td>
                     <td><form:input type="number" path="studentsWithGradeAndAttendance[${status.index}].grade"
                                     class="form-control" id="grade" min="1" max="10"/></td>
+                    <td><form:input type="hidden" path="studentsWithGradeAndAttendance[${status.index}].pnc"
+                                    value="${student.pnc}"/></td>
+                    <td><form:input type="hidden" path="laboratoryId"
+                                    value="${laboratoryWithStudentsDto.laboratory.id}"/></td>
                 </tr>
             </c:forEach>
             </tbody>

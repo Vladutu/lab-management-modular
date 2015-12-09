@@ -1,16 +1,12 @@
 package com.iquestint.service.impl;
 
+import com.iquestint.dao.AttendanceDao;
+import com.iquestint.dao.GradeDao;
 import com.iquestint.dao.LaboratoryDao;
 import com.iquestint.dao.StudentDao;
-import com.iquestint.dto.LaboratoryDto;
-import com.iquestint.dto.LaboratoryWithStudentsDto;
-import com.iquestint.dto.StudentDto;
-import com.iquestint.exception.ServiceEntityNotFoundException;
-import com.iquestint.exception.ServiceInvalidSemesterException;
-import com.iquestint.model.Day;
-import com.iquestint.model.Hour;
-import com.iquestint.model.Laboratory;
-import com.iquestint.model.Student;
+import com.iquestint.dto.*;
+import com.iquestint.exception.*;
+import com.iquestint.model.*;
 import com.iquestint.service.ProfessorService;
 import com.iquestint.utils.WeekCalculator;
 import org.modelmapper.ModelMapper;
@@ -36,6 +32,12 @@ public class ProfessorServiceImpl implements ProfessorService {
     private StudentDao studentDao;
 
     @Autowired
+    private GradeDao gradeDao;
+
+    @Autowired
+    private AttendanceDao attendanceDao;
+
+    @Autowired
     private WeekCalculator weekCalculator;
 
     @Autowired
@@ -53,6 +55,60 @@ public class ProfessorServiceImpl implements ProfessorService {
         }.getType()));
 
         return laboratoryWithStudentsDto;
+    }
+
+    @Override
+    public void saveStudentGrade(Integer laboratoryId, String studentPnc, GradeDto gradeDto)
+        throws ServiceEntityAlreadyExistsException {
+        Laboratory laboratory = null;
+        Student student = null;
+        try {
+            student = studentDao.getStudentByPnc(studentPnc);
+            laboratory = laboratoryDao.getLaboratoryById(laboratoryId);
+        } catch (DaoEntityNotFoundException ignored) {
+        }
+
+        Grade grade = modelMapper.map(gradeDto, Grade.class);
+        grade.setLaboratory(laboratory);
+        grade.setStudent(student);
+
+        try {
+            gradeDao.saveGrade(grade);
+        } catch (DaoEntityAlreadyExists e) {
+            throw new ServiceEntityAlreadyExistsException(e);
+        }
+
+    }
+
+    @Override
+    public void saveStudentAttendance(Integer laboratoryId, String studentPnc, AttendanceDto attendanceDto)
+        throws ServiceEntityAlreadyExistsException {
+        Laboratory laboratory = null;
+        Student student = null;
+        try {
+            student = studentDao.getStudentByPnc(studentPnc);
+            laboratory = laboratoryDao.getLaboratoryById(laboratoryId);
+        } catch (DaoEntityNotFoundException ignored) {
+        }
+
+        Attendance attendance = modelMapper.map(attendanceDto, Attendance.class);
+        attendance.setLaboratory(laboratory);
+        attendance.setStudent(student);
+
+        try {
+            attendanceDao.saveAttendance(attendance);
+        } catch (DaoEntityAlreadyExists e) {
+            throw new ServiceEntityAlreadyExistsException(e);
+        }
+
+    }
+
+    @Override
+    public List<LaboratoryDto> getLaboratories(String professorPnc) {
+        List<Laboratory> laboratories = laboratoryDao.getLaboratoriesByProfessor(professorPnc);
+
+        return modelMapper.map(laboratories, new TypeToken<List<LaboratoryDto>>() {
+        }.getType());
     }
 
     private Laboratory getLaboratory(String professorPnc, LocalDateTime date)

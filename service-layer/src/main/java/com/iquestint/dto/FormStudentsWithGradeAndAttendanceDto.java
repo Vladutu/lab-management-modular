@@ -1,6 +1,5 @@
-package com.iquestint.form;
+package com.iquestint.dto;
 
-import com.iquestint.dto.StudentWithGradeAndAttendanceDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,7 +11,9 @@ import java.util.List;
  */
 @Getter
 @Setter
-public class StudentWithGradeAndAttendanceFrom {
+public class FormStudentsWithGradeAndAttendanceDto {
+
+    private Integer laboratoryId;
 
     private List<StudentWithGradeAndAttendanceDto> studentsWithGradeAndAttendance = new ArrayList<>(50);
 }

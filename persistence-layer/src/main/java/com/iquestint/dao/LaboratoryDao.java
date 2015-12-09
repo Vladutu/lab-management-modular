@@ -77,4 +77,6 @@ public interface LaboratoryDao {
     void deleteLaboratoryById(int id) throws DaoEntityNotFoundException;
 
     List<Laboratory> getLaboratoriesByDateAndTime(String professorPnc, Hour from, Day day);
+
+    List<Laboratory> getLaboratoriesByProfessor(String professorPnc);
 }

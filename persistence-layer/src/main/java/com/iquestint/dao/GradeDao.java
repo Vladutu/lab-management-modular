@@ -15,5 +15,7 @@ public interface GradeDao {
 
     void saveGrade(Grade grade) throws DaoEntityAlreadyExists;
 
+    void updateGrade(Grade grade) throws DaoEntityAlreadyExists;
+
     List<Grade> getStudentGrades(String studentPnc);
 }

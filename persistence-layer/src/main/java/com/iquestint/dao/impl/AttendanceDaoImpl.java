@@ -33,6 +33,18 @@ public class AttendanceDaoImpl extends JpaDao<Attendance> implements AttendanceD
     }
 
     @Override
+    public void updateAttendance(Attendance attendance) throws DaoEntityAlreadyExists {
+        try {
+            Attendance a = getAttendanceById(attendance.getId());
+        } catch (DaoEntityNotFoundException e) {
+            update(attendance);
+            return;
+        }
+
+        throw new DaoEntityAlreadyExists();
+    }
+
+    @Override
     public List<Attendance> getStudentAttendances(String studentPnc) {
         TypedQuery<Attendance> query = getEntityManager().createQuery(
             "SELECT a FROM Attendance a WHERE a.student.pnc = :pnc", Attendance.class);
