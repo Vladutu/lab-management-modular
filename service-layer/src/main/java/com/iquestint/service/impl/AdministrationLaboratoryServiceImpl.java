@@ -65,6 +65,12 @@ public class AdministrationLaboratoryServiceImpl implements AdministrationLabora
     private StudentDao studentDao;
 
     @Autowired
+    private GradeDao gradeDao;
+
+    @Autowired
+    private AttendanceDao attendanceDao;
+
+    @Autowired
     private ModelMapper modelMapper;
 
     @Override
@@ -86,6 +92,8 @@ public class AdministrationLaboratoryServiceImpl implements AdministrationLabora
     @Override
     public void deleteLaboratory(int id) throws ServiceEntityNotFoundException {
         try {
+            gradeDao.deleteGradesByLaboratory(id);
+            attendanceDao.deleteAttendancesByLaboratory(id);
             laboratoryDao.deleteLaboratoryById(id);
         } catch (DaoEntityNotFoundException e) {
             throw new ServiceEntityNotFoundException(e);

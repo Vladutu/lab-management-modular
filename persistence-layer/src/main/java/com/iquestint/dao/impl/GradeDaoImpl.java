@@ -6,6 +6,7 @@ import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.model.Grade;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -42,6 +43,22 @@ public class GradeDaoImpl extends JpaDao<Grade> implements GradeDao {
         }
 
         throw new DaoEntityAlreadyExists();
+    }
+
+    @Override
+    public void deleteGradesByStudent(String studentPnc) {
+        Query query = getEntityManager().createQuery("DELETE  FROM Grade g WHERE g.student.pnc = :pnc");
+        query.setParameter("pnc", studentPnc);
+
+        query.executeUpdate();
+    }
+
+    @Override
+    public void deleteGradesByLaboratory(int laboratoryId) {
+        Query query = getEntityManager().createQuery("DELETE  FROM Grade g WHERE g.laboratory.id = :id");
+        query.setParameter("id", laboratoryId);
+
+        query.executeUpdate();
     }
 
     @Override

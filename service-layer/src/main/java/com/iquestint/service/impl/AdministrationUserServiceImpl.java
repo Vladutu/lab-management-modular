@@ -138,15 +138,6 @@ public class AdministrationUserServiceImpl implements AdministrationUserService 
 
     }
 
-    private void updateStudent(UserDto userDto) throws DaoEntityNotFoundException {
-        Student student = studentDao.getStudentByPnc(userDto.getPnc());
-        student.setFirstName(userDto.getFirstName());
-        student.setLastName(userDto.getLastName());
-        student.setEmail(userDto.getEmail());
-
-        studentDao.updateStudent(student);
-    }
-
     @Override
     public void updateUserNoPassword(UserDto userDto) throws ServiceEntityNotFoundException {
         UserType userType = null;
@@ -173,15 +164,6 @@ public class AdministrationUserServiceImpl implements AdministrationUserService 
         }
     }
 
-    private void updateProfessor(UserDto userDto) throws DaoEntityNotFoundException {
-        Professor professor = professorDao.getProfessorByPnc(userDto.getPnc());
-        professor.setFirstName(userDto.getFirstName());
-        professor.setLastName(userDto.getLastName());
-        professor.setEmail(userDto.getEmail());
-
-        professorDao.updateProfessor(professor);
-    }
-
     @Override
     public UnregisteredUserDto getUnregisteredUser(String pnc) throws ServiceEntityNotFoundException {
         UnregisteredUserDto unregisteredUserDto = new UnregisteredUserDto();
@@ -206,6 +188,24 @@ public class AdministrationUserServiceImpl implements AdministrationUserService 
         } catch (DaoEntityNotFoundException e) {
             throw new ServiceEntityNotFoundException(e);
         }
+    }
+
+    private void updateStudent(UserDto userDto) throws DaoEntityNotFoundException {
+        Student student = studentDao.getStudentByPnc(userDto.getPnc());
+        student.setFirstName(userDto.getFirstName());
+        student.setLastName(userDto.getLastName());
+        student.setEmail(userDto.getEmail());
+
+        studentDao.updateStudent(student);
+    }
+
+    private void updateProfessor(UserDto userDto) throws DaoEntityNotFoundException {
+        Professor professor = professorDao.getProfessorByPnc(userDto.getPnc());
+        professor.setFirstName(userDto.getFirstName());
+        professor.setLastName(userDto.getLastName());
+        professor.setEmail(userDto.getEmail());
+
+        professorDao.updateProfessor(professor);
     }
 
     private void populateUserDtoFromPerson(UserDto userDto, Person person) {

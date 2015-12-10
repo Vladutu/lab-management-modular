@@ -17,5 +17,9 @@ public interface AttendanceDao {
 
     void updateAttendance(Attendance attendance) throws DaoEntityAlreadyExists;
 
+    void deleteAttendancesByStudent(String studentPnc);
+
+    void deleteAttendancesByLaboratory(int laboratoryId);
+
     List<Attendance> getStudentAttendances(String studentPnc);
 }

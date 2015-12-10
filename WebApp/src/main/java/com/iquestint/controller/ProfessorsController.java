@@ -14,6 +14,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -109,6 +110,14 @@ public class ProfessorsController {
         model.addAttribute("laboratoryDtos", laboratoryDtos);
 
         return "listProfessorLaboratories";
+    }
+
+    @RequestMapping(value = "/professor/laboratory", params = { "id", "date" })
+    public String getLaboratoryByIdAndDate(ModelMap model, @RequestParam(value = "id") int id,
+        @RequestParam(value = "date") String date) {
+        LocalDate localDate = LocalDate.parse(date);
+
+        return null;
     }
 
     private WelcomeUserDto getPrincipal() {

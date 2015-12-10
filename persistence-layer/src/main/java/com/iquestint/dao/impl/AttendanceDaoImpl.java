@@ -6,6 +6,7 @@ import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.model.Attendance;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -42,6 +43,22 @@ public class AttendanceDaoImpl extends JpaDao<Attendance> implements AttendanceD
         }
 
         throw new DaoEntityAlreadyExists();
+    }
+
+    @Override
+    public void deleteAttendancesByStudent(String studentPnc) {
+        Query query = getEntityManager().createQuery("DELETE  FROM Attendance a WHERE a.student.pnc = :pnc");
+        query.setParameter("pnc", studentPnc);
+
+        query.executeUpdate();
+    }
+
+    @Override
+    public void deleteAttendancesByLaboratory(int laboratoryId) {
+        Query query = getEntityManager().createQuery("DELETE  FROM Attendance a WHERE a.laboratory.id = :id");
+        query.setParameter("id", laboratoryId);
+
+        query.executeUpdate();
     }
 
     @Override

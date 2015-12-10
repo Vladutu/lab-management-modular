@@ -14,7 +14,6 @@
     <!-- default header name is X-CSRF-TOKEN -->
     <meta name="_csrf_header" content="${_csrf.headerName}"/>
     <script src="<c:url value="/static/js/userFormCompleter.js" />"></script>
-
 </head>
 
 <body>
@@ -86,7 +85,7 @@
 
         <form:input type="hidden" path="userState" id="userState" value="Active"/>
 
-        <button type="submit" class="btn btn-success btn-lg">Register</button>
+        <button type="submit" class="btn btn-success btn-lg" id="submit">Register</button>
 
     </form:form>
     <br/>

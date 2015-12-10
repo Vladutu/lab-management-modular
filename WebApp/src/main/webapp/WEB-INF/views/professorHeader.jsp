@@ -16,7 +16,7 @@
                         <li><a href="?mylocale=ro">Romanian</a></li>
                     </ul>
                 </li>
-                <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                <li><a href="/logout">Logout</a></li>
             </ul>
         </div>
     </div>

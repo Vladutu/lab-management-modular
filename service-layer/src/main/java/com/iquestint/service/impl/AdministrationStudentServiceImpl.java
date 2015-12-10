@@ -51,6 +51,12 @@ public class AdministrationStudentServiceImpl implements AdministrationStudentSe
     private SemesterDao semesterDao;
 
     @Autowired
+    private GradeDao gradeDao;
+
+    @Autowired
+    private AttendanceDao attendanceDao;
+
+    @Autowired
     private YearDao yearDao;
 
     @Override
@@ -80,6 +86,8 @@ public class AdministrationStudentServiceImpl implements AdministrationStudentSe
             Student student = studentDao.getStudentByPnc(pnc);
             List<Laboratory> laboratories = student.getLaboratories();
             removeStudentFromLaboratories(student, laboratories);
+            attendanceDao.deleteAttendancesByStudent(student.getPnc());
+            gradeDao.deleteGradesByStudent(student.getPnc());
 
             try {
                 userDao.deleteUserByPnc(pnc);
