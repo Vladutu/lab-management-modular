@@ -15,8 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author vladu
@@ -109,6 +112,31 @@ public class ProfessorServiceImpl implements ProfessorService {
 
         return modelMapper.map(laboratories, new TypeToken<List<LaboratoryDto>>() {
         }.getType());
+    }
+
+    @Override
+    public List<StudentGradingDto> getStudentsWithGradesByLaboratory(int laboratoryId, LocalDate date) {
+        List<StudentGradingDto> studentGradings = new ArrayList<>();
+        Laboratory laboratory = new Laboratory();
+        laboratory.setId(laboratoryId);
+
+        List<Student> students = studentDao.getStudents(laboratory);
+        for (Student student : students) {
+            List<Grade> grades = student.getGrades();
+            StudentGradingDto studentGrading = modelMapper.map(student, StudentGradingDto.class);
+
+            Optional<Grade> matchGrade = grades.stream().filter(grade -> grade.getDate().equals(date)).findFirst();
+            if (matchGrade.isPresent()) {
+                studentGrading.setGrade(matchGrade.get().getValue().toString());
+            }
+            else {
+                studentGrading.setGrade("N/A");
+            }
+
+            studentGradings.add(studentGrading);
+        }
+
+        return studentGradings;
     }
 
     private Laboratory getLaboratory(String professorPnc, LocalDateTime date)

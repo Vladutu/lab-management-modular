@@ -7,7 +7,9 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 /**
- * @author vladu
+ * This is an model entity that maps the ATTENDANCE table.
+ *
+ * @author Georgian Vladutu
  */
 @Entity
 @Table(name = "ATTENDANCE")

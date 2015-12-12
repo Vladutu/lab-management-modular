@@ -34,15 +34,9 @@ public class AttendanceDaoImpl extends JpaDao<Attendance> implements AttendanceD
     }
 
     @Override
-    public void updateAttendance(Attendance attendance) throws DaoEntityAlreadyExists {
-        try {
-            Attendance a = getAttendanceById(attendance.getId());
-        } catch (DaoEntityNotFoundException e) {
-            update(attendance);
-            return;
-        }
-
-        throw new DaoEntityAlreadyExists();
+    public void updateAttendance(Attendance attendance) throws DaoEntityNotFoundException {
+        Attendance a = getAttendanceById(attendance.getId());
+        update(attendance);
     }
 
     @Override

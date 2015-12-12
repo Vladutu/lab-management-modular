@@ -1,5 +1,6 @@
 package com.iquestint.dto;
 
+import com.iquestint.validation.StudentWithGradeValid;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,5 +16,6 @@ public class FormStudentsWithGradeAndAttendanceDto {
 
     private Integer laboratoryId;
 
+    @StudentWithGradeValid
     private List<StudentWithGradeAndAttendanceDto> studentsWithGradeAndAttendance = new ArrayList<>(50);
 }

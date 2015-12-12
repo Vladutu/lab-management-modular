@@ -76,7 +76,21 @@ public interface LaboratoryDao {
      */
     void deleteLaboratoryById(int id) throws DaoEntityNotFoundException;
 
+    /**
+     * Returns all laboratories of the professor whose pnc is  professorPnc and which start on Hour hour and on Day day.
+     *
+     * @param professorPnc pnc of the professor
+     * @param from         laboratory starting hour
+     * @param day          laboratory starting day
+     * @return List<Laboratory>
+     */
     List<Laboratory> getLaboratoriesByDateAndTime(String professorPnc, Hour from, Day day);
 
+    /**
+     * Returns all laboratories of the professor whose pnc is the same as the method parameter.
+     *
+     * @param professorPnc pnc of the professor
+     * @return List<Laboratory>
+     */
     List<Laboratory> getLaboratoriesByProfessor(String professorPnc);
 }

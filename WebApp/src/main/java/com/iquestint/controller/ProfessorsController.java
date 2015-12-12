@@ -75,9 +75,11 @@ public class ProfessorsController {
 
     @RequestMapping(value = "/professor/currentLaboratory", method = RequestMethod.POST)
     public String insertStudentsGradesAndAttendances(@Valid FormStudentsWithGradeAndAttendanceDto formStudents,
-        BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        BindingResult bindingResult, ModelMap model, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
-            return "/professor/currentLaboratory";
+            redirectAttributes.addFlashAttribute("errorMessage", "Every present student must have a grade");
+
+            return "redirect:/professor/currentLaboratory";
         }
 
         for (StudentWithGradeAndAttendanceDto student : formStudents.getStudentsWithGradeAndAttendance()) {
@@ -89,6 +91,7 @@ public class ProfessorsController {
                     professorService.saveStudentAttendance(formStudents.getLaboratoryId(), student.getPnc(),
                         new AttendanceDto(LocalDate.now()));
                 }
+
             } catch (ServiceEntityAlreadyExistsException e) {
                 redirectAttributes.addFlashAttribute("errorMessage",
                     "You already submitted grades and attendance for this laboratory today");
@@ -116,8 +119,13 @@ public class ProfessorsController {
     public String getLaboratoryByIdAndDate(ModelMap model, @RequestParam(value = "id") int id,
         @RequestParam(value = "date") String date) {
         LocalDate localDate = LocalDate.parse(date);
+        WelcomeUserDto welcomeUserDto = getPrincipal();
+        List<StudentGradingDto> studentGradingDtos = professorService.getStudentsWithGradesByLaboratory(id, localDate);
 
-        return null;
+        model.addAttribute("welcomeUserDto", welcomeUserDto);
+        model.addAttribute("studentGradingDtos", studentGradingDtos);
+
+        return "studentsGradesByLaboratory";
     }
 
     private WelcomeUserDto getPrincipal() {

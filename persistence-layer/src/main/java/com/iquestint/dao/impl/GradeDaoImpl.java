@@ -34,15 +34,9 @@ public class GradeDaoImpl extends JpaDao<Grade> implements GradeDao {
     }
 
     @Override
-    public void updateGrade(Grade grade) throws DaoEntityAlreadyExists {
-        try {
-            Grade g = getGradeById(grade.getId());
-        } catch (DaoEntityNotFoundException e) {
-            update(grade);
-            return;
-        }
-
-        throw new DaoEntityAlreadyExists();
+    public void updateGrade(Grade grade) throws DaoEntityNotFoundException {
+        Grade g = getGradeById(grade.getId());
+        update(grade);
     }
 
     @Override

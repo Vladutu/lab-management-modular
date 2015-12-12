@@ -46,6 +46,7 @@
                 <th>To</th>
                 <th>Day</th>
                 <th>Room</th>
+                <th>Section</th>
                 <th>Group</th>
                 <th>Subgroup</th>
                 <th>Weekly occurrence</th>
@@ -64,6 +65,7 @@
                     <td>${laboratory.to}</td>
                     <td><spring:message code="day.${laboratory.day}"/></td>
                     <td>${laboratory.room}</td>
+                    <td>${laboratory.section}</td>
                     <td>${laboratory.group}</td>
                     <td>${laboratory.subgroup}</td>
                     <td>${laboratory.weeklyOccurrence}</td>
