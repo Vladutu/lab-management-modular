@@ -13,7 +13,7 @@ import java.util.List;
  * @author Georgian Vladutu
  */
 @Repository("sectionDao")
-public class SectionDaoImpl extends AbstractDao<Section> implements SectionDao {
+public class SectionDaoImpl extends JpaDao<Section> implements SectionDao {
 
     @Override
     public Section getSectionByName(String name) throws DaoEntityNotFoundException {

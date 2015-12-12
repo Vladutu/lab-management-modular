@@ -14,19 +14,19 @@ import java.util.List;
 
 /**
  * This class is an abstract generic data access object class that implements the CRUD operations for all entities that
- * extend this class.
+ * extend this class. It uses Java Persistence Api to persist objects.
  *
- * @param <T> the userType of the entity
+ * @param <T> the type of the entity
  * @author Georgian Vladutu
  */
-public abstract class AbstractDao<T> {
+public abstract class JpaDao<T> extends Dao<T> {
 
-    protected final Class<T> persistentClass;
+    private final Class<T> persistentClass;
 
     @PersistenceContext
     private EntityManager entityManager;
 
-    public AbstractDao() {
+    public JpaDao() {
         this.persistentClass = (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
 
@@ -80,8 +80,7 @@ public abstract class AbstractDao<T> {
 
         try {
             return query.getSingleResult();
-        }
-        catch (NoResultException e) {
+        } catch (NoResultException e) {
             throw new DaoEntityNotFoundException();
         }
     }
@@ -95,8 +94,7 @@ public abstract class AbstractDao<T> {
 
         try {
             return query.getSingleResult();
-        }
-        catch (NoResultException e) {
+        } catch (NoResultException e) {
             throw new DaoEntityNotFoundException();
         }
     }

@@ -4,7 +4,7 @@ import com.iquestint.dto.*;
 import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
 import com.iquestint.service.AdministrationFormService;
-import com.iquestint.service.LaboratoryService;
+import com.iquestint.service.AdministrationLaboratoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -27,7 +27,7 @@ import java.util.List;
 public class AdministrationLaboratoriesController {
 
     @Autowired
-    private LaboratoryService laboratoryService;
+    private AdministrationLaboratoryService administrationLaboratoryService;
 
     @Autowired
     private AdministrationFormService administrationFormService;
@@ -59,7 +59,7 @@ public class AdministrationLaboratoriesController {
     @RequestMapping(value = "/admin/laboratories/{section}/{year}/{semester}", method = RequestMethod.GET)
     public String getLaboratories(@PathVariable String section, @PathVariable int year, @PathVariable int semester,
         ModelMap model) {
-        List<LaboratoryDto> laboratoryDtos = laboratoryService.getLaboratories(new SectionDto(section),
+        List<LaboratoryDto> laboratoryDtos = administrationLaboratoryService.getLaboratories(new SectionDto(section),
             new YearDto(year), new SemesterDto(semester));
 
         model.addAttribute("section", section);
@@ -86,7 +86,7 @@ public class AdministrationLaboratoriesController {
         @PathVariable int laboratoryId, ModelMap model,
         RedirectAttributes redirectAttributes) {
         try {
-            laboratoryService.deleteLaboratory(laboratoryId);
+            administrationLaboratoryService.deleteLaboratory(laboratoryId);
         } catch (ServiceEntityNotFoundException e) {
             redirectAttributes.addFlashAttribute("errorMessage", "The laboratory does not exists or no longer exists");
         }
@@ -144,7 +144,7 @@ public class AdministrationLaboratoriesController {
         }
 
         try {
-            laboratoryService.saveLaboratory(laboratoryDto);
+            administrationLaboratoryService.saveLaboratory(laboratoryDto);
         } catch (ServiceEntityNotFoundException ignored) {
         } catch (ServiceEntityAlreadyExistsException e) {
             redirectAttributes.addFlashAttribute("errorMessage", "Laboratory already exists");
@@ -170,7 +170,7 @@ public class AdministrationLaboratoriesController {
     public String editStudent(@PathVariable String section, @PathVariable int year, @PathVariable int semester,
         @PathVariable int laboratoryId, ModelMap model, RedirectAttributes redirectAttributes) {
         try {
-            LaboratoryDto laboratoryDto = laboratoryService.getLaboratoryById(laboratoryId);
+            LaboratoryDto laboratoryDto = administrationLaboratoryService.getLaboratoryById(laboratoryId);
             FormLaboratoryCreateDto formLaboratoryCreateDto = administrationFormService.getFormLaboratoryCreateDto();
 
             model.addAttribute("formLaboratoryCreateDto", formLaboratoryCreateDto);
@@ -210,7 +210,7 @@ public class AdministrationLaboratoriesController {
         }
 
         try {
-            laboratoryService.updateLaboratory(laboratoryDto);
+            administrationLaboratoryService.updateLaboratory(laboratoryDto);
 
             return "redirect:/admin/laboratories/" + section + "/" + year + "/" + semester;
         } catch (ServiceEntityNotFoundException e) {

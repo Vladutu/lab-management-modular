@@ -16,7 +16,7 @@ import java.util.List;
  * @author Georgian Vladutu
  */
 @Repository("studentDao")
-public class StudentDaoImpl extends AbstractDao<Student> implements StudentDao {
+public class StudentDaoImpl extends JpaDao<Student> implements StudentDao {
 
     @Override
     public List<Student> getAllStudents() {
@@ -86,6 +86,16 @@ public class StudentDaoImpl extends AbstractDao<Student> implements StudentDao {
         query.setParameter("semester", semester.getValue());
         query.setParameter("groupName", group.getName());
         query.setParameter("subgroup", subgroup.getName());
+
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Student> getStudents(Laboratory laboratory) {
+        TypedQuery<Student> query = getEntityManager().createQuery(
+            "SELECT s FROM Student s INNER JOIN s.laboratories lab WHERE lab.id IN :id",
+            Student.class);
+        query.setParameter("id", laboratory.getId());
 
         return query.getResultList();
     }

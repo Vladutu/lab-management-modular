@@ -16,7 +16,7 @@ import java.util.List;
  * @author Georgian Vladutu
  */
 @Repository("professorDao")
-public class ProfessorDaoImpl extends AbstractDao<Professor> implements ProfessorDao {
+public class ProfessorDaoImpl extends JpaDao<Professor> implements ProfessorDao {
 
     @Override
     public List<Professor> getAllProfessors() {

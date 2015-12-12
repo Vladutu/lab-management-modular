@@ -13,7 +13,7 @@ import java.util.List;
  * @author Georgian Vladutu
  */
 @Repository("groupDao")
-public class GroupDaoImpl extends AbstractDao<Group> implements GroupDao {
+public class GroupDaoImpl extends JpaDao<Group> implements GroupDao {
 
     @Override
     public Group getGroupByName(String name) throws DaoEntityNotFoundException {

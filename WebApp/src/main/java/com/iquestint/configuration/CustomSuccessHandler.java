@@ -57,12 +57,19 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         if (isAdmin(roles)) {
             url = "/admin/students/";
         }
+        else if (isProfessor(roles)) {
+            url = "/professor/home/";
+        }
 
         return url;
     }
 
     private boolean isAdmin(List<String> roles) {
         return roles.contains("ROLE_ADMIN");
+    }
+
+    private boolean isProfessor(List<String> roles) {
+        return roles.contains("ROLE_PROFESSOR");
     }
 
     public void setRedirectStrategy(RedirectStrategy redirectStrategy) {

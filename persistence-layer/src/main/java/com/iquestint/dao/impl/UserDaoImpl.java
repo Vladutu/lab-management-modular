@@ -5,7 +5,6 @@ import com.iquestint.dao.UserStateDao;
 import com.iquestint.dao.UserTypeDao;
 import com.iquestint.exception.DaoEntityAlreadyExists;
 import com.iquestint.exception.DaoEntityNotFoundException;
-import com.iquestint.model.Person;
 import com.iquestint.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -23,7 +22,7 @@ import java.util.List;
  * @author Georgian Vladutu
  */
 @Repository("userDao")
-public class UserDaoImpl extends AbstractDao<User> implements UserDao {
+public class UserDaoImpl extends JpaDao<User> implements UserDao {
 
     @Autowired
     private UserStateDao userStateDao;
@@ -41,21 +40,6 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
         TypedQuery<User> query = getEntityManager().createQuery("SELECT u FROM User u WHERE u.pnc = :pnc",
             User.class);
         query.setParameter("pnc", pnc);
-
-        try {
-            return query.getSingleResult();
-        } catch (NoResultException e) {
-            throw new DaoEntityNotFoundException();
-        }
-    }
-
-    @Override
-    public User getUserByName(String firstName, String lastName) throws DaoEntityNotFoundException {
-        TypedQuery<User> query = getEntityManager().createQuery(
-            "SELECT u FROM User u WHERE u.person.firstName = :fName AND u.person.lastName = :lName ",
-            User.class);
-        query.setParameter("fName", firstName);
-        query.setParameter("lName", lastName);
 
         try {
             return query.getSingleResult();
@@ -92,15 +76,8 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
         updateCriteria.set(root.get("userState"), user.getUserState());
         updateCriteria.set(root.get("userType"), user.getUserType());
         updateCriteria.where(cb.equal(root.get("pnc"), user.getPnc()));
-        getEntityManager().createQuery(updateCriteria).executeUpdate();
 
-        CriteriaUpdate<Person> personCriteriaUpdate = cb.createCriteriaUpdate(Person.class);
-        Root<Person> personRoot = personCriteriaUpdate.from(Person.class);
-        personCriteriaUpdate.set(personRoot.get("firstName"), user.getPerson().getFirstName());
-        personCriteriaUpdate.set(personRoot.get("lastName"), user.getPerson().getLastName());
-        personCriteriaUpdate.set(personRoot.get("email"), user.getPerson().getEmail());
-        personCriteriaUpdate.where(cb.equal(personRoot.get("pnc"), user.getPnc()));
-        getEntityManager().createQuery(personCriteriaUpdate).executeUpdate();
+        getEntityManager().createQuery(updateCriteria).executeUpdate();
     }
 
     @Override

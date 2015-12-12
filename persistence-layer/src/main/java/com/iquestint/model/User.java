@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 /**
  * This is an model entity that maps the USER table.
@@ -17,11 +19,13 @@ import javax.persistence.*;
 public class User {
 
     @Id
-    @Column(name = "USERNAME")
+    @Column(name = "USERNAME", nullable = false)
+    @Pattern(regexp = "\\b[1-8]\\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])(0[1-9]|[1-4]\\d|5[0-2]|99)\\d{4}\\b")
     private String pnc;
 
     @Basic
-    @Column(name = "PASSWORD")
+    @Column(name = "PASSWORD", nullable = false)
+    @Size(min = 6)
     private String password;
 
     @ManyToOne
@@ -31,10 +35,6 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "TYPE_ID", referencedColumnName = "ID", nullable = false)
     private UserType userType;
-
-    @OneToOne
-    @JoinColumn(name = "USERNAME", referencedColumnName = "PNC", nullable = false)
-    private Person person;
 
     @Override
     public boolean equals(Object o) {
@@ -56,10 +56,7 @@ public class User {
         if (userState != null ? !userState.equals(user.userState) : user.userState != null) {
             return false;
         }
-        if (userType != null ? !userType.equals(user.userType) : user.userType != null) {
-            return false;
-        }
-        return !(person != null ? !person.equals(user.person) : user.person != null);
+        return !(userType != null ? !userType.equals(user.userType) : user.userType != null);
 
     }
 
@@ -69,7 +66,6 @@ public class User {
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (userState != null ? userState.hashCode() : 0);
         result = 31 * result + (userType != null ? userType.hashCode() : 0);
-        result = 31 * result + (person != null ? person.hashCode() : 0);
         return result;
     }
 }

@@ -13,7 +13,7 @@ import java.util.List;
  * @author Georgian Vladutu
  */
 @Repository("subgroupDao")
-public class SubgroupDaoImpl extends AbstractDao<Subgroup> implements SubgroupDao {
+public class SubgroupDaoImpl extends JpaDao<Subgroup> implements SubgroupDao {
 
     @Override
     public Subgroup getSubgroupByName(String name) throws DaoEntityNotFoundException {

@@ -13,7 +13,7 @@ import java.util.List;
  * @author Georgian Vladutu
  */
 @Repository("userStateDao")
-public class UserStateDaoImpl extends AbstractDao<UserState> implements UserStateDao {
+public class UserStateDaoImpl extends JpaDao<UserState> implements UserStateDao {
 
     @Override
     public UserState getUserStateByName(String name) throws DaoEntityNotFoundException {

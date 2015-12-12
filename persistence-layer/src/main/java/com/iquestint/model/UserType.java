@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 /**
  * This is an model entity that maps the TYPE table.
@@ -23,7 +24,8 @@ public class UserType {
     private int id;
 
     @Basic
-    @Column(name = "NAME", unique = true)
+    @Column(name = "NAME", unique = true, nullable = false)
+    @Size(min = 15, max = 25)
     private String name;
 
 //    @OneToMany(mappedBy = "userType")

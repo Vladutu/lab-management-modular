@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 /**
@@ -22,7 +23,8 @@ public class Section {
     private int id;
 
     @Basic
-    @Column(name = "NAME", unique = true)
+    @Column(name = "NAME", unique = true, nullable = false)
+    @Size(min = 2, max = 10)
     private String name;
 
     @OneToMany(mappedBy = "section")

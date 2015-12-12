@@ -2,7 +2,7 @@ package com.iquestint.service.impl;
 
 import com.iquestint.dto.UserDto;
 import com.iquestint.exception.ServiceEntityNotFoundException;
-import com.iquestint.service.UserService;
+import com.iquestint.service.AdministrationUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -23,23 +23,21 @@ import java.util.List;
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
-    UserService userService;
+    AdministrationUserService administrationUserService;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         UserDto userDto = null;
 
         try {
-            userDto = userService.getUserByPnc(s);
+            userDto = administrationUserService.getUserByPnc(s);
         } catch (ServiceEntityNotFoundException e) {
             throw new UsernameNotFoundException("Username not found");
         }
 
-        org.springframework.security.core.userdetails.User user1 = new org.springframework.security.core.userdetails.User(
+        return new org.springframework.security.core.userdetails.User(
             userDto.getPnc(), userDto.getPassword(),
             userDto.getUserState().equals("Active"), true, true, true, getGrantedAuthorities(userDto));
-
-        return user1;
     }
 
     private List<GrantedAuthority> getGrantedAuthorities(UserDto userDto) {

@@ -75,4 +75,12 @@ public interface StudentDao {
      * @return List<Student>
      */
     List<Student> getStudents(Section section, Year year, Semester semester, Group group, Subgroup subgroup);
+
+    /**
+     * Returns all students which belong to the laboratory specified as the method parameter.
+     *
+     * @param laboratory laboratory which the students belong to
+     * @return List<Student>
+     */
+    List<Student> getStudents(Laboratory laboratory);
 }

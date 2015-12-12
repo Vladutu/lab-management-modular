@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 /**
  * This is an model entity that maps the PERSON table.
@@ -18,19 +20,24 @@ import javax.persistence.*;
 public class Person {
 
     @Id
-    @Column(name = "PNC")
+    @Column(name = "PNC", nullable = false)
+    @Pattern(regexp = "\\b[1-8]\\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])(0[1-9]|[1-4]\\d|5[0-2]|99)\\d{4}\\b")
     private String pnc;
 
     @Basic
-    @Column(name = "FIRST_NAME")
+    @Column(name = "FIRST_NAME", nullable = false)
+    @Size(min = 3, max = 30)
     private String firstName;
 
     @Basic
-    @Column(name = "LAST_NAME")
+    @Column(name = "LAST_NAME", nullable = false)
+    @Size(min = 3, max = 30)
     private String lastName;
 
     @Basic
-    @Column(name = "EMAIL")
+    @Column(name = "EMAIL", nullable = false)
+    @Pattern(regexp = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")
+    @Size(min = 10, max = 50)
     private String email;
 
     @Override

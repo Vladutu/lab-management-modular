@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 /**
@@ -23,7 +24,8 @@ public class Laboratory {
     private int id;
 
     @Basic
-    @Column(name = "NAME")
+    @Column(name = "NAME", nullable = false)
+    @Size(min = 2, max = 10)
     private String name;
 
     @ManyToOne
@@ -75,6 +77,12 @@ public class Laboratory {
         joinColumns = @JoinColumn(name = "LABORATORY_ID", referencedColumnName = "ID", nullable = false),
         inverseJoinColumns = @JoinColumn(name = "STUDENT_PNC", referencedColumnName = "PNC", nullable = false))
     private List<Student> students;
+
+    @OneToMany(mappedBy = "laboratory")
+    private List<Grade> grades;
+
+    @OneToMany(mappedBy = "laboratory")
+    private List<Attendance> attendances;
 
     @Override
     public boolean equals(Object o) {

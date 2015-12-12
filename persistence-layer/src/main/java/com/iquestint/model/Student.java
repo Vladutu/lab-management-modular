@@ -41,6 +41,12 @@ public class Student extends Person {
     @ManyToMany(mappedBy = "students")
     private List<Laboratory> laboratories;
 
+    @OneToMany(mappedBy = "student")
+    private List<Grade> grades;
+
+    @OneToMany(mappedBy = "student")
+    private List<Attendance> attendances;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

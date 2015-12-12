@@ -7,7 +7,7 @@ import com.iquestint.enums.State;
 import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
 import com.iquestint.service.AdministrationFormService;
-import com.iquestint.service.UserService;
+import com.iquestint.service.AdministrationUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -29,7 +29,7 @@ import java.util.List;
 public class AdministrationUsersController {
 
     @Autowired
-    private UserService userService;
+    private AdministrationUserService administrationUserService;
 
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -45,7 +45,7 @@ public class AdministrationUsersController {
      */
     @RequestMapping(value = "/admin/users", method = RequestMethod.GET)
     public String getUsers(ModelMap model) {
-        List<UserDto> userDtos = userService.getAllUsers();
+        List<UserDto> userDtos = administrationUserService.getAllUsers();
 
         model.addAttribute("userDtos", userDtos);
 
@@ -94,7 +94,7 @@ public class AdministrationUsersController {
         userDto.setUserState(State.ACTIVE.getState());
 
         try {
-            userService.saveUser(userDto);
+            administrationUserService.saveUser(userDto);
         } catch (ServiceEntityAlreadyExistsException e) {
             redirectAttributes.addFlashAttribute("errorMessage", "User already exists");
 
@@ -118,7 +118,7 @@ public class AdministrationUsersController {
     public String deleteUser(@PathVariable String pnc, ModelMap model,
         RedirectAttributes redirectAttributes) {
         try {
-            userService.deleteUser(pnc);
+            administrationUserService.deleteUser(pnc);
         } catch (ServiceEntityNotFoundException e) {
             redirectAttributes.addFlashAttribute("errorMessage", "The user does not exists or no longer exists");
         }
@@ -138,7 +138,7 @@ public class AdministrationUsersController {
     public String editUser(@PathVariable String pnc, ModelMap model,
         RedirectAttributes redirectAttributes) {
         try {
-            UserDto userDto = userService.getUserByPnc(pnc);
+            UserDto userDto = administrationUserService.getUserByPnc(pnc);
             userDto.setPassword("");
             FormUserDto formUserDto = administrationFormService.getFormUser();
 
@@ -179,11 +179,11 @@ public class AdministrationUsersController {
         try {
 
             if (userDto.getPassword().equals("")) {
-                userService.updateUserNoPassword(userDto);
+                administrationUserService.updateUserNoPassword(userDto);
             }
             else {
                 userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
-                userService.updateUser(userDto);
+                administrationUserService.updateUser(userDto);
 
             }
 
@@ -207,7 +207,7 @@ public class AdministrationUsersController {
     UnregisteredUserDto getUser(@RequestBody String pnc) {
         pnc = pnc.substring(1, pnc.length() - 1);
         try {
-            return userService.getUnregisteredUser(pnc);
+            return administrationUserService.getUnregisteredUser(pnc);
 
         } catch (ServiceEntityNotFoundException e) {
             return new UnregisteredUserDto();

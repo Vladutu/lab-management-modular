@@ -7,7 +7,7 @@ import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
 import com.iquestint.model.*;
-import com.iquestint.service.StudentService;
+import com.iquestint.service.AdministrationStudentService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +18,13 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 /**
- * This class implements the StudentService interface.
+ * This class implements the AdministrationStudentService interface.
  *
  * @author Georgian Vladutu
  */
-@Service("studentService")
+@Service("administrationStudentService")
 @Transactional
-public class StudentServiceImpl implements StudentService {
+public class AdministrationStudentServiceImpl implements AdministrationStudentService {
 
     @Autowired
     private StudentDao studentDao;
@@ -49,6 +49,12 @@ public class StudentServiceImpl implements StudentService {
 
     @Autowired
     private SemesterDao semesterDao;
+
+    @Autowired
+    private GradeDao gradeDao;
+
+    @Autowired
+    private AttendanceDao attendanceDao;
 
     @Autowired
     private YearDao yearDao;
@@ -80,6 +86,8 @@ public class StudentServiceImpl implements StudentService {
             Student student = studentDao.getStudentByPnc(pnc);
             List<Laboratory> laboratories = student.getLaboratories();
             removeStudentFromLaboratories(student, laboratories);
+            attendanceDao.deleteAttendancesByStudent(student.getPnc());
+            gradeDao.deleteGradesByStudent(student.getPnc());
 
             try {
                 userDao.deleteUserByPnc(pnc);

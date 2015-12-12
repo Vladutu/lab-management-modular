@@ -10,7 +10,7 @@ import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
 import com.iquestint.model.*;
-import com.iquestint.service.LaboratoryService;
+import com.iquestint.service.AdministrationLaboratoryService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +20,13 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 /**
- * This class implements the LaboratoryService interface.
+ * This class implements the AdministrationLaboratoryService interface.
  *
  * @author Georgian Vladutu
  */
-@Service("laboratoryService")
+@Service("administrationLaboratoryService")
 @Transactional
-public class LaboratoryServiceImpl implements LaboratoryService {
+public class AdministrationLaboratoryServiceImpl implements AdministrationLaboratoryService {
 
     @Autowired
     private LaboratoryDao laboratoryDao;
@@ -65,6 +65,12 @@ public class LaboratoryServiceImpl implements LaboratoryService {
     private StudentDao studentDao;
 
     @Autowired
+    private GradeDao gradeDao;
+
+    @Autowired
+    private AttendanceDao attendanceDao;
+
+    @Autowired
     private ModelMapper modelMapper;
 
     @Override
@@ -86,6 +92,8 @@ public class LaboratoryServiceImpl implements LaboratoryService {
     @Override
     public void deleteLaboratory(int id) throws ServiceEntityNotFoundException {
         try {
+            gradeDao.deleteGradesByLaboratory(id);
+            attendanceDao.deleteAttendancesByLaboratory(id);
             laboratoryDao.deleteLaboratoryById(id);
         } catch (DaoEntityNotFoundException e) {
             throw new ServiceEntityNotFoundException(e);

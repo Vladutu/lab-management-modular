@@ -15,7 +15,7 @@ import java.util.List;
  * @author Georgian Vladutu
  */
 @Repository("laboratoryDao")
-public class LaboratoryDaoImpl extends AbstractDao<Laboratory> implements LaboratoryDao {
+public class LaboratoryDaoImpl extends JpaDao<Laboratory> implements LaboratoryDao {
 
     @Override
     public List<Laboratory> getAllLaboratories() {
@@ -77,5 +77,28 @@ public class LaboratoryDaoImpl extends AbstractDao<Laboratory> implements Labora
     public void deleteLaboratoryById(int id) throws DaoEntityNotFoundException {
         Laboratory laboratory = getLaboratoryById(id);
         delete(laboratory);
+    }
+
+    @Override
+    public List<Laboratory> getLaboratoriesByDateAndTime(String professorPnc, Hour from, Day day) {
+        TypedQuery<Laboratory> query = getEntityManager().createQuery(
+            "SELECT l FROM Laboratory l WHERE l.from.value = :fromH and l.day.value = :day and l.professor.pnc = :pnc",
+            Laboratory.class);
+        query.setParameter("fromH", from.getValue());
+        query.setParameter("day", day.getValue());
+        query.setParameter("pnc", professorPnc);
+
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Laboratory> getLaboratoriesByProfessor(String professorPnc) {
+        TypedQuery<Laboratory> query = getEntityManager().createQuery(
+            "SELECT l FROM Laboratory l WHERE l.professor.pnc = :pnc",
+            Laboratory.class);
+
+        query.setParameter("pnc", professorPnc);
+
+        return query.getResultList();
     }
 }

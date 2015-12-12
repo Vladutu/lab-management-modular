@@ -13,7 +13,7 @@ import java.util.List;
  * @author Georgian Vladutu
  */
 @Repository("yearDao")
-public class YearDaoImpl extends AbstractDao<Year> implements YearDao {
+public class YearDaoImpl extends JpaDao<Year> implements YearDao {
 
     @Override
     public Year getYearByValue(int value) throws DaoEntityNotFoundException {

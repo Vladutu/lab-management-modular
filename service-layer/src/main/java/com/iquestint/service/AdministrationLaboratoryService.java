@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @author Georgian Vladutu
  */
-public interface LaboratoryService {
+public interface AdministrationLaboratoryService {
 
     /**
      * This method saves a laboratory.
@@ -52,7 +52,7 @@ public interface LaboratoryService {
     List<Laboratory> getAllLaboratories();
 
     /**
-     * Retrieves the laboratories which have the same sectio, year and semester as the method paramaters.
+     * Retrieves the laboratories which have the same section, year and semester as the method paramaters.
      *
      * @param sectionDto  SectionDto
      * @param yearDto     YearDto

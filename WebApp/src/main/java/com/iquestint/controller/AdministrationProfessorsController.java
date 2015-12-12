@@ -3,7 +3,7 @@ package com.iquestint.controller;
 import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
 import com.iquestint.dto.ProfessorDto;
-import com.iquestint.service.ProfessorService;
+import com.iquestint.service.AdministrationProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -26,7 +26,7 @@ import java.util.List;
 public class AdministrationProfessorsController {
 
     @Autowired
-    private ProfessorService professorService;
+    private AdministrationProfessorService administrationProfessorService;
 
     /**
      * Returns all existing professors.
@@ -36,7 +36,7 @@ public class AdministrationProfessorsController {
      */
     @RequestMapping(value = "/admin/professors", method = RequestMethod.GET)
     public String getProfessors(ModelMap model) {
-        List<ProfessorDto> professorDtos = professorService.getAllProfessors();
+        List<ProfessorDto> professorDtos = administrationProfessorService.getAllProfessors();
 
         model.addAttribute("professorDtos", professorDtos);
 
@@ -75,7 +75,7 @@ public class AdministrationProfessorsController {
         }
 
         try {
-            professorService.saveProfessor(professorDto);
+            administrationProfessorService.saveProfessor(professorDto);
         } catch (ServiceEntityAlreadyExistsException e) {
             redirectAttributes.addFlashAttribute("errorMessage", "Professor already exists");
 
@@ -98,7 +98,7 @@ public class AdministrationProfessorsController {
     public String deleteProfessor(@PathVariable String professorPnc, ModelMap model,
         RedirectAttributes redirectAttributes) {
         try {
-            professorService.deleteProfessor(professorPnc);
+            administrationProfessorService.deleteProfessor(professorPnc);
         } catch (ServiceEntityNotFoundException e) {
             redirectAttributes.addFlashAttribute("errorMessage", "The professor does not exists or no longer exists");
         }
@@ -118,7 +118,7 @@ public class AdministrationProfessorsController {
     public String editProfessor(@PathVariable String professorPnc, ModelMap model,
         RedirectAttributes redirectAttributes) {
         try {
-            ProfessorDto professorDto = professorService.getProfessorByPnc(professorPnc);
+            ProfessorDto professorDto = administrationProfessorService.getProfessorByPnc(professorPnc);
             model.addAttribute("professorDto", professorDto);
 
             return "updateProfessor";
@@ -148,7 +148,7 @@ public class AdministrationProfessorsController {
         }
 
         try {
-            professorService.updateProfessor(professorDto);
+            administrationProfessorService.updateProfessor(professorDto);
 
             return "redirect:/admin/professors";
         } catch (ServiceEntityNotFoundException e) {
