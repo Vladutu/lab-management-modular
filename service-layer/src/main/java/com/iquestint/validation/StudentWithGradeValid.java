@@ -5,7 +5,9 @@ import javax.validation.Payload;
 import java.lang.annotation.*;
 
 /**
- * @author vladu
+ * This annotation express that a StudentWithGrade object is valid.
+ *
+ * @author Georgian Vladutu
  */
 @Constraint(validatedBy = { StudentWithGradeValidator.class })
 @Target({ ElementType.FIELD, ElementType.PARAMETER })

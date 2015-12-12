@@ -1,7 +1,7 @@
 package com.iquestint.exception;
 
 /**
- * This exception is thrown from the service layer a date is not part on a university semester.
+ * This exception is thrown from the service layer when it receives an invalid semester from the user.
  *
  * @author Georgian Vladutu
  */

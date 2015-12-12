@@ -8,18 +8,7 @@
     <title>Home</title>
 </head>
 
-<script>
-    function setInputName(id) {
-        var dateId = "date" + id;
-        var labId = "labId" + id;
-
-        var dateElem = document.getElementById(dateId);
-        var labIdElem = document.getElementById(labId);
-
-        $(dateElem).attr("name", "date");
-        $(labIdElem).attr("name", "id");
-    }
-</script>
+<script src="<c:url value="/static/js/attributeName.js" />"></script>
 
 <body>
 <jsp:include page="professorHeader.jsp"/>
@@ -73,7 +62,7 @@
 
                     <td>
                         <button type="submit" class="btn btn-primary btn-md" id="submit${status.index}"
-                                onclick="setInputName(${status.index})">
+                                onclick="setAttributeName(${status.index})">
                             View
                         </button>
 

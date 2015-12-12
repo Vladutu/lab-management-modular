@@ -7,7 +7,9 @@ import javax.validation.ConstraintValidatorContext;
 import java.util.List;
 
 /**
- * @author vladu
+ * This class is a validator for the @StudentWithGradeValid annotation.
+ *
+ * @author Georgian Vladutu
  */
 public class StudentWithGradeValidator
     implements ConstraintValidator<StudentWithGradeValid, List<StudentWithGradeAndAttendanceDto>> {
@@ -21,7 +23,7 @@ public class StudentWithGradeValidator
     public boolean isValid(List<StudentWithGradeAndAttendanceDto> studentWithGradeAndAttendanceDtos,
         ConstraintValidatorContext constraintValidatorContext) {
         for (StudentWithGradeAndAttendanceDto dto : studentWithGradeAndAttendanceDtos) {
-            if (dto.getAttendance() == true && dto.getGrade() == null) {
+            if (dto.getAttendance() && dto.getGrade() == null) {
                 return false;
             }
         }

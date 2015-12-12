@@ -6,7 +6,9 @@ import lombok.Setter;
 import java.time.LocalDate;
 
 /**
- * @author vladu
+ * This class represents a data transfer object.
+ *
+ * @author Georgian Vladutu
  */
 @Getter
 @Setter

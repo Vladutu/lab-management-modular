@@ -11,7 +11,9 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
- * @author vladu
+ * This class implements GradeDao interface;
+ *
+ * @author Georgian Vladutu
  */
 @Repository("gradeDao")
 public class GradeDaoImpl extends JpaDao<Grade> implements GradeDao {

@@ -13,7 +13,9 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 
 /**
- * @author vladu
+ * This class implements the UserService interface.
+ *
+ * @author Georgian Vladutu
  */
 @Service("userService")
 @Transactional

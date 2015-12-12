@@ -11,7 +11,9 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
- * @author vladu
+ * This class implements AttendanceDao interface;
+ *
+ * @author Georgian Vladutu
  */
 @Repository("attendanceDao")
 public class AttendanceDaoImpl extends JpaDao<Attendance> implements AttendanceDao {
