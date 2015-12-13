@@ -166,25 +166,14 @@ public class AdministrationUserServiceImpl implements AdministrationUserService 
 
     @Override
     public UnregisteredUserDto getUnregisteredUser(String pnc) throws ServiceEntityNotFoundException {
-        UnregisteredUserDto unregisteredUserDto = new UnregisteredUserDto();
         try {
             com.iquestint.enums.Type type = personDao.getPersonType(pnc);
+            Person person = personDao.getPersonByPnc(pnc);
+            UnregisteredUserDto unregisteredUserDto = modelMapper.map(person, UnregisteredUserDto.class);
             unregisteredUserDto.setUserType(type.getType());
 
-            if (type.equals(com.iquestint.enums.Type.STUDENT)) {
-                Student student = studentDao.getStudentByPnc(pnc);
-                unregisteredUserDto.setEmail(student.getEmail());
-                unregisteredUserDto.setFirstName(student.getFirstName());
-                unregisteredUserDto.setLastName(student.getLastName());
-            }
-            else if (type.equals(com.iquestint.enums.Type.PROFESSOR)) {
-                Professor professor = professorDao.getProfessorByPnc(pnc);
-                unregisteredUserDto.setEmail(professor.getEmail());
-                unregisteredUserDto.setFirstName(professor.getFirstName());
-                unregisteredUserDto.setLastName(professor.getLastName());
-            }
-
             return unregisteredUserDto;
+
         } catch (DaoEntityNotFoundException e) {
             throw new ServiceEntityNotFoundException(e);
         }
