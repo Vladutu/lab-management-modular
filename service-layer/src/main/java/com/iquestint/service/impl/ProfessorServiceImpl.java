@@ -19,6 +19,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * This class implements the ProfessorService interface.
@@ -126,10 +127,11 @@ public class ProfessorServiceImpl implements ProfessorService {
             List<Grade> grades = student.getGrades();
             StudentGradingDto studentGrading = modelMapper.map(student, StudentGradingDto.class);
 
-            try {
-                Grade grade = gradeDao.getStudentGrade(student.getPnc(), laboratoryId, date);
-                studentGrading.setGrade(grade.getValue().toString());
-            } catch (DaoEntityNotFoundException e) {
+            Optional<Grade> matchGrade = grades.stream().filter(grade -> grade.getDate().equals(date)).findFirst();
+            if (matchGrade.isPresent()) {
+                studentGrading.setGrade(matchGrade.get().getValue().toString());
+            }
+            else {
                 studentGrading.setGrade("N/A");
             }
 
