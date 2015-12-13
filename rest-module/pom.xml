@@ -7,13 +7,10 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>webapp</artifactId>
+    <artifactId>rest-module</artifactId>
     <packaging>war</packaging>
-    <name>webapp</name>
+    <name>rest-module</name>
     <url>http://maven.apache.org</url>
-
-    <properties>
-    </properties>
 
     <dependencies>
         <dependency>
@@ -66,6 +63,7 @@
         </dependency>
     </dependencies>
 
+
     <build>
         <pluginManagement>
             <plugins>
@@ -74,13 +72,14 @@
                     <artifactId>maven-war-plugin</artifactId>
                     <version>2.4</version>
                     <configuration>
-                        <warName>webapp</warName>
+                        <warName>rest-module</warName>
                         <failOnMissingWebXml>false</failOnMissingWebXml>
                     </configuration>
                 </plugin>
 
             </plugins>
         </pluginManagement>
-        <finalName>webapp</finalName>
+        <finalName>rest-module</finalName>
     </build>
+
 </project>
