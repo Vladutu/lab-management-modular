@@ -4,6 +4,7 @@ import com.iquestint.exception.DaoEntityAlreadyExists;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.model.Grade;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -59,4 +60,15 @@ public interface GradeDao {
      * @return List<Grade>
      */
     List<Grade> getStudentGrades(String studentPnc);
+
+    /**
+     * Returns the grade of the student whose pnc is studentPnc from the laboratory whose id is laboratoryId which took place on date date.
+     *
+     * @param studentPnc   pnc of the student
+     * @param laboratoryId id of the laboratory
+     * @param date         date that the laboratory took place
+     * @return Grade
+     * @throws DaoEntityNotFoundException if the grade is not found in the database
+     */
+    Grade getStudentGrade(String studentPnc, int laboratoryId, LocalDate date) throws DaoEntityNotFoundException;
 }

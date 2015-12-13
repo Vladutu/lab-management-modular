@@ -6,8 +6,10 @@ import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.model.Grade;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -64,5 +66,22 @@ public class GradeDaoImpl extends JpaDao<Grade> implements GradeDao {
         query.setParameter("pnc", studentPnc);
 
         return query.getResultList();
+    }
+
+    @Override
+    public Grade getStudentGrade(String studentPnc, int laboratoryId, LocalDate date)
+        throws DaoEntityNotFoundException {
+        TypedQuery<Grade> query = getEntityManager().createQuery(
+            "SELECT g FROM Grade g WHERE g.student.pnc = :pnc AND g.laboratory.id = :id AND g.date = :date",
+            Grade.class);
+        query.setParameter("pnc", studentPnc);
+        query.setParameter("id", laboratoryId);
+        query.setParameter("date", date);
+
+        try {
+            return query.getSingleResult();
+        } catch (NoResultException e) {
+            throw new DaoEntityNotFoundException();
+        }
     }
 }

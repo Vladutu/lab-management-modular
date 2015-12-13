@@ -154,7 +154,7 @@ public class ProfessorsController {
      * @return String
      */
     @RequestMapping(value = "/professor/laboratory", params = { "id", "date" })
-    public String getLaboratoryByIdAndDate(ModelMap model, @RequestParam(value = "id") int id,
+    public String getStudentGrading(ModelMap model, @RequestParam(value = "id") int id,
         @RequestParam(value = "date") String date) {
         LocalDate localDate = LocalDate.parse(date);
         WelcomeUserDto welcomeUserDto = getPrincipal();
