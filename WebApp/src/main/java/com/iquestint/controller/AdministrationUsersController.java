@@ -32,7 +32,7 @@ public class AdministrationUsersController {
     private AdministrationUserService administrationUserService;
 
     @Autowired
-    PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private AdministrationFormService administrationFormService;
