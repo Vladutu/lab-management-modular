@@ -167,7 +167,7 @@ public class AdministrationLaboratoriesController {
      * @return String
      */
     @RequestMapping(value = "/admin/laboratories/{section}/{year}/{semester}/edit/{laboratoryId}", method = RequestMethod.GET)
-    public String editStudent(@PathVariable String section, @PathVariable int year, @PathVariable int semester,
+    public String editLaboratory(@PathVariable String section, @PathVariable int year, @PathVariable int semester,
         @PathVariable int laboratoryId, ModelMap model, RedirectAttributes redirectAttributes) {
         try {
             LaboratoryDto laboratoryDto = administrationLaboratoryService.getLaboratoryById(laboratoryId);

@@ -31,7 +31,7 @@ public class AdministrationStudentsController {
     private AdministrationStudentService administrationStudentService;
 
     @Autowired
-    AdministrationFormService administrationFormService;
+    private AdministrationFormService administrationFormService;
 
     /**
      * Returns all existing students.
