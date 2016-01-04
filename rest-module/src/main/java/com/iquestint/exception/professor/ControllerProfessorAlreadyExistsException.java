@@ -3,7 +3,9 @@ package com.iquestint.exception.professor;
 import com.iquestint.exception.generic.ControllerEntityAlreadyExistsException;
 
 /**
- * @author vladu
+ * This exception is thrown from the rest module when a professor already exists.
+ *
+ * @author Georgian Vladutu
  */
 public class ControllerProfessorAlreadyExistsException extends ControllerEntityAlreadyExistsException {
 

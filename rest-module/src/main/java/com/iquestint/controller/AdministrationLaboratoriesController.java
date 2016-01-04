@@ -21,9 +21,12 @@ import javax.validation.Valid;
 import java.util.List;
 
 /**
- * @author vladu
+ * This class is a REST controller used for operations on Laboratory objects.
+ *
+ * @author Georgian Vladutu
  */
 @RestController
+@RequestMapping(value = "/admin")
 public class AdministrationLaboratoriesController {
 
     @Autowired
@@ -32,6 +35,14 @@ public class AdministrationLaboratoriesController {
     @Autowired
     private AdministrationFormService administrationFormService;
 
+    /**
+     * Returns all existing laboratories which have the same section, year and semester as the method parameters.
+     *
+     * @param section  section
+     * @param year     year
+     * @param semester semester
+     * @return list of laboratories
+     */
     @RequestMapping(value = "/laboratories/{section}/{year}/{semester}", method = RequestMethod.GET)
     public ResponseEntity<List<LaboratoryDto>> getLaboratories(@PathVariable String section, @PathVariable int year,
         @PathVariable int semester) {
@@ -41,6 +52,11 @@ public class AdministrationLaboratoriesController {
         return new ResponseEntity<List<LaboratoryDto>>(laboratories, HttpStatus.OK);
     }
 
+    /**
+     * Returns laboratory categories.
+     *
+     * @return list of laboratory categories
+     */
     @RequestMapping(value = "/laboratories/categories", method = RequestMethod.GET)
     public ResponseEntity<FormLaboratoryShowDto> getLaboratoryCategories() {
         FormLaboratoryShowDto categories = administrationFormService.getFormLaboratoryShowDto();
@@ -48,6 +64,17 @@ public class AdministrationLaboratoriesController {
         return new ResponseEntity<FormLaboratoryShowDto>(categories, HttpStatus.OK);
     }
 
+    /**
+     * Saves a new laboratory.
+     *
+     * @param laboratory           laboratory to be saved
+     * @param bindingResult        bindingResult
+     * @param uriComponentsBuilder uriComponentsBuilder
+     * @return a corresponding status code and a message if there is an error
+     * @throws ControllerLaboratoryBindingException        if the user input and the java object cannot be bound together
+     * @throws ControllerLaboratoryFieldsNotFoundException if any the laboratory's fields are incorrect
+     * @throws ControllerLaboratoryAlreadyExistsException  if the laboratory already exists
+     */
     @RequestMapping(value = "/laboratories", method = RequestMethod.POST)
     public ResponseEntity<Void> createLaboratory(@Valid @RequestBody LaboratoryDto laboratory,
         BindingResult bindingResult,
@@ -72,6 +99,13 @@ public class AdministrationLaboratoriesController {
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
 
+    /**
+     * Deletes the laboratory whose id is laboratoryId.
+     *
+     * @param laboratoryId the id of the laboratory to be deleted
+     * @return a corresponding status code and a message if there is an error
+     * @throws ControllerLaboratoryNotFoundException if the laboratory is not found
+     */
     @RequestMapping(value = "/laboratories/{laboratoryId}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteStudent(@PathVariable int laboratoryId)
         throws ControllerLaboratoryNotFoundException {
@@ -84,6 +118,14 @@ public class AdministrationLaboratoriesController {
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
+    /**
+     * Updates the laboratory whose id is laboratoryId.
+     *
+     * @param laboratoryId the id of the laboratory
+     * @param laboratory   laboratory to be updated
+     * @return a corresponding status code and a message if there is an error
+     * @throws ControllerLaboratoryNotFoundException if the laboratory is not found
+     */
     @RequestMapping(value = "/laboratories/{laboratoryId}", method = RequestMethod.PUT)
     public ResponseEntity<LaboratoryDto> updateLaboratory(@PathVariable int laboratoryId,
         @RequestBody LaboratoryDto laboratory) throws ControllerLaboratoryNotFoundException {

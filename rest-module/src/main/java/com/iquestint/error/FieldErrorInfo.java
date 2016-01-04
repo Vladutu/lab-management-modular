@@ -1,7 +1,9 @@
 package com.iquestint.error;
 
 /**
- * @author vladu
+ * This class contains information about an invalid object field.
+ *
+ * @author Georgian Alexnadru
  */
 public class FieldErrorInfo {
 

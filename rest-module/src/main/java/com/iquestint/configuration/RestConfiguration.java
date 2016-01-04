@@ -9,7 +9,9 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
- * @author vladu
+ * This class is used for Spring configuration and bean declarations.
+ *
+ * @author Georgian Vladutu
  */
 @Configuration
 @EnableWebMvc
