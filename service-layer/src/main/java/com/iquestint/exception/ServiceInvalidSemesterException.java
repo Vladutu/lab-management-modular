@@ -5,7 +5,7 @@ package com.iquestint.exception;
  *
  * @author Georgian Vladutu
  */
-public class ServiceInvalidSemesterException extends Exception {
+public class ServiceInvalidSemesterException extends ServiceException {
 
     public ServiceInvalidSemesterException() {
         super();

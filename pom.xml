@@ -14,6 +14,7 @@
         <module>persistence-layer</module>
         <module>service-layer</module>
         <module>webapp</module>
+        <module>rest-module</module>
     </modules>
 
     <properties>
@@ -99,6 +100,17 @@
                 <artifactId>jackson-core</artifactId>
                 <version>2.6.3</version>
             </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.jaxrs</groupId>
+                <artifactId>jackson-jaxrs-json-provider</artifactId>
+                <version>2.7.0-rc2</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.xml.bind</groupId>
+                <artifactId>jaxb-api</artifactId>
+                <version>2.2.12</version>
+            </dependency>
+
 
             <!-- Spring Security -->
             <dependency>
