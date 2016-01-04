@@ -6,7 +6,9 @@ import org.springframework.validation.FieldError;
 import java.util.List;
 
 /**
- * @author vladu
+ * This exception is thrown from the rest module when a laboratory binding cannot be made.
+ *
+ * @author Georgian Vladutu
  */
 public class ControllerLaboratoryBindingException extends ControllerEntityBindingException {
 

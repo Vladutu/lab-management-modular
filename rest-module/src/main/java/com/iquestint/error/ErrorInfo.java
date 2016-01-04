@@ -1,7 +1,9 @@
 package com.iquestint.error;
 
 /**
- * @author vladu
+ * This class contains information about an error.
+ *
+ * @author Georgian Alexnadru
  */
 public class ErrorInfo {
 

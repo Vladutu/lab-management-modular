@@ -5,7 +5,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * @author vladu
+ * This class represents a CORS filter.
+ *
+ * @author Georgian Vladutu
  */
 public class CORSFilter implements Filter {
 

@@ -1,7 +1,9 @@
 package com.iquestint.exception.generic;
 
 /**
- * @author vladu
+ * This exception is thrown from the rest module when an entity is not found.
+ *
+ * @author Georgian Vladutu
  */
 public class ControllerEntityNotFoundException extends ControllerException {
 

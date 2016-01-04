@@ -3,7 +3,9 @@ package com.iquestint.error;
 import java.util.List;
 
 /**
- * @author vladu
+ * This class contains information about a binding error.
+ *
+ * @author Georgian Alexnadru
  */
 public class BindingErrorInfo extends ErrorInfo {
 

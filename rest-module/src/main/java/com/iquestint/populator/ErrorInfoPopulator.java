@@ -10,11 +10,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author vladu
+ * This class represent a populator.
+ *
+ * @author Georgian Vladutu
  */
 @Component
 public class ErrorInfoPopulator {
 
+    /**
+     * Populates a BindingErrorInfo object using the method parameters.
+     *
+     * @param errors  list of FieldError
+     * @param message message
+     * @param status  htttp status
+     * @return BindingErrorInfo
+     */
     public BindingErrorInfo populate(List<FieldError> errors, String message, HttpStatus status) {
         List<FieldErrorInfo> fieldErrors = new ArrayList<>();
         for (FieldError error : errors) {

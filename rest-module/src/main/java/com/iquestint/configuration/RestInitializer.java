@@ -6,7 +6,9 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 import javax.servlet.Filter;
 
 /**
- * @author vladu
+ * This class registers the RestConfiguration class.
+ *
+ * @author Georgian Vladutu
  */
 public class RestInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 

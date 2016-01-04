@@ -3,7 +3,9 @@ package com.iquestint.exception.laboratory;
 import com.iquestint.exception.generic.ControllerEntityAlreadyExistsException;
 
 /**
- * @author vladu
+ * This exception is thrown from the rest module when a laboratory already exists.
+ *
+ * @author Georgian Vladutu
  */
 public class ControllerLaboratoryAlreadyExistsException extends ControllerEntityAlreadyExistsException {
 
