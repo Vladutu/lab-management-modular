@@ -18,6 +18,10 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework</groupId>
+            <artifactId>spring-jms</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
         </dependency>
         <dependency>
@@ -36,6 +40,11 @@
             <groupId>com.iquestint</groupId>
             <artifactId>service-layer</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.iquestint</groupId>
+            <artifactId>spring-integration-module</artifactId>
+        </dependency>
+
         <!-- jsr303 validation -->
         <dependency>
             <groupId>javax.validation</groupId>

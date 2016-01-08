@@ -6,6 +6,9 @@ import com.iquestint.dto.UserDto;
 import com.iquestint.enums.State;
 import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
+import com.iquestint.jms.JmsMessageSender;
+import com.iquestint.jms.email.EmailRequest;
+import com.iquestint.populator.EmailRequestPopulator;
 import com.iquestint.service.AdministrationFormService;
 import com.iquestint.service.AdministrationUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +39,12 @@ public class AdministrationUsersController {
 
     @Autowired
     private AdministrationFormService administrationFormService;
+
+    @Autowired
+    private JmsMessageSender jmsMessageSender;
+
+    @Autowired
+    private EmailRequestPopulator emailRequestPopulator;
 
     /**
      * Returns all existing users.
@@ -95,6 +104,11 @@ public class AdministrationUsersController {
 
         try {
             administrationUserService.saveUser(userDto);
+
+            EmailRequest emailRequest = emailRequestPopulator.populate(userDto);
+
+            jmsMessageSender.sendMessage(emailRequest.toString());
+
         } catch (ServiceEntityAlreadyExistsException e) {
             redirectAttributes.addFlashAttribute("errorMessage", "User already exists");
 
