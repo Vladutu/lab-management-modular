@@ -6,7 +6,7 @@ import com.iquestint.dto.UserDto;
 import com.iquestint.enums.State;
 import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
-import com.iquestint.jms.JmsMessageSender;
+import com.iquestint.jms.MessageSender;
 import com.iquestint.jms.email.EmailRequest;
 import com.iquestint.populator.EmailRequestPopulator;
 import com.iquestint.service.AdministrationFormService;
@@ -41,7 +41,7 @@ public class AdministrationUsersController {
     private AdministrationFormService administrationFormService;
 
     @Autowired
-    private JmsMessageSender jmsMessageSender;
+    private MessageSender messageSender;
 
     @Autowired
     private EmailRequestPopulator emailRequestPopulator;
@@ -107,7 +107,7 @@ public class AdministrationUsersController {
 
             EmailRequest emailRequest = emailRequestPopulator.populate(userDto);
 
-            jmsMessageSender.sendMessage(emailRequest.toString());
+            messageSender.sendMessage(emailRequest);
 
         } catch (ServiceEntityAlreadyExistsException e) {
             redirectAttributes.addFlashAttribute("errorMessage", "User already exists");

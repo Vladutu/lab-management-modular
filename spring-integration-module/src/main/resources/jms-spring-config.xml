@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xmlns:int="http://www.springframework.org/schema/integration"
+       xmlns:int-jms="http://www.springframework.org/schema/integration/jms"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+        http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+        http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:property-placeholder/>
+
+    <!-- Channel containing incoming JMS messages for Email -->
+    <int:channel id="emailRequestChannel">
+        <int:queue capacity="200"/>
+    </int:channel>
+
+    <!-- Channel containing outgoing JMS messages from Email -->
+    <int:channel id="emailResponseChannel">
+        <int:queue capacity="200"/>
+    </int:channel>
+
+    <bean id="emailJaxbMarshallingMessageConverter"
+          class="org.springframework.jms.support.converter.MarshallingMessageConverter">
+        <constructor-arg ref="emailJaxbMarshaller" index="0"/>
+        <constructor-arg ref="emailJaxbMarshaller" index="1"/>
+    </bean>
+
+    <bean id="emailJaxbMarshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+        <property name="classesToBeBound">
+            <list>
+                <value>com.iquestint.jms.email.EmailRequest</value>
+                <value>com.iquestint.jms.email.EmailResponse</value>
+            </list>
+        </property>
+        <property name="marshallerProperties">
+            <map>
+                <entry key="jaxb.formatted.output">
+                    <value type="java.lang.Boolean">true</value>
+                </entry>
+            </map>
+        </property>
+        <property name="unmarshallerProperties">
+            <map>
+                <entry key="jaxb.formatted.output">
+                    <value type="java.lang.Boolean">true</value>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="jmsEmailCachedConnectionFactory"
+          class="org.springframework.jms.connection.CachingConnectionFactory">
+        <property name="targetConnectionFactory" ref="mqEmailConnectionFactory"/>
+        <property name="sessionCacheSize" value="100"/>
+        <property name="cacheProducers" value="false"/>
+    </bean>
+
+    <bean id="mqEmailConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL"
+                  value="tcp://${jms.host}:${jms.port}"/>
+    </bean>
+
+    <int-jms:outbound-channel-adapter id="emailRequestChannelAdapter" destination-name="${jms.response.queue}"
+                                      channel="emailRequestChannel"
+                                      connection-factory="jmsEmailCachedConnectionFactory"
+                                      message-converter="emailJaxbMarshallingMessageConverter">
+        <int:poller default="true" max-messages-per-poll="100" receive-timeout="5000" fixed-delay="0">
+        </int:poller>
+    </int-jms:outbound-channel-adapter>
+
+    <int:service-activator id="emailResponseServiceActivator"
+                           input-channel="emailResponseChannel" ref="messageReceiver" method="processResponse"/>
+
+    <int-jms:message-driven-channel-adapter
+            id="emailResponseChannelAdapter" destination-name="${jms.request.queue}"
+            channel="emailResponseChannel" connection-factory="jmsEmailCachedConnectionFactory"/>
+    <!--message-converter="emailJaxbMarshallingMessageConverter"/>-->
+
+    <bean id="messageReceiver"
+          class="com.iquestint.jms.MessageReceiverImpl"/>
+    <int:poller default="true" max-messages-per-poll="100"
+                receive-timeout="5000" fixed-delay="0"/>
+</beans>
