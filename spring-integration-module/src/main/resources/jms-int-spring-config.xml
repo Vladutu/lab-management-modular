@@ -23,7 +23,6 @@
     <bean id="emailJaxbMarshallingMessageConverter"
           class="org.springframework.jms.support.converter.MarshallingMessageConverter">
         <constructor-arg ref="emailJaxbMarshaller" index="0"/>
-        <constructor-arg ref="emailJaxbMarshaller" index="1"/>
     </bean>
 
     <bean id="emailJaxbMarshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
@@ -34,13 +33,6 @@
             </list>
         </property>
         <property name="marshallerProperties">
-            <map>
-                <entry key="jaxb.formatted.output">
-                    <value type="java.lang.Boolean">true</value>
-                </entry>
-            </map>
-        </property>
-        <property name="unmarshallerProperties">
             <map>
                 <entry key="jaxb.formatted.output">
                     <value type="java.lang.Boolean">true</value>
@@ -74,8 +66,9 @@
 
     <int-jms:message-driven-channel-adapter
             id="emailResponseChannelAdapter" destination-name="${jms.request.queue}"
-            channel="emailResponseChannel" connection-factory="jmsEmailCachedConnectionFactory"/>
-    <!--message-converter="emailJaxbMarshallingMessageConverter"/>-->
+            channel="emailResponseChannel" connection-factory="jmsEmailCachedConnectionFactory"
+            message-converter="emailJaxbMarshallingMessageConverter"/>
+
 
     <bean id="messageReceiver"
           class="com.iquestint.jms.MessageReceiverImpl"/>

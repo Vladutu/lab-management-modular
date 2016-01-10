@@ -1,5 +1,6 @@
 package com.iquestint.jms;
 
+import com.iquestint.jms.email.EmailResponse;
 import org.springframework.messaging.Message;
 
 /**
@@ -7,5 +8,5 @@ import org.springframework.messaging.Message;
  */
 public interface MessageReceiver {
 
-    void processResponse(Message<String> responseMessage);
+    void processResponse(Message<EmailResponse> responseMessage);
 }

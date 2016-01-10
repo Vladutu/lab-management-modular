@@ -11,7 +11,7 @@ import org.springframework.context.annotation.PropertySource;
 @Configuration
 @ComponentScan(basePackages = "com.iquestint")
 @PropertySource(value = { "classpath:jms-config.properties" })
-@ImportResource("classpath:jms-spring-config.xml")
+@ImportResource({ "classpath:jms-int-spring-config.xml", "classpath:rest-int-spring-config.xml" })
 public class IntegrationConfiguration {
 
 }
