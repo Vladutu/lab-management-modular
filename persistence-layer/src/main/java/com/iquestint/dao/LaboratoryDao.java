@@ -1,6 +1,6 @@
 package com.iquestint.dao;
 
-import com.iquestint.exception.DaoEntityAlreadyExists;
+import com.iquestint.exception.DaoEntityAlreadyExistsException;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.model.*;
 
@@ -56,9 +56,9 @@ public interface LaboratoryDao {
      * Saves laboratory into the database.
      *
      * @param laboratory laboratory to be saved
-     * @throws DaoEntityAlreadyExists if laboratory already exists in the database
+     * @throws DaoEntityAlreadyExistsException if laboratory already exists in the database
      */
-    void saveLaboratory(Laboratory laboratory) throws DaoEntityAlreadyExists;
+    void saveLaboratory(Laboratory laboratory) throws DaoEntityAlreadyExistsException;
 
     /**
      * Updates laboratory into the database.

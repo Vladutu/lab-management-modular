@@ -6,6 +6,8 @@ import com.iquestint.model.*;
 import com.iquestint.service.AdministrationFormService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,8 @@ import java.util.List;
 @Service("administrationFormService")
 @Transactional
 public class AdministrationFormServiceImpl implements AdministrationFormService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(AdministrationFormServiceImpl.class);
 
     @Autowired
     private GroupDao groupDao;

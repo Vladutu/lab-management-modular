@@ -1,6 +1,6 @@
 package com.iquestint.dao;
 
-import com.iquestint.exception.DaoEntityAlreadyExists;
+import com.iquestint.exception.DaoEntityAlreadyExistsException;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.model.User;
 
@@ -34,9 +34,9 @@ public interface UserDao {
      * Saves  user into the database.
      *
      * @param user the user to be saved
-     * @throws DaoEntityAlreadyExists if the user already exists in the database.
+     * @throws DaoEntityAlreadyExistsException if the user already exists in the database.
      */
-    void saveUser(User user) throws DaoEntityAlreadyExists;
+    void saveUser(User user) throws DaoEntityAlreadyExistsException;
 
     /**
      * Updates  user into the database. This user primary key must already be present in the database.

@@ -6,6 +6,8 @@ import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
 import com.iquestint.service.AdministrationFormService;
 import com.iquestint.service.AdministrationStudentService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -27,6 +29,8 @@ import java.util.List;
 @RequestMapping("/")
 public class AdministrationStudentsController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(AdministrationStudentsController.class);
+
     @Autowired
     private AdministrationStudentService administrationStudentService;
 
@@ -41,6 +45,7 @@ public class AdministrationStudentsController {
      */
     @RequestMapping(value = "/admin/students", method = RequestMethod.GET)
     public String getStudents(ModelMap model) {
+        LOGGER.info("Enter method");
         List<StudentDto> studentDtos = administrationStudentService.getAllStudents();
         model.addAttribute("students", studentDtos);
 
@@ -55,6 +60,7 @@ public class AdministrationStudentsController {
      */
     @RequestMapping(value = "/admin/students/new", method = RequestMethod.GET)
     public String newStudent(ModelMap model) {
+        LOGGER.info("Enter method");
         StudentDto studentDto = new StudentDto();
         FormStudentDto formStudentDto = administrationFormService.getFormStudent();
 
@@ -77,6 +83,7 @@ public class AdministrationStudentsController {
     @RequestMapping(value = "/admin/students/new", method = RequestMethod.POST)
     public String saveStudent(@Valid StudentDto studentDto, BindingResult bindingResult, ModelMap model,
         RedirectAttributes redirectAttributes) {
+        LOGGER.info("Enter method");
         if (bindingResult.hasErrors()) {
             FormStudentDto formStudentDto = administrationFormService.getFormStudent();
 
@@ -108,6 +115,7 @@ public class AdministrationStudentsController {
     @RequestMapping(value = "/admin/students/delete/{studentPnc}", method = RequestMethod.GET)
     public String deleteStudent(@PathVariable String studentPnc, ModelMap model,
         RedirectAttributes redirectAttributes) {
+        LOGGER.info("Enter method");
         try {
             administrationStudentService.deleteStudent(studentPnc);
         } catch (ServiceEntityNotFoundException e) {
@@ -127,6 +135,7 @@ public class AdministrationStudentsController {
      */
     @RequestMapping(value = "/admin/students/edit/{studentPnc}", method = RequestMethod.GET)
     public String editStudent(@PathVariable String studentPnc, ModelMap model, RedirectAttributes redirectAttributes) {
+        LOGGER.info("Enter method");
         try {
             StudentDto studentDto = administrationStudentService.getStudentByPnc(studentPnc);
             FormStudentDto formStudentDto = administrationFormService.getFormStudent();
@@ -155,7 +164,7 @@ public class AdministrationStudentsController {
     @RequestMapping(value = "/admin/students/edit/{studentPnc}", method = RequestMethod.POST)
     public String updateStudent(@Valid StudentDto studentDto, BindingResult bindingResult, ModelMap model,
         @PathVariable String studentPnc, RedirectAttributes redirectAttributes) {
-
+        LOGGER.info("Enter method");
         if (bindingResult.hasErrors()) {
             FormStudentDto formStudentDto = administrationFormService.getFormStudent();
 

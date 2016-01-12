@@ -1,6 +1,6 @@
 package com.iquestint.dao;
 
-import com.iquestint.exception.DaoEntityAlreadyExists;
+import com.iquestint.exception.DaoEntityAlreadyExistsException;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.model.Professor;
 
@@ -44,9 +44,9 @@ public interface ProfessorDao {
      * Saves professor into the database.
      *
      * @param professor professor to be saved
-     * @throws DaoEntityAlreadyExists if the professor already exists in the database
+     * @throws DaoEntityAlreadyExistsException if the professor already exists in the database
      */
-    void saveProfessor(Professor professor) throws DaoEntityAlreadyExists;
+    void saveProfessor(Professor professor) throws DaoEntityAlreadyExistsException;
 
     /**
      * Updates professor into the database. This professor primary key must already be present in the database.

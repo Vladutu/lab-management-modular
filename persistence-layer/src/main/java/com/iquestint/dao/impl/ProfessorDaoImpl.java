@@ -1,9 +1,11 @@
 package com.iquestint.dao.impl;
 
 import com.iquestint.dao.ProfessorDao;
-import com.iquestint.exception.DaoEntityAlreadyExists;
+import com.iquestint.exception.DaoEntityAlreadyExistsException;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.model.Professor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.NoResultException;
@@ -17,6 +19,8 @@ import java.util.List;
  */
 @Repository("professorDao")
 public class ProfessorDaoImpl extends JpaDao<Professor> implements ProfessorDao {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProfessorDaoImpl.class);
 
     @Override
     public List<Professor> getAllProfessors() {
@@ -32,6 +36,7 @@ public class ProfessorDaoImpl extends JpaDao<Professor> implements ProfessorDao 
         try {
             return query.getSingleResult();
         } catch (NoResultException e) {
+            LOGGER.debug("NoResultException");
             throw new DaoEntityNotFoundException();
         }
     }
@@ -47,12 +52,13 @@ public class ProfessorDaoImpl extends JpaDao<Professor> implements ProfessorDao 
         try {
             return query.getSingleResult();
         } catch (NoResultException e) {
+            LOGGER.debug("NoResultException");
             throw new DaoEntityNotFoundException();
         }
     }
 
     @Override
-    public void saveProfessor(Professor professor) throws DaoEntityAlreadyExists {
+    public void saveProfessor(Professor professor) throws DaoEntityAlreadyExistsException {
         try {
             Professor p = getProfessorByPnc(professor.getPnc());
         } catch (DaoEntityNotFoundException e) {
@@ -60,7 +66,7 @@ public class ProfessorDaoImpl extends JpaDao<Professor> implements ProfessorDao 
             return;
         }
 
-        throw new DaoEntityAlreadyExists();
+        throw new DaoEntityAlreadyExistsException();
     }
 
     @Override

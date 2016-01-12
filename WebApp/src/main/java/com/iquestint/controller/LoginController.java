@@ -1,5 +1,7 @@
 package com.iquestint.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,6 +22,8 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/")
 public class LoginController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
+
     /**
      * Redirects the user to the login method in this controller.
      *
@@ -27,6 +31,7 @@ public class LoginController {
      */
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String defaultRoute() {
+        LOGGER.info("Enter method");
         return "redirect:/login";
     }
 
@@ -37,6 +42,7 @@ public class LoginController {
      */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage() {
+        LOGGER.info("Enter method");
         return "login";
     }
 
@@ -49,6 +55,7 @@ public class LoginController {
      */
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
+        LOGGER.info("Enter method");
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);

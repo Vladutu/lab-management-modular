@@ -1,15 +1,13 @@
 package com.iquestint.jms.email;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
 
 /**
  * @author vladu
  */
 @XmlRootElement(name = "RESPONSE")
 @XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(factoryClass = ObjectFactory.class, factoryMethod = "createEmailResponse")
 public class EmailResponse {
 
     /**

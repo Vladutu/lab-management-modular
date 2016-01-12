@@ -1,6 +1,6 @@
 package com.iquestint.dao;
 
-import com.iquestint.exception.DaoEntityAlreadyExists;
+import com.iquestint.exception.DaoEntityAlreadyExistsException;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.model.Attendance;
 
@@ -26,9 +26,9 @@ public interface AttendanceDao {
      * Saves the student into the database.
      *
      * @param attendance attendance to be saved
-     * @throws DaoEntityAlreadyExists if the attendance already exists in the database
+     * @throws DaoEntityAlreadyExistsException if the attendance already exists in the database
      */
-    void saveAttendance(Attendance attendance) throws DaoEntityAlreadyExists;
+    void saveAttendance(Attendance attendance) throws DaoEntityAlreadyExistsException;
 
     /**
      * Updates the attendance into the database.

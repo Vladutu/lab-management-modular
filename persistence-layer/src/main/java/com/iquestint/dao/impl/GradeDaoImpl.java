@@ -1,9 +1,11 @@
 package com.iquestint.dao.impl;
 
 import com.iquestint.dao.GradeDao;
-import com.iquestint.exception.DaoEntityAlreadyExists;
+import com.iquestint.exception.DaoEntityAlreadyExistsException;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.model.Grade;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.NoResultException;
@@ -20,13 +22,15 @@ import java.util.List;
 @Repository("gradeDao")
 public class GradeDaoImpl extends JpaDao<Grade> implements GradeDao {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(GradeDaoImpl.class);
+
     @Override
     public Grade getGradeById(int id) throws DaoEntityNotFoundException {
         return getById(id);
     }
 
     @Override
-    public void saveGrade(Grade grade) throws DaoEntityAlreadyExists {
+    public void saveGrade(Grade grade) throws DaoEntityAlreadyExistsException {
         try {
             Grade g = getGradeById(grade.getId());
         } catch (DaoEntityNotFoundException e) {
@@ -34,7 +38,7 @@ public class GradeDaoImpl extends JpaDao<Grade> implements GradeDao {
             return;
         }
 
-        throw new DaoEntityAlreadyExists();
+        throw new DaoEntityAlreadyExistsException();
     }
 
     @Override
@@ -81,6 +85,7 @@ public class GradeDaoImpl extends JpaDao<Grade> implements GradeDao {
         try {
             return query.getSingleResult();
         } catch (NoResultException e) {
+            LOGGER.debug("NoResultException");
             throw new DaoEntityNotFoundException();
         }
     }

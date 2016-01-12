@@ -1,6 +1,6 @@
 package com.iquestint.dao;
 
-import com.iquestint.exception.DaoEntityAlreadyExists;
+import com.iquestint.exception.DaoEntityAlreadyExistsException;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.model.Grade;
 
@@ -27,9 +27,9 @@ public interface GradeDao {
      * Saves the grade entity into the database.
      *
      * @param grade grade to be saved
-     * @throws DaoEntityAlreadyExists if the grade already exists in the database
+     * @throws DaoEntityAlreadyExistsException if the grade already exists in the database
      */
-    void saveGrade(Grade grade) throws DaoEntityAlreadyExists;
+    void saveGrade(Grade grade) throws DaoEntityAlreadyExistsException;
 
     /**
      * Updates the grade into the database.

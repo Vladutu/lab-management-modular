@@ -5,6 +5,8 @@ import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
 import com.iquestint.service.AdministrationFormService;
 import com.iquestint.service.AdministrationLaboratoryService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -26,6 +28,8 @@ import java.util.List;
 @RequestMapping("/")
 public class AdministrationLaboratoriesController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(AdministrationLaboratoriesController.class);
+
     @Autowired
     private AdministrationLaboratoryService administrationLaboratoryService;
 
@@ -40,6 +44,7 @@ public class AdministrationLaboratoriesController {
      */
     @RequestMapping(value = "/admin/laboratories", method = RequestMethod.GET)
     public String getAllLaboratories(ModelMap model) {
+        LOGGER.info("Enter method");
         FormLaboratoryShowDto formLaboratoryShowDto = administrationFormService.getFormLaboratoryShowDto();
 
         model.addAttribute("formLaboratoryShowDto", formLaboratoryShowDto);
@@ -59,6 +64,7 @@ public class AdministrationLaboratoriesController {
     @RequestMapping(value = "/admin/laboratories/{section}/{year}/{semester}", method = RequestMethod.GET)
     public String getLaboratories(@PathVariable String section, @PathVariable int year, @PathVariable int semester,
         ModelMap model) {
+        LOGGER.info("Enter method");
         List<LaboratoryDto> laboratoryDtos = administrationLaboratoryService.getLaboratories(new SectionDto(section),
             new YearDto(year), new SemesterDto(semester));
 
@@ -85,6 +91,7 @@ public class AdministrationLaboratoriesController {
     public String deleteLaboratory(@PathVariable String section, @PathVariable int year, @PathVariable int semester,
         @PathVariable int laboratoryId, ModelMap model,
         RedirectAttributes redirectAttributes) {
+        LOGGER.info("Enter method");
         try {
             administrationLaboratoryService.deleteLaboratory(laboratoryId);
         } catch (ServiceEntityNotFoundException e) {
@@ -106,6 +113,7 @@ public class AdministrationLaboratoriesController {
     @RequestMapping(value = "/admin/laboratories/{section}/{year}/{semester}/new", method = RequestMethod.GET)
     public String newLaboratory(@PathVariable String section, @PathVariable int year, @PathVariable int semester,
         ModelMap model) {
+        LOGGER.info("Enter method");
         LaboratoryDto laboratoryDto = new LaboratoryDto();
         FormLaboratoryCreateDto formLaboratoryCreateDto = administrationFormService.getFormLaboratoryCreateDto();
 
@@ -135,6 +143,7 @@ public class AdministrationLaboratoriesController {
     public String saveLaboratory(@Valid LaboratoryDto laboratoryDto, BindingResult bindingResult, ModelMap model,
         @PathVariable String section, @PathVariable int year, @PathVariable int semester,
         RedirectAttributes redirectAttributes) {
+        LOGGER.info("Enter method");
         if (bindingResult.hasErrors()) {
             FormLaboratoryCreateDto formLaboratoryCreateDto = administrationFormService.getFormLaboratoryCreateDto();
 
@@ -169,6 +178,7 @@ public class AdministrationLaboratoriesController {
     @RequestMapping(value = "/admin/laboratories/{section}/{year}/{semester}/edit/{laboratoryId}", method = RequestMethod.GET)
     public String editLaboratory(@PathVariable String section, @PathVariable int year, @PathVariable int semester,
         @PathVariable int laboratoryId, ModelMap model, RedirectAttributes redirectAttributes) {
+        LOGGER.info("Enter method");
         try {
             LaboratoryDto laboratoryDto = administrationLaboratoryService.getLaboratoryById(laboratoryId);
             FormLaboratoryCreateDto formLaboratoryCreateDto = administrationFormService.getFormLaboratoryCreateDto();
@@ -202,6 +212,7 @@ public class AdministrationLaboratoriesController {
         @PathVariable String section, @PathVariable int year, @PathVariable int semester,
         @PathVariable int laboratoryId, ModelMap model,
         RedirectAttributes redirectAttributes) {
+        LOGGER.info("Enter method");
         if (bindingResult.hasErrors()) {
             FormLaboratoryCreateDto formLaboratoryCreateDto = administrationFormService.getFormLaboratoryCreateDto();
             model.addAttribute("formLaboratoryCreateDto", formLaboratoryCreateDto);

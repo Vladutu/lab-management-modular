@@ -5,7 +5,7 @@ import com.iquestint.dto.LaboratoryDto;
 import com.iquestint.dto.SectionDto;
 import com.iquestint.dto.SemesterDto;
 import com.iquestint.dto.YearDto;
-import com.iquestint.exception.DaoEntityAlreadyExists;
+import com.iquestint.exception.DaoEntityAlreadyExistsException;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
@@ -13,6 +13,8 @@ import com.iquestint.model.*;
 import com.iquestint.service.AdministrationLaboratoryService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +29,8 @@ import java.util.List;
 @Service("administrationLaboratoryService")
 @Transactional
 public class AdministrationLaboratoryServiceImpl implements AdministrationLaboratoryService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(AdministrationLaboratoryServiceImpl.class);
 
     @Autowired
     private LaboratoryDao laboratoryDao;
@@ -83,9 +87,11 @@ public class AdministrationLaboratoryServiceImpl implements AdministrationLabora
 
             laboratoryDao.saveLaboratory(laboratory);
         } catch (DaoEntityNotFoundException e) {
+            LOGGER.debug("DaoEntityNotFoundException");
             throw new ServiceEntityNotFoundException(e);
-        } catch (DaoEntityAlreadyExists daoEntityAlreadyExists) {
-            daoEntityAlreadyExists.printStackTrace();
+        } catch (DaoEntityAlreadyExistsException e) {
+            LOGGER.debug("DaoEntityAlreadyExistsException");
+            throw new ServiceEntityAlreadyExistsException(e);
         }
     }
 
@@ -96,6 +102,7 @@ public class AdministrationLaboratoryServiceImpl implements AdministrationLabora
             attendanceDao.deleteAttendancesByLaboratory(id);
             laboratoryDao.deleteLaboratoryById(id);
         } catch (DaoEntityNotFoundException e) {
+            LOGGER.debug("DaoEntityNotFoundException");
             throw new ServiceEntityNotFoundException(e);
         }
     }
@@ -107,6 +114,7 @@ public class AdministrationLaboratoryServiceImpl implements AdministrationLabora
 
             return modelMapper.map(laboratory, LaboratoryDto.class);
         } catch (DaoEntityNotFoundException e) {
+            LOGGER.debug("DaoEntityNotFoundException");
             throw new ServiceEntityNotFoundException(e);
         }
     }
@@ -146,6 +154,7 @@ public class AdministrationLaboratoryServiceImpl implements AdministrationLabora
             }
 
         } catch (DaoEntityNotFoundException e) {
+            LOGGER.debug("DaoEntityNotFoundException");
             throw new ServiceEntityNotFoundException(e);
         }
     }

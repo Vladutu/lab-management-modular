@@ -8,6 +8,8 @@ import com.iquestint.exception.student.ControllerStudentBindingException;
 import com.iquestint.exception.student.ControllerStudentFieldsNotFoundException;
 import com.iquestint.exception.student.ControllerStudentNotFoundException;
 import com.iquestint.service.AdministrationStudentService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -28,6 +30,8 @@ import java.util.List;
 @RequestMapping(value = "/admin")
 public class AdministrationStudentsController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(AdministrationStudentsController.class);
+
     @Autowired
     private AdministrationStudentService administrationStudentService;
 
@@ -38,6 +42,7 @@ public class AdministrationStudentsController {
      */
     @RequestMapping(value = "/students", method = RequestMethod.GET)
     public ResponseEntity<List<StudentDto>> getAllStudents() {
+        LOGGER.info("Enter method");
         List<StudentDto> students = administrationStudentService.getAllStudents();
         if (students.isEmpty()) {
             return new ResponseEntity<List<StudentDto>>(HttpStatus.NO_CONTENT);
@@ -62,6 +67,7 @@ public class AdministrationStudentsController {
         UriComponentsBuilder uriComponentsBuilder)
         throws ControllerStudentBindingException, ControllerStudentFieldsNotFoundException,
         ControllerStudentAlreadyExistsException {
+        LOGGER.info("Enter method");
         if (bindingResult.hasErrors()) {
             throw new ControllerStudentBindingException(bindingResult.getFieldErrors());
         }
@@ -90,6 +96,7 @@ public class AdministrationStudentsController {
     @RequestMapping(value = "/students/{studentPnc}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteStudent(@PathVariable String studentPnc)
         throws ControllerStudentNotFoundException {
+        LOGGER.info("Enter method");
         try {
             administrationStudentService.deleteStudent(studentPnc);
         } catch (ServiceEntityNotFoundException e) {
@@ -110,6 +117,7 @@ public class AdministrationStudentsController {
     @RequestMapping(value = "/students/{studentPnc}", method = RequestMethod.PUT)
     public ResponseEntity<StudentDto> updateStudent(@PathVariable String studentPnc, @RequestBody StudentDto student)
         throws ControllerStudentNotFoundException {
+        LOGGER.info("Enter method");
         try {
             student.setPnc(studentPnc);
             administrationStudentService.updateStudent(student);

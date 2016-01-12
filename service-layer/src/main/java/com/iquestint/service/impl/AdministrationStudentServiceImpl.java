@@ -2,7 +2,7 @@ package com.iquestint.service.impl;
 
 import com.iquestint.dao.*;
 import com.iquestint.dto.StudentDto;
-import com.iquestint.exception.DaoEntityAlreadyExists;
+import com.iquestint.exception.DaoEntityAlreadyExistsException;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
@@ -10,6 +10,8 @@ import com.iquestint.model.*;
 import com.iquestint.service.AdministrationStudentService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +27,8 @@ import java.util.List;
 @Service("administrationStudentService")
 @Transactional
 public class AdministrationStudentServiceImpl implements AdministrationStudentService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(AdministrationStudentServiceImpl.class);
 
     @Autowired
     private StudentDao studentDao;
@@ -73,8 +77,10 @@ public class AdministrationStudentServiceImpl implements AdministrationStudentSe
 
             addStudentToLaboratories(student, laboratories);
         } catch (DaoEntityNotFoundException e) {
+            LOGGER.debug("DaoEntityNotFoundException");
             throw new ServiceEntityNotFoundException(e);
-        } catch (DaoEntityAlreadyExists e) {
+        } catch (DaoEntityAlreadyExistsException e) {
+            LOGGER.debug("DaoEntityAlreadyExistsException");
             throw new ServiceEntityAlreadyExistsException(e);
         }
 
@@ -97,6 +103,7 @@ public class AdministrationStudentServiceImpl implements AdministrationStudentSe
 
             studentDao.deleteStudentByPnc(pnc);
         } catch (DaoEntityNotFoundException e) {
+            LOGGER.debug("DaoEntityNotFoundException");
             throw new ServiceEntityNotFoundException(e);
         }
     }
@@ -108,6 +115,7 @@ public class AdministrationStudentServiceImpl implements AdministrationStudentSe
 
             return modelMapper.map(student, StudentDto.class);
         } catch (DaoEntityNotFoundException e) {
+            LOGGER.debug("DaoEntityNotFoundException");
             throw new ServiceEntityNotFoundException(e);
         }
     }
@@ -143,6 +151,7 @@ public class AdministrationStudentServiceImpl implements AdministrationStudentSe
             }
 
         } catch (DaoEntityNotFoundException e) {
+            LOGGER.debug("DaoEntityNotFoundException");
             throw new ServiceEntityNotFoundException(e);
         }
     }
@@ -152,6 +161,7 @@ public class AdministrationStudentServiceImpl implements AdministrationStudentSe
         try {
             return studentDao.getStudentByName(firstName, lastName);
         } catch (DaoEntityNotFoundException e) {
+            LOGGER.debug("DaoEntityNotFoundException");
             throw new ServiceEntityNotFoundException(e);
         }
     }

@@ -1,9 +1,11 @@
 package com.iquestint.dao.impl;
 
 import com.iquestint.dao.AttendanceDao;
-import com.iquestint.exception.DaoEntityAlreadyExists;
+import com.iquestint.exception.DaoEntityAlreadyExistsException;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.model.Attendance;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
@@ -18,13 +20,15 @@ import java.util.List;
 @Repository("attendanceDao")
 public class AttendanceDaoImpl extends JpaDao<Attendance> implements AttendanceDao {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(AttendanceDaoImpl.class);
+
     @Override
     public Attendance getAttendanceById(int id) throws DaoEntityNotFoundException {
         return getById(id);
     }
 
     @Override
-    public void saveAttendance(Attendance attendance) throws DaoEntityAlreadyExists {
+    public void saveAttendance(Attendance attendance) throws DaoEntityAlreadyExistsException {
         try {
             Attendance a = getAttendanceById(attendance.getId());
         } catch (DaoEntityNotFoundException e) {
@@ -32,7 +36,7 @@ public class AttendanceDaoImpl extends JpaDao<Attendance> implements AttendanceD
             return;
         }
 
-        throw new DaoEntityAlreadyExists();
+        throw new DaoEntityAlreadyExistsException();
     }
 
     @Override
