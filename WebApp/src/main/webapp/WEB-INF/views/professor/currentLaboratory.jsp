@@ -5,7 +5,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <jsp:include page="libs.jsp"/>
+    <jsp:include page="../libs.jsp"/>
     <title>Home</title>
 </head>
 

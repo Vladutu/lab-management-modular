@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
          pageEncoding="ISO-8859-1" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -8,15 +7,16 @@
 <html>
 
 <head>
-    <jsp:include page="libs.jsp"/>
-    <title>Laboratory Registration Form</title>
+    <jsp:include page="../libs.jsp"/>
+    <title>Laboratory Update Form</title>
 </head>
 
 <body>
 <jsp:include page="adminHeader.jsp"/>
 
+
 <div class="container">
-    <h2 class="text-center">Laboratory Registration Form</h2>
+    <h2 class="text-center">Laboratory Update Form</h2>
 
     <c:if test="${not empty errorMessage}">
         <div class="alert alert-danger alert-dismissible" role="alert">
@@ -27,6 +27,8 @@
     </c:if>
 
     <form:form method="POST" modelAttribute="laboratoryDto" role="form">
+
+        <form:input type="hidden" path="id" id="id" value="${id}"/>
 
         <spring:bind path="name">
             <div class="form-group ${status.error ? 'has-error' : ''}">
@@ -135,8 +137,7 @@
             </div>
         </spring:bind>
 
-
-        <button type="submit" class="btn btn-success btn-lg">Register</button>
+        <button type="submit" class="btn btn-success btn-lg">Update</button>
 
     </form:form>
     <br/>

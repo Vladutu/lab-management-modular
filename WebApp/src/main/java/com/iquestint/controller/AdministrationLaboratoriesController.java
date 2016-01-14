@@ -49,7 +49,7 @@ public class AdministrationLaboratoriesController {
 
         model.addAttribute("formLaboratoryShowDto", formLaboratoryShowDto);
 
-        return "listLaboratoryCategories";
+        return "admin/listLaboratoryCategories";
     }
 
     /**
@@ -73,7 +73,7 @@ public class AdministrationLaboratoriesController {
         model.addAttribute("semester", semester);
         model.addAttribute("laboratoryDtos", laboratoryDtos);
 
-        return "listLaboratories";
+        return "admin/listLaboratories";
     }
 
     /**
@@ -123,7 +123,7 @@ public class AdministrationLaboratoriesController {
         model.addAttribute("semester", semester);
         model.addAttribute("formLaboratoryCreateDto", formLaboratoryCreateDto);
 
-        return "createLaboratory";
+        return "admin/createLaboratory";
     }
 
     /**
@@ -149,7 +149,7 @@ public class AdministrationLaboratoriesController {
 
             model.addAttribute("formLaboratoryCreateDto", formLaboratoryCreateDto);
 
-            return "createLaboratory";
+            return "admin/createLaboratory";
         }
 
         try {
@@ -186,7 +186,7 @@ public class AdministrationLaboratoriesController {
             model.addAttribute("formLaboratoryCreateDto", formLaboratoryCreateDto);
             model.addAttribute("laboratoryDto", laboratoryDto);
 
-            return "updateLaboratory";
+            return "admin/updateLaboratory";
         } catch (ServiceEntityNotFoundException e) {
             redirectAttributes.addFlashAttribute("errorMessage", "The laboratory does not exists or no longer exists");
 
@@ -217,7 +217,7 @@ public class AdministrationLaboratoriesController {
             FormLaboratoryCreateDto formLaboratoryCreateDto = administrationFormService.getFormLaboratoryCreateDto();
             model.addAttribute("formLaboratoryCreateDto", formLaboratoryCreateDto);
 
-            return "updateLaboratory";
+            return "admin/updateLaboratory";
         }
 
         try {

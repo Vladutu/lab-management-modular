@@ -49,7 +49,7 @@ public class AdministrationStudentsController {
         List<StudentDto> studentDtos = administrationStudentService.getAllStudents();
         model.addAttribute("students", studentDtos);
 
-        return "listStudents";
+        return "admin/listStudents";
     }
 
     /**
@@ -67,7 +67,7 @@ public class AdministrationStudentsController {
         model.addAttribute("studentDto", studentDto);
         model.addAttribute("formStudentDto", formStudentDto);
 
-        return "createStudent";
+        return "admin/createStudent";
     }
 
     /**
@@ -89,7 +89,7 @@ public class AdministrationStudentsController {
 
             model.addAttribute("formStudentDto", formStudentDto);
 
-            return "createStudent";
+            return "admin/createStudent";
         }
 
         try {
@@ -143,7 +143,7 @@ public class AdministrationStudentsController {
             model.addAttribute("formStudentDto", formStudentDto);
             model.addAttribute("studentDto", studentDto);
 
-            return "updateStudent";
+            return "admin/updateStudent";
         } catch (ServiceEntityNotFoundException e) {
             redirectAttributes.addFlashAttribute("errorMessage", "The student does not exists or no longer exists");
 
@@ -170,7 +170,7 @@ public class AdministrationStudentsController {
 
             model.addAttribute("formStudentDto", formStudentDto);
 
-            return "updateStudent";
+            return "admin/updateStudent";
         }
 
         try {

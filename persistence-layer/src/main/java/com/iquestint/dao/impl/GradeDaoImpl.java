@@ -64,10 +64,12 @@ public class GradeDaoImpl extends JpaDao<Grade> implements GradeDao {
     }
 
     @Override
-    public List<Grade> getStudentGrades(String studentPnc) {
-        TypedQuery<Grade> query = getEntityManager().createQuery("SELECT g FROM Grade g WHERE g.student.pnc = :pnc",
+    public List<Grade> getStudentGradesByLaboratory(String studentPnc, int laboratoryId) {
+        TypedQuery<Grade> query = getEntityManager().createQuery(
+            "SELECT g FROM Grade g WHERE g.student.pnc = :pnc AND g.laboratory.id = :id",
             Grade.class);
         query.setParameter("pnc", studentPnc);
+        query.setParameter("id", laboratoryId);
 
         return query.getResultList();
     }

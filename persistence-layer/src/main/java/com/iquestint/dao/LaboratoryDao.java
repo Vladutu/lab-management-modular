@@ -93,4 +93,12 @@ public interface LaboratoryDao {
      * @return List<Laboratory>
      */
     List<Laboratory> getLaboratoriesByProfessor(String professorPnc);
+
+    /**
+     * Returns all laboratories of the student whose pnc is the same as the method parameter.
+     *
+     * @param studentPnc pnc of the student
+     * @return list of laboratories
+     */
+    List<Laboratory> getLaboratoriesByStudent(String studentPnc);
 }

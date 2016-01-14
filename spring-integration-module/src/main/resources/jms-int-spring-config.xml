@@ -41,6 +41,7 @@
         <property name="targetConnectionFactory" ref="mqEmailConnectionFactory"/>
         <property name="sessionCacheSize" value="100"/>
         <property name="cacheProducers" value="false"/>
+        <property name="reconnectOnException" value="false"/>  <!-- remove this -->
     </bean>
 
     <bean id="mqEmailConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
@@ -68,7 +69,7 @@
     <bean id="messageReceiver"
           class="com.iquestint.jms.MessageReceiverImpl"/>
     <int:poller default="true" max-messages-per-poll="100"
-                receive-timeout="5000" fixed-delay="0"/>
+                receive-timeout="50000" fixed-delay="0"/>  <!-- 5000 default -->
 
     <int-jms:outbound-gateway id="outboundGateway" connection-factory="jmsEmailCachedConnectionFactory"
                               request-channel="emailRequestChannel" request-destination-name="${jms.response.queue}"

@@ -7,15 +7,20 @@
 <html>
 
 <head>
-    <jsp:include page="libs.jsp"/>
-    <title>Professor Registration Form</title>
+    <jsp:include page="../libs.jsp"/>
+    <title>User Update Form</title>
+
+
+    <script src="<c:url value="/static/js/userPassword.js" />"></script>
+    <script>onWinLoad()</script>
+
 </head>
 
 <body>
 <jsp:include page="adminHeader.jsp"/>
 
 <div class="container">
-    <h2 class="text-center">Professor Registration Form</h2>
+    <h2 class="text-center">User Update Form</h2>
 
     <c:if test="${not empty errorMessage}">
         <div class="alert alert-danger alert-dismissible" role="alert">
@@ -25,12 +30,12 @@
         </div>
     </c:if>
 
-    <form:form method="POST" modelAttribute="professorDto" role="form">
+    <form:form method="POST" modelAttribute="userDto" role="form">
 
         <spring:bind path="pnc">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <label for="pnc">PNC: </label>
-                <form:input path="pnc" class="form-control" id="pnc"/>
+                <label for="pnc">Pnc: </label>
+                <form:input path="pnc" class="form-control" id="pnc" disabled="true"/>
                 <form:errors path="pnc" class="control-label"/>
             </div>
         </spring:bind>
@@ -52,6 +57,17 @@
             </div>
         </spring:bind>
 
+        <spring:bind path="password">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <label for="password" id="passLabel">Password: </label>
+                <form:password path="password" class="form-control" id="password"/>
+                <button type="button" class="btn btn-info" id="passButton" onclick="onPasswordButtonClick()">Change
+                    password
+                </button>
+                <form:errors path="password" class="control-label" id="passError"/>
+            </div>
+        </spring:bind>
+
         <spring:bind path="email">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <label for="email">Email: </label>
@@ -60,23 +76,25 @@
             </div>
         </spring:bind>
 
-        <spring:bind path="position">
+        <spring:bind path="userType">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <label for="position">Position: </label>
-                <form:input path="position" class="form-control" id="position"/>
-                <form:errors path="position" class="control-label"/>
+                <label for="userType">Type: </label>
+                <form:select path="userType" items="${formUserDto.types}" multiple="false" class="form-control"
+                             id="userType"/>
+                <form:errors path="userType" class="control-label"/>
             </div>
         </spring:bind>
 
-        <spring:bind path="office">
+        <spring:bind path="userState">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <label for="office">Office: </label>
-                <form:input path="office" class="form-control" id="office"/>
-                <form:errors path="office" class="control-label"/>
+                <label for="userState">Semester: </label>
+                <form:select path="userState" items="${formUserDto.states}" multiple="false" class="form-control"
+                             id="userState"/>
+                <form:errors path="userState" class="control-label"/>
             </div>
         </spring:bind>
 
-        <button type="submit" class="btn btn-success btn-lg">Register</button>
+        <button type="submit" class="btn btn-success btn-lg">Update</button>
 
     </form:form>
     <br/>

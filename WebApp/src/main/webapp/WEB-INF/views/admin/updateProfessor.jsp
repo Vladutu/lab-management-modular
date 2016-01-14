@@ -7,7 +7,7 @@
 <html>
 
 <head>
-    <jsp:include page="libs.jsp"/>
+    <jsp:include page="../libs.jsp"/>
     <title>Professor Update Form</title>
 </head>
 

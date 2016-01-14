@@ -63,7 +63,7 @@ public class AdministrationUsersController {
 
         model.addAttribute("userDtos", userDtos);
 
-        return "listUsers";
+        return "admin/listUsers";
     }
 
     /**
@@ -81,7 +81,7 @@ public class AdministrationUsersController {
         model.addAttribute("formUserDto", formUserDto);
         model.addAttribute("userDto", userDto);
 
-        return "createUser";
+        return "admin/createUser";
     }
 
     /**
@@ -168,7 +168,7 @@ public class AdministrationUsersController {
             model.addAttribute("userDto", userDto);
             model.addAttribute("formUserDto", formUserDto);
 
-            return "updateUser";
+            return "admin/updateUser";
         } catch (ServiceEntityNotFoundException e) {
             redirectAttributes.addFlashAttribute("errorMessage", "The user does not exists or no longer exists");
 
@@ -196,7 +196,7 @@ public class AdministrationUsersController {
 
             model.addAttribute("formUserDto", formUserDto);
 
-            return "updateUser";
+            return "admin/updateUser";
         }
 
         try {

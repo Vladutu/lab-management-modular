@@ -105,4 +105,14 @@ public class LaboratoryDaoImpl extends JpaDao<Laboratory> implements LaboratoryD
 
         return query.getResultList();
     }
+
+    @Override
+    public List<Laboratory> getLaboratoriesByStudent(String studentPnc) {
+        TypedQuery<Laboratory> query = getEntityManager().createQuery(
+            "SELECT l FROM Laboratory l INNER JOIN l.students std WHERE std.pnc IN :pnc",
+            Laboratory.class);
+        query.setParameter("pnc", studentPnc);
+
+        return query.getResultList();
+    }
 }

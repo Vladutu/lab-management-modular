@@ -7,15 +7,15 @@
 <html>
 
 <head>
-    <jsp:include page="libs.jsp"/>
-    <title>Student Registration Form</title>
+    <jsp:include page="../libs.jsp"/>
+    <title>Professor Registration Form</title>
 </head>
 
 <body>
 <jsp:include page="adminHeader.jsp"/>
 
 <div class="container">
-    <h2 class="text-center">Student Registration Form</h2>
+    <h2 class="text-center">Professor Registration Form</h2>
 
     <c:if test="${not empty errorMessage}">
         <div class="alert alert-danger alert-dismissible" role="alert">
@@ -25,7 +25,7 @@
         </div>
     </c:if>
 
-    <form:form method="POST" modelAttribute="studentDto" role="form">
+    <form:form method="POST" modelAttribute="professorDto" role="form">
 
         <spring:bind path="pnc">
             <div class="form-group ${status.error ? 'has-error' : ''}">
@@ -60,48 +60,19 @@
             </div>
         </spring:bind>
 
-        <spring:bind path="year">
+        <spring:bind path="position">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <label for="year">Year: </label>
-                <form:select path="year" items="${formStudentDto.years}" multiple="false" class="form-control"
-                             id="year"/>
-                <form:errors path="year" class="control-label"/>
+                <label for="position">Position: </label>
+                <form:input path="position" class="form-control" id="position"/>
+                <form:errors path="position" class="control-label"/>
             </div>
         </spring:bind>
 
-        <spring:bind path="semester">
+        <spring:bind path="office">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <label for="semester">Semester: </label>
-                <form:select path="semester" items="${formStudentDto.semesters}" multiple="false" class="form-control"
-                             id="semester"/>
-                <form:errors path="semester" class="control-label"/>
-            </div>
-        </spring:bind>
-
-        <spring:bind path="section">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <label for="section">Section: </label>
-                <form:select path="section" items="${formStudentDto.sections}" multiple="false" class="form-control"
-                             id="section"/>
-                <form:errors path="section" class="control-label"/>
-            </div>
-        </spring:bind>
-
-        <spring:bind path="group">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <label for="group">Group: </label>
-                <form:select path="group" items="${formStudentDto.groups}" multiple="false" class="form-control"
-                             id="group"/>
-                <form:errors path="group" class="control-label"/>
-            </div>
-        </spring:bind>
-
-        <spring:bind path="subgroup">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <label for="subgroup">Subgroup: </label>
-                <form:select path="subgroup" items="${formStudentDto.subgroups}" multiple="false" class="form-control"
-                             id="subgroup"/>
-                <form:errors path="subgroup" class="control-label"/>
+                <label for="office">Office: </label>
+                <form:input path="office" class="form-control" id="office"/>
+                <form:errors path="office" class="control-label"/>
             </div>
         </spring:bind>
 

@@ -4,7 +4,7 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <html>
 <head>
-    <jsp:include page="libs.jsp"/>
+    <jsp:include page="../libs.jsp"/>
     <title>Home</title>
 </head>
 
@@ -15,8 +15,6 @@
 
 <div class="container">
 
-    <h2 class="text-center">List of Students</h2>
-
     <c:if test="${not empty errorMessage}">
         <div class="alert alert-danger alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
@@ -25,26 +23,21 @@
         </div>
     </c:if>
 
+    <br><br><br><br><br><br><br><br><br><br>
 
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Grade</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        <c:forEach items="${studentGradingDtos}" var="student" varStatus="status">
-            <tr>
-                <td>${student.firstName}</td>
-                <td>${student.lastName}</td>
-                <td>${student.grade}</td>
-            </tr>
-        </c:forEach>
-        </tbody>
-    </table>
+    <div class="row">
+        <div class="col-sm-4">
+            <a href="<c:url value='/professor/currentLaboratory/' />">
+                <button type="button" class="btn btn-success btn-xlarge">Current Lab</button>
+            </a>
+        </div>
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4">
+            <a href="<c:url value='/professor/laboratories/' />">
+                <button type="button" class="btn btn-success btn-xlarge">Lab list</button>
+            </a>
+        </div>
+    </div>
 </div>
 </body>
 </html>

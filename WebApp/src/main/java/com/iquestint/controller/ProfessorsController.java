@@ -54,7 +54,7 @@ public class ProfessorsController {
 
         model.addAttribute("welcomeUserDto", welcomeUserDto);
 
-        return "professorHome";
+        return "professor/professorHome";
     }
 
     /**
@@ -78,7 +78,7 @@ public class ProfessorsController {
                 welcomeUserDto.getPnc(), LocalDateTime.now());
             model.addAttribute("laboratoryWithStudentsDto", laboratoryWithStudentsDto);
 
-            return "currentLaboratory";
+            return "professor/currentLaboratory";
 
         } catch (ServiceInvalidSemesterException e) {
             redirectAttributes.addFlashAttribute("errorMessage",
@@ -150,7 +150,7 @@ public class ProfessorsController {
         model.addAttribute("welcomeUserDto", welcomeUserDto);
         model.addAttribute("laboratoryDtos", laboratoryDtos);
 
-        return "listProfessorLaboratories";
+        return "professor/listProfessorLaboratories";
     }
 
     /**
@@ -172,7 +172,7 @@ public class ProfessorsController {
         model.addAttribute("welcomeUserDto", welcomeUserDto);
         model.addAttribute("studentGradingDtos", studentGradingDtos);
 
-        return "studentsGradesByLaboratory";
+        return "professor/studentsGradesByLaboratory";
     }
 
     private WelcomeUserDto getPrincipal() {

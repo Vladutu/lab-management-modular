@@ -4,8 +4,8 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <html>
 <head>
-    <jsp:include page="libs.jsp"/>
-    <title>Professors</title>
+    <jsp:include page="../libs.jsp"/>
+    <title>Users</title>
 </head>
 
 
@@ -14,11 +14,11 @@
 
 
 <div class="container">
-    <a href="<c:url value='/admin/professors/new' />">
-        <button type="button" class="btn btn-success">Add new professor</button>
+    <a href="<c:url value='/admin/users/new' />">
+        <button type="button" class="btn btn-success">Add new user</button>
     </a>
 
-    <h2 class="text-center">List of professors</h2>
+    <h2 class="text-center">List of users</h2>
 
     <c:if test="${not empty errorMessage}">
         <div class="alert alert-danger alert-dismissible" role="alert">
@@ -36,27 +36,27 @@
             <th>First name</th>
             <th>Last name</th>
             <th>Email</th>
-            <th>Position</th>
-            <th>Office</th>
+            <th>Type</th>
+            <th>State</th>
             <th></th>
             <th></th>
         </tr>
         </thead>
 
         <tbody>
-        <c:forEach items="${professorDtos}" var="professor">
+        <c:forEach items="${userDtos}" var="user">
             <tr>
-                <td>${professor.pnc}</td>
-                <td>${professor.firstName}</td>
-                <td>${professor.lastName}</td>
-                <td>${professor.email}</td>
-                <td>${professor.position}</td>
-                <td>${professor.office}</td>
-                <td><a href="<c:url value='/admin/professors/edit/${professor.pnc}' />">
+                <td>${user.pnc}</td>
+                <td>${user.firstName}</td>
+                <td>${user.lastName}</td>
+                <td>${user.email}</td>
+                <td>${user.userType}</td>
+                <td>${user.userState}</td>
+                <td><a href="<c:url value='/admin/users/edit/${user.pnc}' />">
                     <button type="button" class="btn btn-primary btn-md">Edit</button>
                 </a>
                 </td>
-                <td><a href="<c:url value='/admin/professors/delete/${professor.pnc}' />">
+                <td><a href="<c:url value='/admin/users/delete/${user.pnc}' />">
                     <button type="button" class="btn btn-danger btn-md">Delete</button>
                 </a>
                 </td>

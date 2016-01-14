@@ -7,7 +7,7 @@
 <html>
 
 <head>
-    <jsp:include page="libs.jsp"/>
+    <jsp:include page="../libs.jsp"/>
     <title>User Registration Form</title>
 
     <meta name="_csrf" content="${_csrf.token}"/>
