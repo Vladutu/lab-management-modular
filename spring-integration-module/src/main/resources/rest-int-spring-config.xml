@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xmlns:int="http://www.springframework.org/schema/integration"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:int-http="http://www.springframework.org/schema/integration/http"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+        http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/integration/http http://www.springframework.org/schema/integration/http/spring-integration-http.xsd">
+
+    <context:property-placeholder/>
+
+    <int:inbound-channel-adapter channel="triggerChannel" expression="''">
+        <int:poller fixed-delay="60000"/>
+    </int:inbound-channel-adapter>
+
+    <int:channel id="replayChannel">
+        <int:queue capacity="10"/>
+    </int:channel>
+
+    <int:channel id="triggerChannel"/>
+
+    <int-http:outbound-gateway id="httpGateway"
+                               request-channel="triggerChannel"
+                               url="http://localhost:5454/users?USER-TYPE=CNP"
+                               http-method="GET"
+                               expected-response-type="java.lang.String"
+                               charset="UTF-8"
+                               reply-timeout="5000"
+                               reply-channel="replayChannel">
+    </int-http:outbound-gateway>
+
+    <bean id="restMessageReceiver"
+          class="com.iquestint.rest.RestMessageReceiverImpl"/>
+
+    <int:service-activator id="restServiceActivator" input-channel="replayChannel" ref="restMessageReceiver"
+                           method="processResponse"/>
+
+    <bean id="userJaxbMarshallingMessageConverter"
+          class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
+        <constructor-arg ref="userJaxbMarshaller" index="0"/>
+        <constructor-arg ref="userJaxbMarshaller" index="1"/>
+    </bean>
+
+    <bean id="userJaxbMarshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+        <property name="classesToBeBound">
+            <list>
+                <value>com.iquestint.rest.user.User</value>
+                <value>com.iquestint.rest.user.UsersList</value>
+            </list>
+        </property>
+        <property name="marshallerProperties">
+            <map>
+                <entry key="jaxb.formatted.output">
+                    <value type="java.lang.Boolean">true</value>
+                </entry>
+            </map>
+        </property>
+        <property name="unmarshallerProperties">
+            <map>
+                <entry key="jaxb.formatted.output">
+                    <value type="java.lang.Boolean">true</value>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+
+</beans>

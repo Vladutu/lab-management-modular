@@ -6,6 +6,8 @@ import com.iquestint.exception.generic.ControllerEntityAlreadyExistsException;
 import com.iquestint.exception.generic.ControllerEntityBindingException;
 import com.iquestint.exception.generic.ControllerEntityNotFoundException;
 import com.iquestint.populator.ErrorInfoPopulator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice(annotations = RestController.class)
 public class GlobalControllerAdvice extends ResponseEntityExceptionHandler {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(GlobalControllerAdvice.class);
+
     @Autowired
     private ErrorInfoPopulator errorInfoPopulator;
 
@@ -33,6 +37,7 @@ public class GlobalControllerAdvice extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(ControllerEntityBindingException.class)
     public ResponseEntity<BindingErrorInfo> bindingException(ControllerEntityBindingException exception) {
+        LOGGER.info("Enter method");
         BindingErrorInfo bindingErrorInfo = errorInfoPopulator.populate(exception.getErrors(), exception.getMessage(),
             HttpStatus.BAD_REQUEST);
 
@@ -47,6 +52,7 @@ public class GlobalControllerAdvice extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(ControllerEntityNotFoundException.class)
     public ResponseEntity<ErrorInfo> entityNotFoundException(ControllerEntityNotFoundException exception) {
+        LOGGER.info("Enter method");
         ErrorInfo errorInfo = new ErrorInfo(HttpStatus.NOT_FOUND.value(), exception.getMessage());
 
         return new ResponseEntity<ErrorInfo>(errorInfo, HttpStatus.NOT_FOUND);
@@ -60,6 +66,7 @@ public class GlobalControllerAdvice extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(ControllerEntityAlreadyExistsException.class)
     public ResponseEntity<ErrorInfo> entityAlreadyExistsException(ControllerEntityAlreadyExistsException exception) {
+        LOGGER.info("Enter method");
         ErrorInfo errorInfo = new ErrorInfo(HttpStatus.NOT_FOUND.value(), exception.getMessage());
 
         return new ResponseEntity<ErrorInfo>(errorInfo, HttpStatus.NOT_FOUND);

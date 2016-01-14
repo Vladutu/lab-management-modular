@@ -6,6 +6,8 @@ import com.iquestint.exception.ServiceEntityNotFoundException;
 import com.iquestint.exception.ServiceInvalidSemesterException;
 import com.iquestint.service.ProfessorService;
 import com.iquestint.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,6 +33,8 @@ import java.util.List;
 @RequestMapping("/")
 public class ProfessorsController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProfessorsController.class);
+
     @Autowired
     private UserService userService;
 
@@ -45,6 +49,7 @@ public class ProfessorsController {
      */
     @RequestMapping(value = "/professor/home", method = RequestMethod.GET)
     public String getHome(ModelMap model) {
+        LOGGER.info("Enter method");
         WelcomeUserDto welcomeUserDto = getPrincipal();
 
         model.addAttribute("welcomeUserDto", welcomeUserDto);
@@ -61,6 +66,7 @@ public class ProfessorsController {
      */
     @RequestMapping(value = "/professor/currentLaboratory", method = RequestMethod.GET)
     public String getCurrentLaboratory(ModelMap model, RedirectAttributes redirectAttributes) {
+        LOGGER.info("Enter method");
         WelcomeUserDto welcomeUserDto = getPrincipal();
         FormStudentsWithGradeAndAttendanceDto formStudentsWithGradeAndAttendanceDto = new FormStudentsWithGradeAndAttendanceDto();
 
@@ -100,6 +106,7 @@ public class ProfessorsController {
     @RequestMapping(value = "/professor/currentLaboratory", method = RequestMethod.POST)
     public String insertStudentsGradesAndAttendances(@Valid FormStudentsWithGradeAndAttendanceDto formStudents,
         BindingResult bindingResult, ModelMap model, RedirectAttributes redirectAttributes) {
+        LOGGER.info("Enter method");
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("errorMessage", "Every present student must have a grade");
 
@@ -136,6 +143,7 @@ public class ProfessorsController {
      */
     @RequestMapping(value = "/professor/laboratories", method = RequestMethod.GET)
     public String getProfessorLaboratories(ModelMap model) {
+        LOGGER.info("Enter method");
         WelcomeUserDto welcomeUserDto = getPrincipal();
         List<LaboratoryDto> laboratoryDtos = professorService.getLaboratories(welcomeUserDto.getPnc());
 
@@ -156,6 +164,7 @@ public class ProfessorsController {
     @RequestMapping(value = "/professor/laboratory", params = { "id", "date" })
     public String getStudentGrading(ModelMap model, @RequestParam(value = "id") int id,
         @RequestParam(value = "date") String date) {
+        LOGGER.info("Enter method");
         LocalDate localDate = LocalDate.parse(date);
         WelcomeUserDto welcomeUserDto = getPrincipal();
         List<StudentGradingDto> studentGradingDtos = professorService.getStudentsWithGradesByLaboratory(id, localDate);

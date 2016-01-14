@@ -11,6 +11,8 @@ import com.iquestint.service.ProfessorService;
 import com.iquestint.utils.WeekCalculator;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +30,8 @@ import java.util.List;
 @Service("professorService")
 @Transactional
 public class ProfessorServiceImpl implements ProfessorService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProfessorServiceImpl.class);
 
     @Autowired
     private LaboratoryDao laboratoryDao;
@@ -78,7 +82,8 @@ public class ProfessorServiceImpl implements ProfessorService {
 
         try {
             gradeDao.saveGrade(grade);
-        } catch (DaoEntityAlreadyExists e) {
+        } catch (DaoEntityAlreadyExistsException e) {
+            LOGGER.debug("DaoEntityAlreadyExistsException");
             throw new ServiceEntityAlreadyExistsException(e);
         }
 
@@ -101,7 +106,8 @@ public class ProfessorServiceImpl implements ProfessorService {
 
         try {
             attendanceDao.saveAttendance(attendance);
-        } catch (DaoEntityAlreadyExists e) {
+        } catch (DaoEntityAlreadyExistsException e) {
+            LOGGER.debug("DaoEntityNotFoundException");
             throw new ServiceEntityAlreadyExistsException(e);
         }
 
@@ -130,6 +136,7 @@ public class ProfessorServiceImpl implements ProfessorService {
                 Grade grade = gradeDao.getStudentGrade(student.getPnc(), laboratoryId, date);
                 studentGrading.setGrade(grade.getValue().toString());
             } catch (DaoEntityNotFoundException e) {
+                LOGGER.debug("DaoEntityNotFoundException");
                 studentGrading.setGrade("N/A");
             }
 

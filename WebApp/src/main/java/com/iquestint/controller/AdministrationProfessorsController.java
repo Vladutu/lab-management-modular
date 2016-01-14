@@ -1,9 +1,11 @@
 package com.iquestint.controller;
 
+import com.iquestint.dto.ProfessorDto;
 import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
-import com.iquestint.dto.ProfessorDto;
 import com.iquestint.service.AdministrationProfessorService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -25,6 +27,8 @@ import java.util.List;
 @RequestMapping("/")
 public class AdministrationProfessorsController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(AdministrationProfessorsController.class);
+
     @Autowired
     private AdministrationProfessorService administrationProfessorService;
 
@@ -36,6 +40,7 @@ public class AdministrationProfessorsController {
      */
     @RequestMapping(value = "/admin/professors", method = RequestMethod.GET)
     public String getProfessors(ModelMap model) {
+        LOGGER.info("Enter method");
         List<ProfessorDto> professorDtos = administrationProfessorService.getAllProfessors();
 
         model.addAttribute("professorDtos", professorDtos);
@@ -51,6 +56,7 @@ public class AdministrationProfessorsController {
      */
     @RequestMapping(value = "/admin/professors/new", method = RequestMethod.GET)
     public String newProfessor(ModelMap model) {
+        LOGGER.info("Enter method");
         ProfessorDto professorDto = new ProfessorDto();
         model.addAttribute("professorDto", professorDto);
 
@@ -70,6 +76,7 @@ public class AdministrationProfessorsController {
     @RequestMapping(value = "/admin/professors/new", method = RequestMethod.POST)
     public String saveProfessor(@Valid ProfessorDto professorDto, BindingResult bindingResult, ModelMap model,
         RedirectAttributes redirectAttributes) {
+        LOGGER.info("Enter method");
         if (bindingResult.hasErrors()) {
             return "createProfessor";
         }
@@ -97,6 +104,7 @@ public class AdministrationProfessorsController {
     @RequestMapping(value = "/admin/professors/delete/{professorPnc}", method = RequestMethod.GET)
     public String deleteProfessor(@PathVariable String professorPnc, ModelMap model,
         RedirectAttributes redirectAttributes) {
+        LOGGER.info("Enter method");
         try {
             administrationProfessorService.deleteProfessor(professorPnc);
         } catch (ServiceEntityNotFoundException e) {
@@ -117,6 +125,7 @@ public class AdministrationProfessorsController {
     @RequestMapping(value = "/admin/professors/edit/{professorPnc}", method = RequestMethod.GET)
     public String editProfessor(@PathVariable String professorPnc, ModelMap model,
         RedirectAttributes redirectAttributes) {
+        LOGGER.info("Enter method");
         try {
             ProfessorDto professorDto = administrationProfessorService.getProfessorByPnc(professorPnc);
             model.addAttribute("professorDto", professorDto);
@@ -142,7 +151,7 @@ public class AdministrationProfessorsController {
     @RequestMapping(value = "/admin/professors/edit/{professorPnc}", method = RequestMethod.POST)
     public String updateProfessor(@Valid ProfessorDto professorDto, BindingResult bindingResult, ModelMap model,
         @PathVariable String professorPnc, RedirectAttributes redirectAttributes) {
-
+        LOGGER.info("Enter method");
         if (bindingResult.hasErrors()) {
             return "updateProfessor";
         }

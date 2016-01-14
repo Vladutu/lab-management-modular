@@ -3,9 +3,11 @@ package com.iquestint.dao.impl;
 import com.iquestint.dao.UserDao;
 import com.iquestint.dao.UserStateDao;
 import com.iquestint.dao.UserTypeDao;
-import com.iquestint.exception.DaoEntityAlreadyExists;
+import com.iquestint.exception.DaoEntityAlreadyExistsException;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.model.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -23,6 +25,8 @@ import java.util.List;
  */
 @Repository("userDao")
 public class UserDaoImpl extends JpaDao<User> implements UserDao {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserDaoImpl.class);
 
     @Autowired
     private UserStateDao userStateDao;
@@ -44,12 +48,13 @@ public class UserDaoImpl extends JpaDao<User> implements UserDao {
         try {
             return query.getSingleResult();
         } catch (NoResultException e) {
+            LOGGER.debug("NoResultException");
             throw new DaoEntityNotFoundException();
         }
     }
 
     @Override
-    public void saveUser(User user) throws DaoEntityAlreadyExists {
+    public void saveUser(User user) throws DaoEntityAlreadyExistsException {
         try {
             User u = getUserByPnc(user.getPnc());
         } catch (DaoEntityNotFoundException e) {
@@ -57,7 +62,7 @@ public class UserDaoImpl extends JpaDao<User> implements UserDao {
             return;
         }
 
-        throw new DaoEntityAlreadyExists();
+        throw new DaoEntityAlreadyExistsException();
     }
 
     @Override

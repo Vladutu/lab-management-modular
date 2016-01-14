@@ -1,9 +1,11 @@
 package com.iquestint.dao.impl;
 
 import com.iquestint.dao.LaboratoryDao;
-import com.iquestint.exception.DaoEntityAlreadyExists;
+import com.iquestint.exception.DaoEntityAlreadyExistsException;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.model.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.TypedQuery;
@@ -16,6 +18,8 @@ import java.util.List;
  */
 @Repository("laboratoryDao")
 public class LaboratoryDaoImpl extends JpaDao<Laboratory> implements LaboratoryDao {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(LaboratoryDaoImpl.class);
 
     @Override
     public List<Laboratory> getAllLaboratories() {
@@ -56,7 +60,7 @@ public class LaboratoryDaoImpl extends JpaDao<Laboratory> implements LaboratoryD
     }
 
     @Override
-    public void saveLaboratory(Laboratory laboratory) throws DaoEntityAlreadyExists {
+    public void saveLaboratory(Laboratory laboratory) throws DaoEntityAlreadyExistsException {
         try {
             Laboratory l = getLaboratoryById(laboratory.getId());
         } catch (DaoEntityNotFoundException e) {
@@ -64,7 +68,7 @@ public class LaboratoryDaoImpl extends JpaDao<Laboratory> implements LaboratoryD
             return;
         }
 
-        throw new DaoEntityAlreadyExists();
+        throw new DaoEntityAlreadyExistsException();
     }
 
     @Override

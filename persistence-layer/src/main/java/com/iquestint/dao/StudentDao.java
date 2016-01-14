@@ -1,6 +1,6 @@
 package com.iquestint.dao;
 
-import com.iquestint.exception.DaoEntityAlreadyExists;
+import com.iquestint.exception.DaoEntityAlreadyExistsException;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.model.*;
 
@@ -44,9 +44,9 @@ public interface StudentDao {
      * Saves student into the database.
      *
      * @param student the student to be saved
-     * @throws DaoEntityAlreadyExists if the student already exists in the database
+     * @throws DaoEntityAlreadyExistsException if the student already exists in the database
      */
-    void saveStudent(Student student) throws DaoEntityAlreadyExists;
+    void saveStudent(Student student) throws DaoEntityAlreadyExistsException;
 
     /**
      * Updates student into the database. This student primary key must already be present in the database.

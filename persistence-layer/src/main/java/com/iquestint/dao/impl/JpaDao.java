@@ -1,6 +1,8 @@
 package com.iquestint.dao.impl;
 
 import com.iquestint.exception.DaoEntityNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -20,6 +22,8 @@ import java.util.List;
  * @author Georgian Vladutu
  */
 public abstract class JpaDao<T> extends Dao<T> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(JpaDao.class);
 
     private final Class<T> persistentClass;
 
@@ -53,6 +57,7 @@ public abstract class JpaDao<T> extends Dao<T> {
         T t = getEntityManager().find(getPersistentClass(), id);
 
         if (t == null) {
+            LOGGER.debug("Null entity");
             throw new DaoEntityNotFoundException();
         }
 
@@ -81,6 +86,7 @@ public abstract class JpaDao<T> extends Dao<T> {
         try {
             return query.getSingleResult();
         } catch (NoResultException e) {
+            LOGGER.debug("NoResultException");
             throw new DaoEntityNotFoundException();
         }
     }
@@ -95,6 +101,7 @@ public abstract class JpaDao<T> extends Dao<T> {
         try {
             return query.getSingleResult();
         } catch (NoResultException e) {
+            LOGGER.debug("NoResultException");
             throw new DaoEntityNotFoundException();
         }
     }

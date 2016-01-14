@@ -6,8 +6,13 @@ import com.iquestint.dto.UserDto;
 import com.iquestint.enums.State;
 import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
+import com.iquestint.jms.MessageSender;
+import com.iquestint.jms.email.EmailRequest;
+import com.iquestint.populator.EmailRequestPopulator;
 import com.iquestint.service.AdministrationFormService;
 import com.iquestint.service.AdministrationUserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -28,6 +33,8 @@ import java.util.List;
 @RequestMapping("/")
 public class AdministrationUsersController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(AdministrationUsersController.class);
+
     @Autowired
     private AdministrationUserService administrationUserService;
 
@@ -37,6 +44,12 @@ public class AdministrationUsersController {
     @Autowired
     private AdministrationFormService administrationFormService;
 
+    @Autowired
+    private MessageSender messageSender;
+
+    @Autowired
+    private EmailRequestPopulator emailRequestPopulator;
+
     /**
      * Returns all existing users.
      *
@@ -45,6 +58,7 @@ public class AdministrationUsersController {
      */
     @RequestMapping(value = "/admin/users", method = RequestMethod.GET)
     public String getUsers(ModelMap model) {
+        LOGGER.info("Enter method");
         List<UserDto> userDtos = administrationUserService.getAllUsers();
 
         model.addAttribute("userDtos", userDtos);
@@ -60,6 +74,7 @@ public class AdministrationUsersController {
      */
     @RequestMapping(value = "/admin/users/new", method = RequestMethod.GET)
     public String newUser(ModelMap model) {
+        LOGGER.info("Enter method");
         FormUserDto formUserDto = administrationFormService.getFormUser();
         UserDto userDto = new UserDto();
 
@@ -82,6 +97,7 @@ public class AdministrationUsersController {
     @RequestMapping(value = "/admin/users/new", method = RequestMethod.POST)
     public String saveUser(@Valid UserDto userDto, BindingResult bindingResult, ModelMap model,
         RedirectAttributes redirectAttributes) {
+        LOGGER.info("Enter method");
         if (bindingResult.hasErrors()) {
             FormUserDto formUserDto = administrationFormService.getFormUser();
 
@@ -95,6 +111,11 @@ public class AdministrationUsersController {
 
         try {
             administrationUserService.saveUser(userDto);
+
+            EmailRequest emailRequest = emailRequestPopulator.populate(userDto);
+
+            messageSender.sendMessage(emailRequest);
+
         } catch (ServiceEntityAlreadyExistsException e) {
             redirectAttributes.addFlashAttribute("errorMessage", "User already exists");
 
@@ -117,6 +138,7 @@ public class AdministrationUsersController {
     @RequestMapping(value = "/admin/users/delete/{pnc}", method = RequestMethod.GET)
     public String deleteUser(@PathVariable String pnc, ModelMap model,
         RedirectAttributes redirectAttributes) {
+        LOGGER.info("Enter method");
         try {
             administrationUserService.deleteUser(pnc);
         } catch (ServiceEntityNotFoundException e) {
@@ -137,6 +159,7 @@ public class AdministrationUsersController {
     @RequestMapping(value = "/admin/users/edit/{pnc}", method = RequestMethod.GET)
     public String editUser(@PathVariable String pnc, ModelMap model,
         RedirectAttributes redirectAttributes) {
+        LOGGER.info("Enter method");
         try {
             UserDto userDto = administrationUserService.getUserByPnc(pnc);
             userDto.setPassword("");
@@ -166,7 +189,7 @@ public class AdministrationUsersController {
     @RequestMapping(value = "/admin/users/edit/{pnc}", method = RequestMethod.POST)
     public String updateUser(@Valid UserDto userDto, BindingResult bindingResult, ModelMap model,
         @PathVariable String pnc, RedirectAttributes redirectAttributes) {
-
+        LOGGER.info("Enter method");
         if ((bindingResult.getErrorCount() > 1) ||
             (bindingResult.getErrorCount() == 1 && !userDto.getPassword().equals(""))) {
             FormUserDto formUserDto = administrationFormService.getFormUser();
@@ -205,6 +228,7 @@ public class AdministrationUsersController {
     public
     @ResponseBody
     UnregisteredUserDto getUser(@RequestBody String pnc) {
+        LOGGER.info("Enter method");
         pnc = pnc.substring(1, pnc.length() - 1);
         try {
             return administrationUserService.getUnregisteredUser(pnc);

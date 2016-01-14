@@ -9,6 +9,8 @@ import com.iquestint.exception.laboratory.ControllerLaboratoryFieldsNotFoundExce
 import com.iquestint.exception.laboratory.ControllerLaboratoryNotFoundException;
 import com.iquestint.service.AdministrationFormService;
 import com.iquestint.service.AdministrationLaboratoryService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -29,6 +31,8 @@ import java.util.List;
 @RequestMapping(value = "/admin")
 public class AdministrationLaboratoriesController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(AdministrationLaboratoriesController.class);
+
     @Autowired
     private AdministrationLaboratoryService administrationLaboratoryService;
 
@@ -46,6 +50,7 @@ public class AdministrationLaboratoriesController {
     @RequestMapping(value = "/laboratories/{section}/{year}/{semester}", method = RequestMethod.GET)
     public ResponseEntity<List<LaboratoryDto>> getLaboratories(@PathVariable String section, @PathVariable int year,
         @PathVariable int semester) {
+        LOGGER.info("Enter method");
         List<LaboratoryDto> laboratories = administrationLaboratoryService.getLaboratories(new SectionDto(section),
             new YearDto(year), new SemesterDto(semester));
 
@@ -59,6 +64,7 @@ public class AdministrationLaboratoriesController {
      */
     @RequestMapping(value = "/laboratories/categories", method = RequestMethod.GET)
     public ResponseEntity<FormLaboratoryShowDto> getLaboratoryCategories() {
+        LOGGER.info("Enter method");
         FormLaboratoryShowDto categories = administrationFormService.getFormLaboratoryShowDto();
 
         return new ResponseEntity<FormLaboratoryShowDto>(categories, HttpStatus.OK);
@@ -81,6 +87,7 @@ public class AdministrationLaboratoriesController {
         UriComponentsBuilder uriComponentsBuilder)
         throws ControllerLaboratoryBindingException, ControllerLaboratoryFieldsNotFoundException,
         ControllerLaboratoryAlreadyExistsException {
+        LOGGER.info("Enter method");
         if (bindingResult.hasErrors()) {
             throw new ControllerLaboratoryBindingException(bindingResult.getFieldErrors());
         }
@@ -109,6 +116,7 @@ public class AdministrationLaboratoriesController {
     @RequestMapping(value = "/laboratories/{laboratoryId}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteStudent(@PathVariable int laboratoryId)
         throws ControllerLaboratoryNotFoundException {
+        LOGGER.info("Enter method");
         try {
             administrationLaboratoryService.deleteLaboratory(laboratoryId);
         } catch (ServiceEntityNotFoundException e) {
@@ -129,6 +137,7 @@ public class AdministrationLaboratoriesController {
     @RequestMapping(value = "/laboratories/{laboratoryId}", method = RequestMethod.PUT)
     public ResponseEntity<LaboratoryDto> updateLaboratory(@PathVariable int laboratoryId,
         @RequestBody LaboratoryDto laboratory) throws ControllerLaboratoryNotFoundException {
+        LOGGER.info("Enter method");
         try {
             laboratory.setId(laboratoryId);
             administrationLaboratoryService.updateLaboratory(laboratory);

@@ -15,18 +15,51 @@
         <module>service-layer</module>
         <module>webapp</module>
         <module>rest-module</module>
+        <module>spring-integration-module</module>
+        <module>logging</module>
     </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <springframework.version>4.0.6.RELEASE</springframework.version>
+        <springframework.version>4.2.4.RELEASE</springframework.version>
         <springsecurity.version>4.0.1.RELEASE</springsecurity.version>
         <hibernate.version>4.3.6.Final</hibernate.version>
         <hsqldb.connector.version>2.3.3</hsqldb.connector.version>
+        <activemq.version>5.10.0</activemq.version>
+        <slf4j.version>1.7.13</slf4j.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <!-- SPRING INTEGRATION -->
+            <dependency>
+                <groupId>org.springframework.integration</groupId>
+                <artifactId>spring-integration-core</artifactId>
+                <version>${springframework.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.integration</groupId>
+                <artifactId>spring-integration-http</artifactId>
+                <version>${springframework.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.integration</groupId>
+                <artifactId>spring-integration-jms</artifactId>
+                <version>${springframework.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-oxm</artifactId>
+                <version>${springframework.version}</version>
+            </dependency>
+
+            <!-- ActiveMQ Artifact -->
+            <dependency>
+                <groupId>org.apache.activemq</groupId>
+                <artifactId>activemq-all</artifactId>
+                <version>5.10.0</version>
+            </dependency>
+
             <dependency>
                 <groupId>com.iquestint</groupId>
                 <artifactId>persistence-layer</artifactId>
@@ -72,6 +105,13 @@
                 <artifactId>service-layer</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
+            <dependency>
+                <groupId>com.iquestint</groupId>
+                <artifactId>spring-integration-module</artifactId>
+                <version>1.0</version>
+            </dependency>
+
+
             <!-- jsr303 validation -->
             <dependency>
                 <groupId>javax.validation</groupId>
@@ -165,6 +205,17 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.16.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.iquestint</groupId>
+            <artifactId>logging</artifactId>
+            <version>1.0</version>
         </dependency>
     </dependencies>
 

@@ -10,6 +10,8 @@ import com.iquestint.exception.user.ControllerUserBindingException;
 import com.iquestint.exception.user.ControllerUserFieldsNotFoundException;
 import com.iquestint.exception.user.ControllerUserNotFoundException;
 import com.iquestint.service.AdministrationUserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -31,6 +33,8 @@ import java.util.List;
 @RequestMapping(value = "/admin")
 public class AdministrationUsersController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(AdministrationUsersController.class);
+
     @Autowired
     private AdministrationUserService administrationUserService;
 
@@ -44,6 +48,7 @@ public class AdministrationUsersController {
      */
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public ResponseEntity<List<UserDto>> getAllUsers() {
+        LOGGER.info("Enter method");
         List<UserDto> users = administrationUserService.getAllUsers();
 
         return new ResponseEntity<List<UserDto>>(users, HttpStatus.OK);
@@ -65,6 +70,7 @@ public class AdministrationUsersController {
         UriComponentsBuilder uriComponentsBuilder)
         throws ControllerUserBindingException, ControllerUserFieldsNotFoundException,
         ControllerUserAlreadyExistsException {
+        LOGGER.info("Enter method");
         if (bindingResult.hasErrors()) {
             throw new ControllerUserBindingException(bindingResult.getFieldErrors());
         }
@@ -95,6 +101,7 @@ public class AdministrationUsersController {
      */
     @RequestMapping(value = "/users/{userPnc}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteUser(@PathVariable String userPnc) throws ControllerUserNotFoundException {
+        LOGGER.info("Enter method");
         try {
             administrationUserService.deleteUser(userPnc);
         } catch (ServiceEntityNotFoundException e) {
@@ -115,6 +122,7 @@ public class AdministrationUsersController {
     @RequestMapping(value = "/users/{userPnc}", method = RequestMethod.PUT)
     public ResponseEntity<UserDto> updateUser(@PathVariable String userPnc, @RequestBody UserDto user)
         throws ControllerUserNotFoundException {
+        LOGGER.info("Enter method");
         try {
             user.setPnc(userPnc);
             administrationUserService.updateUser(user);
@@ -141,6 +149,7 @@ public class AdministrationUsersController {
     @RequestMapping(value = "/users/ajax")
     public ResponseEntity<UnregisteredUserDto> getUnregisteredUser(@RequestBody String pnc)
         throws ControllerUserNotFoundException {
+        LOGGER.info("Enter method");
         pnc = pnc.substring(1, pnc.length() - 1);
         try {
             UnregisteredUserDto unregisteredUser = administrationUserService.getUnregisteredUser(pnc);

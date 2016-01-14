@@ -1,12 +1,13 @@
 package com.iquestint.dao.impl;
 
 import com.iquestint.dao.PersonDao;
-import com.iquestint.dao.ProfessorDao;
 import com.iquestint.dao.StudentDao;
 import com.iquestint.enums.Type;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.model.Person;
 import com.iquestint.model.Student;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -21,11 +22,10 @@ import javax.persistence.TypedQuery;
 @Repository("personDao")
 public class PersonDaoImpl extends JpaDao<Person> implements PersonDao {
 
-    @Autowired
-    private StudentDao studentDao;
+    private static final Logger LOGGER = LoggerFactory.getLogger(PersonDaoImpl.class);
 
     @Autowired
-    private ProfessorDao professorDao;
+    private StudentDao studentDao;
 
     @Override
     public Type getPersonType(String firstName, String lastName) throws DaoEntityNotFoundException {
@@ -38,6 +38,7 @@ public class PersonDaoImpl extends JpaDao<Person> implements PersonDao {
         try {
             Person person = query.getSingleResult();
         } catch (NoResultException e) {
+            LOGGER.debug("NoResultException");
             throw new DaoEntityNotFoundException();
         }
 
@@ -59,6 +60,7 @@ public class PersonDaoImpl extends JpaDao<Person> implements PersonDao {
         try {
             Person person = query.getSingleResult();
         } catch (NoResultException e) {
+            LOGGER.debug("NoResultException");
             throw new DaoEntityNotFoundException();
         }
 
@@ -80,6 +82,7 @@ public class PersonDaoImpl extends JpaDao<Person> implements PersonDao {
         try {
             return query.getSingleResult();
         } catch (NoResultException e) {
+            LOGGER.debug("NoResultException");
             throw new DaoEntityNotFoundException();
         }
     }

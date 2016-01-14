@@ -3,7 +3,7 @@ package com.iquestint.service.impl;
 import com.iquestint.dao.*;
 import com.iquestint.dto.UnregisteredUserDto;
 import com.iquestint.dto.UserDto;
-import com.iquestint.exception.DaoEntityAlreadyExists;
+import com.iquestint.exception.DaoEntityAlreadyExistsException;
 import com.iquestint.exception.DaoEntityNotFoundException;
 import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
@@ -11,6 +11,8 @@ import com.iquestint.model.*;
 import com.iquestint.service.AdministrationUserService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,8 @@ import java.util.List;
 @Service("administrationUserService")
 @Transactional
 public class AdministrationUserServiceImpl implements AdministrationUserService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(AdministrationUserServiceImpl.class);
 
     @Autowired
     private UserDao userDao;
@@ -58,6 +62,7 @@ public class AdministrationUserServiceImpl implements AdministrationUserService 
             userType = userTypeDao.getUserTypeByName(user.getUserType().getName());
             userState = userStateDao.getUserStateByName(user.getUserState().getName());
         } catch (DaoEntityNotFoundException e) {
+            LOGGER.debug("DaoEntityNotFoundException");
             throw new ServiceEntityNotFoundException(e);
         }
 
@@ -66,7 +71,8 @@ public class AdministrationUserServiceImpl implements AdministrationUserService 
 
         try {
             userDao.saveUser(user);
-        } catch (DaoEntityAlreadyExists e) {
+        } catch (DaoEntityAlreadyExistsException e) {
+            LOGGER.debug("DaoEntityAlreadyExistsException");
             throw new ServiceEntityAlreadyExistsException(e);
         }
     }
@@ -76,6 +82,7 @@ public class AdministrationUserServiceImpl implements AdministrationUserService 
         try {
             userDao.deleteUserByPnc(pnc);
         } catch (DaoEntityNotFoundException e) {
+            LOGGER.debug("DaoEntityNotFoundException");
             throw new ServiceEntityNotFoundException(e);
         }
     }
@@ -90,6 +97,7 @@ public class AdministrationUserServiceImpl implements AdministrationUserService 
 
             return userDto;
         } catch (DaoEntityNotFoundException e) {
+            LOGGER.debug("DaoEntityNotFoundException");
             throw new ServiceEntityNotFoundException(e);
         }
     }
@@ -133,6 +141,7 @@ public class AdministrationUserServiceImpl implements AdministrationUserService 
                 updateProfessor(userDto);
             }
         } catch (DaoEntityNotFoundException e) {
+            LOGGER.debug("DaoEntityNotFoundException");
             throw new ServiceEntityNotFoundException(e);
         }
 
@@ -160,6 +169,7 @@ public class AdministrationUserServiceImpl implements AdministrationUserService 
                 updateProfessor(userDto);
             }
         } catch (DaoEntityNotFoundException e) {
+            LOGGER.debug("DaoEntityNotFoundException");
             throw new ServiceEntityNotFoundException(e);
         }
     }
@@ -175,6 +185,7 @@ public class AdministrationUserServiceImpl implements AdministrationUserService 
             return unregisteredUserDto;
 
         } catch (DaoEntityNotFoundException e) {
+            LOGGER.debug("DaoEntityNotFoundException");
             throw new ServiceEntityNotFoundException(e);
         }
     }
