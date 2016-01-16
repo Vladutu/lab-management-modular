@@ -24,7 +24,7 @@ public interface SubgroupDao {
     /**
      * Returns all Subgroup entities from the database.
      *
-     * @return List<Subgroup>
+     * @return list of subgroups
      */
     public List<Subgroup> getAllSubgroups();
 }

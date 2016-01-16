@@ -24,7 +24,7 @@ public interface SemesterDao {
     /**
      * Returns all Semester entities from the database.
      *
-     * @return List<Semester>
+     * @return list of semesters
      */
     List<Semester> getAllSemesters();
 }

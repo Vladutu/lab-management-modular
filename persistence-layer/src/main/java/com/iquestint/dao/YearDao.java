@@ -24,7 +24,7 @@ public interface YearDao {
     /**
      * Returns all Year entities from the database.
      *
-     * @return List<Year>
+     * @return list of years
      */
     List<Year> getAllYears();
 }

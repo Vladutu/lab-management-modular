@@ -1,9 +1,12 @@
 package com.iquestint.service.impl;
 
+import com.iquestint.dao.AttendanceDao;
 import com.iquestint.dao.GradeDao;
 import com.iquestint.dao.LaboratoryDao;
+import com.iquestint.dto.AttendanceDto;
 import com.iquestint.dto.GradeDto;
 import com.iquestint.dto.LaboratoryDto;
+import com.iquestint.model.Attendance;
 import com.iquestint.model.Grade;
 import com.iquestint.model.Laboratory;
 import com.iquestint.service.StudentService;
@@ -27,6 +30,9 @@ public class StudentServiceImpl implements StudentService {
     private GradeDao gradeDao;
 
     @Autowired
+    private AttendanceDao attendanceDao;
+
+    @Autowired
     private ModelMapper modelMapper;
 
     @Override
@@ -42,6 +48,14 @@ public class StudentServiceImpl implements StudentService {
         List<Grade> grades = gradeDao.getStudentGradesByLaboratory(studentPnc, laboratoryId);
 
         return modelMapper.map(grades, new TypeToken<List<GradeDto>>() {
+        }.getType());
+    }
+
+    @Override
+    public List<AttendanceDto> getStudentAttendancesByLaboratory(String studentPnc, int laboratoryId) {
+        List<Attendance> attendances = attendanceDao.getStudentAttendancesByLaboratory(studentPnc, laboratoryId);
+
+        return modelMapper.map(attendances, new TypeToken<List<AttendanceDto>>() {
         }.getType());
     }
 }

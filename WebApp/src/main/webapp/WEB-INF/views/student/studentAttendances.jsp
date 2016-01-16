@@ -23,22 +23,20 @@
         </div>
     </c:if>
 
-    <h2 class="text-center">My grades at ${laboratoryName}</h2>
+    <h2 class="text-center">My attendances at ${laboratoryName}</h2>
     <table class="table table-hover">
         <thead>
         <tr>
             <th>No.</th>
-            <th>Value</th>
             <th>Date</th>
         </tr>
         </thead>
 
         <tbody>
-        <c:forEach items="${gradeDtos}" var="grades" varStatus="status">
+        <c:forEach items="${attendanceDtos}" var="attendance" varStatus="status">
         <tr>
             <td>${status.index + 1}</td>
-            <td>${grades.value}</td>
-            <td>${grades.date}</td>
+            <td>${attendance.date}</td>
             </c:forEach>
         </tbody>
     </table>

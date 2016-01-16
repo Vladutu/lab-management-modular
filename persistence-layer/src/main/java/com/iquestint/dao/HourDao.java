@@ -24,7 +24,7 @@ public interface HourDao {
     /**
      * Returns all Hour entities from the database.
      *
-     * @return List<Hour>
+     * @return list of hours
      */
     List<Hour> getAllHours();
 }

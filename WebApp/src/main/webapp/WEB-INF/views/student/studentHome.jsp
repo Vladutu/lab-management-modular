@@ -47,11 +47,12 @@
                         <button type="button" class="btn btn-primary btn-md">Grades</button>
                     </a>
                 </td>
-                <td><a href="<c:url value='/student/${welcomeUserDto.pnc}/attendances/${laboratory.id}' />">
-                    <button type="button" class="btn btn-primary btn-md">Attendances</button>
-                </a>
+                <td>
+                    <a href="<c:url value='/student/${welcomeUserDto.pnc}/attendances/${laboratory.name}/${laboratory.id}' />">
+                        <button type="button" class="btn btn-primary btn-md">Attendances</button>
+                    </a>
                 </td>
-                <td><a href="<c:url value='/student/laboratory/${laboratory.id}/platforms' />">
+                <td><a href="<c:url value='/student/laboratory/${laboratory.name}/${laboratory.id}/platform' />">
                     <button type="button" class="btn btn-primary btn-md">Platforms</button>
                 </a>
                 </td>

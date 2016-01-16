@@ -60,5 +60,4 @@
             <artifactId>jaxb-api</artifactId>
         </dependency>
     </dependencies>
-
 </project>

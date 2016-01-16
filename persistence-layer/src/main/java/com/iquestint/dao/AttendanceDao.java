@@ -56,7 +56,16 @@ public interface AttendanceDao {
      * Returns all the attendances of the student whose pnc is the same as the method parameter.
      *
      * @param studentPnc pnc of the student
-     * @return List<Attendance>
+     * @return list of attendances
      */
     List<Attendance> getStudentAttendances(String studentPnc);
+
+    /**
+     * Returns the attendances of the student whose pnc is studentPnc from the laboratory whose id is laboratoryId.
+     *
+     * @param studentPnc   pnc of the student
+     * @param laboratoryId id of the laboratory
+     * @return list of attendances
+     */
+    List<Attendance> getStudentAttendancesByLaboratory(String studentPnc, int laboratoryId);
 }

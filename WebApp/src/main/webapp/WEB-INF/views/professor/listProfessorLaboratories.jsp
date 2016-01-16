@@ -59,13 +59,16 @@
                     <td>${laboratory.subgroup}</td>
                     <td>${laboratory.weeklyOccurrence}</td>
                     <td><input type="date" id="date${status.index}"></td>
-
                     <td>
                         <button type="submit" class="btn btn-primary btn-md" id="submit${status.index}"
                                 onclick="setAttributeName(${status.index})">
                             View
                         </button>
-
+                    </td>
+                    <td>
+                        <a href="<c:url value='/professor/laboratories/${laboratory.id}/${laboratory.name}/platform' />">
+                            <button type="button" class="btn btn-primary btn-md">Platform</button>
+                        </a>
                     </td>
 
                 </tr>

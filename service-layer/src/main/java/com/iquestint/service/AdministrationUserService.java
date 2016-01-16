@@ -43,7 +43,7 @@ public interface AdministrationUserService {
     /**
      * This method retrieves all user.
      *
-     * @return List<User>
+     * @return list of users
      */
     List<UserDto> getAllUsers();
 

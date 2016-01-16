@@ -24,7 +24,7 @@ public interface SectionDao {
     /**
      * Returns all Section entities from the database.
      *
-     * @return List<Section>
+     * @return list of sections
      */
     public List<Section> getAllSections();
 }

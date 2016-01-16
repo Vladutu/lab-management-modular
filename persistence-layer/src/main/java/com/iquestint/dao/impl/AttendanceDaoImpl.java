@@ -69,4 +69,15 @@ public class AttendanceDaoImpl extends JpaDao<Attendance> implements AttendanceD
 
         return query.getResultList();
     }
+
+    @Override
+    public List<Attendance> getStudentAttendancesByLaboratory(String studentPnc, int laboratoryId) {
+        TypedQuery<Attendance> query = getEntityManager().createQuery(
+            "SELECT a FROM Attendance a WHERE a.student.pnc = :pnc AND a.laboratory.id = :id",
+            Attendance.class);
+        query.setParameter("pnc", studentPnc);
+        query.setParameter("id", laboratoryId);
+
+        return query.getResultList();
+    }
 }

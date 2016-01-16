@@ -16,7 +16,7 @@ public interface UserDao {
     /**
      * Returns all User entities from the database.
      *
-     * @return List<User>
+     * @return list of users
      */
     List<User> getAllUsers();
 

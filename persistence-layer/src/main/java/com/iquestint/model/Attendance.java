@@ -27,12 +27,15 @@ public class Attendance {
     private LocalDate date;
 
     @ManyToOne
-    @JoinColumn(name = "STUDENT_ID", referencedColumnName = "PNC", nullable = false)
+    @JoinColumn(name = "STUDENT_PNC", referencedColumnName = "PNC", nullable = false)
     private Student student;
 
     @ManyToOne
     @JoinColumn(name = "LABORATORY_ID", referencedColumnName = "ID", nullable = false)
     private Laboratory laboratory;
+
+    public Attendance() {
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -18,6 +18,9 @@ public class AttendanceDto {
 
     private LocalDate date;
 
+    public AttendanceDto() {
+    }
+
     public AttendanceDto(LocalDate date) {
         this.date = date;
     }

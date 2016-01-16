@@ -43,7 +43,7 @@ public interface AdministrationStudentService {
     /**
      * This method retrieves all students and maps them to StudentDto model.
      *
-     * @return List<StudentDto>
+     * @return list of students
      */
     List<StudentDto> getAllStudents();
 

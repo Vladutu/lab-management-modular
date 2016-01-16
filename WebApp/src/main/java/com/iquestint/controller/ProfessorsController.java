@@ -3,7 +3,9 @@ package com.iquestint.controller;
 import com.iquestint.dto.*;
 import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
+import com.iquestint.exception.ServiceIOException;
 import com.iquestint.exception.ServiceInvalidSemesterException;
+import com.iquestint.service.DocumentService;
 import com.iquestint.service.ProfessorService;
 import com.iquestint.service.UserService;
 import org.slf4j.Logger;
@@ -14,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 /**
@@ -40,6 +44,9 @@ public class ProfessorsController {
 
     @Autowired
     private ProfessorService professorService;
+
+    @Autowired
+    private DocumentService documentService;
 
     /**
      * Returns the professor's home page.
@@ -165,7 +172,13 @@ public class ProfessorsController {
     public String getStudentGrading(ModelMap model, @RequestParam(value = "id") int id,
         @RequestParam(value = "date") String date) {
         LOGGER.info("Enter method");
-        LocalDate localDate = LocalDate.parse(date);
+        LocalDate localDate;
+        try {
+            localDate = LocalDate.parse(date);
+        } catch (DateTimeParseException e) {
+            return "redirect:/professor/laboratories";
+        }
+
         WelcomeUserDto welcomeUserDto = getPrincipal();
         List<StudentGradingDto> studentGradingDtos = professorService.getStudentsWithGradesByLaboratory(id, localDate);
 
@@ -173,6 +186,66 @@ public class ProfessorsController {
         model.addAttribute("studentGradingDtos", studentGradingDtos);
 
         return "professor/studentsGradesByLaboratory";
+    }
+
+    @RequestMapping(value = "/professor/laboratories/{laboratoryId}/{laboratoryName}/platform", method = RequestMethod.GET)
+    public String getLaboratoryPlatform(ModelMap model, @PathVariable int laboratoryId,
+        @PathVariable String laboratoryName) {
+        LOGGER.info("Enter method");
+
+        WelcomeUserDto welcomeUserDto = getPrincipal();
+        model.addAttribute("welcomeUserDto", welcomeUserDto);
+
+        List<DocumentDto> documentDtos = documentService.getDocumentsByLaboratory(laboratoryId);
+        model.addAttribute("documentDtos", documentDtos);
+
+        FileBucket fileBucket = new FileBucket();
+        model.addAttribute("fileBucket", fileBucket);
+
+        model.addAttribute("laboratoryName", laboratoryName);
+
+        return "professor/platform";
+    }
+
+    @RequestMapping(value = "/professor/laboratories/{laboratoryId}/{laboratoryName}/platform", method = RequestMethod.POST)
+    public String uploadDocument(@Valid FileBucket fileBucket, BindingResult bindingResult, ModelMap model,
+        @PathVariable int laboratoryId, @PathVariable String laboratoryName, RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            WelcomeUserDto welcomeUserDto = getPrincipal();
+            model.addAttribute("welcomeUserDto", welcomeUserDto);
+
+            List<DocumentDto> documentDtos = documentService.getDocumentsByLaboratory(laboratoryId);
+            model.addAttribute("documentDtos", documentDtos);
+
+            FileBucket bucket = new FileBucket();
+            model.addAttribute("fileBucket", bucket);
+
+            model.addAttribute("laboratoryName", laboratoryName);
+            model.addAttribute("laboratoryId", laboratoryId);
+
+            return "professor/platform";
+        }
+
+        try {
+            documentService.saveDocument(fileBucket, laboratoryId);
+        } catch (ServiceEntityAlreadyExistsException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "File already exists");
+        } catch (ServiceIOException ignored) {
+        }
+
+        return "redirect:/professor/laboratories/" + laboratoryId + "/" + laboratoryName + "/platform";
+    }
+
+    @RequestMapping(value = "/professor/laboratories/{laboratoryId}/{laboratoryName}/platform/documents/{documentId}", method = RequestMethod.GET)
+    public String deleteDocument(ModelMap model, @PathVariable int documentId, @PathVariable String laboratoryId,
+        @PathVariable String laboratoryName, RedirectAttributes redirectAttributes) {
+        try {
+            documentService.deleteDocument(documentId);
+        } catch (ServiceEntityNotFoundException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "File not found");
+        }
+
+        return "redirect:/professor/laboratories/" + laboratoryId + "/" + laboratoryName + "/platform";
     }
 
     private WelcomeUserDto getPrincipal() {

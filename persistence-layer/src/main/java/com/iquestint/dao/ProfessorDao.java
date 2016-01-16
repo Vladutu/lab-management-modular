@@ -16,7 +16,7 @@ public interface ProfessorDao {
     /**
      * Returns all Professor entities from the database.
      *
-     * @return List<Professor>
+     * @return list of professors
      */
     List<Professor> getAllProfessors();
 

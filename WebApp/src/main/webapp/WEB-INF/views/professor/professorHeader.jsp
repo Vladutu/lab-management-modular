@@ -5,7 +5,8 @@
         </div>
         <div>
             <ul class="nav navbar-nav">
-                <li class="active"><a href="/professor/home">Home</a></li>
+                <li><a href="/professor/home">Home</a></li>
+                <li><a href="/professor/laboratories">Laboratories</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="navbar-brand">Welcome ${welcomeUserDto.firstName}&nbsp;${welcomeUserDto.lastName}</li>
