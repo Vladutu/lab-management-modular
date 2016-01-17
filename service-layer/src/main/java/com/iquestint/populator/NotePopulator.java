@@ -8,7 +8,9 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 
 /**
- * @author vladu
+ * This class is used to populate a Note entity.
+ *
+ * @author Georgian Vladutu
  */
 @Component
 public class NotePopulator {

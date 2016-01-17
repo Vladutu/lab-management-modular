@@ -192,6 +192,14 @@ public class ProfessorsController {
         return "professor/studentsGradesByLaboratory";
     }
 
+    /**
+     * Returns the platforms which belong to the laboratory whose id is laboratoryId.
+     *
+     * @param model          ModelMap
+     * @param laboratoryId   id of the laboratory
+     * @param laboratoryName name of the laboratory
+     * @return String
+     */
     @RequestMapping(value = "/professor/laboratories/{laboratoryId}/{laboratoryName}/platform", method = RequestMethod.GET)
     public String getLaboratoryPlatform(ModelMap model, @PathVariable int laboratoryId,
         @PathVariable String laboratoryName) {
@@ -211,9 +219,21 @@ public class ProfessorsController {
         return "professor/platform";
     }
 
+    /**
+     * Saved a document which belong to the laboratory whose id is laboratoryId into the repository.
+     *
+     * @param fileBucket         document to be saved
+     * @param bindingResult      BindingResult
+     * @param model              ModelMap
+     * @param laboratoryId       id of the laboratory
+     * @param laboratoryName     name of the laboratory
+     * @param redirectAttributes RedirectAttributes
+     * @return String
+     */
     @RequestMapping(value = "/professor/laboratories/{laboratoryId}/{laboratoryName}/platform", method = RequestMethod.POST)
     public String uploadDocument(@Valid FileBucket fileBucket, BindingResult bindingResult, ModelMap model,
         @PathVariable int laboratoryId, @PathVariable String laboratoryName, RedirectAttributes redirectAttributes) {
+        LOGGER.info("Enter method");
         if (bindingResult.hasErrors()) {
             WelcomeUserDto welcomeUserDto = getPrincipal();
             model.addAttribute("welcomeUserDto", welcomeUserDto);
@@ -240,9 +260,20 @@ public class ProfessorsController {
         return "redirect:/professor/laboratories/" + laboratoryId + "/" + laboratoryName + "/platform";
     }
 
+    /**
+     * Deletes the document whose id is document id.
+     *
+     * @param model              ModelMap
+     * @param documentId         id of the document
+     * @param laboratoryId       id of the laboratory
+     * @param laboratoryName     name of the laboratory
+     * @param redirectAttributes RedirectAttributes
+     * @return String
+     */
     @RequestMapping(value = "/professor/laboratories/{laboratoryId}/{laboratoryName}/platform/documents/{documentId}", method = RequestMethod.GET)
     public String deleteDocument(ModelMap model, @PathVariable int documentId, @PathVariable String laboratoryId,
         @PathVariable String laboratoryName, RedirectAttributes redirectAttributes) {
+        LOGGER.info("Enter method");
         try {
             documentService.deleteDocument(documentId);
         } catch (ServiceEntityNotFoundException e) {
@@ -252,6 +283,14 @@ public class ProfessorsController {
         return "redirect:/professor/laboratories/" + laboratoryId + "/" + laboratoryName + "/platform";
     }
 
+    /**
+     * Returns the notes which belong to the laboratory whose id is laboratoryId.
+     *
+     * @param model          ModelMap
+     * @param laboratoryId   id of the laboratory
+     * @param laboratoryName name of the laboratory
+     * @return String
+     */
     @RequestMapping(value = "/professor/laboratories/{laboratoryId}/{laboratoryName}/note", method = RequestMethod.GET)
     public String getNotes(ModelMap model, @PathVariable int laboratoryId, @PathVariable String laboratoryName) {
         LOGGER.info("Enter method");
@@ -259,7 +298,7 @@ public class ProfessorsController {
         WelcomeUserDto welcomeUserDto = getPrincipal();
         model.addAttribute("welcomeUserDto", welcomeUserDto);
 
-        List<NoteDto> noteDtos = noteService.getAllNotes();
+        List<NoteDto> noteDtos = noteService.getNotesByLaboratory(laboratoryId);
         model.addAttribute("noteDtos", noteDtos);
 
         NoteDto noteDto = new NoteDto();
@@ -271,6 +310,17 @@ public class ProfessorsController {
         return "professor/note";
     }
 
+    /**
+     * Saves the note which belong to the laboratory whose id is laboratoryId into the repository.
+     *
+     * @param noteDto            note to be saved
+     * @param bindingResult      BindingResult
+     * @param model              ModelMap
+     * @param laboratoryId       id of the laboratory
+     * @param laboratoryName     name of the laboratory
+     * @param redirectAttributes RedirectAttributes
+     * @return String
+     */
     @RequestMapping(value = "/professor/laboratories/{laboratoryId}/{laboratoryName}/note", method = RequestMethod.POST)
     public String saveNote(@Valid NoteDto noteDto, BindingResult bindingResult, ModelMap model,
         @PathVariable int laboratoryId, @PathVariable String laboratoryName, RedirectAttributes redirectAttributes) {
@@ -297,9 +347,20 @@ public class ProfessorsController {
         return "redirect:/professor/laboratories/" + laboratoryId + "/" + laboratoryName + "/note";
     }
 
+    /**
+     * Deletes the note whose id is noteId from the repository.
+     *
+     * @param model              ModelMap
+     * @param laboratoryId       id of the laboratory
+     * @param laboratoryName     name of the laboratory
+     * @param noteId             id of the note
+     * @param redirectAttributes RedirectAttributes
+     * @return String
+     */
     @RequestMapping(value = "/professor/laboratories/{laboratoryId}/{laboratoryName}/note/{noteId}", method = RequestMethod.GET)
     public String deleteNote(ModelMap model, @PathVariable int laboratoryId, @PathVariable String laboratoryName,
         @PathVariable int noteId, RedirectAttributes redirectAttributes) {
+        LOGGER.info("Enter method");
         try {
             noteService.deleteNode(noteId);
         } catch (ServiceEntityNotFoundException e) {

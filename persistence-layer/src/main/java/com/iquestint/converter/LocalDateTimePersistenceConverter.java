@@ -6,10 +6,12 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 /**
- * @author vladu
+ * This class is used to convert sql TimeStamp to Java 8 LocalDateTime
+ *
+ * @author Georgian Vladutu
  */
 @Converter(autoApply = true)
-public class LocalDateTimeAttributeConverter implements AttributeConverter<LocalDateTime, Timestamp> {
+public class LocalDateTimePersistenceConverter implements AttributeConverter<LocalDateTime, Timestamp> {
 
     @Override
     public Timestamp convertToDatabaseColumn(LocalDateTime locDateTime) {

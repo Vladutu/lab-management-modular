@@ -3,7 +3,9 @@ package com.iquestint.jms.email;
 import javax.xml.bind.annotation.*;
 
 /**
- * @author vladu
+ * This class represents an email response.
+ *
+ * @author Georgian Vladutu
  */
 @XmlRootElement(name = "RESPONSE")
 @XmlAccessorType(XmlAccessType.FIELD)

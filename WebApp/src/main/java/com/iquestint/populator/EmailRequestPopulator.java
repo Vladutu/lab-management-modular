@@ -5,7 +5,9 @@ import com.iquestint.jms.email.EmailRequest;
 import org.springframework.stereotype.Component;
 
 /**
- * @author vladu
+ * This class is used to populate an EmailRequest object.
+ *
+ * @author Georgian Vladutu
  */
 @Component
 public class EmailRequestPopulator {

@@ -1,7 +1,9 @@
 package com.iquestint.exception;
 
 /**
- * @author vladu
+ * This exception is thrown from the service layer when an input-output exception is thrown.
+ *
+ * @author Georgian Vladutu
  */
 public class ServiceIOException extends ServiceException {
 

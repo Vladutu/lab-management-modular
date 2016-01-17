@@ -8,7 +8,9 @@ import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 /**
- * @author vladu
+ * This is an model entity that maps the NOTE table.
+ *
+ * @author Georgian Vladutu
  */
 @Entity
 @Table(name = "NOTE")

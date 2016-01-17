@@ -7,7 +7,9 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 /**
- * @author vladu
+ * This is an model entity that maps the DOCUMENT table.
+ *
+ * @author Georgian Vladutu
  */
 @Entity
 @Table(name = "DOCUMENT")

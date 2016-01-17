@@ -6,7 +6,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * @author vladu
+ * This class is used by ModelMapper to represent LocalDateTime as a String.
+ *
+ * @author Georgian Vladutu
  */
 public class LocalDateTimeToStringConveter extends AbstractConverter<LocalDateTime, String> {
 

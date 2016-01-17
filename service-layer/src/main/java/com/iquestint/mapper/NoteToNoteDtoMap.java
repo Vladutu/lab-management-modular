@@ -6,7 +6,9 @@ import com.iquestint.model.Note;
 import org.modelmapper.PropertyMap;
 
 /**
- * @author vladu
+ * This class is used by ModelMapper to map from Note class to NoteDto class.
+ *
+ * @author Georgian Vladutu
  */
 public class NoteToNoteDtoMap extends PropertyMap<Note, NoteDto> {
 

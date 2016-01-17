@@ -67,5 +67,4 @@ public interface ProfessorService {
      */
     List<StudentGradingDto> getStudentsWithGradesByLaboratory(int laboratoryId, LocalDate date);
 
-
 }

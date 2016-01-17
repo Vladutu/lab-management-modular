@@ -110,6 +110,14 @@ public class StudentsController {
         return "student/studentAttendances";
     }
 
+    /**
+     * Returns the platforms which belong to the laboratory whose id is laboratoryId.
+     *
+     * @param model          ModelMap
+     * @param laboratoryName name of the laboratory
+     * @param laboratoryId   id of the laboratory
+     * @return String
+     */
     @RequestMapping(value = "/student/laboratory/{laboratoryName}/{laboratoryId}/platform", method = RequestMethod.GET)
     public String getPlatforms(ModelMap model, @PathVariable String laboratoryName, @PathVariable int laboratoryId) {
         LOGGER.info("Enter method");
@@ -124,6 +132,18 @@ public class StudentsController {
         return "student/platform";
     }
 
+    /**
+     * Downloads the document whose id is documentId.
+     *
+     * @param model              ModelMap
+     * @param laboratoryName     name of the laboratory
+     * @param laboratoryId       id of the laboratory
+     * @param documentId         id of the document
+     * @param response           HttpServletResponse
+     * @param redirectAttributes RedirectAttributes
+     * @return Sting
+     * @throws IOException in case of access errors
+     */
     @RequestMapping(value = "/student/laboratory/{laboratoryName}/{laboratoryId}/platform/{documentId}")
     public String downloadPlatform(ModelMap model, @PathVariable String laboratoryName, @PathVariable int laboratoryId,
         @PathVariable int documentId, HttpServletResponse response, RedirectAttributes redirectAttributes)
@@ -149,6 +169,14 @@ public class StudentsController {
         }
     }
 
+    /**
+     * Returns the notes which belong to the laboratory whose id is laboratoryId.
+     *
+     * @param model          ModelMap
+     * @param laboratoryId   id of the laboratory
+     * @param laboratoryName name of the laboratory
+     * @return String
+     */
     @RequestMapping(value = "/student/laboratory/{laboratoryName}/{laboratoryId}/note", method = RequestMethod.GET)
     public String getNotes(ModelMap model, @PathVariable int laboratoryId, @PathVariable String laboratoryName) {
         LOGGER.info("Enter method");
@@ -157,7 +185,7 @@ public class StudentsController {
         model.addAttribute("laboratoryName", laboratoryName);
         model.addAttribute("laboratoryId", laboratoryId);
 
-        List<NoteDto> noteDtos = noteService.getAllNotes();
+        List<NoteDto> noteDtos = noteService.getNotesByLaboratory(laboratoryId);
         model.addAttribute("noteDtos", noteDtos);
 
         return "student/note";

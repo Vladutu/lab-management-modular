@@ -14,7 +14,9 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
- * @author vladu
+ * This class implements DocumentDao interface;
+ *
+ * @author Georgian Vladutu
  */
 @Repository("documentDao")
 public class DocumentDaoImpl extends JpaDao<Document> implements DocumentDao {

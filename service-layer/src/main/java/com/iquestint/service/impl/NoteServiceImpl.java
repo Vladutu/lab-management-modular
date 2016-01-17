@@ -34,8 +34,8 @@ public class NoteServiceImpl implements NoteService {
     private NotePopulator notePopulator;
 
     @Override
-    public List<NoteDto> getAllNotes() {
-        List<Note> notes = noteDao.getAllNotes();
+    public List<NoteDto> getNotesByLaboratory(int laboratoryId) {
+        List<Note> notes = noteDao.getNotesByLaboratory(laboratoryId);
 
         return modelMapper.map(notes, new TypeToken<List<NoteDto>>() {
         }.getType());

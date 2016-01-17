@@ -3,7 +3,9 @@ package com.iquestint.rest;
 import org.springframework.messaging.Message;
 
 /**
- * @author vladu
+ * This class implements the RestMessageReceiver interface.
+ *
+ * @author Georgian Vladutu
  */
 public class RestMessageReceiverImpl implements RestMessageReceiver {
 

@@ -12,10 +12,12 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * @author vladu
+ * This class implements the JmsMessageSender interface.
+ *
+ * @author Georgian Vladutu
  */
 @Service
-public class MessageSenderImpl implements MessageSender {
+public class JmsMessageSenderImpl implements JmsMessageSender {
 
     @Autowired
     private MessageChannel emailRequestChannel;

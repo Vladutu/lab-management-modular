@@ -11,7 +11,9 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
- * @author vladu
+ * This class implements NoteDao interface;
+ *
+ * @author Georgian Vladutu
  */
 @Repository("noteDao")
 public class NoteDaoImpl extends JpaDao<Note> implements NoteDao {
@@ -53,5 +55,14 @@ public class NoteDaoImpl extends JpaDao<Note> implements NoteDao {
         query.setParameter("id", laboratoryId);
 
         query.executeUpdate();
+    }
+
+    @Override
+    public List<Note> getNotesByLaboratory(int laboratoryId) {
+        TypedQuery<Note> query = getEntityManager().createQuery(
+            "SELECT n FROM Note n WHERE n.laboratory.id = :id", Note.class);
+        query.setParameter("id", laboratoryId);
+
+        return query.getResultList();
     }
 }

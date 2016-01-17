@@ -5,7 +5,9 @@ import javax.validation.Payload;
 import java.lang.annotation.*;
 
 /**
- * @author vladu
+ * This annotation express that a file exists.
+ *
+ * @author Georgian Vladutu
  */
 @Constraint(validatedBy = { FileValidator.class })
 @Target({ ElementType.FIELD, ElementType.PARAMETER })

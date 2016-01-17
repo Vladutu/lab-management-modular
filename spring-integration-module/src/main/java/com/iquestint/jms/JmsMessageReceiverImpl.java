@@ -4,9 +4,11 @@ import com.iquestint.jms.email.EmailResponse;
 import org.springframework.messaging.Message;
 
 /**
- * @author vladu
+ * This class implements the JmsMessageReceiver interface.
+ *
+ * @author Georgian Vladutu
  */
-public class MessageReceiverImpl implements MessageReceiver {
+public class JmsMessageReceiverImpl implements JmsMessageReceiver {
 
     @Override
     public void processResponse(Message<EmailResponse> responseMessage) {

@@ -6,7 +6,9 @@ import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
- * @author vladu
+ * This class represents a data transfer object.
+ *
+ * @author Georgian Vladutu
  */
 @Getter
 @Setter

@@ -7,7 +7,9 @@ import com.iquestint.dto.LaboratoryDto;
 import java.util.List;
 
 /**
- * @author vladu
+ * This interfaces provides methods that are accessible by a student.
+ *
+ * @author Georgian Vladutu
  */
 public interface StudentService {
 

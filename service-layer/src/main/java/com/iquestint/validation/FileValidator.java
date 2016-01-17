@@ -8,7 +8,9 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 /**
- * @author vladu
+ * This class is a validator for the @FileExists annotation.
+ *
+ * @author Georgian Vladutu
  */
 public class FileValidator implements ConstraintValidator<FileExists, MultipartFile> {
 

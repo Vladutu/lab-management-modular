@@ -58,7 +58,7 @@
     </int-jms:outbound-channel-adapter>
 
     <int:service-activator id="emailResponseServiceActivator"
-                           input-channel="emailResponseChannel" ref="messageReceiver" method="processResponse"/>
+                           input-channel="emailResponseChannel" ref="jmsMessageReceiver" method="processResponse"/>
 
     <int-jms:message-driven-channel-adapter
             id="emailResponseChannelAdapter" destination-name="${jms.request.queue}"
@@ -66,8 +66,8 @@
             message-converter="emailJaxbMarshallingMessageConverter"/>
 
 
-    <bean id="messageReceiver"
-          class="com.iquestint.jms.MessageReceiverImpl"/>
+    <bean id="jmsMessageReceiver"
+          class="com.iquestint.jms.JmsMessageReceiverImpl"/>
     <int:poller default="true" max-messages-per-poll="100"
                 receive-timeout="50000" fixed-delay="0"/>  <!-- 5000 default -->
 
