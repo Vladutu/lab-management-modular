@@ -20,77 +20,81 @@
 <jsp:include page="adminHeader.jsp"/>
 
 
-<div class="container">
-    <h2 class="text-center">User Registration Form</h2>
+<div class="generic-container">
+    <div class="panel panel-default">
+        <div class="panel-heading"><span class="lead">Create New User</span></div>
+        <div class="uploadcontainer">
 
-    <c:if test="${not empty errorMessage}">
-        <div class="alert alert-danger alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                    aria-hidden="true">&times;</span></button>
-                ${errorMessage}
+            <c:if test="${not empty errorMessage}">
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                        ${errorMessage}
+                </div>
+            </c:if>
+
+            <form:form method="POST" modelAttribute="userDto" role="form">
+
+                <spring:bind path="pnc">
+                    <div class="form-group ${status.error ? 'has-error' : ''}">
+                        <label for="pnc">PNC: </label>
+                        <form:input path="pnc" class="form-control" id="pnc" onkeyup="userFormCompleter()"/>
+                        <form:errors path="pnc" class="control-label"/>
+                    </div>
+                </spring:bind>
+
+
+                <spring:bind path="firstName">
+                    <div class="form-group ${status.error ? 'has-error' : ''}">
+                        <label for="firstName">First Name: </label>
+                        <form:input path="firstName" class="form-control" id="firstName"/>
+                        <form:errors path="firstName" class="control-label"/>
+                    </div>
+                </spring:bind>
+
+                <spring:bind path="lastName">
+                    <div class="form-group ${status.error ? 'has-error' : ''}">
+                        <label for="lastName">Last Name: </label>
+                        <form:input path="lastName" class="form-control" id="lastName"/>
+                        <form:errors path="lastName" class="control-label"/>
+                    </div>
+                </spring:bind>
+
+                <spring:bind path="password">
+                    <div class="form-group ${status.error ? 'has-error' : ''}">
+                        <label for="password">Password: </label>
+                        <form:password path="password" class="form-control" id="password"/>
+                        <form:errors path="password" class="control-label"/>
+                    </div>
+                </spring:bind>
+
+                <spring:bind path="email">
+                    <div class="form-group ${status.error ? 'has-error' : ''}">
+                        <label for="email">Email: </label>
+                        <form:input path="email" class="form-control" id="email"/>
+                        <form:errors path="email" class="control-label"/>
+                    </div>
+                </spring:bind>
+
+                <spring:bind path="userType">
+                    <div class="form-group ${status.error ? 'has-error' : ''}">
+                        <label for="userType">Type: </label>
+                        <form:select path="userType" items="${formUserDto.types}" multiple="false" class="form-control"
+                                     id="userType"/>
+                        <form:errors path="userType" class="control-label"/>
+                    </div>
+                </spring:bind>
+
+                <form:input type="hidden" path="userState" id="userState" value="Active"/>
+
+                <button type="submit" class="btn btn-success btn-lg" id="submit">Register</button>
+
+            </form:form>
+            <br/>
+            <br/>
         </div>
-    </c:if>
-
-    <form:form method="POST" modelAttribute="userDto" role="form">
-
-        <spring:bind path="pnc">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <label for="pnc">PNC: </label>
-                <form:input path="pnc" class="form-control" id="pnc" onkeyup="userFormCompleter()"/>
-                <form:errors path="pnc" class="control-label"/>
-            </div>
-        </spring:bind>
-
-
-        <spring:bind path="firstName">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <label for="firstName">First Name: </label>
-                <form:input path="firstName" class="form-control" id="firstName"/>
-                <form:errors path="firstName" class="control-label"/>
-            </div>
-        </spring:bind>
-
-        <spring:bind path="lastName">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <label for="lastName">Last Name: </label>
-                <form:input path="lastName" class="form-control" id="lastName"/>
-                <form:errors path="lastName" class="control-label"/>
-            </div>
-        </spring:bind>
-
-        <spring:bind path="password">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <label for="password">Password: </label>
-                <form:password path="password" class="form-control" id="password"/>
-                <form:errors path="password" class="control-label"/>
-            </div>
-        </spring:bind>
-
-        <spring:bind path="email">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <label for="email">Email: </label>
-                <form:input path="email" class="form-control" id="email"/>
-                <form:errors path="email" class="control-label"/>
-            </div>
-        </spring:bind>
-
-        <spring:bind path="userType">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <label for="userType">Type: </label>
-                <form:select path="userType" items="${formUserDto.types}" multiple="false" class="form-control"
-                             id="userType"/>
-                <form:errors path="userType" class="control-label"/>
-            </div>
-        </spring:bind>
-
-        <form:input type="hidden" path="userState" id="userState" value="Active"/>
-
-        <button type="submit" class="btn btn-success btn-lg" id="submit">Register</button>
-
-    </form:form>
-    <br/>
-    <br/>
-
+    </div>
+</div>
 </div>
 </body>
 </html>

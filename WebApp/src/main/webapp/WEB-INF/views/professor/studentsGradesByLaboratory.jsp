@@ -13,9 +13,8 @@
 <jsp:include page="professorHeader.jsp"/>
 
 
-<div class="container">
-
-    <h2 class="text-center">List of Students</h2>
+<div class="generic-container">
+    
 
     <c:if test="${not empty errorMessage}">
         <div class="alert alert-danger alert-dismissible" role="alert">
@@ -25,26 +24,28 @@
         </div>
     </c:if>
 
-
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Grade</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        <c:forEach items="${studentGradingDtos}" var="student" varStatus="status">
+    <div class="panel panel-default">
+        <div class="panel-heading"><span class="lead">List of Students</span></div>
+        <table class="table table-hover">
+            <thead>
             <tr>
-                <td>${student.firstName}</td>
-                <td>${student.lastName}</td>
-                <td>${student.grade}</td>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Grade</th>
             </tr>
-        </c:forEach>
-        </tbody>
-    </table>
+            </thead>
+
+            <tbody>
+            <c:forEach items="${studentGradingDtos}" var="student" varStatus="status">
+                <tr>
+                    <td>${student.firstName}</td>
+                    <td>${student.lastName}</td>
+                    <td>${student.grade}</td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
 </div>
 </body>
 </html>

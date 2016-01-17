@@ -13,13 +13,12 @@
 <jsp:include page="adminHeader.jsp"/>
 
 
-<div class="container">
+<div class="generic-container">
     <a href="<c:url value='/admin/students/new' />">
         <button type="button" class="btn btn-success"><spring:message code="student.new"/></button>
     </a>
 
-    <h2 class="text-center"><spring:message code="user.title"/></h2>
-
+    <h2></h2>
     <c:if test="${not empty errorMessage}">
         <div class="alert alert-danger alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
@@ -28,49 +27,52 @@
         </div>
     </c:if>
 
-
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            <th><spring:message code="table.c0"/></th>
-            <th><spring:message code="table.c1"/></th>
-            <th><spring:message code="table.c2"/></th>
-            <th><spring:message code="table.c3"/></th>
-            <th><spring:message code="table.c4"/></th>
-            <th><spring:message code="table.c5"/></th>
-            <th><spring:message code="table.c6"/></th>
-            <th><spring:message code="table.c7"/></th>
-            <th><spring:message code="table.c8"/></th>
-            <th></th>
-            <th></th>
-        </tr>
-        </thead>
-
-        <tbody>
-        <c:forEach items="${students}" var="student">
+    <div class="panel panel-default">
+        <div class="panel-heading"><span class="lead">List of Students</span></div>
+        <table class="table table-hover">
+            <thead>
             <tr>
-                <td>${student.pnc}</td>
-                <td>${student.firstName}</td>
-                <td>${student.lastName}</td>
-                <td>${student.email}</td>
-                <td>${student.year}</td>
-                <td>${student.semester}</td>
-                <td>${student.section}</td>
-                <td>${student.group}</td>
-                <td>${student.subgroup}</td>
-                <td><a href="<c:url value='/admin/students/edit/${student.pnc}' />">
-                    <button type="button" class="btn btn-primary btn-md"><spring:message code="student.edit"/></button>
-                </a>
-                </td>
-                <td><a href="<c:url value='/admin/students/delete/${student.pnc}' />">
-                    <button type="button" class="btn btn-danger btn-md"><spring:message
-                            code="student.delete"/></button>
-                </a>
-                </td>
+                <th><spring:message code="table.c0"/></th>
+                <th><spring:message code="table.c1"/></th>
+                <th><spring:message code="table.c2"/></th>
+                <th><spring:message code="table.c3"/></th>
+                <th><spring:message code="table.c4"/></th>
+                <th><spring:message code="table.c5"/></th>
+                <th><spring:message code="table.c6"/></th>
+                <th><spring:message code="table.c7"/></th>
+                <th><spring:message code="table.c8"/></th>
+                <th></th>
+                <th></th>
             </tr>
-        </c:forEach>
-        </tbody>
-    </table>
+            </thead>
+
+            <tbody>
+            <c:forEach items="${students}" var="student">
+                <tr>
+                    <td>${student.pnc}</td>
+                    <td>${student.firstName}</td>
+                    <td>${student.lastName}</td>
+                    <td>${student.email}</td>
+                    <td>${student.year}</td>
+                    <td>${student.semester}</td>
+                    <td>${student.section}</td>
+                    <td>${student.group}</td>
+                    <td>${student.subgroup}</td>
+                    <td><a href="<c:url value='/admin/students/edit/${student.pnc}' />">
+                        <button type="button" class="btn btn-primary btn-md"><spring:message
+                                code="student.edit"/></button>
+                    </a>
+                    </td>
+                    <td><a href="<c:url value='/admin/students/delete/${student.pnc}' />">
+                        <button type="button" class="btn btn-danger btn-md"><spring:message
+                                code="student.delete"/></button>
+                    </a>
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
     <br/>
     <br/>
 </div>

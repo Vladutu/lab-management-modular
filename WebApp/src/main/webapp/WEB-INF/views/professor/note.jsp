@@ -63,7 +63,8 @@
                                 <label class="col-md-3 control-lable" for="message">&nbsp;</label>
 
                                 <div class="col-md-7">
-                                    <form:textarea rows="6" cols="30" path="message" class="form-control input-sm"
+                                    <form:textarea rows="6" cols="30" path="message" placeholder="Insert post here..."
+                                                   class="form-control input-sm"
                                                    id="message"/>
                                     <form:errors path="message" class="control-label"/>
                                 </div>
