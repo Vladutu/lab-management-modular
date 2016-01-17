@@ -3,6 +3,7 @@ package com.iquestint.controller;
 import com.iquestint.dto.*;
 import com.iquestint.exception.ServiceEntityNotFoundException;
 import com.iquestint.service.DocumentService;
+import com.iquestint.service.NoteService;
 import com.iquestint.service.StudentService;
 import com.iquestint.service.UserService;
 import org.slf4j.Logger;
@@ -39,6 +40,9 @@ public class StudentsController {
 
     @Autowired
     private DocumentService documentService;
+
+    @Autowired
+    private NoteService noteService;
 
     /**
      * Returns the student's home page.
@@ -143,6 +147,20 @@ public class StudentsController {
 
             return "redirect:/student/laboratory/" + laboratoryName + "/" + laboratoryId + "platform";
         }
+    }
+
+    @RequestMapping(value = "/student/laboratory/{laboratoryName}/{laboratoryId}/note", method = RequestMethod.GET)
+    public String getNotes(ModelMap model, @PathVariable int laboratoryId, @PathVariable String laboratoryName) {
+        LOGGER.info("Enter method");
+        WelcomeUserDto welcomeUserDto = getPrincipal();
+        model.addAttribute("welcomeUserDto", welcomeUserDto);
+        model.addAttribute("laboratoryName", laboratoryName);
+        model.addAttribute("laboratoryId", laboratoryId);
+
+        List<NoteDto> noteDtos = noteService.getAllNotes();
+        model.addAttribute("noteDtos", noteDtos);
+
+        return "student/note";
     }
 
     private WelcomeUserDto getPrincipal() {

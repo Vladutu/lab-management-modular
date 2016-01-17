@@ -42,6 +42,7 @@
                 <th>Date</th>
                 <th></th>
                 <th></th>
+                <th></th>
             </tr>
             </thead>
 
@@ -68,6 +69,11 @@
                     <td>
                         <a href="<c:url value='/professor/laboratories/${laboratory.id}/${laboratory.name}/platform' />">
                             <button type="button" class="btn btn-primary btn-md">Platform</button>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="<c:url value='/professor/laboratories/${laboratory.id}/${laboratory.name}/note' />">
+                            <button type="button" class="btn btn-primary btn-md">Notes</button>
                         </a>
                     </td>
 

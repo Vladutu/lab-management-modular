@@ -6,6 +6,7 @@ import com.iquestint.exception.ServiceEntityNotFoundException;
 import com.iquestint.exception.ServiceIOException;
 import com.iquestint.exception.ServiceInvalidSemesterException;
 import com.iquestint.service.DocumentService;
+import com.iquestint.service.NoteService;
 import com.iquestint.service.ProfessorService;
 import com.iquestint.service.UserService;
 import org.slf4j.Logger;
@@ -47,6 +48,9 @@ public class ProfessorsController {
 
     @Autowired
     private DocumentService documentService;
+
+    @Autowired
+    private NoteService noteService;
 
     /**
      * Returns the professor's home page.
@@ -246,6 +250,63 @@ public class ProfessorsController {
         }
 
         return "redirect:/professor/laboratories/" + laboratoryId + "/" + laboratoryName + "/platform";
+    }
+
+    @RequestMapping(value = "/professor/laboratories/{laboratoryId}/{laboratoryName}/note", method = RequestMethod.GET)
+    public String getNotes(ModelMap model, @PathVariable int laboratoryId, @PathVariable String laboratoryName) {
+        LOGGER.info("Enter method");
+
+        WelcomeUserDto welcomeUserDto = getPrincipal();
+        model.addAttribute("welcomeUserDto", welcomeUserDto);
+
+        List<NoteDto> noteDtos = noteService.getAllNotes();
+        model.addAttribute("noteDtos", noteDtos);
+
+        NoteDto noteDto = new NoteDto();
+        model.addAttribute("noteDto", noteDto);
+
+        model.addAttribute("laboratoryName", laboratoryName);
+        model.addAttribute("laboratoryId", laboratoryId);
+
+        return "professor/note";
+    }
+
+    @RequestMapping(value = "/professor/laboratories/{laboratoryId}/{laboratoryName}/note", method = RequestMethod.POST)
+    public String saveNote(@Valid NoteDto noteDto, BindingResult bindingResult, ModelMap model,
+        @PathVariable int laboratoryId, @PathVariable String laboratoryName, RedirectAttributes redirectAttributes) {
+        LOGGER.info("Enter method");
+        WelcomeUserDto welcomeUserDto = getPrincipal();
+        model.addAttribute("welcomeUserDto", welcomeUserDto);
+
+        model.addAttribute("laboratoryName", laboratoryName);
+        model.addAttribute("laboratoryId", laboratoryId);
+
+        if (bindingResult.hasErrors()) {
+            NoteDto newNoteDto = new NoteDto();
+            model.addAttribute("noteDto", newNoteDto);
+
+            return "/professor/laboratories/" + laboratoryId + "/" + laboratoryName + "/note";
+        }
+
+        try {
+            noteService.saveNote(noteDto, laboratoryId);
+        } catch (ServiceEntityAlreadyExistsException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Note already exists");
+        }
+
+        return "redirect:/professor/laboratories/" + laboratoryId + "/" + laboratoryName + "/note";
+    }
+
+    @RequestMapping(value = "/professor/laboratories/{laboratoryId}/{laboratoryName}/note/{noteId}", method = RequestMethod.GET)
+    public String deleteNote(ModelMap model, @PathVariable int laboratoryId, @PathVariable String laboratoryName,
+        @PathVariable int noteId, RedirectAttributes redirectAttributes) {
+        try {
+            noteService.deleteNode(noteId);
+        } catch (ServiceEntityNotFoundException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Note not found");
+        }
+
+        return "redirect:/professor/laboratories/" + laboratoryId + "/" + laboratoryName + "/note";
     }
 
     private WelcomeUserDto getPrincipal() {

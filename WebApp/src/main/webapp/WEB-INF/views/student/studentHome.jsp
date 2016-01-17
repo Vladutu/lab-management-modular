@@ -56,7 +56,7 @@
                     <button type="button" class="btn btn-primary btn-md">Platforms</button>
                 </a>
                 </td>
-                <td><a href="<c:url value='/student/laboratory/${laboratory.id}/notes' />">
+                <td><a href="<c:url value='/student/laboratory/${laboratory.name}/${laboratory.id}/note' />">
                     <button type="button" class="btn btn-primary btn-md">Notes</button>
                 </a>
                 </td>

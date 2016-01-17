@@ -87,6 +87,9 @@ public class Laboratory {
     @OneToMany(mappedBy = "laboratory")
     private List<Document> documents;
 
+    @OneToMany(mappedBy = "laboratory")
+    private List<Note> notes;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

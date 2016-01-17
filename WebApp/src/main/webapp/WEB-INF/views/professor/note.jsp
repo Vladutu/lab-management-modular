@@ -10,6 +10,7 @@
     <title>Home</title>
 </head>
 
+
 <body>
 <jsp:include page="professorHeader.jsp"/>
 
@@ -25,25 +26,23 @@
 
     <div class="panel panel-default">
         <!-- Default panel contents -->
-        <div class="panel-heading"><span class="lead">List of Documents for ${laboratoryName}</span></div>
+        <div class="panel-heading"><span class="lead">List of Notes for ${laboratoryName}</span></div>
         <div class="tablecontainer">
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th>No.</th>
-                    <th>File Name</th>
-                    <th>Type</th>
+                    <th>Date</th>
+                    <th>Message</th>
                     <th></th>
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach items="${documentDtos}" var="doc" varStatus="counter">
+                <c:forEach items="${noteDtos}" var="note" varStatus="counter">
                     <tr>
-                        <td>${counter.index + 1}</td>
-                        <td>${doc.name}</td>
-                        <td>${doc.type}</td>
+                        <td>${note.date}</td>
+                        <td>${note.message}</td>
                         <td>
-                            <a href="<c:url value='/professor/laboratories/${laboratoryId}/${laboratoryName}/platform/documents/${doc.id}' />"
+                            <a href="<c:url value='/professor/laboratories/${laboratoryId}/${laboratoryName}/note/${note.id}' />"
                                class="btn btn-danger custom-width">Delete</a></td>
                     </tr>
                 </c:forEach>
@@ -53,19 +52,20 @@
     </div>
     <div class="panel panel-default">
 
-        <div class="panel-heading"><span class="lead">Upload New Document</span></div>
+        <div class="panel-heading"><span class="lead">Post New Note</span></div>
         <div class="uploadcontainer">
-            <form:form method="POST" modelAttribute="fileBucket" enctype="multipart/form-data" class="form-horizontal">
+            <form:form method="POST" modelAttribute="noteDto" class="form-horizontal">
 
                 <div class="row">
                     <div class="form-group col-md-12">
-                        <spring:bind path="file">
+                        <spring:bind path="message">
                             <div class="form-group ${status.error ? 'has-error' : ''}">
-                                <label class="col-md-3 control-lable" for="file">Upload a document </label>
+                                <label class="col-md-3 control-lable" for="message">&nbsp;</label>
 
                                 <div class="col-md-7">
-                                    <form:input type="file" path="file" class="form-control input-sm" id="file"/>
-                                    <form:errors path="file" class="control-label"/>
+                                    <form:textarea rows="6" cols="30" path="message" class="form-control input-sm"
+                                                   id="message"/>
+                                    <form:errors path="message" class="control-label"/>
                                 </div>
                             </div>
                         </spring:bind>
@@ -73,7 +73,7 @@
                 </div>
                 <div class="row">
                     <div class="form-actions floatRight">
-                        <input type="submit" value="Upload" class="btn btn-primary btn-sm">
+                        <input type="submit" value="Post" class="btn btn-primary btn-sm">
                     </div>
                 </div>
 
