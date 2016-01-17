@@ -24,7 +24,7 @@ public interface DayDao {
     /**
      * Returns all Day entities from the database.
      *
-     * @return List<Day>
+     * @return list of days
      */
     List<Day> getAllDays();
 }

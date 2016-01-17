@@ -32,6 +32,7 @@ public class BusinessConfig {
         modelMapper.addMappings(new ProfessorToFormProfessorDtoMap());
         modelMapper.addMappings(new FormProfessorDtoToProfessorMap());
         modelMapper.addMappings(new PersonToWelcomeUserDtoMap());
+        modelMapper.addMappings(new NoteToNoteDtoMap());
 
         return modelMapper;
     }

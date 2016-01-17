@@ -24,7 +24,7 @@ public interface RoomDao {
     /**
      * Returns all Room entities from the database.
      *
-     * @return List<Room>
+     * @return list of rooms
      */
     public List<Room> getAllRooms();
 }

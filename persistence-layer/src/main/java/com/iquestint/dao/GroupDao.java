@@ -24,7 +24,7 @@ public interface GroupDao {
     /**
      * Returns all Group entities from the database.
      *
-     * @return List<Group>
+     * @return list of groups
      */
     public List<Group> getAllGroups();
 }

@@ -6,7 +6,9 @@ import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.PropertySource;
 
 /**
- * @author vladu
+ * This class is used by the IoC Spring container as a source for bean definitions.
+ *
+ * @author Georgian Vladutu
  */
 @Configuration
 @ComponentScan(basePackages = "com.iquestint")

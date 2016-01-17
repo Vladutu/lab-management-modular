@@ -54,15 +54,16 @@ public interface GradeDao {
     void deleteGradesByLaboratory(int laboratoryId);
 
     /**
-     * Returns all grades of the student whose pnc is the same as the method parameter.
+     * Returns all grades of the student whose pnc is studentPnc from the laboratory whose id is laboratoryId.
      *
-     * @param studentPnc pnc of the student
-     * @return List<Grade>
+     * @param studentPnc   pnc of the student
+     * @param laboratoryId id of the laboratory
+     * @return list of grades
      */
-    List<Grade> getStudentGrades(String studentPnc);
+    List<Grade> getStudentGradesByLaboratory(String studentPnc, int laboratoryId);
 
     /**
-     * Returns the grade of the student whose pnc is studentPnc from the laboratory whose id is laboratoryId which took place on date date.
+     * Returns the grades of the student whose pnc is studentPnc from the laboratory whose id is laboratoryId which took place on date date.
      *
      * @param studentPnc   pnc of the student
      * @param laboratoryId id of the laboratory

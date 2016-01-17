@@ -8,20 +8,24 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class repesents a list of users.
+ *
+ * @author Georgian Vladutu
+ */
 @XmlRootElement(name = "Users")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class UsersList implements Serializable {
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  @XmlElement(name = "User")
-  private List<User> users = new ArrayList<User>();
+    @XmlElement(name = "User")
+    private List<User> users = new ArrayList<User>();
 
-  public List<User> getUsers() {
-    return users;
-  }
+    public List<User> getUsers() {
+        return users;
+    }
 
-  public void setUsers(List<User> users) {
-    this.users = users;
-  }
-
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
 }

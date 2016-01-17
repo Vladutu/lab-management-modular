@@ -45,7 +45,7 @@ public class AdministrationProfessorsController {
 
         model.addAttribute("professorDtos", professorDtos);
 
-        return "listProfessors";
+        return "admin/listProfessors";
     }
 
     /**
@@ -60,7 +60,7 @@ public class AdministrationProfessorsController {
         ProfessorDto professorDto = new ProfessorDto();
         model.addAttribute("professorDto", professorDto);
 
-        return "createProfessor";
+        return "admin/createProfessor";
     }
 
     /**
@@ -78,7 +78,7 @@ public class AdministrationProfessorsController {
         RedirectAttributes redirectAttributes) {
         LOGGER.info("Enter method");
         if (bindingResult.hasErrors()) {
-            return "createProfessor";
+            return "admin/createProfessor";
         }
 
         try {
@@ -130,7 +130,7 @@ public class AdministrationProfessorsController {
             ProfessorDto professorDto = administrationProfessorService.getProfessorByPnc(professorPnc);
             model.addAttribute("professorDto", professorDto);
 
-            return "updateProfessor";
+            return "admin/updateProfessor";
         } catch (ServiceEntityNotFoundException e) {
             redirectAttributes.addFlashAttribute("errorMessage", "The professor does not exists or no longer exists");
 
@@ -153,7 +153,7 @@ public class AdministrationProfessorsController {
         @PathVariable String professorPnc, RedirectAttributes redirectAttributes) {
         LOGGER.info("Enter method");
         if (bindingResult.hasErrors()) {
-            return "updateProfessor";
+            return "admin/updateProfessor";
         }
 
         try {

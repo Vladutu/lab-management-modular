@@ -12,7 +12,7 @@
     <context:property-placeholder/>
 
     <int:inbound-channel-adapter channel="triggerChannel" expression="''">
-        <int:poller fixed-delay="60000"/>
+        <int:poller fixed-delay="600000"/>  <!-- 6000 default -->
     </int:inbound-channel-adapter>
 
     <int:channel id="replayChannel">

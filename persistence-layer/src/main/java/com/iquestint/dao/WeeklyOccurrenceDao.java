@@ -24,7 +24,7 @@ public interface WeeklyOccurrenceDao {
     /**
      * Returns all WeeklyOccurrence entities from the database.
      *
-     * @return List<WeeklyOccurrence>
+     * @return list of weekly occurrences
      */
     public List<WeeklyOccurrence> getAllWeeklyOccurrences();
 }

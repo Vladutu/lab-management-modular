@@ -54,6 +54,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
             .antMatchers("/", "/home").permitAll()
             .antMatchers("/admin/**").access("hasRole('ADMIN')")
+            .antMatchers("/professor/**").access("hasRole('PROFESSOR')")
+            .antMatchers("/student/**").access("hasRole('STUDENT')")
             .and().formLogin().loginPage("/login").successHandler(customSuccessHandler)
             .usernameParameter("pnc").passwordParameter("password")
             .and().csrf();

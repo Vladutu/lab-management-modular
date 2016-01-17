@@ -3,31 +3,24 @@ package com.iquestint.jms.email;
 import javax.xml.bind.annotation.*;
 
 /**
- * @author vld
+ * This class represents an email request.
+ *
+ * @author Georgian Vladutu
  */
 @XmlRootElement(name = "REQUEST")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(factoryClass = ObjectFactory.class, factoryMethod = "createEmailRequest")
 public class EmailRequest {
 
-    /**
-     * The channel which is going to handle the request.
-     */
     @XmlElement(name = "EMAIL", required = true)
     private String email;
-    /**
-     * The identifier of the function.
-     */
+
     @XmlElement(name = "SENDER_EMAIL", required = true)
     private String senderEmail;
-    /**
-     * The version of the message.
-     */
+
     @XmlElement(name = "SUBJECT", required = true)
     private String subject;
-    /**
-     * The identifier of the function.
-     */
+
     @XmlElement(name = "BODY", required = true)
     private String body;
 

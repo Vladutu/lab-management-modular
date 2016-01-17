@@ -31,11 +31,11 @@ public class Grade {
     private LocalDate date;
 
     @ManyToOne
-    @JoinColumn(name = "STUDENT_ID", referencedColumnName = "PNC", nullable = false)
+    @JoinColumn(name = "STUDENT_PNC", referencedColumnName = "PNC", nullable = false)
     private Student student;
 
     @ManyToOne
-    @JoinColumn(name = "LABORATORY_ID", referencedColumnName = "ID", nullable = false)
+    @JoinColumn(name = "LABORATORY_PNC", referencedColumnName = "ID", nullable = false)
     private Laboratory laboratory;
 
     @Override

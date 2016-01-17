@@ -42,7 +42,7 @@ public interface AdministrationProfessorService {
     /**
      * This method retrieves all professors.
      *
-     * @return List<Professor>
+     * @return list of professors
      */
     List<ProfessorDto> getAllProfessors();
 

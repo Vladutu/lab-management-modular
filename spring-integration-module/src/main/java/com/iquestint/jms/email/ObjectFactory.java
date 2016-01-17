@@ -3,7 +3,9 @@ package com.iquestint.jms.email;
 import javax.xml.bind.annotation.XmlRegistry;
 
 /**
- * @author vladu
+ * This class is an object factory which is needed for the XML marshaller.
+ *
+ * @author Georgian Vladutu
  */
 @XmlRegistry
 public class ObjectFactory {

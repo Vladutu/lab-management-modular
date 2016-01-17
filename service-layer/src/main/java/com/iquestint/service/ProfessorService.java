@@ -54,7 +54,7 @@ public interface ProfessorService {
      * Returns all laboratories which belong to the professor whose pnc is studentPnc.
      *
      * @param professorPnc pnc of the professor
-     * @return List<LaboratoryDto>
+     * @return list of laboratories
      */
     List<LaboratoryDto> getLaboratories(String professorPnc);
 
@@ -63,7 +63,8 @@ public interface ProfessorService {
      *
      * @param laboratoryId laboratory id
      * @param date         date on which the laboratory take place
-     * @return List<StudentGradingDto>
+     * @return list of student's grading
      */
     List<StudentGradingDto> getStudentsWithGradesByLaboratory(int laboratoryId, LocalDate date);
+
 }

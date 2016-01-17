@@ -4,6 +4,7 @@
 
 <link href="<c:url value="/static/css/bootstrap-theme-min.css" />" rel="stylesheet">
 <link href="<c:url value="/static/css/bootstrap-min.css" />" rel="stylesheet">
+<link href="<c:url value="/static/css/app.css" />" rel="stylesheet">
 <script src="<c:url value="/static/js/jquery-min.js" />"></script>
 <script src="<c:url value="/static/js/bootstrap-min.js" />"></script>
 

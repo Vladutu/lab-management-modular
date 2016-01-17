@@ -6,7 +6,7 @@ import com.iquestint.dto.UserDto;
 import com.iquestint.enums.State;
 import com.iquestint.exception.ServiceEntityAlreadyExistsException;
 import com.iquestint.exception.ServiceEntityNotFoundException;
-import com.iquestint.jms.MessageSender;
+import com.iquestint.jms.JmsMessageSender;
 import com.iquestint.jms.email.EmailRequest;
 import com.iquestint.populator.EmailRequestPopulator;
 import com.iquestint.service.AdministrationFormService;
@@ -45,7 +45,7 @@ public class AdministrationUsersController {
     private AdministrationFormService administrationFormService;
 
     @Autowired
-    private MessageSender messageSender;
+    private JmsMessageSender messageSender;
 
     @Autowired
     private EmailRequestPopulator emailRequestPopulator;
@@ -63,7 +63,7 @@ public class AdministrationUsersController {
 
         model.addAttribute("userDtos", userDtos);
 
-        return "listUsers";
+        return "admin/listUsers";
     }
 
     /**
@@ -81,7 +81,7 @@ public class AdministrationUsersController {
         model.addAttribute("formUserDto", formUserDto);
         model.addAttribute("userDto", userDto);
 
-        return "createUser";
+        return "admin/createUser";
     }
 
     /**
@@ -168,7 +168,7 @@ public class AdministrationUsersController {
             model.addAttribute("userDto", userDto);
             model.addAttribute("formUserDto", formUserDto);
 
-            return "updateUser";
+            return "admin/updateUser";
         } catch (ServiceEntityNotFoundException e) {
             redirectAttributes.addFlashAttribute("errorMessage", "The user does not exists or no longer exists");
 
@@ -196,7 +196,7 @@ public class AdministrationUsersController {
 
             model.addAttribute("formUserDto", formUserDto);
 
-            return "updateUser";
+            return "admin/updateUser";
         }
 
         try {

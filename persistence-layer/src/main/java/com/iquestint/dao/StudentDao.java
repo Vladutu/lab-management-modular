@@ -16,7 +16,7 @@ public interface StudentDao {
     /**
      * Returns all Student entities from the database.
      *
-     * @return List<Student>
+     * @return list of students
      */
     List<Student> getAllStudents();
 
@@ -72,7 +72,7 @@ public interface StudentDao {
      * @param semester Semester
      * @param group    Group
      * @param subgroup Subgroup
-     * @return List<Student>
+     * @return list of students
      */
     List<Student> getStudents(Section section, Year year, Semester semester, Group group, Subgroup subgroup);
 
@@ -80,7 +80,7 @@ public interface StudentDao {
      * Returns all students which belong to the laboratory specified as the method parameter.
      *
      * @param laboratory laboratory which the students belong to
-     * @return List<Student>
+     * @return list of students
      */
     List<Student> getStudents(Laboratory laboratory);
 }

@@ -105,5 +105,4 @@ public class StudentDaoImpl extends JpaDao<Student> implements StudentDao {
 
         return query.getResultList();
     }
-
 }

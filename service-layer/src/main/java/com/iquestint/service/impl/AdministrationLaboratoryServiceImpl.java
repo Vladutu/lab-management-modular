@@ -72,7 +72,13 @@ public class AdministrationLaboratoryServiceImpl implements AdministrationLabora
     private GradeDao gradeDao;
 
     @Autowired
+    private DocumentDao documentDao;
+
+    @Autowired
     private AttendanceDao attendanceDao;
+
+    @Autowired
+    private NoteDao noteDao;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -100,7 +106,9 @@ public class AdministrationLaboratoryServiceImpl implements AdministrationLabora
         try {
             gradeDao.deleteGradesByLaboratory(id);
             attendanceDao.deleteAttendancesByLaboratory(id);
+            documentDao.deleteDocumentsByLaboratory(id);
             laboratoryDao.deleteLaboratoryById(id);
+            noteDao.deleteNotesByLaboratory(id);
         } catch (DaoEntityNotFoundException e) {
             LOGGER.debug("DaoEntityNotFoundException");
             throw new ServiceEntityNotFoundException(e);

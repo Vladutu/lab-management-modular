@@ -24,7 +24,7 @@ public interface UserStateDao {
     /**
      * Returns all UserState entities from the database.
      *
-     * @return List<UserState>
+     * @return list of user states
      */
     List<UserState> getAllUserStates();
 }

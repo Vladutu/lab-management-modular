@@ -24,7 +24,7 @@ public interface UserTypeDao {
     /**
      * Returns all UserType entities from the database.
      *
-     * @return List<UserType>
+     * @return list of user types
      */
     List<UserType> getAllUserTypes();
 }

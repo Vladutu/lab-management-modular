@@ -47,7 +47,7 @@ public interface AdministrationLaboratoryService {
     /**
      * Retrieves all laboratories.
      *
-     * @return List<Laboratory>
+     * @return list of laboratories
      */
     List<Laboratory> getAllLaboratories();
 
@@ -57,7 +57,7 @@ public interface AdministrationLaboratoryService {
      * @param sectionDto  SectionDto
      * @param yearDto     YearDto
      * @param semesterDto SemesterDto
-     * @return List<Laboratory>
+     * @return list of laboratories
      */
     List<LaboratoryDto> getLaboratories(SectionDto sectionDto, YearDto yearDto, SemesterDto semesterDto);
 

@@ -16,7 +16,7 @@ public interface LaboratoryDao {
     /**
      * Returns all Laboratory entities from the database.
      *
-     * @return List<Laboratory>
+     * @return list of laboratories
      */
     List<Laboratory> getAllLaboratories();
 
@@ -26,7 +26,7 @@ public interface LaboratoryDao {
      * @param section  section
      * @param year     year
      * @param semester semester
-     * @return List<Laboratory>
+     * @return list of laboratories
      */
     List<Laboratory> getLaboratories(Section section, Year year, Semester semester);
 
@@ -39,7 +39,7 @@ public interface LaboratoryDao {
      * @param semester semester
      * @param group    group
      * @param subgroup subgroup
-     * @return List<Laboratory>
+     * @return list of laboratories
      */
     List<Laboratory> getLaboratories(Section section, Year year, Semester semester, Group group, Subgroup subgroup);
 
@@ -82,7 +82,7 @@ public interface LaboratoryDao {
      * @param professorPnc pnc of the professor
      * @param from         laboratory starting hour
      * @param day          laboratory starting day
-     * @return List<Laboratory>
+     * @return list of laboratories
      */
     List<Laboratory> getLaboratoriesByDateAndTime(String professorPnc, Hour from, Day day);
 
@@ -90,7 +90,15 @@ public interface LaboratoryDao {
      * Returns all laboratories of the professor whose pnc is the same as the method parameter.
      *
      * @param professorPnc pnc of the professor
-     * @return List<Laboratory>
+     * @return list of laboratories
      */
     List<Laboratory> getLaboratoriesByProfessor(String professorPnc);
+
+    /**
+     * Returns all laboratories of the student whose pnc is the same as the method parameter.
+     *
+     * @param studentPnc pnc of the student
+     * @return list of laboratories
+     */
+    List<Laboratory> getLaboratoriesByStudent(String studentPnc);
 }
